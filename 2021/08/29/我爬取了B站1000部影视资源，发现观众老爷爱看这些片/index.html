@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","version":"8.2.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
+  </script>
+<meta name="description" content="这篇文章不包含爬取数据和如何解析代码的过程，完整代码在gitgub：https:&#x2F;&#x2F;github.com&#x2F;yangocean-sudo&#x2F;BiliBili-Crawler 文章首发于知乎：https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;401896196">
+<meta property="og:type" content="article">
+<meta property="og:title" content="我爬取了B站1000部影视资源，发现观众老爷爱看这些片">
+<meta property="og:url" content="http://example.com/2021/08/29/%E6%88%91%E7%88%AC%E5%8F%96%E4%BA%86B%E7%AB%991000%E9%83%A8%E5%BD%B1%E8%A7%86%E8%B5%84%E6%BA%90%EF%BC%8C%E5%8F%91%E7%8E%B0%E8%A7%82%E4%BC%97%E8%80%81%E7%88%B7%E7%88%B1%E7%9C%8B%E8%BF%99%E4%BA%9B%E7%89%87/index.html">
+<meta property="og:site_name" content="YangOcean">
+<meta property="og:description" content="这篇文章不包含爬取数据和如何解析代码的过程，完整代码在gitgub：https:&#x2F;&#x2F;github.com&#x2F;yangocean-sudo&#x2F;BiliBili-Crawler 文章首发于知乎：https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;401896196">
+<meta property="og:locale">
+<meta property="og:image" content="https://i.loli.net/2021/08/29/9xMhbF1UtTXaiBl.png">
+<meta property="og:image" content="https://i.loli.net/2021/08/29/IwkvjSW4NA1Jtc5.png">
+<meta property="og:image" content="https://i.loli.net/2021/08/29/kV4Ae8PgNQRHqod.png">
+<meta property="og:image" content="https://i.loli.net/2021/08/29/1Do3tPGXCEuMdQw.png">
+<meta property="og:image" content="https://i.loli.net/2021/08/29/h9NmWk364SGYqdg.png">
+<meta property="og:image" content="https://i.loli.net/2021/08/29/yLBzpXNv1bcMhDW.png">
+<meta property="og:image" content="https://i.loli.net/2021/08/29/uRJyeEGOrkBSsth.png">
+<meta property="og:image" content="https://i.loli.net/2021/08/29/ZsqH1AL9SRQMweJ.png">
+<meta property="og:image" content="https://i.loli.net/2021/08/29/OhNX8cHZgBzqPv3.png">
+<meta property="og:image" content="https://i.loli.net/2021/08/29/YvuPXTkifxZVJQB.png">
+<meta property="og:image" content="https://i.loli.net/2021/08/29/HrcT8lukvWA4dEP.png">
+<meta property="og:image" content="https://i.loli.net/2021/08/29/wp6AgV4Dex2jEUY.png">
+<meta property="og:image" content="https://i.loli.net/2021/08/29/YBTsZ8xz3CtrmF9.png">
+<meta property="og:image" content="https://i.loli.net/2021/08/29/XrmzDakQVRIM8JT.png">
+<meta property="og:image" content="https://i.loli.net/2021/08/29/x6UZEW5m1SN9Twr.png">
+<meta property="og:image" content="https://i.loli.net/2021/08/29/Mqrxt8yD37NhJaH.png">
+<meta property="og:image" content="https://i.loli.net/2021/08/29/yGFJeD2hv57SQTV.png">
+<meta property="og:image" content="https://i.loli.net/2021/08/29/aNbBp8VzgKUmMF2.png">
+<meta property="og:image" content="https://i.loli.net/2021/08/29/edBSYMgILXnAy58.png">
+<meta property="og:image" content="https://i.loli.net/2021/08/29/AFcdsj8y37ZuUqB.png">
+<meta property="og:image" content="https://i.loli.net/2021/08/29/qZStmHV1OIKyLTJ.png">
+<meta property="og:image" content="https://i.loli.net/2021/08/29/7U8RLe5M2SCVKcm.png">
+<meta property="og:image" content="https://i.loli.net/2021/08/29/3aFCvjUuV8tki1y.png">
+<meta property="og:image" content="https://i.loli.net/2021/08/29/7pz3TaK15HDtWyA.png">
+<meta property="og:image" content="https://i.loli.net/2021/08/29/5P4NfkxhBjHA93T.png">
+<meta property="og:image" content="https://i.loli.net/2021/08/29/ieZQvGSqdoT2Wy3.png">
+<meta property="og:image" content="https://i.loli.net/2021/08/29/dWDjxs4QCaVqcB7.png">
+<meta property="og:image" content="https://i.loli.net/2021/08/29/FyoKASM9RwqgUHX.png">
+<meta property="article:published_time" content="2021-08-29T01:29:15.000Z">
+<meta property="article:modified_time" content="2021-08-29T02:17:31.819Z">
+<meta property="article:author" content="Yangyang Cui">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="爬虫">
+<meta property="article:tag" content="数据分析">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/08/29/9xMhbF1UtTXaiBl.png">
+
+
+<link rel="canonical" href="http://example.com/2021/08/29/%E6%88%91%E7%88%AC%E5%8F%96%E4%BA%86B%E7%AB%991000%E9%83%A8%E5%BD%B1%E8%A7%86%E8%B5%84%E6%BA%90%EF%BC%8C%E5%8F%91%E7%8E%B0%E8%A7%82%E4%BC%97%E8%80%81%E7%88%B7%E7%88%B1%E7%9C%8B%E8%BF%99%E4%BA%9B%E7%89%87/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+<title>我爬取了B站1000部影视资源，发现观众老爷爱看这些片 | YangOcean</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">YangOcean</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">First year in University of Manchetser</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8A%A8%E6%9C%BA%E4%B8%8E%E6%95%B0%E6%8D%AE%E6%9D%A5%E6%BA%90"><span class="nav-number">1.</span> <span class="nav-text">动机与数据来源</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%94%B5%E5%BD%B1"><span class="nav-number">2.</span> <span class="nav-text">电影</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%95%AA%E5%89%A7"><span class="nav-number">3.</span> <span class="nav-text">番剧</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%94%B5%E8%A7%86%E5%89%A7"><span class="nav-number">4.</span> <span class="nav-text">电视剧</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Yangyang Cui"
+      src="/uploads/selfie2.jpg">
+  <p class="site-author-name" itemprop="name">Yangyang Cui</p>
+  <div class="site-description" itemprop="description">share everything I want to share</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/yangocean-sudo" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yangocean-sudo" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/29/%E6%88%91%E7%88%AC%E5%8F%96%E4%BA%86B%E7%AB%991000%E9%83%A8%E5%BD%B1%E8%A7%86%E8%B5%84%E6%BA%90%EF%BC%8C%E5%8F%91%E7%8E%B0%E8%A7%82%E4%BC%97%E8%80%81%E7%88%B7%E7%88%B1%E7%9C%8B%E8%BF%99%E4%BA%9B%E7%89%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/selfie2.jpg">
+      <meta itemprop="name" content="Yangyang Cui">
+      <meta itemprop="description" content="share everything I want to share">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YangOcean">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          我爬取了B站1000部影视资源，发现观众老爷爱看这些片
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2021-08-29 09:29:15 / Modified: 10:17:31" itemprop="dateCreated datePublished" datetime="2021-08-29T09:29:15+08:00">2021-08-29</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Changyan: </span>
+    
+    
+      <a title="changyan" href="/2021/08/29/%E6%88%91%E7%88%AC%E5%8F%96%E4%BA%86B%E7%AB%991000%E9%83%A8%E5%BD%B1%E8%A7%86%E8%B5%84%E6%BA%90%EF%BC%8C%E5%8F%91%E7%8E%B0%E8%A7%82%E4%BC%97%E8%80%81%E7%88%B7%E7%88%B1%E7%9C%8B%E8%BF%99%E4%BA%9B%E7%89%87/#SOHUCS" itemprop="discussionUrl">
+        <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2021/08/29/我爬取了B站1000部影视资源，发现观众老爷爱看这些片/" itemprop="commentCount"></span>
+      </a>
+    
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>这篇文章不包含爬取数据和如何解析代码的过程，完整代码在gitgub：<a target="_blank" rel="noopener" href="https://github.com/yangocean-sudo/BiliBili-Crawler">https://github.com/yangocean-sudo/BiliBili-Crawler</a></p>
+<p>文章首发于知乎：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/401896196">https://zhuanlan.zhihu.com/p/401896196</a></p>
+<a id="more"></a>
+<h1 id="动机与数据来源"><a href="#动机与数据来源" class="headerlink" title="动机与数据来源"></a>动机与数据来源</h1><p>一开始的动机其实很简单，想起自己以前在外无聊时希望可以看些视频解解闷，却多次遇到了没有流量的窘境，就想着能不能爬一遍B站所有的影视资源看看哪些可以下载呢？（在前两年所有的影视作品都是可以下载的，可随着国内对版权意识的加强，越来越多的视频都显示：“因版权受限，只能在线观看”，即使是大会员也只能束手无策。）</p>
+<p>有了这个想法后，我又觉得爬都爬了，为什么不多发现一些数据呢，包括但不限于视频的链接，资格（是否需要大会员），播放数量，国家，视频简介，演员，视频类型，评分以及我们的始发点：能不能下载。</p>
+<p>对于爬取的数据来源，如果标题是：“我发现了叔叔最爱买什么片”，那全部爬取一遍所有电影是解决问题的方法，但这显然是不必要的。所以这篇文章将重心转向了分别播放数量最高的前380部电影，番剧和电视剧。你可以说播放量最高的片子可能不是一部好片，但他一定足够吸引人。而吸引观众的视频具备什么样的条件，B站用户偏爱哪一类型的视频，作为一个以二次元动漫起家的视频分享平台，Bilibili是否还保持着他的“初心”，这些都是这篇文章想要找出的问题。</p>
+<h1 id="电影"><a href="#电影" class="headerlink" title="电影"></a>电影</h1><p>这几个月不论是鬼畜，杂谈，甚至是一周前的全球华语辩论赛上，辩手通过黄四郎的例子论证了“原神的出现是不是国产游戏的高光时刻”，使《让子弹飞》这部上映超过十年的电影再次回到大众的视野，甚至有破圈之势（顺带一提辩论赛也很有意思，感兴趣的可以看看）。精彩的台词，紧凑的剧情和喜闻乐见的名场面奠定了他播放量第一的地位。<br><img src="https://i.loli.net/2021/08/29/9xMhbF1UtTXaiBl.png" alt="dataframe大致.png"><br>不惊讶地发现电影的种类百花齐放，可以看出观众老爷的口味很杂，无论从最大众的“剧情”到非常小众的“神魔”，“运动”都在播放排名（前380名）里占有着一席之地。其中剧情、动作、奇幻、喜剧是受众最多的，但总的来说分布还算很均衡。<br><img src="https://i.loli.net/2021/08/29/IwkvjSW4NA1Jtc5.png" alt="电影的类型.png"><br>在电影与发行国家的分析中，我发现“日本”或“中国”并不是观看数量最多电影的发行国家，第一名被“美国”夺得，这其实有些令我意外，因为无论是播放量第一的《让子弹飞》，或是排名第二的《你的名字。》，甚至这整个前十名的名单里都没有出现一部美国电影。这是因为这前十名的电影除了《让子弹飞外》其他都是近几年才发行的，从发行时的热度，B站“二次元”的特性和电影的口碑这几点吸引了比经典高口碑美式电影更多的观众，才会出现美国电影总体播放量都很高但却没能冲击榜单前十的现象。<br><img src="https://i.loli.net/2021/08/29/kV4Ae8PgNQRHqod.png" alt="电影与国家.png"><br>提到美国电影，第一个让我想到的类别是科幻，从漫威超级英雄到硬核又烧脑的《星际穿越》，好莱坞式的特效着实令人震撼。对日本电影的印象或许是新海诚式的极致画面；大陆电影给我带来的感受是每年一部的贺岁档、喜剧片；中国香港带来的是动作武侠，或者周星驰式的搞笑无厘头；英国哈利波特的奇幻魔法世界；法国浪漫慵懒的爱情故事…这些都是我对各个国家电影的“刻板印象”，对照着下图国家与种类的关系，发现有些刻板印象是差不离的，或许我们可以说：电影正是输出国家印象的一种方式？<br><img src="https://i.loli.net/2021/08/29/1Do3tPGXCEuMdQw.png" alt="国家与类型.png"><br>挖掘了一下电影评分与电影数量的关系，果不其然大部分观众选择的还是高分片，但其中零零散散的“3.2分”，“2.7分”引起了我的兴趣：观看量最多的“烂片”会是哪些呢？<br><img src="https://i.loli.net/2021/08/29/h9NmWk364SGYqdg.png" alt="电影评分.png"><br>去除掉不能评价的几部电影，如《我在故宫修文物》，《建党伟业》后，找到了这几部评分6.0以下的中外低分电影，《唐人街探案3》确实很烂，顶着《唐探2》那么好的名声，让观众等了两年，结果最后破案变综艺，冒险变广告，属实让我很失望。</p>
+<p>相反，在明知道是烂片的情况下看《上海堡垒》却让我开心了许久，配着幽默的弹幕和鹿晗一言难尽的演技，还有那句经典的致敬台词 ——“向我开炮！” 可能揣着消遣的心态、不抱期待的看这部电影反而带来了未曾设想的快乐。看完电影之后再看同名书竟一点也不觉得这两者之间有什么关系，只想吐槽一句江南老贼又在糟蹋自己的ip了。<br><img src="https://i.loli.net/2021/08/29/yLBzpXNv1bcMhDW.png" alt="烂片.png"><br>我同时把参演这些低分片的演员通过云图的方式列举了出来，令我惊讶的是刘德华的名字竟然异常的醒目，同时我们也能看到一些熟面孔，像鹿晗，大鹏，包贝尔。而外国明星的名字似乎没有什么参考价值，我就不列出来了。<br><img src="https://i.loli.net/2021/08/29/uRJyeEGOrkBSsth.png" alt="中国烂片演员.png"><br>有了低分片的参演演员，我自然也很好奇高分演员会花落谁家，因为B站评分存在虚高的现象，所以我严格定义了高分片的标准：不低于9.8分。除了葛优、冯小刚、姜文、周润发这样的老戏骨外，我还看到了像“山新、敖磊”这样陌生的名字，百度一查才发现他们是配音演员，配音过《罗小黑战记》，《魁拔》这样的高分高播放量动漫电影，这也算是B站的独家特色吧。</p>
+<p>外国演员的名字则都是一些家喻户晓的英文名，“汤姆、约翰、里查德”这样的名字显然不能指向一名特定的演员，或许可以反映出这些英文名字真的很烂大街…</p>
+<p>（因为wordcloud以及演员列表的关系，动漫角色也有概率出现在图中，尤其是在番剧里，所以我们也会看到一些动漫人物，如“蛮吉“、“蛮小满”（魁拔））<br><img src="https://i.loli.net/2021/08/29/ZsqH1AL9SRQMweJ.png" alt="中国高分演员.png"><br><img src="https://i.loli.net/2021/08/29/OhNX8cHZgBzqPv3.png" alt="外国高分演员.png"><br>那么回到我们最开始的问题，这380部片子里，哪些可以下载，哪些大会员可以看呢？<br><img src="https://i.loli.net/2021/08/29/YvuPXTkifxZVJQB.png" alt="会员与下载与df.png"><br><img src="https://i.loli.net/2021/08/29/HrcT8lukvWA4dEP.png" alt="会员与下载.png"><br>总体来说需要会员才能看的电影占据了整个排行榜的7成左右，而能下载的数量也是占到了7成，对于爱看电影的用户来讲，我的建议是：没有必要会员，因为真正出圈的电影，像《让子弹飞》和《你的名字。》他都是不需要会员的，而如果没有看番的基础，换言之不是B站的资深用户，八成也不会去看同名番剧的电影版（所有380部电影的表格在文章的最底部）。</p>
+<h1 id="番剧"><a href="#番剧" class="headerlink" title="番剧"></a>番剧</h1><p>作为以二次元起家的视频网站，大量的独占以及连载番剧都使B站保证了足够的用户粘性与忠诚度，像新晋日本国民级动漫《鬼灭之刃》、以及最近大火的《咒术回战》都有着不俗的表现。<br><img src="https://i.loli.net/2021/08/29/wp6AgV4Dex2jEUY.png" alt="番剧排名前十.png"><br>一开始以为B站将番剧的定义为日本的动漫，结果查看国家地区时发现了四部不是来自日本，但也被归入“番剧”列表的动漫：<br><img src="https://i.loli.net/2021/08/29/YBTsZ8xz3CtrmF9.png" alt="非日本番剧.png"><br>在类型上这次的结果比起电影更加符合我对日本的印象：不论是像咒术回战，鬼灭之刃这样高质量漫画改编的热血番，亦或是近年来题材烂大街的异世界穿越番，还是像《我的青春恋爱物语果然有问题。》、《冰菓》这样的校园番，都在番剧类别里占据着可观的一席之地。<br><img src="https://i.loli.net/2021/08/29/XrmzDakQVRIM8JT.png" alt="番剧的类型.png"><br>番剧的播放量与评分也基本上呈正比，让我感兴趣的是几部分数较低的动漫。<br><img src="https://i.loli.net/2021/08/29/x6UZEW5m1SN9Twr.png" alt="番剧评分.png"><br>或许是6.0分以下为低分番的定义实在是太仁慈了，亦或许是因为B站观众对番剧有着强大的包容性，列表中我除了听说过《博人传》，这部“可燃单位”番外，唯一真正看过的就是《约定的梦幻岛 第二季》了。或许是没有看过漫画，也没有很高期待的关系，我主观认为《约定的梦幻岛 第二季》其实算不上烂，他完整地讲完了整个故事，给出了一个不错的结局，我就已经很满意了。但不可否认的是他与第一季真的存在太大的差距，从第一季的智斗到第二季快节奏的剧情、莫名其妙的文戏和经费不足的战斗，让粉丝们怒刷到2.7分也是情有可原的。正反映了那句话 ——期望越大，失望越大。<br><img src="https://i.loli.net/2021/08/29/Mqrxt8yD37NhJaH.png" alt="烂片.png"><br>以下是低分番与高分番的声优，因为没有太关注这个所以就不做过多分析了，另外因为代码不够智能（偷懒）的关系，可以看到“漩涡鸣人”、“野原新之助”这样熟悉的名字。<br><img src="https://i.loli.net/2021/08/29/yGFJeD2hv57SQTV.png" alt="低分番声优.png"><br><img src="https://i.loli.net/2021/08/29/aNbBp8VzgKUmMF2.png" alt="高分番声优.png"><br>以上的云图并没有给我带来有用的数据，只能图一乐。下次可以尝试下将导演、编剧也列在里面，声优的出现并不能代表这部番剧的水平，但导演和编剧肯定承担着更大的责任。</p>
+<p>可以下载的番剧只占了整个列表（380部番剧）的近30%，剩下的内容都是不可以下载的。通过可以下载番剧列表的前十，我们可以大致推测出这些番剧都是五年前甚至更久的动漫，虽然画质可能没有近几年的精美，但高分一定有他足以让人们克服画质的理由。<br><img src="https://i.loli.net/2021/08/29/edBSYMgILXnAy58.png" alt="会员与下载.png"><br><img src="https://i.loli.net/2021/08/29/AFcdsj8y37ZuUqB.png" alt="可以下载的前十.png"></p>
+<h1 id="电视剧"><a href="#电视剧" class="headerlink" title="电视剧"></a>电视剧</h1><p>刚开始的时候B站通过不错的独家日剧资源，比如《逃避虽可耻但有用》、《孤独的美食家》和四大名著在电视剧板块占据了一席之地。这里不得不提一嘴B站的特色分区，鬼畜区，无论是从很久以前的诸葛亮（“我从未见过如此厚颜无耻之人”）到现在誉为镇站之宝的《大唐gang》，无数鬼畜区的up主都通过调音，填词，剪辑的方式将几十年前的电视剧重新散发第二春，激起了年轻人重温经典的热情。</p>
+<p>而现在纵观整个播放量排行榜前十我们甚至看不到一部日剧，合理地推测B站现在将重心放在了打造独家出品的电视剧上，受众群体更面向20岁左右的年轻人，《风犬少年的天空》、《突如其来的假期》、《双镜》都是向独家制作、出品转型的例子。</p>
+<p>（播放量为什么这么高？一是因为B站用户与电视剧受众群吻合，二是宣发力度很大。）<br><img src="https://i.loli.net/2021/08/29/qZStmHV1OIKyLTJ.png" alt="电视剧排名真.png"><br>电视剧的类型与电影大同小异，唯一的不同是出现了几个中国特有的元素 —— “军旅”、“武侠”、“谍战”。<br><img src="https://i.loli.net/2021/08/29/7U8RLe5M2SCVKcm.png" alt="电视剧的类型.png"><br>中国大陆与日本占据了B站电视剧市场的80%，这也与我们上述的推论不谋而合。<br><img src="https://i.loli.net/2021/08/29/3aFCvjUuV8tki1y.png" alt="电视剧与国家.png"><br>其中日本电视剧的类型没有大陆那么多样，热门的主要是剧情，都市，搞笑，情感，这也符合了我对日剧的印象。而大陆这边因为部分年代久远的电视剧版权相对便宜的关系，种类显得更加复杂，受众群可能也更加多样（《猎场》、《铁齿铜牙纪晓岚》、《巴啦啦小魔仙》等都有超过500万的播放量）。<br><img src="https://i.loli.net/2021/08/29/7pz3TaK15HDtWyA.png" alt="国家与类型.png"><br>相比电影和番剧，播放量前380名的电视剧中评分低于6.0分的只有几部，抱着找乐子的心态，我列出了他们的信息。结果发现自己一部都没有看过，没有什么发散的空间…如果有人看过的话可以评论下他们为什么评分这么低。虽说评分不合格，但也没有出现像《约定的梦幻岛 第二季》和《上海堡垒》一样非常低的成绩。<br><img src="https://i.loli.net/2021/08/29/5P4NfkxhBjHA93T.png" alt="电视剧评分.png"><br><img src="https://i.loli.net/2021/08/29/ieZQvGSqdoT2Wy3.png" alt="烂剧.png"><br>看了下低分电视剧的演员也没有熟悉的名字，而且数据本身也只有6个，于是就没有去做低分演员的云图。我们还是去看看高分电视剧的演员有哪些熟悉的面孔吧。</p>
+<p>因为观众们普遍都国产电视剧有更加严格的要求，我把高分片的标准定义在9.5分以上，否则我们看到的将全会是带有“回忆杀”和“重要影视地位”的电视剧，近几年的电视剧或许很少会出现高于9.8分的情况。</p>
+<p>首先是中国演员（请忽略这个大大的“饰”）：《三国演义》中的诸葛亮，《神医喜来乐》中的沈傲君，《西游记》里的六小龄童都是经典的不能再经典的角色。在这么多的名字里我也惊喜地看到了阚清子和刘美含，她们出演的《突如其来的假期》给我一种日剧般清新放松的感觉，没有那么多的狗血剧情，而是将重心放在了人物内心与家庭关系上，给我留下了不错的印象。<br><img src="https://i.loli.net/2021/08/29/dWDjxs4QCaVqcB7.png" alt="中国高分演员.png"><br>我日剧看得也不是很多，但还是很高兴能看到几个熟面孔：新垣结衣、星野源、山田孝之、菅田将晖等等。但冥冥之中总觉得好像少了一个人 —— 石原里美！</p>
+<p>我看的第一部日剧就是她主演的《非自然死亡》，不论是轻松的单元回，严谨的主线，令人触动的演技，让我第一次觉得：原来电视剧还能这样演。再到后面的《校阅女孩河野悦子》，虽然有一点点晨间剧的观感，但看完就仿佛心灵被治愈一般，会提醒我做一个独立，善良的人。这里提一嘴《失恋巧克力职人》十元扮演绿茶的角色很新鲜很吸引人，但整个故事简直震撼我的三观，大致讲什么记不得了，只记得我恨不得希望男主被捅死是大结局。<br><img src="https://i.loli.net/2021/08/29/FyoKASM9RwqgUHX.png" alt="外国高分演员.png"><br>那石原里美去哪了呢？我直接在B站搜索“石原里美”，还是可以显示出她出演的电视剧甚至综艺的切片，难道是我漏爬了？在2021年8月25日，我再次访问电视剧索引界面，发现真的没有她的所有电视剧，播放量第一的日剧是《孤独的美食家》（4137.6万播放），而《非自然死亡》（8939.9万播放）却不见踪影。目前原因还不知道，询问了客服他也说以搜索结果为准，听口气像是知道了这件事情，但不会去修复这个问题。</p>
+<p>基本上所有的日剧都是不允许下载的，而B站出品的电视剧除了《风犬少年的天空》外其他也是不允许下载的（可以尝试去看下这部剧，除了最后的结局编剧脑血栓之外其他也还不错）。剩下的电视剧就是那些上了年代、基本上每个影视平台都有的电视剧了。如果不想配合弹幕一起食用，那完全没必要在B站观看。</p>
+<hr>
+<p>谢谢你看到这里，表格，代码和数据分析都在github哦。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Python/" rel="tag"># Python</a>
+              <a href="/tags/%E7%88%AC%E8%99%AB/" rel="tag"># 爬虫</a>
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" rel="tag"># 数据分析</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/07/26/%E5%86%99%E4%B8%80%E4%B8%AA%E5%BE%AE%E5%8D%9A%E5%A5%B6%E8%8C%B6%E6%8E%A8%E8%8D%90%E7%9A%84%E6%9C%BA%E5%99%A8%E4%BA%BA/" rel="prev" title="写一个微博奶茶推荐的机器人">
+                  <i class="fa fa-chevron-left"></i> 写一个微博奶茶推荐的机器人
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="SOHUCS"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yangyang Cui</span>
+</div>
+<div class="busuanzi-count">
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+  <script>
+  NexT.utils.loadComments('#SOHUCS', () => {
+    NexT.utils.getScript('https://changyan.sohu.com/upload/changyan.js', () => {
+      window.changyan.api.config({
+        appid: 'cyvwQmbJm',
+        conf : '43966006cd9b05b30c6a1930cb05447c'
+      });
+    });
+  });
+  </script>
+  <script src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+</html>
