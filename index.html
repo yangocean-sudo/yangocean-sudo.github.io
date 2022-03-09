@@ -240,7 +240,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2021-09-06 12:36:16" itemprop="dateModified" datetime="2021-09-06T12:36:16+01:00">2021-09-06</time>
+        <time title="Modified: 2022-03-09 00:57:28" itemprop="dateModified" datetime="2022-03-09T00:57:28+00:00">2022-03-09</time>
       </span>
 
   
@@ -269,27 +269,15 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h1><p>一串加密后的QQ号是：631758924, 他的解密方法如下：将第一个数删除，将第二个数放到末尾，再将第三个数删除，第四个数放到末尾…到最后删除的数字连在一起就是解密后的结果<br>用Python实现解密过程：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">list_input = []</span><br><span class="line"><span class="comment"># 输入</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    number = <span class="built_in">input</span>(<span class="string">&quot;give me number to input:\n&quot;</span>)</span><br><span class="line">    <span class="keyword">if</span> number == <span class="string">&#x27;done&#x27;</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    list_input.append(number)</span><br><span class="line"><span class="comment"># 被删除的数字</span></span><br><span class="line">delete = []</span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(list_input) != <span class="number">1</span>:</span><br><span class="line">        delete.append(list_input[<span class="number">0</span>])</span><br><span class="line">        <span class="keyword">del</span> list_input[<span class="number">0</span>]</span><br><span class="line">        list_input.append(list_input[<span class="number">0</span>])</span><br><span class="line">        <span class="keyword">del</span> list_input[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        delete.append(list_input[<span class="number">0</span>])</span><br><span class="line">        <span class="keyword">del</span> list_input[<span class="number">0</span>]</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">print(delete)</span><br></pre></td></tr></table></figure>
-<p>最后输出的结果为：615947283</p>
-<p>而书本上用C则更麻烦一点，先初始化一个数组<code>int q[101]</code>， 之后在输入的数字前加入数字0，将第一个数字设为head，队尾数字的后一个位置设置为tail。</p>
-<blockquote>
-<p>如果把tail设置为队尾时，当队列中只剩下一个元素的时候，head与tail重合会带来一些麻烦。这里规定队首和队尾重合时，队列为空。</p>
-</blockquote>
-<p>删除一个数：head++；新增加一个数：把需要增加的数放到q[tail],然后tail++。</p>
-<blockquote>
-<p>在这个队列当中，新来的人总是站在队列的最后面，来的越早的人越靠前，也就越早能买到票，就是先来的人先服务，我们称之为“先进先出”(First In First Out)原则。</p>
-</blockquote>
-<h1 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h1><blockquote>
-<p>‘xyzyx’是一个回文字符串，所谓回文字符串就是指正读反读均相同的字符序列。通过栈这个数据结构我们很容易判断一个字符串是否是回文。</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">list_input = []</span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    number = <span class="built_in">input</span>(<span class="string">&quot;give me number to input:\n&quot;</span>)</span><br><span class="line">    <span class="keyword">if</span> number == <span class="string">&#x27;done&#x27;</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    list_input.append(number)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果长度是3，mid_point则为1</span></span><br><span class="line">mid_point = <span class="built_in">int</span>(<span class="built_in">len</span>(list_input)/<span class="number">2</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,mid_point):</span><br><span class="line">    <span class="keyword">if</span> list_input[i] != list_input[<span class="built_in">len</span>(list_input)-<span class="number">1</span>-i]:</span><br><span class="line">        print(<span class="string">&quot;Not a palindrome&quot;</span>)</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">elif</span> i == mid_point-<span class="number">1</span>:</span><br><span class="line">        print(<span class="string">&quot;A palindrome&quot;</span>)</span><br></pre></td></tr></table></figure>
-<p>在书本中，为了突出栈的特点，即后进后出（比如吃薯片时，要想吃掉最后一片，必须把全面的全部吃完），作者创建了一个字符数组来当作栈，再将测试的回文中的前一半存入栈中：</p>
-<blockquote>
- <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">top = <span class="number">0</span>; <span class="comment">//栈的初始化</span></span><br><span class="line"><span class="keyword">for</span> (i=<span class="number">0</span>;i&lt;=mid;i++)</span><br><span class="line">&#123;</span><br><span class="line">  s[++top] = a[i];</span><br><span class="line">&#125;```</span><br><span class="line"></span><br><span class="line">随后再将后一半的字符与栈中的字符一一进行比对：</span><br><span class="line"> ```C</span><br><span class="line"><span class="keyword">for</span>(i=next;i&lt;=len<span class="number">-1</span>;i++&gt;)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">if</span>(a[i] != s[top])</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">  top--;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>因为一开始每入栈一个字符top就会加一，所以中间字符的左边，即s[top]，不出意外地会与中间字符的右边a[i]呈现出一样的字符。一旦top=0，则意味着栈中所有的字符都已经输出完毕，测试的字符确实是回文。</p>
-</blockquote>
-
+          <p>本篇讲述了三种data structure的特点</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/09/03/%E7%AE%97%E6%B3%95%EF%BC%9A%E6%A0%88%E3%80%81%E9%98%9F%E5%88%97%E3%80%81%E9%93%BE%E8%A1%A8/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
