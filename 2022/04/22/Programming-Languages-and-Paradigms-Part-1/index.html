@@ -23,24 +23,22 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","version":"8.2.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
   </script>
-<meta name="description" content="这是我学习Unity的第一天，是跟着Siki学院的坦克大战教程总结了一些经验。 这篇文章讲述了Unity界面和角色移动。">
+<meta name="description" content="A programming paradigm is a fundamental style of programming used to classify programming languages.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Unity入门第一天： 熟悉界面与物体移动">
-<meta property="og:url" content="http://example.com/2021/03/10/Unity%E5%85%A5%E9%97%A8/index.html">
+<meta property="og:title" content="Programming Languages and Paradigms -- Part 1">
+<meta property="og:url" content="http://example.com/2022/04/22/Programming-Languages-and-Paradigms-Part-1/index.html">
 <meta property="og:site_name" content="YangOcean">
-<meta property="og:description" content="这是我学习Unity的第一天，是跟着Siki学院的坦克大战教程总结了一些经验。 这篇文章讲述了Unity界面和角色移动。">
+<meta property="og:description" content="A programming paradigm is a fundamental style of programming used to classify programming languages.">
 <meta property="og:locale">
-<meta property="og:image" content="http://example.com/images/Project_and_Hierarchy.png">
-<meta property="og:image" content="http://example.com/images/scene.png">
-<meta property="article:published_time" content="2021-03-10T23:18:01.000Z">
-<meta property="article:modified_time" content="2021-06-22T05:35:12.919Z">
+<meta property="article:published_time" content="2022-04-22T00:15:41.000Z">
+<meta property="article:modified_time" content="2022-04-22T01:06:16.582Z">
 <meta property="article:author" content="Yangyang Cui">
-<meta property="article:tag" content="Unity">
+<meta property="article:tag" content="C">
+<meta property="article:tag" content="26020 Programming Languages and Paradigms">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/images/Project_and_Hierarchy.png">
 
 
-<link rel="canonical" href="http://example.com/2021/03/10/Unity%E5%85%A5%E9%97%A8/">
+<link rel="canonical" href="http://example.com/2022/04/22/Programming-Languages-and-Paradigms-Part-1/">
 
 
 <script class="page-configurations">
@@ -72,7 +70,7 @@
           return false;
       }
   }
-</script><title>Unity入门第一天： 熟悉界面与物体移动 | YangOcean</title>
+</script><title>Programming Languages and Paradigms -- Part 1 | YangOcean</title>
   
 
 
@@ -185,7 +183,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E7%95%8C%E9%9D%A2"><span class="nav-number">1.</span> <span class="nav-text">关于界面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%92%E8%89%B2%E7%A7%BB%E5%8A%A8%E4%BB%A3%E7%A0%81%E8%A7%A3%E6%9E%90"><span class="nav-number">2.</span> <span class="nav-text">角色移动代码解析</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Main-Programming-Paradigms-and-Sub-Paradigms"><span class="nav-number">1.</span> <span class="nav-text">Main Programming Paradigms and Sub-Paradigms</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Imperative"><span class="nav-number">1.1.</span> <span class="nav-text">Imperative</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Declarative"><span class="nav-number">1.2.</span> <span class="nav-text">Declarative</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Multi-Paradigm-Languages"><span class="nav-number">2.</span> <span class="nav-text">Multi-Paradigm Languages</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -252,7 +250,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/10/Unity%E5%85%A5%E9%97%A8/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/22/Programming-Languages-and-Paradigms-Part-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/selfie2.jpg">
@@ -265,7 +263,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Unity入门第一天： 熟悉界面与物体移动
+          Programming Languages and Paradigms -- Part 1
         </h1>
 
         <div class="post-meta-container">
@@ -275,16 +273,10 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">Posted on</span>
+      
 
-      <time title="Created: 2021-03-10 23:18:01" itemprop="dateCreated datePublished" datetime="2021-03-10T23:18:01+00:00">2021-03-10</time>
+      <time title="Created: 2022-04-22 01:15:41 / Modified: 02:06:16" itemprop="dateCreated datePublished" datetime="2022-04-22T01:15:41+01:00">2022-04-22</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2021-06-22 06:35:12" itemprop="dateModified" datetime="2021-06-22T06:35:12+01:00">2021-06-22</time>
-      </span>
 
   
   
@@ -296,8 +288,8 @@
       <span class="post-meta-item-text">Changyan: </span>
     
     
-      <a title="changyan" href="/2021/03/10/Unity%E5%85%A5%E9%97%A8/#SOHUCS" itemprop="discussionUrl">
-        <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2021/03/10/Unity入门/" itemprop="commentCount"></span>
+      <a title="changyan" href="/2022/04/22/Programming-Languages-and-Paradigms-Part-1/#SOHUCS" itemprop="discussionUrl">
+        <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2022/04/22/Programming-Languages-and-Paradigms-Part-1/" itemprop="commentCount"></span>
       </a>
     
   </span>
@@ -312,74 +304,82 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>这是我学习Unity的第一天，是跟着Siki学院的坦克大战教程总结了一些经验。</p>
-<p>这篇文章讲述了Unity界面和角色移动。</p>
+        <p>A programming paradigm is a fundamental style of programming used to classify programming languages.</p>
 <a id="more"></a>
-<h2 id="关于界面"><a href="#关于界面" class="headerlink" title="关于界面"></a>关于界面</h2><ul>
-<li><code>project</code> 涉及了所有开发者所需要的美术模型（场景，道具，主体）， 制作好的动画可以打包放入一个命名为Animation文件夹里，动画控制器也可以放入一个命名为Animation Controller的文件夹里，场景角色的脚本设计可以放入Scripts里，Hierarchy中的场景可以放入Map文件夹里。<br><img src="/images/Project_and_Hierarchy.png"></li>
-<li>将project内的素材拖入到<code>Hierarchy</code>中，即代表这些素材都是可以在<code>scence</code>，即场景中使用的。通过调整xyz的值可以设置素材的大小<code>Scale X3 Y3 Z3</code>。<ul>
-<li>如果想要在多个素材中设置相同的（大小）值，可以复制粘贴第一个素材后，将需要更改的素材拖入<code>Sprite Renderer</code>的<code>Sprite</code>中。</li>
-<li>如果想要在<code>Hierarchy</code>里呈现<code>project</code>里多个素材组成的动画，<code>shift</code>多选素材，并拖入<code>Hierarchy</code>中，将其命名为动画的名称。</li>
+<h1 id="Main-Programming-Paradigms-and-Sub-Paradigms"><a href="#Main-Programming-Paradigms-and-Sub-Paradigms" class="headerlink" title="Main Programming Paradigms and Sub-Paradigms"></a>Main Programming Paradigms and Sub-Paradigms</h1><h2 id="Imperative"><a href="#Imperative" class="headerlink" title="Imperative"></a>Imperative</h2><ul>
+<li><p><em>Structured</em> (or procedural)</p>
+<ul>
+<li>Eg. C</li>
 </ul>
 </li>
-<li><code>Scene</code>是游戏中会出现素材的呈现，可以用鼠标自由拖拽所选的素材，右键移动整体镜头。</li>
-<li><blockquote>
-<p>当想要设置物体为1m而又不知道如何调整素材大小的时候, 在Hierarchy中右键 -&gt; 3D Object -&gt; Cube， 即可得到一个变长为1m * 1m * 1m的正方体。<br><img src="/images/scene.png"></p>
-</blockquote>
-</li>
-<li><code>Game</code> 显示了按下播放键 ▶️ 后会呈现的结果（动画，人物控制）。</li>
+<li><p><em>Object Oriented</em></p>
+<ul>
+<li>Encapsulation of code and the associated data into objects</li>
+<li>Suit to problems of huge amounts of state/operations <ul>
+<li>GUI, simulators, video games, business management software</li>
 </ul>
-<hr>
-<h2 id="角色移动代码解析"><a href="#角色移动代码解析" class="headerlink" title="角色移动代码解析"></a>角色移动代码解析</h2><pre><code>using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class Player : MonoBehaviour
-&#123;   
-    public float moveSpeed = 3;//设定角色移动速度：3m
-    //Sprite Renderer用来在Scene中渲染显示出图像，缩写成sr
-    private SpriteRenderer sr; 
-    //上 右 下 左，不同方向的图片用不同序列[]表示
-    public Sprite[] tankSprite;
-
-    //Awake在脚本被实例化的时候就会被调用（不管脚本是不是enable的）
-    private void Awake()&#123;
-        sr = GetComponent&lt;SpriteRenderer&gt;();
-    &#125;
-
-    void Start()
-    &#123;
-    &#125;
-
-    // Update is called once per frame
-    void Update()
-    &#123;
-        //&quot;Horizontal&quot;不能拼错，否则会识别不出。
-        //识别键盘
-        float h = Input.GetAxisRaw(&quot;Horizontal&quot;);
-        //transform用来控制对象的位置,right是横向
-        //Time.delatTime代表完成上一帧所用的时间（以秒为单位）
-        //使用它可通过世界坐标对 GameObject 应用变换。这意味着 GameObject 的变换是通过世界空间而不是 GameObject 的本地空间改变的
-        transform.Translate(Vector3.right * h * moveSpeed *Time.deltaTime, Space.World);
-        //如果是左边h的值是-1，右边是1，可以判断什么时候坦克转向
-        if (h &lt; 0)&#123;
-            sr.sprite = tankSprite[3];
-        &#125;
-        else if (h &gt; 0)&#123;
-            sr.sprite = tankSprite[1];
-        &#125;
-        //v大于1的时候向上走，反之向下走
-        float v = Input.GetAxisRaw(&quot;Vertical&quot;);
-        transform.Translate(Vector3.up * v * moveSpeed * Time.deltaTime, Space.World);
-        if (v &lt; 0)&#123;
-            sr.sprite = tankSprite[2];
-        &#125;
-        else if (v &gt; 0)&#123;
-            sr.sprite = tankSprite[0];
-        &#125;
-    &#125;
-&#125;
-</code></pre>
+</li>
+<li>Easy to organize large codebases</li>
+<li>Eg. C#, C++, Java, Python</li>
+</ul>
+</li>
+<li><p><em>Concurrent</em></p>
+<ul>
+<li>Shared-memory threads/processes in C/C++, Java, Python, etc.</li>
+<li>Message passing (for example MPI) in C/C++/FORTRAN</li>
+<li>Semi-automatic loop paralelization with libraries such as OpenMP</li>
+<li>GPU programming with CUDA</li>
+<li>Use cases: HPC, distributed computing, graphic processing, etc.</li>
+</ul>
+</li>
+<li><p>Describes <em>sequences</em> of statements manipulating the program state</p>
+<ul>
+<li>describes how to obtain the computation results </li>
+</ul>
+</li>
+<li><p>Uses advanced control flow operations</p>
+<ul>
+<li>Loops, conditionals, procedures</li>
+<li>easier to describe/reason about complex/large programs</li>
+</ul>
+</li>
+<li><p>Uses execution threads/processes to describe interleaving and/or parallel computation flows</p>
+<ul>
+<li>Example in C:<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> *<span class="title">thread_function</span><span class="params">(<span class="keyword">void</span> *argument)</span> </span>&#123;     </span><br><span class="line">    <span class="keyword">int</span> id = *(<span class="keyword">int</span> *)argument;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;<span class="number">10</span>; i++)         </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Thread %d running on core %d\n&quot;</span>, id, sched_getcpu()); &#125; </span><br></pre></td></tr></table></figure>
+<h2 id="Declarative"><a href="#Declarative" class="headerlink" title="Declarative"></a>Declarative</h2></li>
+</ul>
+</li>
+<li><p><em>Functional</em></p>
+<ul>
+<li>First-class/higher-order functions </li>
+<li>Loops implemented with recursion </li>
+<li>Pure functions have no side-effects </li>
+<li>Languages: Haskell, Scala, F#, etc.</li>
+</ul>
+</li>
+<li><p><em>Concurrent</em></p>
+<ul>
+<li>Less need for synchronization</li>
+<li>Use cases: distributed applications, web services, etc.</li>
+</ul>
+</li>
+<li><p>Describes the <em>meaning/result</em> of computations</p>
+</li>
+<li><p>High level of abstraction Code can easily become convoluted </p>
+</li>
+<li><p>Languages: HTML, SQL, XML, CSS, Latex (non-Turing complete) </p>
+</li>
+<li><p>Usage: document rendering, structured data storage and manipulation</p>
+</li>
+<li><p>Calling and composing functions to describes the program </p>
+</li>
+</ul>
+<h1 id="Multi-Paradigm-Languages"><a href="#Multi-Paradigm-Languages" class="headerlink" title="Multi-Paradigm Languages"></a>Multi-Paradigm Languages</h1><ul>
+<li>Haskell: purely functional and does not allow OO style </li>
+<li>OCaml: mainly functional, allows OO and imperative constructs </li>
+<li>C, C++: imperative but allow some functional idoms:</li>
+<li>Many languages are multi-paradigm</li>
+</ul>
 
     </div>
 
@@ -389,18 +389,19 @@ public class Player : MonoBehaviour
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Unity/" rel="tag"># Unity</a>
+              <a href="/tags/C/" rel="tag"># C</a>
+              <a href="/tags/26020-Programming-Languages-and-Paradigms/" rel="tag"># 26020 Programming Languages and Paradigms</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
+                <a href="/2021/09/03/%E7%AE%97%E6%B3%95%EF%BC%9A%E6%A0%88%E3%80%81%E9%98%9F%E5%88%97%E3%80%81%E9%93%BE%E8%A1%A8/" rel="prev" title="算法：栈、队列、链表">
+                  <i class="fa fa-chevron-left"></i> 算法：栈、队列、链表
+                </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/03/13/Unity%E5%85%A5%E9%97%A8%E7%AC%AC%E4%BA%8C%E5%A4%A9%EF%BC%9A%E7%A7%BB%E5%8A%A8%EF%BC%8C%E7%A2%B0%E6%92%9E%E4%B8%8E%E6%B8%B2%E6%9F%93/" rel="next" title="Unity入门第二天：移动，碰撞与渲染">
-                  Unity入门第二天：移动，碰撞与渲染 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
