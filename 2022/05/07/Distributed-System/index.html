@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","version":"8.2.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
+  </script>
+<meta name="description" content="Introduction to Distributed SystemThe Evolution From 1945 to 1985 Computers were large and expensive It was not possible to connect computers, so they operated independently from one another. From 198">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Distributed System">
+<meta property="og:url" content="http://example.com/2022/05/07/Distributed-System/index.html">
+<meta property="og:site_name" content="YangOcean">
+<meta property="og:description" content="Introduction to Distributed SystemThe Evolution From 1945 to 1985 Computers were large and expensive It was not possible to connect computers, so they operated independently from one another. From 198">
+<meta property="og:locale">
+<meta property="article:published_time" content="2022-05-07T17:46:26.000Z">
+<meta property="article:modified_time" content="2022-05-08T00:15:14.443Z">
+<meta property="article:author" content="Yangyang Cui">
+<meta property="article:tag" content="Distributed System">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/05/07/Distributed-System/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+<script type="text/javascript">
+  // Wait for the page to load first
+  var _prevOnload = window.onload;
+  window.onload = function() {
+      var switchLang = document.getElementsByClassName("menu-item menu-item-switch_lang")[0];
+      switchLang.onclick = function() {
+          var href = window.location.href;
+          var indexOfEn = href.toLowerCase().indexOf('/en/');
+          if(indexOfEn !== -1) {
+              window.location.href = href.replace('/en/', '/');
+          }
+          else {
+              window.location.href = href.replace(/(^http[s]?:\/\/[a-z0-9.]*[:?0-9]*\/)(.*)/i, '$1en/$2');
+          }
+          if(typeof(_prevOnload) === 'function') {
+              _prevOnload();
+          }
+          return false;
+      }
+  }
+</script><title>Distributed System | YangOcean</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">YangOcean</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Second year in University of Manchetser</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-switch_lang"><a href="/en" rel="section"><i class="language fa-fw"></i>English</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction-to-Distributed-System"><span class="nav-number">1.</span> <span class="nav-text">Introduction to Distributed System</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#The-Evolution"><span class="nav-number">1.1.</span> <span class="nav-text">The Evolution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Examples-of-Distributed-Systems"><span class="nav-number">1.2.</span> <span class="nav-text">Examples of Distributed Systems</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Why-Distributed-Systems"><span class="nav-number">1.3.</span> <span class="nav-text">Why Distributed Systems?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#What-is-a-Distributed-System"><span class="nav-number">1.4.</span> <span class="nav-text">What is a Distributed System</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Characteristics-of-Distributed-System"><span class="nav-number">1.5.</span> <span class="nav-text">Characteristics of Distributed System</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Fallacies-%E8%B0%AC%E8%AF%AF-about-Distributed-System"><span class="nav-number">1.6.</span> <span class="nav-text">Fallacies 谬误 about Distributed System</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Distributed-System-Organization"><span class="nav-number">1.7.</span> <span class="nav-text">Distributed System Organization</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Designed-for-Transparency"><span class="nav-number">1.8.</span> <span class="nav-text">Designed for Transparency</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Basic-Concepts-Synchronization"><span class="nav-number">2.</span> <span class="nav-text">Basic Concepts: Synchronization</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Synchronization-is-needed-specially-when%E2%80%A6"><span class="nav-number">2.1.</span> <span class="nav-text">Synchronization is needed specially when…</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Synchronization-Challenges-in-Distributed-Systems"><span class="nav-number">2.2.</span> <span class="nav-text">Synchronization Challenges in Distributed Systems</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Definition"><span class="nav-number">2.3.</span> <span class="nav-text">Definition</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Logical-Clocks"><span class="nav-number">2.4.</span> <span class="nav-text">Logical Clocks</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Yangyang Cui"
+      src="/uploads/selfie2.jpg">
+  <p class="site-author-name" itemprop="name">Yangyang Cui</p>
+  <div class="site-description" itemprop="description">share everything I want to share</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/yangocean-sudo" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yangocean-sudo" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/07/Distributed-System/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/selfie2.jpg">
+      <meta itemprop="name" content="Yangyang Cui">
+      <meta itemprop="description" content="share everything I want to share">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YangOcean">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Distributed System
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-05-07 18:46:26" itemprop="dateCreated datePublished" datetime="2022-05-07T18:46:26+01:00">2022-05-07</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2022-05-08 01:15:14" itemprop="dateModified" datetime="2022-05-08T01:15:14+01:00">2022-05-08</time>
+      </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Changyan: </span>
+    
+    
+      <a title="changyan" href="/2022/05/07/Distributed-System/#SOHUCS" itemprop="discussionUrl">
+        <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2022/05/07/Distributed-System/" itemprop="commentCount"></span>
+      </a>
+    
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Introduction-to-Distributed-System"><a href="#Introduction-to-Distributed-System" class="headerlink" title="Introduction to Distributed System"></a>Introduction to Distributed System</h1><h2 id="The-Evolution"><a href="#The-Evolution" class="headerlink" title="The Evolution"></a>The Evolution</h2><ul>
+<li>From 1945 to 1985<ul>
+<li>Computers were large and expensive</li>
+<li>It was not possible to connect computers, so they operated independently from one another.</li>
+<li>From 1985<ul>
+<li>Advances in technology began to change that situation, including:<ul>
+<li>the development of powerful microprocessors,</li>
+<li>the invention of high-speed computer networks, and</li>
+<li>the miniaturization 小型化 of computer systems.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>The result of these technologies is that it is, now, possible and relatively easy to put together <em>a computing system composed of large numbers of networked computers</em>, large or small.<ul>
+<li>As these computers are generally dispersed分散的, they are said to form a <em>distributed system</em>.<h2 id="Examples-of-Distributed-Systems"><a href="#Examples-of-Distributed-Systems" class="headerlink" title="Examples of Distributed Systems"></a>Examples of Distributed Systems</h2></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>The Web over the Internet<ul>
+<li>Documents, email, media, commerce, etc.</li>
+</ul>
+</li>
+<li>Mobile telephony<ul>
+<li>Calls, texts, location, sensing, etc.</li>
+</ul>
+</li>
+<li>Electronic funds transfer <ul>
+<li>Banking, credit cards, etc.</li>
+</ul>
+</li>
+<li>Instant messaging</li>
+<li>Video conferencing 会议</li>
+<li>Home entertaining systems </li>
+<li>Global positioning systems<h2 id="Why-Distributed-Systems"><a href="#Why-Distributed-Systems" class="headerlink" title="Why Distributed Systems?"></a>Why Distributed Systems?</h2></li>
+<li>To share resources:<ul>
+<li>One publisher, many beneficiaries!</li>
+</ul>
+</li>
+<li>To bind customers and suppliers</li>
+<li>To allow us to do things we could not otherwise do, due to<br>performance, scalability, reliability and availability issues. <ul>
+<li>Performance issues: e.g.,if using 1 computer,it takes 60 minutes, I’ll use 100 computers and it will take 0.6 minutes! </li>
+<li>Scalability issues: e.g.,if there’s 10 times more to do in th 0.6<br>minutes I have, I’ll use 1,000 computers, then, if it things quieten<br>down again, I’ll go back to using 100 computers!</li>
+<li>Reliability and availability issues: e.g., if 1% of computers fails<br>every day, add an extra 1% to keep the 0.6 stable and on!<br>In other words:</li>
+</ul>
+</li>
+<li>To make continuously-evolving不断发展, remote resources accessible for<br><em>sharing</em>.</li>
+<li>To open proprietary 所有权 processes to external interaction in order to <em>foster cooperation</em> 促进合作.</li>
+<li>To achieve better performance/cost ratios.</li>
+<li>To scale effectively and efficiently if <em>demand需求 for resources</em> changes significantly.</li>
+<li>To scale through modular, incremental <em>expansion and contraction</em>.</li>
+<li>To achieve high levels of <em>reliability</em> and <em>availability</em>.<h2 id="What-is-a-Distributed-System"><a href="#What-is-a-Distributed-System" class="headerlink" title="What is a Distributed System"></a>What is a Distributed System</h2><blockquote>
+<p>“A distributed system is a collection of autonomous 自主 computing elements that appears to its users as a single coherent相关 system”</p>
+</blockquote>
+</li>
+<li>A computing element or a node, can be either a hardware<br>device or a software process<ul>
+<li>Note that <em>a node can be anything from a high-performance mainframe computer to a small device in a sensor network</em>. Also, nodes can be interconnected in anyway.</li>
+</ul>
+</li>
+<li>In a single coherent system, users (i.e., people or applications) believe they are dealing with a single system. <ul>
+<li>Note that, for this to be possible, the autonomous nodes(each node will have its own notion of time) need to<br>collaborate. The way in which this collaboration is established represents the most fundamental property that distinguishes between different distributed systems.<h2 id="Characteristics-of-Distributed-System"><a href="#Characteristics-of-Distributed-System" class="headerlink" title="Characteristics of Distributed System"></a>Characteristics of Distributed System</h2></li>
+</ul>
+</li>
+<li>Distributed systems can also vary in:<ul>
+<li>Size(e.g.,from a few to millions of computers).</li>
+<li>The way in which nodes are interconnected (e.g.,via a wired, wireless or a hybrid混合 (a combination of both) network)</li>
+<li>The way in which node membership is handled(e.g.,by being open or closed group when allowing new nodes to join).</li>
+</ul>
+</li>
+<li>Note that, although nodes can act independently from one another, they cannot ignore one another. Otherwise, there is no point in putting them to compose构成 the same system!</li>
+<li>Nodes are programmed to achieve common goals, and they do this by <em>exchanging messages</em> with each other.</li>
+<li>To appear to users as a single coherent system, <em>distribution transparency</em> is an important goal of distributed systems.</li>
+<li>Computation is concurrent</li>
+<li>There is no shared state<ul>
+<li>No <em>single global clock</em> that all programs can agree to follow </li>
+</ul>
+</li>
+<li>Failures occur may will not be noticeable</li>
+<li>Communication events have non-negligible不可忽略 duration<ul>
+<li>communication costs may be more siginificant than processing time</li>
+</ul>
+</li>
+<li>Components may exchange data at variable rates可变速率.</li>
+<li>Different components process data at different rates.<ul>
+<li>Asynchrony异步 (i.e., non-aligned 不对齐的 timelines) is unavoidable.<h2 id="Fallacies-谬误-about-Distributed-System"><a href="#Fallacies-谬误-about-Distributed-System" class="headerlink" title="Fallacies 谬误 about Distributed System"></a>Fallacies 谬误 about Distributed System</h2><blockquote>
+<p>“Distirbuted systems differ from traditional software because components are dispersed across a network. Not taking this dispersion into account during design time is what makes so many systems needlessly complex and results in flaws that need to be patched later on”.”<br>False assumptions that are commonly made when developing a distributed application:</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>The network is reliable</li>
+</ol>
+<ul>
+<li>Various way of nodes linking (network topology)</li>
+<li>DS is composed of different and varied (i.e., heterogeneous) resources (software and hardware)<ul>
+<li>Example of <em>Lack of software reliability</em>: need for reliable message exchange between nodes (e.g., functionality for retrying messages, acknowledging承认 messages, verifying message integrity, etc.)</li>
+<li>In essence, the result is a network of networks, each managed with local scope by a different group of administrators 每个网络由不同的管理员组在本地范围内管理</li>
+<li>As a consequence, no (sufficiently足够的 complex to be useful) network of networks is reliable. 如果不足够复杂以至于有用的话，网络就不是可靠的</li>
+</ul>
+</li>
+</ul>
+<ol start="2">
+<li>The network is secure</li>
+</ol>
+<ul>
+<li>You may need to build security into your applications from Day 1.</li>
+<li> As a result of security considerations, you might not be able to access networked resources, different user accounts may have different privileges.</li>
+</ul>
+<ol start="3">
+<li>The network is homogeneous</li>
+</ol>
+<ul>
+<li>Interoperability 互操作性 will be needed.</li>
+<li>The use of standard technologies, such as XML (a W3C recommended general- purpose markup language) or JSON will be necessary.</li>
+</ul>
+<ol start="4">
+<li>The topology does not change</li>
+</ol>
+<ul>
+<li>Network topology is the way in which nodes of a distributed system are linked.</li>
+<li>In the wild, servers may be added and removed often, clients (laptops, wireless ad hoc networks) are coming and going: the topology is changing constantly.</li>
+<li>Do not rely on specific endpoints or routes.</li>
+<li>Abstract from the physical structure of the network, by (using the most obvious example) using DNS names as opposed to IP addresses (which may vary) for referring to an endpoint.<ul>
+<li>DNS (Internet Domain Name System) is a hierarchical and decentralized naming system for computers, services, or other resources connected to the Internet or a private network. It is commonly used to translate more readily memorized domain names to the numerical IP addresses needed for locating and identifying computer services and devices with the underlying network protocols.</li>
+</ul>
+</li>
+</ul>
+<ol start="5">
+<li>Latency is zero</li>
+</ol>
+<ul>
+<li>The minimum round-trip time between two points on earth is determined by the <em>maximum speed of information transmission</em>: the speed of light.<ul>
+<li>At 300,000 km/sec, it will take at least 30msec to send a ping from Europe to the USA and back.<ul>
+<li> <em>Ping</em> is a computer network administration software utility that measures the round-trip time for messages sent from the originating host to a destination computer that are echoed back to the source.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ol start="6">
+<li>Bandwidth is infinite</li>
+</ol>
+<ul>
+<li>Bandwidth is a measure of how much data it is possible to transfer over a period of time (may be measured in bits/second).</li>
+<li>To avoid congestion拥塞 and increase connection throughput, the loss of data packets being transmitted from one point to another can be performed.数据包丢失的现象可能会随着增加链接吞吐量而发生<ul>
+<li>Throughput is a measure of how much data is successfully transferred from source to destination within a given timeframe. In other words, it is used to measure how many packets arrive at their destinations successfully. It can be measured in bits/second. Throughput测量数据包传递的成功率</li>
+<li>To avoid packet loss, we may want to use larger packet sizes.</li>
+</ul>
+</li>
+</ul>
+<ol start="7">
+<li>Transport cost is zero</li>
+</ol>
+<ul>
+<li>Information needs to be serialised (by marshalling编组) to get data onto the wire.<ul>
+<li>Marshalling is the process of <em>transforming the memory representation</em> of an object to a <em>data format</em> suitable for storage or transmission.</li>
+<li>The cost (in terms of money) for setting and running the network is not zero.</li>
+</ul>
+</li>
+</ul>
+<ol start="8">
+<li>There is one administrator</li>
+</ol>
+<ul>
+<li>Unless we refer to a small LAN, there will be <em>different administrators</em> associated with the network with different degrees of expertise.<h2 id="Distributed-System-Organization"><a href="#Distributed-System-Organization" class="headerlink" title="Distributed System Organization"></a>Distributed System Organization</h2></li>
+<li> To assist the development of distributed applications, distributed systems are often organized to have a <em>separate layer of software</em> that is logically placed on top of the respective各自的 operating systems of the computers that are part of the system.</li>
+<li>This separate layer is called middle layer and offers each application the same interface as well as the following:<ul>
+<li>Facilities for inter-application communication.</li>
+<li>Security services.</li>
+<li>Support for transaction management.</li>
+<li>Recovery from failures.</li>
+<li>Support for Web services composition.</li>
+<li>Etc.<h2 id="Designed-for-Transparency"><a href="#Designed-for-Transparency" class="headerlink" title="Designed for Transparency"></a>Designed for Transparency</h2>An object can be a resource or a process.</li>
+</ul>
+</li>
+<li>Access - Hide differences in data representation and how an object is accessed</li>
+<li>Location - Hide where an object is located.</li>
+<li>Relocation - Hide that an object may be moved to another location while in use.</li>
+<li>Migration - Hide that an object may move to <em>another</em> location.</li>
+<li>Replication - Hide that an object is replicated.</li>
+<li>Concurrency - Hide that an object may be shared by several independent users.</li>
+<li>Failure - Hide the failure and recovery of an object.<h1 id="Basic-Concepts-Synchronization"><a href="#Basic-Concepts-Synchronization" class="headerlink" title="Basic Concepts: Synchronization"></a>Basic Concepts: Synchronization</h1></li>
+<li>Synchronisation refers to <em>data synchronisation</em> and <em>process synchronisation</em></li>
+<li><em>Data synchronisation</em>: about keeping multiple copies of a dataset in coherence with one another, given that the various copies are located in different nodes.<ul>
+<li>E.g: Copy photos from mobile device to laptop</li>
+</ul>
+</li>
+<li><em>Process synchronisation</em> : about multiple processes needing to act together to achieve a certain overall purpose.</li>
+<li>Synchornisation requires <em>fast</em> and <em>reliable</em> communication between the process</li>
+<li>None of the assumptions is safe, synchronisation behaviour is often challenging<h2 id="Synchronization-is-needed-specially-when…"><a href="#Synchronization-is-needed-specially-when…" class="headerlink" title="Synchronization is needed specially when…"></a>Synchronization is needed specially when…</h2></li>
+<li>Multiple processes need to agree on the ordering of events, such as whether message m1 from process P was sent before or after message m2 from process Q.</li>
+<li>Multiple processes try to simultaneously 同时 access a shared resource, such as a printer, and should, instead, cooperate in granting 授予 each other temporary临时的 exclusive独家的 access.<h2 id="Synchronization-Challenges-in-Distributed-Systems"><a href="#Synchronization-Challenges-in-Distributed-Systems" class="headerlink" title="Synchronization Challenges in Distributed Systems"></a>Synchronization Challenges in Distributed Systems</h2></li>
+<li>Since nodes in a distributed system are connected via a network, and networks are not always reliable, coordination 协作 of actions that depend on communication over a network is quite challenging.<ul>
+<li>For example, the same message sent to different nodes can take a <em>different time interval</em> to arrive at each node; if sent multiple times to the same node, it may take different times to arrive at the node, or sometimes it may not arrive at all.</li>
+</ul>
+</li>
+<li>Sending a synchronisation message from one node to another could be considered, however, because there is no way of knowing exactly how long a message is going to take to arrive at its destination, this does not represent a good solution to this problem.</li>
+<li>Another alternative选择 could be to <em>timestamp</em> a message as its sent out, but, as there is no way of knowing how long the message took to arrive at its destination, unless the recipient’s clock is in sync with the sender’s clock in the first place, which cannot be not guaranteed, as nodes are independent.</li>
+<li>In fact, about two nodes with independent clocks, the only thing that is certain is that <em>a message will not arrive at its destination before it is sent.</em><h2 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h2></li>
+<li> a -&gt; b is “event a happens before event b”.</li>
+<li>If a and b are events in the same process, and a occurs before b, then a -&gt; b is true.</li>
+<li>If a is the event of a message being sent by one process, and b is the event of the message being received by another process, then a -&gt; b is also true.</li>
+<li>Message transmission takes a finite, nonzero amount of time</li>
+<li>Happens-before (-&gt;) is a transitive relation, so if a -&gt; b and b -&gt; c, then a -&gt; c.</li>
+<li>If two events, x and y, happen in different processes that <em>do not exchange messages</em> (not even indirectly via third parties), then x -&gt; y is not true, but neither is y -&gt; x. These events are said to be concurrent<h2 id="Logical-Clocks"><a href="#Logical-Clocks" class="headerlink" title="Logical Clocks"></a>Logical Clocks</h2></li>
+<li>Logical clocks take advantage of the fact that <em>an implicit partial ordering of events can be obtained from the simple sending and receiving of messages between processes</em> in a distributed system. As such, they do not measure “real time” but, instead, <em>provide a distributed incremental pseudo time to events</em> in a distributed system.</li>
+<li>A simple example is <em>Lamport’s logical clock</em>. It assumes that each processor i has a Logical Clock, LCi.<ol>
+<li>When an event occurs on processor i, LCi is incremented by one.</li>
+<li>When processor X sends a message to Y, it also sends its Logical Clock, LCx.</li>
+<li>When Y receives the message, if its local Logical Clock is already in advance of the clock it has just received plus one timestep, it <em>keeps its current Logical Clock</em>, otherwise it sets its local Logical Clock to be the one it has just received plus one timestep, i.e.:<code>if LCy &lt; (LCx + 1): LCy = LCx + 1</code></li>
+</ol>
+</li>
+<li>Notes on Lamport’s Logical Clock<ol>
+<li>the receipt of a message forces the recipient to move its clock forward so that the “happened after” relationship is preserved 保存 at that point.</li>
+<li>if a -&gt; b (a happens before b) then it is true that LCa &lt; LCb. But it is not necessarily true that just because LCa &lt; LCb then a -&gt; b. This means that <em>we cannot infer 推断 a causal 因果 relationship just by looking at timestamps</em>.</li>
+<li>by using logical clocks, we can obtain a <em>basic partial ordering of events</em>, i.e., we can tell that one event happened after another one, but <em>we do not obtain a perfectly synchronised global time</em>.</li>
+</ol>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Distributed-System/" rel="tag"># Distributed System</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/04/22/Programming-Languages-and-Paradigms-Part-1/" rel="prev" title="Programming Languages and Paradigms -- Part 1">
+                  <i class="fa fa-chevron-left"></i> Programming Languages and Paradigms -- Part 1
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="SOHUCS"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yangyang Cui</span>
+</div>
+<div class="busuanzi-count">
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+  <script>
+  NexT.utils.loadComments('#SOHUCS', () => {
+    NexT.utils.getScript('https://changyan.sohu.com/upload/changyan.js', () => {
+      window.changyan.api.config({
+        appid: 'cyvwQmbJm',
+        conf : '43966006cd9b05b30c6a1930cb05447c'
+      });
+    });
+  });
+  </script>
+  <script src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+</html>
