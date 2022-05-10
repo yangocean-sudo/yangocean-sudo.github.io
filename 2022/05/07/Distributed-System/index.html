@@ -23,15 +23,15 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","version":"8.2.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
   </script>
-<meta name="description" content="Introduction to Distributed SystemThe Evolution From 1945 to 1985 Computers were large and expensive It was not possible to connect computers, so they operated independently from one another. From 198">
+<meta name="description" content="Introduction to Distributed System">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Distributed System">
 <meta property="og:url" content="http://example.com/2022/05/07/Distributed-System/index.html">
 <meta property="og:site_name" content="YangOcean">
-<meta property="og:description" content="Introduction to Distributed SystemThe Evolution From 1945 to 1985 Computers were large and expensive It was not possible to connect computers, so they operated independently from one another. From 198">
+<meta property="og:description" content="Introduction to Distributed System">
 <meta property="og:locale">
 <meta property="article:published_time" content="2022-05-07T17:46:26.000Z">
-<meta property="article:modified_time" content="2022-05-08T00:15:14.443Z">
+<meta property="article:modified_time" content="2022-05-10T09:40:05.544Z">
 <meta property="article:author" content="Yangyang Cui">
 <meta property="article:tag" content="Distributed System">
 <meta name="twitter:card" content="summary">
@@ -182,7 +182,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction-to-Distributed-System"><span class="nav-number">1.</span> <span class="nav-text">Introduction to Distributed System</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#The-Evolution"><span class="nav-number">1.1.</span> <span class="nav-text">The Evolution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Examples-of-Distributed-Systems"><span class="nav-number">1.2.</span> <span class="nav-text">Examples of Distributed Systems</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Why-Distributed-Systems"><span class="nav-number">1.3.</span> <span class="nav-text">Why Distributed Systems?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#What-is-a-Distributed-System"><span class="nav-number">1.4.</span> <span class="nav-text">What is a Distributed System</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Characteristics-of-Distributed-System"><span class="nav-number">1.5.</span> <span class="nav-text">Characteristics of Distributed System</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Fallacies-%E8%B0%AC%E8%AF%AF-about-Distributed-System"><span class="nav-number">1.6.</span> <span class="nav-text">Fallacies 谬误 about Distributed System</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Distributed-System-Organization"><span class="nav-number">1.7.</span> <span class="nav-text">Distributed System Organization</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Designed-for-Transparency"><span class="nav-number">1.8.</span> <span class="nav-text">Designed for Transparency</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Basic-Concepts-Synchronization"><span class="nav-number">2.</span> <span class="nav-text">Basic Concepts: Synchronization</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Synchronization-is-needed-specially-when%E2%80%A6"><span class="nav-number">2.1.</span> <span class="nav-text">Synchronization is needed specially when…</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Synchronization-Challenges-in-Distributed-Systems"><span class="nav-number">2.2.</span> <span class="nav-text">Synchronization Challenges in Distributed Systems</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Definition"><span class="nav-number">2.3.</span> <span class="nav-text">Definition</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Logical-Clocks"><span class="nav-number">2.4.</span> <span class="nav-text">Logical Clocks</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction-to-Distributed-System"><span class="nav-number">1.</span> <span class="nav-text">Introduction to Distributed System</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#The-Evolution"><span class="nav-number">1.1.</span> <span class="nav-text">The Evolution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Examples-of-Distributed-Systems"><span class="nav-number">1.2.</span> <span class="nav-text">Examples of Distributed Systems</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Why-Distributed-Systems"><span class="nav-number">1.3.</span> <span class="nav-text">Why Distributed Systems?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#What-is-a-Distributed-System"><span class="nav-number">1.4.</span> <span class="nav-text">What is a Distributed System</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Characteristics-of-Distributed-System"><span class="nav-number">1.5.</span> <span class="nav-text">Characteristics of Distributed System</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Fallacies-%E8%B0%AC%E8%AF%AF-about-Distributed-System"><span class="nav-number">1.6.</span> <span class="nav-text">Fallacies 谬误 about Distributed System</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Distributed-System-Organization"><span class="nav-number">1.7.</span> <span class="nav-text">Distributed System Organization</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Designed-for-Transparency"><span class="nav-number">1.8.</span> <span class="nav-text">Designed for Transparency</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Basic-Concepts-Synchronization"><span class="nav-number">2.</span> <span class="nav-text">Basic Concepts: Synchronization</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Synchronization-is-needed-specially-when%E2%80%A6"><span class="nav-number">2.1.</span> <span class="nav-text">Synchronization is needed specially when…</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Synchronization-Challenges-in-Distributed-Systems"><span class="nav-number">2.2.</span> <span class="nav-text">Synchronization Challenges in Distributed Systems</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Definition"><span class="nav-number">2.3.</span> <span class="nav-text">Definition</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Logical-Clocks"><span class="nav-number">2.4.</span> <span class="nav-text">Logical Clocks</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Security-in-Distributed-Systems"><span class="nav-number">3.</span> <span class="nav-text">Security in Distributed Systems</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Relationship-between-Security-and-Dependability"><span class="nav-number">3.1.</span> <span class="nav-text">Relationship between Security and Dependability</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Types-of-Security-Threats"><span class="nav-number">3.2.</span> <span class="nav-text">Types of Security Threats</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Security-Mechanisms"><span class="nav-number">3.3.</span> <span class="nav-text">Security Mechanisms</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cryptography-%E5%AF%86%E7%A0%81%E5%AD%A6"><span class="nav-number">3.4.</span> <span class="nav-text">Cryptography 密码学</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Security-in-Distributed-System-Recap"><span class="nav-number">3.5.</span> <span class="nav-text">Security in Distributed System-Recap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Secure-channels"><span class="nav-number">3.6.</span> <span class="nav-text">Secure channels</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Example-of-Autentication-Protocol"><span class="nav-number">3.7.</span> <span class="nav-text">Example of Autentication Protocol</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Secure-channels-Message-integrity-and-confidentiality"><span class="nav-number">3.8.</span> <span class="nav-text">Secure channels: Message integrity and confidentiality</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Message-integrity-via-Digital-Signature"><span class="nav-number">3.9.</span> <span class="nav-text">Message integrity via Digital Signature</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Service-Oriented-Architecture"><span class="nav-number">4.</span> <span class="nav-text">Service-Oriented Architecture</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Example-of-a-SOA-Application"><span class="nav-number">4.1.</span> <span class="nav-text">Example of a SOA Application</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Service-Composition"><span class="nav-number">4.2.</span> <span class="nav-text">Service Composition</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -280,7 +280,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2022-05-08 01:15:14" itemprop="dateModified" datetime="2022-05-08T01:15:14+01:00">2022-05-08</time>
+        <time title="Modified: 2022-05-10 10:40:05" itemprop="dateModified" datetime="2022-05-10T10:40:05+01:00">2022-05-10</time>
       </span>
 
   
@@ -309,7 +309,8 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="Introduction-to-Distributed-System"><a href="#Introduction-to-Distributed-System" class="headerlink" title="Introduction to Distributed System"></a>Introduction to Distributed System</h1><h2 id="The-Evolution"><a href="#The-Evolution" class="headerlink" title="The Evolution"></a>The Evolution</h2><ul>
+        <h1 id="Introduction-to-Distributed-System"><a href="#Introduction-to-Distributed-System" class="headerlink" title="Introduction to Distributed System"></a>Introduction to Distributed System</h1><a id="more"></a>
+<h2 id="The-Evolution"><a href="#The-Evolution" class="headerlink" title="The Evolution"></a>The Evolution</h2><ul>
 <li>From 1945 to 1985<ul>
 <li>Computers were large and expensive</li>
 <li>It was not possible to connect computers, so they operated independently from one another.</li>
@@ -529,6 +530,155 @@
 <li>by using logical clocks, we can obtain a <em>basic partial ordering of events</em>, i.e., we can tell that one event happened after another one, but <em>we do not obtain a perfectly synchronised global time</em>.</li>
 </ol>
 </li>
+</ul>
+<h1 id="Security-in-Distributed-Systems"><a href="#Security-in-Distributed-Systems" class="headerlink" title="Security in Distributed Systems"></a>Security in Distributed Systems</h1><ul>
+<li>Security in distributed systems can roughly be divided into two parts:<ol>
+<li>Communication between users or processes, possibly residing 位于 on <em>different machines</em>. <ul>
+<li>Use <em>secure channel</em> to deal.</li>
+</ul>
+</li>
+<li>Authorization, to ensure that a process gets only those access rights to the resources in a distributed system it is entitled 有资格 to.<ul>
+<li>Access control mechanisms<h2 id="Relationship-between-Security-and-Dependability"><a href="#Relationship-between-Security-and-Dependability" class="headerlink" title="Relationship between Security and Dependability"></a>Relationship between Security and Dependability</h2></li>
+</ul>
+</li>
+</ol>
+</li>
+<li>Security in a computer system is associated with the notion of dependability, because a dependable system is one that is trusted to deliver its services.</li>
+<li>Recall that Dependability is about availability, reliability, safety, and maintainability<ul>
+<li>Which indirectly suggest <em>TRUST</em> (i.e., also include confidentiality and integrity 保密性和完整性). </li>
+</ul>
+</li>
+<li>Confidentiality refers to the property of a computer system whereby its information is disclosed 披露 only to authorized parties.</li>
+<li>Integrity is the characteristic that alterations 更改 to a system’s assets can be made only in an authorized way.<h2 id="Types-of-Security-Threats"><a href="#Types-of-Security-Threats" class="headerlink" title="Types of Security Threats"></a>Types of Security Threats</h2></li>
+<li>Security in computer systems involves mechanisms to protect system services and data against security threats. </li>
+<li>Four types of security threats:<ul>
+<li>Interception: 拦截 an unauthorized party has gained access to a service or data.<ul>
+<li>Example: When communication between two parties has been overheard by someone else</li>
+</ul>
+</li>
+<li>Interruption: services or data become unavailable, unusable, destroyed, and so on.<ul>
+<li>Examples: denial of service attacks by which someone maliciously attempts to make a service inaccessible to other parties; when a file is corrupted 损坏 or lost, etc.</li>
+</ul>
+</li>
+<li>Modification: unauthorized changing of data or tampering 篡改 with a service<ul>
+<li>Examples: intercepting and subsequently changing transmitted data, tampering with database entries, etc.</li>
+</ul>
+</li>
+<li>Fabrication 制造: additional data or activity are generated that would normally not exist.<ul>
+<li>Examples: an intruder 入侵者 may attempt to add an entry into a password file or database; breaking into a system by replaying previously sent messages.<h2 id="Security-Mechanisms"><a href="#Security-Mechanisms" class="headerlink" title="Security Mechanisms"></a>Security Mechanisms</h2></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>A description of actions that are allowed to be taken and actions that are prohibited to guarantee system security is what we call Security Policy, which impact users, services, data, machines, etc.</li>
+<li>Based on a system’s Security Policy, mechanisms can be put in place to enforce 执行 this policy:<ul>
+<li>Encryption 加密<ul>
+<li>Encryption transforms data into something an attacker cannot understand.</li>
+<li>As such, encryption is not only able to implement data confidentiality, but it also supports integrity checks, because it allows checking of whether data has been modified.<ul>
+<li>Two types of encryption: symmetric and asymmetric encryption.</li>
+<li>In symmetric encryption the <em>same secret value</em> (the key) is used for encryption and decryption whereas different keys are used in asymmetric encryption.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Authentication 验证<ul>
+<li>Authentication is used to verify the claimed identity of a user, client, server, host, or other entity.</li>
+<li>Authentication is based on the possession 所有权 of some secret information, like password, known only to the entities participating in the authentication.</li>
+<li>When an entity wants to authenticate another entity, the former will verify if the latter possesses the knowledge of the secret</li>
+<li>Authentication can be one-way or mutual.<ul>
+<li>In one-way authentication, only one entity verifies the identity of the other entity. </li>
+<li>In mutual authentication, both communicating entities verify each other’s identity.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Authorization <ul>
+<li>Authorization checks whether a client is authorized to perform the action requested.<ul>
+<li>Example: For accessing records in a medical database, such that depending on who accesses the database, permission may be granted to read records, to modify certain fields in a record.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Auditing 审计<ul>
+<li>Auditing tools are used to trace which clients accessed what, and in which way. </li>
+<li> Audit <em>logs</em> can be extremely useful for the analysis of a security breach 安全漏洞, and subsequently taking measures against intruders.<h2 id="Cryptography-密码学"><a href="#Cryptography-密码学" class="headerlink" title="Cryptography 密码学"></a>Cryptography 密码学</h2></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Cryptography is a fundamental security technique in distributed systems</li>
+<li>Consider a sender S wanting to transmit message m to a receiver R. To protect the message against security threats, the sender <ol>
+<li> encrypts it into an unintelligible message m’, </li>
+<li> sends m’ to R</li>
+<li> R, in turn, must decrypt the received message into its original form m.</li>
+</ol>
+</li>
+<li>The original form of the message that is sent is called the <code>plaintext</code>, shown as <code>P</code>; the encrypted form is referred to as the <code>ciphertext</code>, illustrated as <code>C</code>.<h2 id="Security-in-Distributed-System-Recap"><a href="#Security-in-Distributed-System-Recap" class="headerlink" title="Security in Distributed System-Recap"></a>Security in Distributed System-Recap</h2></li>
+<li>Two main issues that need to be addressed: </li>
+</ul>
+<ol>
+<li>Making the <code>communication</code> between clients and servers secure.<ul>
+<li>This may involve the following: authentication of the communicating parties as well as integrity and confidentiality of messages.</li>
+</ul>
+</li>
+<li>Controlling <code>access</code> to resources.<ul>
+<li>Once a server has accepted a request from a client, how can it find out whether that client is <code>authorized</code> to have that request carried out?<h2 id="Secure-channels"><a href="#Secure-channels" class="headerlink" title="Secure channels"></a>Secure channels</h2><blockquote>
+<p>“The issue of protecting communication between clients and servers, can be thought of in terms of setting up a secure channel between communicating parties.”</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>A secure channel protects senders and receivers against interception, modification, and fabrication of messages.</li>
+<li>Protecting messages against interception is done by ensuring confidentiality: the secure channel ensures that its messages cannot be eavesdropped 窃听 by intruders.</li>
+<li>Protecting against modification and fabrication by intruders is done through <code>protocols</code> for mutual 相互的 authentication and message integrity.<h2 id="Example-of-Autentication-Protocol"><a href="#Example-of-Autentication-Protocol" class="headerlink" title="Example of Autentication Protocol"></a>Example of Autentication Protocol</h2></li>
+<li>Consider that Alice and Bob want to communicate, and that Alice takes the initiative 倡议 in setting up a channel.</li>
+<li>Alice starts by sending a message to Bob, or otherwise to a trusted third party who will help set up the channel.</li>
+<li>Once the channel has been set up, Alice knows for sure that she is talking to Bob, and Bob knows for sure he is talking to Alice, they can exchange messages.<h2 id="Secure-channels-Message-integrity-and-confidentiality"><a href="#Secure-channels-Message-integrity-and-confidentiality" class="headerlink" title="Secure channels: Message integrity and confidentiality"></a>Secure channels: Message integrity and confidentiality</h2></li>
+<li>Besides authentication, a secure channel should also provide <code>guarantees</code> for <code>message integrity and confidentiality</code> </li>
+<li>Confidentiality is established by simply <code>encrypting</code>  a message before sending it. </li>
+<li>Message integrity can be obtained via the use of <code>digital signatures</code>.<h2 id="Message-integrity-via-Digital-Signature"><a href="#Message-integrity-via-Digital-Signature" class="headerlink" title="Message integrity via Digital Signature"></a>Message integrity via Digital Signature</h2></li>
+<li>Consider the situation in which Bob has just sold Alice a collector’s item of some vinyl record 黑胶唱片 for $500. The whole deal was done through e-mail. </li>
+<li>Besides authentication, at least two concerns that need to be addressed:<ol>
+<li>Alice needs to be assured that Bob will not maliciously change the $500 and claim she promised more than $500. </li>
+<li>Bob needs to be assured that Alice cannot deny ever having sent the message.</li>
+</ol>
+</li>
+<li>Possible solution: Alice <code>digitally signs the message</code>, uniquely binding her signature to its content.<ul>
+<li> The unique association between a message and its signature prevents <code>illegitimate modifications</code> and <code>backing out from the agreement</code>.</li>
+</ul>
+</li>
+<li>One common form of digital signature is to use a <code>public-key cryptosystem</code>.</li>
+<li>Subject -(Request for operation)-&gt; <code>Reference monitor</code> -(Authorized request)-&gt; <code>Object</code></li>
+<li>Controlling the access to an object means <code>protecting it against</code> requests<br>generated by <code>unauthorized</code> subjects</li>
+<li>Protection is often <code>enforced</code> by a program called a <code>reference monitor</code><ul>
+<li>A reference monitor records which subject may do what, and <code>decides</code> whether a subject <code>is allowed</code> to have a specific operation carried out.</li>
+</ul>
+</li>
+<li>Reference monitor should be <code>impenetrable</code> 不可穿透的 by its very nature</li>
+</ul>
+<h1 id="Service-Oriented-Architecture"><a href="#Service-Oriented-Architecture" class="headerlink" title="Service-Oriented Architecture"></a>Service-Oriented Architecture</h1><ul>
+<li>This architectural style <em>encapsulates services</em> into independent units. </li>
+<li>A service is considered as a discrete <em>unit of functionality</em> that can be <em>accessed remotely</em>, via a network, and updated independently. However, a service can possibly make use of other services.<ul>
+<li>Example: a procedure to retrieve a credit card statement online.  </li>
+</ul>
+</li>
+<li>Distributed systems or distributed applications constructed using this architectural style are said to be have a Service-Oriented Architecture (SOA)</li>
+<li>A distributed system constructed as SOA is a essentially a composition of many different services.<h2 id="Example-of-a-SOA-Application"><a href="#Example-of-a-SOA-Application" class="headerlink" title="Example of a SOA Application"></a>Example of a SOA Application</h2></li>
+<li>Consider a distributed system application composed of several services for processing e-book orders from a Web Shop.<ul>
+<li>Note that not all services composing a distributed system application may belong to the same administrative organization.</li>
+<li>On-line order processing:<ul>
+<li>Organisation A: select items -&gt; check delivery channel -&gt;</li>
+<li>Organisation B: process payment -&gt;</li>
+<li>Organisation A: Finish the payment and do other things<h2 id="Service-Composition"><a href="#Service-Composition" class="headerlink" title="Service Composition"></a>Service Composition</h2></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>One of the main challenges of developing a distributed system is <em>service composition</em> and of making sure that the services operate in harmony. 和谐</li>
+<li>For service composition to be possible, each service must offer an interface (including the allowed input and output messages). </li>
+<li>Service composition is a far from trivial problem. 不是一个微不足道的问题</li>
 </ul>
 
     </div>
