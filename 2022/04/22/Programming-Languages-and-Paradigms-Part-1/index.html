@@ -44,7 +44,7 @@
 <meta property="og:image" content="https://olivierpierre.github.io/comp26020/slides/26-memory-safety/include/use-after-free-3.svg">
 <meta property="og:image" content="https://olivierpierre.github.io/comp26020/slides/26-memory-safety/include/use-after-free-4.svg">
 <meta property="article:published_time" content="2022-04-22T00:15:41.000Z">
-<meta property="article:modified_time" content="2022-05-08T01:02:51.364Z">
+<meta property="article:modified_time" content="2022-05-27T11:05:55.028Z">
 <meta property="article:author" content="Yangyang Cui">
 <meta property="article:tag" content="C">
 <meta property="article:tag" content="26020 Programming Languages and Paradigms">
@@ -213,7 +213,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -295,7 +295,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2022-05-08 02:02:51" itemprop="dateModified" datetime="2022-05-08T02:02:51+01:00">2022-05-08</time>
+        <time title="Modified: 2022-05-27 12:05:55" itemprop="dateModified" datetime="2022-05-27T12:05:55+01:00">2022-05-27</time>
       </span>
 
   
@@ -460,7 +460,7 @@ gcc is program; the rest are arguments</li>
 <ul>
 <li>Arguments are strings, to convert to integer use <code>atoi</code>:<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt; </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt; // needed for atoi </span></span></span><br><span class="line"><span class="comment">/* Sum the two integers passed as command line integers */</span> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span> </span>&#123;     </span><br><span class="line">  <span class="keyword">int</span> a, b;     </span><br><span class="line">  <span class="comment">// Once again, dangerous!    </span></span><br><span class="line">  a = atoi(argv[<span class="number">1</span>]);     </span><br><span class="line">  b = atoi(argv[<span class="number">2</span>]);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%d + %d = %d\n&quot;</span>, a, b, a+b);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
-<li>To convert to integer use <code>atof</code><h1 id="Conditionals-and-Loops-in-C"><a href="#Conditionals-and-Loops-in-C" class="headerlink" title="Conditionals and Loops in C"></a>Conditionals and Loops in C</h1></li>
+<li>To convert to a floating-point number (type double) use <code>atof</code><h1 id="Conditionals-and-Loops-in-C"><a href="#Conditionals-and-Loops-in-C" class="headerlink" title="Conditionals and Loops in C"></a>Conditionals and Loops in C</h1></li>
 </ul>
 </li>
 <li>Statements end with <code>;</code> and are executed sequentially<h2 id="Conditionals"><a href="#Conditionals" class="headerlink" title="Conditionals"></a>Conditionals</h2></li>
