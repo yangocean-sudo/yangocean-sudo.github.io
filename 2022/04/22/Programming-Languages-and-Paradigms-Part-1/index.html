@@ -44,7 +44,7 @@
 <meta property="og:image" content="https://olivierpierre.github.io/comp26020/slides/26-memory-safety/include/use-after-free-3.svg">
 <meta property="og:image" content="https://olivierpierre.github.io/comp26020/slides/26-memory-safety/include/use-after-free-4.svg">
 <meta property="article:published_time" content="2022-04-22T00:15:41.000Z">
-<meta property="article:modified_time" content="2022-05-27T14:13:09.856Z">
+<meta property="article:modified_time" content="2022-05-27T14:17:31.495Z">
 <meta property="article:author" content="Yangyang Cui">
 <meta property="article:tag" content="C">
 <meta property="article:tag" content="26020 Programming Languages and Paradigms">
@@ -295,7 +295,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2022-05-27 15:13:09" itemprop="dateModified" datetime="2022-05-27T15:13:09+01:00">2022-05-27</time>
+        <time title="Modified: 2022-05-27 15:17:31" itemprop="dateModified" datetime="2022-05-27T15:17:31+01:00">2022-05-27</time>
       </span>
 
   
@@ -1110,7 +1110,7 @@ The result is a txt file called “test” with “hello, world!hello, world!<br
 </li>
 <li>The vector needs to be declared with the containing type between <code>&lt; &gt;</code>. An empty vector can be filled with <code>push_back()</code>. The vector constructor also takes an optional parameter that initializes empty elements, allowing them to be updated with<code>[ ]</code>without prior calls to push_back(). </li>
 <li> strcpy should be used rather than = to ensure a copy of the string itself and not a simple copy of the pointer used to refer to the character array</li>
-<li>Dynamic object allocation is made with new, that returns a pointer to an object and not the object itse<ul>
+<li>Dynamic object allocation is made with new, that returns a pointer to an object and not the object itself<ul>
 <li> <code>Library *l = new Library(100);</code></li>
 </ul>
 </li>
