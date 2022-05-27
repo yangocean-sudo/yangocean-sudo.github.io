@@ -44,7 +44,7 @@
 <meta property="og:image" content="https://olivierpierre.github.io/comp26020/slides/26-memory-safety/include/use-after-free-3.svg">
 <meta property="og:image" content="https://olivierpierre.github.io/comp26020/slides/26-memory-safety/include/use-after-free-4.svg">
 <meta property="article:published_time" content="2022-04-22T00:15:41.000Z">
-<meta property="article:modified_time" content="2022-05-27T11:05:55.028Z">
+<meta property="article:modified_time" content="2022-05-27T11:23:33.558Z">
 <meta property="article:author" content="Yangyang Cui">
 <meta property="article:tag" content="C">
 <meta property="article:tag" content="26020 Programming Languages and Paradigms">
@@ -295,7 +295,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2022-05-27 12:05:55" itemprop="dateModified" datetime="2022-05-27T12:05:55+01:00">2022-05-27</time>
+        <time title="Modified: 2022-05-27 12:23:33" itemprop="dateModified" datetime="2022-05-27T12:23:33+01:00">2022-05-27</time>
       </span>
 
   
@@ -1101,7 +1101,7 @@ The result is a txt file called “test” with “hello, world!hello, world!<br
 <li>11 in base 10 corresponds to 0xB In hexadecimal.</li>
 <li>struct members are placed in order contiguously in memory, the address of the first member of the struct is the same as the address of the struct itself, so the address of the second member is 0x7ffd04d39a48 + 4 bytes (the size of the 1st member) = 0x7ffd04d39a4c</li>
 <li>Pointers are useful to allow a function to modify its calling context and to avoid passing large parameters as copy. </li>
-<li>Well done! y is a local variable and it is thus located on the stack. x being a global variable, it is located in static memory.</li>
+<li>y is a local variable and it is thus located on the stack. x being a global variable, it is located in static memory.</li>
 <li>We use O_RDWR to indicate read and write mode, O_TRUNC to destroy the file content if it exists, and O_CREAT to create the file if it does not exist<h2 id="Quiz-4"><a href="#Quiz-4" class="headerlink" title="Quiz 4"></a>Quiz 4</h2></li>
 <li>For a parent function C1 with <code>virtual int function</code>:<ul>
 <li> it cannot be instantiated </li>
