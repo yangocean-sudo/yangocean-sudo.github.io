@@ -1,314 +1,112 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.3.0">
 
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
-
-<link rel="stylesheet" href="/css/main.css">
-
-
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
-
-<script class="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","version":"8.2.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
-  </script>
-<meta name="description" content="A programming paradigm is a fundamental style of programming used to classify programming languages.">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Programming Languages and Paradigms -- Part 1">
-<meta property="og:url" content="http://example.com/2022/04/22/Programming-Languages-and-Paradigms-Part-1/index.html">
-<meta property="og:site_name" content="YangOcean">
-<meta property="og:description" content="A programming paradigm is a fundamental style of programming used to classify programming languages.">
-<meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://olivierpierre.github.io/comp26020/slides/11-dynamic-memory-allocation/include/2d-3.svg">
-<meta property="og:image" content="https://olivierpierre.github.io/comp26020/slides/19-modular-compilation/include/modular1.svg">
-<meta property="og:image" content="https://olivierpierre.github.io/comp26020/slides/19-modular-compilation/include/modular2.svg">
-<meta property="og:image" content="https://olivierpierre.github.io/comp26020/slides/20-automated-compilation/include/deps1.svg">
-<meta property="og:image" content="https://olivierpierre.github.io/comp26020/slides/20-automated-compilation/include/deps2.svg">
-<meta property="og:image" content="https://olivierpierre.github.io/comp26020/slides/21-type-conversion-casting/include/integer-promotion.svg">
-<meta property="og:image" content="https://olivierpierre.github.io/comp26020/slides/23-hpc-case-study/include/cache.svg">
-<meta property="og:image" content="https://olivierpierre.github.io/comp26020/slides/23-hpc-case-study/include/alignment.svg">
-<meta property="og:image" content="https://olivierpierre.github.io/comp26020/slides/25-os-kernel-case-study/include/timeline.svg">
-<meta property="og:image" content="https://olivierpierre.github.io/comp26020/slides/26-memory-safety/include/use-after-free-1.svg">
-<meta property="og:image" content="https://olivierpierre.github.io/comp26020/slides/26-memory-safety/include/use-after-free-2.svg">
-<meta property="og:image" content="https://olivierpierre.github.io/comp26020/slides/26-memory-safety/include/use-after-free-3.svg">
-<meta property="og:image" content="https://olivierpierre.github.io/comp26020/slides/26-memory-safety/include/use-after-free-4.svg">
-<meta property="article:published_time" content="2022-04-22T00:15:41.000Z">
-<meta property="article:modified_time" content="2022-05-27T21:19:45.654Z">
-<meta property="article:author" content="Yangyang Cui">
-<meta property="article:tag" content="C">
-<meta property="article:tag" content="26020 Programming Languages and Paradigms">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://olivierpierre.github.io/comp26020/slides/11-dynamic-memory-allocation/include/2d-3.svg">
-
-
-<link rel="canonical" href="http://example.com/2022/04/22/Programming-Languages-and-Paradigms-Part-1/">
-
-
-<script class="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-CN'
-  };
-</script>
-<script type="text/javascript">
-  // Wait for the page to load first
-  var _prevOnload = window.onload;
-  window.onload = function() {
-      var switchLang = document.getElementsByClassName("menu-item menu-item-switch_lang")[0];
-      switchLang.onclick = function() {
-          var href = window.location.href;
-          var indexOfEn = href.toLowerCase().indexOf('/en/');
-          if(indexOfEn !== -1) {
-              window.location.href = href.replace('/en/', '/');
-          }
-          else {
-              window.location.href = href.replace(/(^http[s]?:\/\/[a-z0-9.]*[:?0-9]*\/)(.*)/i, '$1en/$2');
-          }
-          if(typeof(_prevOnload) === 'function') {
-              _prevOnload();
-          }
-          return false;
-      }
-  }
-</script><title>Programming Languages and Paradigms -- Part 1 | YangOcean</title>
+<html lang="zh-CN,en,default">
   
 
-
-
-
-  <noscript>
-  <style>
-  body { margin-top: 2rem; }
-
-  .use-motion .menu-item,
-  .use-motion .sidebar,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header {
-    visibility: visible;
-  }
-
-  .use-motion .header,
-  .use-motion .site-brand-container .toggle,
-  .use-motion .footer { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle,
-  .use-motion .custom-logo-image {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line {
-    transform: scaleX(1);
-  }
-
-  .search-pop-overlay, .sidebar-nav { display: none; }
-  .sidebar-panel { display: block; }
-  </style>
-</noscript>
-
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
-  <div class="headband"></div>
-
-  <main class="main">
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏" role="button">
-        <span class="toggle-line"></span>
-        <span class="toggle-line"></span>
-        <span class="toggle-line"></span>
-    </div>
-  </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <i class="logo-line"></i>
-      <h1 class="site-title">YangOcean</h1>
-      <i class="logo-line"></i>
-    </a>
-      <p class="site-subtitle" itemprop="description">Second year in University of Manchetser</p>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-    </div>
-  </div>
-</div>
-
-
-
-<nav class="site-nav">
-  <ul class="main-menu menu">
-        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
-        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
-        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
-        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
-        <li class="menu-item menu-item-switch_lang"><a href="/en" rel="section"><i class="language fa-fw"></i>-->English</a></li>
-  </ul>
-</nav>
-
-
-
-
-</div>
+    <head>
+      <meta charset="utf-8" />
         
-  
-  <div class="toggle sidebar-toggle" role="button">
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-  </div>
+      <meta name="description" content="share everything I want to share" />
+      
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>Programming Languages and Paradigms -- Part 1 |  YangOcean</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
 
-  <aside class="sidebar">
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
 
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
-      <ul class="sidebar-nav">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
 
-      <div class="sidebar-panel-container">
-        <!--noindex-->
-        <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Main-Programming-Paradigms-and-Sub-Paradigms"><span class="nav-number">1.</span> <span class="nav-text">Main Programming Paradigms and Sub-Paradigms</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Imperative"><span class="nav-number">1.1.</span> <span class="nav-text">Imperative</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Declarative"><span class="nav-number">1.2.</span> <span class="nav-text">Declarative</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Multi-Paradigm-Languages"><span class="nav-number">1.3.</span> <span class="nav-text">Multi-Paradigm Languages</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction-to-C"><span class="nav-number">2.</span> <span class="nav-text">Introduction to C</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Pros"><span class="nav-number">2.1.</span> <span class="nav-text">Pros:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cons"><span class="nav-number">2.2.</span> <span class="nav-text">Cons:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hello-World"><span class="nav-number">2.3.</span> <span class="nav-text">Hello World</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#C-%E2%80%93-Variables-Types-Printing-to-the-Console"><span class="nav-number">3.</span> <span class="nav-text">C – Variables, Types, Printing to the Console</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Variables"><span class="nav-number">3.1.</span> <span class="nav-text">Variables:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Types"><span class="nav-number">3.2.</span> <span class="nav-text">Types:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Printing-to-the-Console-printf"><span class="nav-number">3.3.</span> <span class="nav-text">Printing to the Console: printf</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Arrays-Strings-Command-Line-Arguments"><span class="nav-number">4.</span> <span class="nav-text">Arrays, Strings, Command Line Arguments</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Arrays"><span class="nav-number">4.1.</span> <span class="nav-text">Arrays</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Command-Line-Arguments"><span class="nav-number">4.2.</span> <span class="nav-text">Command Line Arguments</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Conditionals-and-Loops-in-C"><span class="nav-number">5.</span> <span class="nav-text">Conditionals and Loops in C</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Conditionals"><span class="nav-number">5.1.</span> <span class="nav-text">Conditionals</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Loops"><span class="nav-number">5.2.</span> <span class="nav-text">Loops</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Back-to-fix-command-line-potential-danger"><span class="nav-number">5.3.</span> <span class="nav-text">Back to fix command line potential danger</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Braces-in-Conditional-and-Loops"><span class="nav-number">5.4.</span> <span class="nav-text">Braces in Conditional and Loops</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Functions"><span class="nav-number">6.</span> <span class="nav-text">Functions</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Function-Calls"><span class="nav-number">6.1.</span> <span class="nav-text">Function Calls</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Forward-Declarations"><span class="nav-number">6.2.</span> <span class="nav-text">Forward Declarations</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Variable-Scope-and-Lifetime"><span class="nav-number">6.3.</span> <span class="nav-text">Variable Scope and Lifetime</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Custom-Types-and-Data-Structures-in-C"><span class="nav-number">7.</span> <span class="nav-text">Custom Types and Data Structures in C</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Custom-Types"><span class="nav-number">7.1.</span> <span class="nav-text">Custom Types</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Custom-Data-Structures"><span class="nav-number">7.2.</span> <span class="nav-text">Custom Data Structures</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Enumeration"><span class="nav-number">7.3.</span> <span class="nav-text">Enumeration</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction-to-Pointers"><span class="nav-number">8.</span> <span class="nav-text">Introduction to Pointers</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Program-Memory-Layout"><span class="nav-number">8.1.</span> <span class="nav-text">Program Memory Layout</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pointers"><span class="nav-number">8.2.</span> <span class="nav-text">Pointers</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Pointers-Applications"><span class="nav-number">9.</span> <span class="nav-text">Pointers Applications</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Allow-a-Function-to-Access-the-Calling-Context"><span class="nav-number">9.1.</span> <span class="nav-text">Allow a Function to Access the Calling Context</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Getting-over-C-FUnction-Call-Limitations"><span class="nav-number">9.2.</span> <span class="nav-text">Getting over C FUnction Call Limitations</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C-Arrarys-are-Pointers"><span class="nav-number">9.3.</span> <span class="nav-text">C Arrarys are Pointers!</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pointers-and-Structures"><span class="nav-number">9.4.</span> <span class="nav-text">Pointers and Structures</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pointer-Chains"><span class="nav-number">9.5.</span> <span class="nav-text">Pointer Chains</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Dynamic-Memory-Allocation"><span class="nav-number">10.</span> <span class="nav-text">Dynamic Memory Allocation</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Motivation"><span class="nav-number">10.1.</span> <span class="nav-text">Motivation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Allocating-on-the-Heap-malloc"><span class="nav-number">10.2.</span> <span class="nav-text">Allocating on the Heap: malloc</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Multidimensional-Arrays-and-malloc"><span class="nav-number">10.3.</span> <span class="nav-text">Multidimensional Arrays and malloc</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Memory-Leaks"><span class="nav-number">10.4.</span> <span class="nav-text">Memory Leaks</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#The-C-Standard-Library"><span class="nav-number">11.</span> <span class="nav-text">The C Standard Library</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#String-Copy"><span class="nav-number">11.1.</span> <span class="nav-text">String Copy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#String-Concatenation-%E8%BF%9E%E7%BB%93"><span class="nav-number">11.2.</span> <span class="nav-text">String Concatenation 连结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Format-based-String-Creation"><span class="nav-number">11.3.</span> <span class="nav-text">Format-based String Creation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#String-Manipulation"><span class="nav-number">11.4.</span> <span class="nav-text">String Manipulation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Console-Input"><span class="nav-number">11.5.</span> <span class="nav-text">Console Input</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Memory-Manipulation"><span class="nav-number">11.6.</span> <span class="nav-text">Memory Manipulation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Math-functions"><span class="nav-number">11.7.</span> <span class="nav-text">Math functions</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Time"><span class="nav-number">11.8.</span> <span class="nav-text">Time</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#File-I-O"><span class="nav-number">11.9.</span> <span class="nav-text">File I&#x2F;O</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Random-Numbers"><span class="nav-number">11.10.</span> <span class="nav-text">Random Numbers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Error-Management"><span class="nav-number">11.11.</span> <span class="nav-text">Error Management</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Classes-and-Objects-in-C"><span class="nav-number">12.</span> <span class="nav-text">Classes and Objects in C++</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Classes-and-Objects"><span class="nav-number">12.1.</span> <span class="nav-text">Classes and Objects</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Encapsulation"><span class="nav-number">12.2.</span> <span class="nav-text">Encapsulation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Constructors"><span class="nav-number">12.3.</span> <span class="nav-text">Constructors</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Destructors"><span class="nav-number">12.4.</span> <span class="nav-text">Destructors</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#This-Pointer"><span class="nav-number">12.5.</span> <span class="nav-text">This Pointer</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#C-Dynamic-Object-Allocation-and-Dynamic-Arrays"><span class="nav-number">13.</span> <span class="nav-text">C++: Dynamic Object Allocation and Dynamic Arrays</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Dynamic-Object-Allocation"><span class="nav-number">13.1.</span> <span class="nav-text">Dynamic Object Allocation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dynamic-Arrays"><span class="nav-number">13.2.</span> <span class="nav-text">Dynamic Arrays</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Inheritance-in-C"><span class="nav-number">14.</span> <span class="nav-text">Inheritance in C++</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Public-Inheritance-and-Members-Visibility"><span class="nav-number">14.1.</span> <span class="nav-text">Public Inheritance and Members Visibility</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Polymorphism-in-C"><span class="nav-number">15.</span> <span class="nav-text">Polymorphism in C++</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Virtual-Function-Overriding"><span class="nav-number">15.1.</span> <span class="nav-text">Virtual Function Overriding</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Abstract-Classes"><span class="nav-number">15.2.</span> <span class="nav-text">Abstract Classes</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#The-Preprocessor"><span class="nav-number">16.</span> <span class="nav-text">The Preprocessor</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Header-Inclusion"><span class="nav-number">16.1.</span> <span class="nav-text">Header Inclusion</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Macro-Expansions"><span class="nav-number">16.2.</span> <span class="nav-text">Macro Expansions</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Modular-Compilation"><span class="nav-number">17.</span> <span class="nav-text">Modular Compilation</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Compilation-Phase"><span class="nav-number">17.1.</span> <span class="nav-text">Compilation Phase</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Breaking-down-the-program-into-modules"><span class="nav-number">17.2.</span> <span class="nav-text">Breaking down the program into modules</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Header-File-for-Modular-Compilation"><span class="nav-number">17.3.</span> <span class="nav-text">Header File for Modular Compilation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C-Source-Management"><span class="nav-number">17.4.</span> <span class="nav-text">C++ Source Management</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Automated-Compilation"><span class="nav-number">18.</span> <span class="nav-text">Automated Compilation</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Makefiles-Automated-Build-and-Dependency-Management"><span class="nav-number">18.1.</span> <span class="nav-text">Makefiles: Automated Build and Dependency Management</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Type-Conversion-and-Casting"><span class="nav-number">19.</span> <span class="nav-text">Type Conversion and Casting</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Implicit-Type-Conversions"><span class="nav-number">19.1.</span> <span class="nav-text">Implicit Type Conversions</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Integer-Promotion"><span class="nav-number">19.2.</span> <span class="nav-text">Integer Promotion</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Integer-to-Floating-Point-Conversion"><span class="nav-number">19.3.</span> <span class="nav-text">Integer to Floating-Point Conversion</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Parameter-Passing"><span class="nav-number">19.4.</span> <span class="nav-text">Parameter Passing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Type-Casting-%E7%B1%BB%E5%9E%8B%E9%93%B8%E9%80%A0"><span class="nav-number">19.5.</span> <span class="nav-text">Type Casting 类型铸造</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Generic-Pointers"><span class="nav-number">19.6.</span> <span class="nav-text">Generic Pointers</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Debugging-with-GDB"><span class="nav-number">20.</span> <span class="nav-text">Debugging with GDB</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Case-study-HPC"><span class="nav-number">21.</span> <span class="nav-text">Case study: HPC</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Controlling-Memory-Layout"><span class="nav-number">21.1.</span> <span class="nav-text">Controlling Memory Layout</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Case-study-C-Standard-Library"><span class="nav-number">22.</span> <span class="nav-text">Case study - C Standard Library</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Using-Musl-System-Calls"><span class="nav-number">22.1.</span> <span class="nav-text">Using Musl - System Calls</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Musl%E2%80%99s-printf-Implementation"><span class="nav-number">22.2.</span> <span class="nav-text">Musl’s printf Implementation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Printing-Without-Libc"><span class="nav-number">22.3.</span> <span class="nav-text">Printing Without Libc</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Case-Study-OS-Kernel"><span class="nav-number">23.</span> <span class="nav-text">Case Study - OS Kernel</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#System-Calls-in-a-Nutshell"><span class="nav-number">23.1.</span> <span class="nav-text">System Calls in a Nutshell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Context-Switches-in-a-Nutshell"><span class="nav-number">23.2.</span> <span class="nav-text">Context Switches in a Nutshell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#System-Call-and-Context-Switch-Implementations-in-a-Real-OS"><span class="nav-number">23.3.</span> <span class="nav-text">System Call and Context Switch Implementations in a Real OS</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Memory-Unsafety"><span class="nav-number">24.</span> <span class="nav-text">Memory Unsafety</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Example-1-Infoleak"><span class="nav-number">24.1.</span> <span class="nav-text">Example 1: Infoleak</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Example-2%E2%80%9D-Sensitive-Data-Tampering"><span class="nav-number">24.2.</span> <span class="nav-text">Example 2” Sensitive Data Tampering</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Example-3-Stack-Smashing"><span class="nav-number">24.3.</span> <span class="nav-text">Example 3: Stack Smashing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Example-4-Use-After-Free"><span class="nav-number">24.4.</span> <span class="nav-text">Example 4: Use-After-Free</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Good-Practices"><span class="nav-number">25.</span> <span class="nav-text">Good Practices</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Writing-Good-Code"><span class="nav-number">25.1.</span> <span class="nav-text">Writing Good Code</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#String-Manipulation-Functions"><span class="nav-number">25.2.</span> <span class="nav-text">String Manipulation Functions</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dynamic-Memory-Allocation-1"><span class="nav-number">25.3.</span> <span class="nav-text">Dynamic Memory Allocation</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Quiz-review"><span class="nav-number">26.</span> <span class="nav-text">Quiz review</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quiz-2"><span class="nav-number">26.1.</span> <span class="nav-text">Quiz 2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Quiz-3"><span class="nav-number">26.2.</span> <span class="nav-text">Quiz 3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Quiz-4"><span class="nav-number">26.3.</span> <span class="nav-text">Quiz 4</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Quiz-5"><span class="nav-number">26.4.</span> <span class="nav-text">Quiz 5</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Quiz-6"><span class="nav-number">26.5.</span> <span class="nav-text">Quiz 6</span></a></li></ol></li></ol></div>
-        </div>
-        <!--/noindex-->
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
 
-        <div class="site-overview-wrap sidebar-panel">
-          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="Yangyang Cui"
-      src="/uploads/selfie2.jpg">
-  <p class="site-author-name" itemprop="name">Yangyang Cui</p>
-  <div class="site-description" itemprop="description">share everything I want to share</div>
-</div>
-<div class="site-state-wrap site-overview-item animated">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">13</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">9</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
-</div>
-  <div class="links-of-author site-overview-item animated">
-      <span class="links-of-author-item">
-        <a href="https://github.com/yangocean-sudo" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yangocean-sudo" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
-      </span>
-  </div>
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    </head>
+  </html>
+</html>
 
 
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-Programming-Languages-and-Paradigms-Part-1"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  Programming Languages and Paradigms -- Part 1
+</h1>
+ 
 
-        </div>
-      </div>
-    </div>
-  </aside>
-  <div class="sidebar-dimmer"></div>
-
-
+      
     </header>
-
-    
-  <div class="back-to-top" role="button">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-
-<noscript>
-  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
-</noscript>
-
-
-    <div class="main-inner post posts-expand">
-
-
-  
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/22/Programming-Languages-and-Paradigms-Part-1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/selfie2.jpg">
-      <meta itemprop="name" content="Yangyang Cui">
-      <meta itemprop="description" content="share everything I want to share">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YangOcean">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          Programming Languages and Paradigms -- Part 1
-        </h1>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-04-22 01:15:41" itemprop="dateCreated datePublished" datetime="2022-04-22T01:15:41+01:00">2022-04-22</time>
-    </span>
-      <span class="post-meta-item">
+     
+    <div class="article-meta">
+      <a href="/2022/04/22/Programming-Languages-and-Paradigms-Part-1/" class="article-date">
+  <time datetime="2022-04-22T00:15:41.000Z" itemprop="datePublished">2022-04-22</time>
+</a>   
+<div class="word_count">
+    <span class="post-time">
         <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">14.3k</span>
         </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2022-05-27 22:19:45" itemprop="dateModified" datetime="2022-05-27T22:19:45+01:00">2022-05-27</time>
-      </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">88 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
 
   
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-        <p>A programming paradigm is a fundamental style of programming used to classify programming languages.</p>
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>A programming paradigm is a fundamental style of programming used to classify programming languages.</p>
 <a id="more"></a>
 <h1 id="Main-Programming-Paradigms-and-Sub-Paradigms"><a href="#Main-Programming-Paradigms-and-Sub-Paradigms" class="headerlink" title="Main Programming Paradigms and Sub-Paradigms"></a>Main Programming Paradigms and Sub-Paradigms</h1><h2 id="Imperative"><a href="#Imperative" class="headerlink" title="Imperative"></a>Imperative</h2><ul>
 <li><p><em>Structured</em> (or procedural)</p>
@@ -1165,104 +963,486 @@ The result is a txt file called “test” with “hello, world!hello, world!<br
 </li>
 <li>The possibility to overflow in write mode a local buffer with strcpy can lead to a stack smashing attack.</li>
 </ul>
-
+ 
+      <!-- reward -->
+      
+      <div id="reword-out">
+        <div id="reward-btn">
+          打赏
+        </div>
+      </div>
+      
     </div>
-
-    
-    
     
 
-    <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/C/" rel="tag"># C</a>
-              <a href="/tags/26020-Programming-Languages-and-Paradigms/" rel="tag"># 26020 Programming Languages and Paradigms</a>
-          </div>
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
 
-        
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2022/04/22/Programming-Languages-and-Paradigms-Part-1/" alt="微信分享二维码">
+    </div>
+</div>
 
-          <div class="post-nav">
-            <div class="post-nav-item">
-                <a href="/2021/09/03/%E7%AE%97%E6%B3%95%EF%BC%9A%E6%A0%88%E3%80%81%E9%98%9F%E5%88%97%E3%80%81%E9%93%BE%E8%A1%A8/" rel="prev" title="算法：栈、队列、链表">
-                  <i class="fa fa-chevron-left"></i> 算法：栈、队列、链表
-                </a>
-            </div>
-            <div class="post-nav-item">
-                <a href="/2022/05/07/Distributed-System/" rel="next" title="Distributed System">
-                  Distributed System <i class="fa fa-chevron-right"></i>
-                </a>
-            </div>
-          </div>
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/26020-Programming-Languages-and-Paradigms/" rel="tag">26020 Programming Languages and Paradigms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C</a></li></ul>
+
     </footer>
-  </article>
-</div>
-
-
-
-
-
-
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      const commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-</div>
-  </main>
-
-  <footer class="footer">
-    <div class="footer-inner">
-
-
-<div class="copyright">
-  &copy; 
-  <span itemprop="copyrightYear">2022</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Yangyang Cui</span>
-</div>
-<div class="busuanzi-count">
-</div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
   </div>
 
+   
+  <nav class="article-nav">
+    
+      <a href="/2022/05/07/Distributed-System/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            Distributed System
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2021/09/03/%E7%AE%97%E6%B3%95%EF%BC%9A%E6%A0%88%E3%80%81%E9%98%9F%E5%88%97%E3%80%81%E9%93%BE%E8%A1%A8/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">算法：栈、队列、链表</div>
+      </a>
+    
+  </nav>
+
+  
+   
+  
+   
+    <script src="https://cdn.staticfile.org/twikoo/1.4.18/twikoo.all.min.js"></script>
+    <div id="twikoo" class="twikoo"></div>
+    <script>
+        twikoo.init({
+            envId: ""
+        })
+    </script>
+ 
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2015-2022
+        <i class="ri-heart-fill heart_icon"></i> Yangyang Cui
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
     </div>
-  </footer>
-
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
   
-  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
-
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="YangOcean"></a>
+  </div>
   
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E6%97%85%E8%A1%8C/">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" target="_blank" rel="noopener" href="http://shenyu-vip.lofter.com">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2019/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
 
 
+    
+    
 
-
-
-
-  
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-
-
-
+  </div>
 <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+
 </html>
