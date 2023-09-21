@@ -131,6 +131,135 @@
     
     
     <article
+  id="post-Leetcode0921-2"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2023/09/21/Leetcode0921-2/"
+    >Leetcode Study Day 4</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/09/21/Leetcode0921-2/" class="article-date">
+  <time datetime="2023-09-21T02:10:36.000Z" itemprop="datePublished">2023-09-21</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
+  </div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Rotate-Array"><a href="#Rotate-Array" class="headerlink" title="Rotate Array"></a>Rotate Array</h1><p>Given an integer array nums, rotate the array to the right by k steps, where k is non-negative.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: nums &#x3D; [1,2,3,4,5,6,7], k &#x3D; 3</span><br><span class="line">Output: [5,6,7,1,2,3,4]</span><br><span class="line">Explanation:</span><br><span class="line">rotate 1 steps to the right: [7,1,2,3,4,5,6]</span><br><span class="line">rotate 2 steps to the right: [6,7,1,2,3,4,5]</span><br><span class="line">rotate 3 steps to the right: [5,6,7,1,2,3,4]</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: nums &#x3D; [-1,-100,3,99], k &#x3D; 2</span><br><span class="line">Output: [3,99,-1,-100]</span><br><span class="line">Explanation: </span><br><span class="line">rotate 1 steps to the right: [99,-1,-100,3]</span><br><span class="line">rotate 2 steps to the right: [3,99,-1,-100]</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">1 &lt;&#x3D; nums.length &lt;&#x3D; 105</span><br><span class="line">-231 &lt;&#x3D; nums[i] &lt;&#x3D; 231 - 1</span><br><span class="line">0 &lt;&#x3D; k &lt;&#x3D; 105</span><br></pre></td></tr></table></figure>
+<h2 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h2><p>My solution is actually very simple, I make a for loop to run k times. In this loop, I push all elements to a new array but make their index number plus 1. Then I replace the first element with the last element.<br>This method is not very efficient, and face the Time Limit Exceeded problem.</p>
+<h2 id="Reverse-Method-Optimized"><a href="#Reverse-Method-Optimized" class="headerlink" title="Reverse Method (Optimized):"></a>Reverse Method (Optimized):</h2><p>Accroding to ChatGPT, the approach of reversing the array multiple times to achieve rotation is a well-known and clever technique that comes from a deeper understanding of how array rotations work. The code is very simple but it’s hard to relate reversation to this problem.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">rotate</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = nums.size();</span><br><span class="line">        k %= n; <span class="comment">// Handle cases where k is greater than n</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (k == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span>; <span class="comment">// No need to rotate if k is 0</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        reverse(nums.begin(), nums.end()); <span class="comment">// Reverse the entire array</span></span><br><span class="line">        reverse(nums.begin(), nums.begin() + k); <span class="comment">// Reverse the first k elements</span></span><br><span class="line">        reverse(nums.begin() + k, nums.end()); <span class="comment">// Reverse the remaining elements</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>From this solution, I learn that if k, which is the rotation time can mod n, i.e., k % n = 0, there is no need to rotate the array. Then we only need to reverse the whole array first, then reverse the first k element first, then reverse the rest element first. This solution is related to math, and it’s very efficient.</p>
+<h2 id="Using-Cyclic-Replacements"><a href="#Using-Cyclic-Replacements" class="headerlink" title="Using Cyclic Replacements:"></a>Using Cyclic Replacements:</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">rotate</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = nums.size();</span><br><span class="line">        k %= n; <span class="comment">// Handle cases where k is greater than n</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (k == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span>; <span class="comment">// No need to rotate if k is 0</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>; <span class="comment">// Count of elements processed</span></span><br><span class="line">        <span class="keyword">int</span> start = <span class="number">0</span>; <span class="comment">// Start position for each cycle</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (count &lt; n) &#123;</span><br><span class="line">            <span class="keyword">int</span> current = start;</span><br><span class="line">            <span class="keyword">int</span> prev = nums[start];</span><br><span class="line"></span><br><span class="line">            <span class="keyword">do</span> &#123;</span><br><span class="line">                <span class="keyword">int</span> next = (current + k) % n;</span><br><span class="line">                <span class="keyword">int</span> temp = nums[next];</span><br><span class="line">                nums[next] = prev;</span><br><span class="line">                prev = temp;</span><br><span class="line">                current = next;</span><br><span class="line">                count++;</span><br><span class="line">            &#125; <span class="keyword">while</span> (start != current);</span><br><span class="line"></span><br><span class="line">            start++; <span class="comment">// Move to the next cycle</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>I actually can’t get this idea, maybe leave it later…</p>
+<h2 id="Using-Extra-Array-Space-Optimized"><a href="#Using-Extra-Array-Space-Optimized" class="headerlink" title="Using Extra Array (Space-Optimized):"></a>Using Extra Array (Space-Optimized):</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">rotate</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = nums.size();</span><br><span class="line">        k %= n; <span class="comment">// Handle cases where k is greater than n</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (k == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span>; <span class="comment">// No need to rotate if k is 0</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">rotated</span><span class="params">(n)</span></span>; <span class="comment">// Create an extra array</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            rotated[(i + k) % n] = nums[i]; <span class="comment">// Copy elements to their rotated positions</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        nums = rotated; <span class="comment">// Copy the rotated array back to the original array</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>This solution is easier to understand. The main idea is to create a new array to store the rotated array. Then we copy the elements to their rotated positions. Finally, we copy the rotated array back to the original array. One thing that i need to understand is that we can use mod to get the rotated position of each element.</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Math/" rel="tag">Math</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Two-Pointers/" rel="tag">Two Pointers</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
+  id="post-Leetcode0921"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2023/09/21/Leetcode0921/"
+    >Leetcode Study Day 4</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/09/21/Leetcode0921/" class="article-date">
+  <time datetime="2023-09-21T01:33:20.000Z" itemprop="datePublished">2023-09-21</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
+  </div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Majority-Element"><a href="#Majority-Element" class="headerlink" title="Majority Element"></a>Majority Element</h1><p>Given an array nums of size n, return the majority element.</p>
+<p>The majority element is the element that appears more than ⌊n / 2⌋ times. You may assume that the majority element always exists in the array.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: nums &#x3D; [3,2,3]</span><br><span class="line">Output: 3</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: nums &#x3D; [2,2,1,1,1,2,2]</span><br><span class="line">Output: 2</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">n &#x3D;&#x3D; nums.length</span><br><span class="line">1 &lt;&#x3D; n &lt;&#x3D; 5 * 104</span><br><span class="line">-109 &lt;&#x3D; nums[i] &lt;&#x3D; 109</span><br></pre></td></tr></table></figure>
+<h1 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h1><h2 id="Sort-the-array"><a href="#Sort-the-array" class="headerlink" title="Sort the array"></a>Sort the array</h2><p>We sort the array first in the non-decreasing order.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sort(nums.begin(), nums.end(), [](<span class="keyword">int</span> &amp; a, <span class="keyword">int</span> &amp; b)&#123;</span><br><span class="line">            <span class="keyword">return</span> a &lt; b ;</span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="Count-the-number-of-each-element"><a href="#Count-the-number-of-each-element" class="headerlink" title="Count the number of each element"></a>Count the number of each element</h2><p>Then we loop the array and count how many times one value appears in the array. As the array is sorted already, we just need to check whether the current element is equal to the previous one. If they are equal, we plus 1 to the count, otherwise, we set the count to 0. We also set one variable to store the best count, and another variable to store the value that has the best count. During the loop, we update the best count and the value that has most count.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; nums.size(); i++)&#123;</span><br><span class="line">           <span class="keyword">if</span> (nums[i] == nums[i<span class="number">-1</span>])&#123;</span><br><span class="line">               count ++;</span><br><span class="line">           &#125; </span><br><span class="line">           <span class="keyword">else</span>&#123;</span><br><span class="line">               count = <span class="number">0</span>;</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="keyword">if</span> (count &gt; best_count)&#123;</span><br><span class="line">               best_count = count;</span><br><span class="line">               return_val = nums[i];</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Full-code"><a href="#Full-code" class="headerlink" title="Full code"></a>Full code</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">majorityElement</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> best_count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> return_val = <span class="number">0</span>;</span><br><span class="line">        sort(nums.begin(), nums.end(), [](<span class="keyword">int</span> &amp; a, <span class="keyword">int</span> &amp; b)&#123;</span><br><span class="line">            <span class="keyword">return</span> a &lt; b ;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="keyword">if</span> (nums.size() == <span class="number">1</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> nums[<span class="number">0</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; nums.size(); i++)&#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[i] == nums[i<span class="number">-1</span>])&#123;</span><br><span class="line">                count ++;</span><br><span class="line">            &#125; </span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                count = <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (count &gt; best_count)&#123;</span><br><span class="line">                best_count = count;</span><br><span class="line">                return_val = nums[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> return_val;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="Improved-Solution"><a href="#Improved-Solution" class="headerlink" title="Improved Solution"></a>Improved Solution</h2><p>ChatGPT provides a better solution:</p>
+<p>You can solve this problem in linear time and O(1) space using a well-known algorithm called “Boyer-Moore Majority Vote Algorithm.” This algorithm allows you to find the majority element in an array efficiently.</p>
+<p>Here’s the algorithm in C++:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">majorityElement</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> candidate = nums[<span class="number">0</span>]; <span class="comment">// Initialize the candidate as the first element</span></span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">1</span>; <span class="comment">// Initialize the count of the candidate element</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; nums.size(); i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (count == <span class="number">0</span>) &#123;</span><br><span class="line">                candidate = nums[i]; <span class="comment">// Update the candidate if count becomes 0</span></span><br><span class="line">                count = <span class="number">1</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (nums[i] == candidate) &#123;</span><br><span class="line">                count++; <span class="comment">// Increment count if the current element is the same as the candidate</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                count--; <span class="comment">// Decrement count if the current element is different from the candidate</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> candidate; <span class="comment">// The candidate is the majority element</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>Compare to my solution, this solution doesn’t sort the array, which save a lot of time. Also, it only have two variables. If the count is not equal to zero, which means the candidate variable is still the majority value. If the count is equal to zero, which means the candidate variable is not the majority value, we update the candidate variable to the current element, and set the count to 1.</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Counting/" rel="tag">Counting</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Divide-and-Conquer/" rel="tag">Divide and Conquer</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hash-Table/" rel="tag">Hash Table</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Sorting/" rel="tag">Sorting</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
   id="post-LeetCode0920"
   class="article article-type-post"
   itemscope
@@ -143,7 +272,7 @@
        
 <h2 itemprop="name">
   <a class="article-title" href="/2023/09/20/LeetCode0920/"
-    >LeetCode0920</a> 
+    >Leetcode Study Day 3</a> 
 </h2>
  
 
@@ -611,119 +740,6 @@
     <footer class="article-footer">
        
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-我爬取了B站1000部影视资源，发现观众老爷爱看这些片"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2021/08/29/%E6%88%91%E7%88%AC%E5%8F%96%E4%BA%86B%E7%AB%991000%E9%83%A8%E5%BD%B1%E8%A7%86%E8%B5%84%E6%BA%90%EF%BC%8C%E5%8F%91%E7%8E%B0%E8%A7%82%E4%BC%97%E8%80%81%E7%88%B7%E7%88%B1%E7%9C%8B%E8%BF%99%E4%BA%9B%E7%89%87/"
-    >I crawled over thousand film and televison data in Bilibili, and found audiences prefer to these kind of movies...</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2021/08/29/%E6%88%91%E7%88%AC%E5%8F%96%E4%BA%86B%E7%AB%991000%E9%83%A8%E5%BD%B1%E8%A7%86%E8%B5%84%E6%BA%90%EF%BC%8C%E5%8F%91%E7%8E%B0%E8%A7%82%E4%BC%97%E8%80%81%E7%88%B7%E7%88%B1%E7%9C%8B%E8%BF%99%E4%BA%9B%E7%89%87/" class="article-date">
-  <time datetime="2021-08-29T01:29:15.000Z" itemprop="datePublished">2021-08-29</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Coding/">Coding</a>
-  </div>
- 
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>This article doesn’t contain any coding process, you can find the whole codes in github: <a target="_blank" rel="noopener" href="https://github.com/yangocean-sudo/BiliBili-Crawler">https://github.com/yangocean-sudo/BiliBili-Crawler</a></p>
-<p>This article is firsrt published in Zhihu:</p> 
-      <a class="article-more-link" href="/2021/08/29/%E6%88%91%E7%88%AC%E5%8F%96%E4%BA%86B%E7%AB%991000%E9%83%A8%E5%BD%B1%E8%A7%86%E8%B5%84%E6%BA%90%EF%BC%8C%E5%8F%91%E7%8E%B0%E8%A7%82%E4%BC%97%E8%80%81%E7%88%B7%E7%88%B1%E7%9C%8B%E8%BF%99%E4%BA%9B%E7%89%87/"
-        >Read More...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Data-Analysis/" rel="tag">Data Analysis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web-crawling/" rel="tag">Web crawling</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-写一个微博奶茶推荐的机器人"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2021/07/26/%E5%86%99%E4%B8%80%E4%B8%AA%E5%BE%AE%E5%8D%9A%E5%A5%B6%E8%8C%B6%E6%8E%A8%E8%8D%90%E7%9A%84%E6%9C%BA%E5%99%A8%E4%BA%BA/"
-    >写一个微博奶茶推荐的机器人</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2021/07/26/%E5%86%99%E4%B8%80%E4%B8%AA%E5%BE%AE%E5%8D%9A%E5%A5%B6%E8%8C%B6%E6%8E%A8%E8%8D%90%E7%9A%84%E6%9C%BA%E5%99%A8%E4%BA%BA/" class="article-date">
-  <time datetime="2021-07-26T07:25:10.000Z" itemprop="datePublished">2021-07-26</time>
-</a>  
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>想尝试该功能的请发送微博@今天喝点啥捏，脚本不定期开启</p>
-<p>前几天看到有人在微博上@今天吃啥的bot，然后会秒收到一条随机的菜品推荐。这简直是选择困难症的福音，作为奶茶大户，我想着做一个奶茶推荐的bot。</p>
-<p>在网上查找了许多资料但都没有类似的bot，最近一个类似的代码是2015年的，完全不能用。</p> 
-      <a class="article-more-link" href="/2021/07/26/%E5%86%99%E4%B8%80%E4%B8%AA%E5%BE%AE%E5%8D%9A%E5%A5%B6%E8%8C%B6%E6%8E%A8%E8%8D%90%E7%9A%84%E6%9C%BA%E5%99%A8%E4%BA%BA/"
-        >Read More...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Self-Project/" rel="tag">Self Project</a></li></ul>
 
     </footer>
   </div>
