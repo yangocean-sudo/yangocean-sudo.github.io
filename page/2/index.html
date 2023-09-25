@@ -131,6 +131,139 @@
     
     
     <article
+  id="post-LeetCode0919"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2023/09/19/LeetCode0919/"
+    >Leetcode Study Day 2</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/09/19/LeetCode0919/" class="article-date">
+  <time datetime="2023-09-19T01:33:52.000Z" itemprop="datePublished">2023-09-19</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
+  </div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Merge-Sorted-Array"><a href="#Merge-Sorted-Array" class="headerlink" title="Merge Sorted Array"></a>Merge Sorted Array</h1><p>You are given two integer arrays nums1 and nums2, sorted in non-decreasing order, and two integers m and n, representing the number of elements in nums1 and nums2 respectively.</p>
+<p>Merge nums1 and nums2 into a single array sorted in non-decreasing order.</p>
+<p>The final sorted array should not be returned by the function, but instead be stored inside the array nums1. To accommodate this, nums1 has a length of m + n, where the first m elements denote the elements that should be merged, and the last n elements are set to 0 and should be ignored. nums2 has a length of n.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line">Input: nums1 &#x3D; [1,2,3,0,0,0], m &#x3D; 3, nums2 &#x3D; [2,5,6], n &#x3D; 3</span><br><span class="line">Output: [1,2,2,3,5,6]</span><br><span class="line">Explanation: The arrays we are merging are [1,2,3] and [2,5,6].</span><br><span class="line">The result of the merge is [1,2,2,3,5,6] with the underlined elements coming from nums1.</span><br><span class="line"></span><br><span class="line">Example 2:</span><br><span class="line">Input: nums1 &#x3D; [1], m &#x3D; 1, nums2 &#x3D; [], n &#x3D; 0</span><br><span class="line">Output: [1]</span><br><span class="line">Explanation: The arrays we are merging are [1] and [].</span><br><span class="line">The result of the merge is [1].</span><br><span class="line"></span><br><span class="line">Example 3:</span><br><span class="line">Input: nums1 &#x3D; [0], m &#x3D; 0, nums2 &#x3D; [1], n &#x3D; 1</span><br><span class="line">Output: [1]</span><br><span class="line">Explanation: The arrays we are merging are [] and [1].</span><br><span class="line">The result of the merge is [1].</span><br><span class="line">Note that because m &#x3D; 0, there are no elements in nums1. The 0 is only there to ensure the merge result can fit in nums1.</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Constraints:</span><br><span class="line">nums1.length &#x3D;&#x3D; m + n</span><br><span class="line">nums2.length &#x3D;&#x3D; n</span><br><span class="line">0 &lt;&#x3D; m, n &lt;&#x3D; 200</span><br><span class="line">1 &lt;&#x3D; m + n &lt;&#x3D; 200</span><br><span class="line">-109 &lt;&#x3D; nums1[i], nums2[j] &lt;&#x3D; 109</span><br></pre></td></tr></table></figure>
+<h2 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h2><h3 id="Merge-two-arrays"><a href="#Merge-two-arrays" class="headerlink" title="Merge two arrays"></a>Merge two arrays</h3><p>Firstly, we loop the first array <code>nums1</code>, if we find the element in this array is 0 and the index is larger than <code>m</code>, we replace it with the element in <code>nums2</code> start from 0 to n, we call it <code>j</code> in my code.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> j = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums1.size(); i ++)&#123;</span><br><span class="line">    <span class="keyword">if</span> (nums1[i] == <span class="number">0</span> &amp;&amp; n != <span class="number">0</span> &amp;&amp; i &gt;= m)&#123;</span><br><span class="line">        nums1[i] = nums2[j];</span><br><span class="line">        j++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="If-m-is-0"><a href="#If-m-is-0" class="headerlink" title="If m is 0"></a>If m is 0</h3><p>If m is 0, which means the first array is empty, we just replace the first array with the second array.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> ( m == <span class="number">0</span>)&#123;</span><br><span class="line">    nums1 = nums2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Sort-the-Array-nums1"><a href="#Sort-the-Array-nums1" class="headerlink" title="Sort the Array nums1"></a>Sort the Array <code>nums1</code></h3><p>After merging the two arrays, we sort the array <code>nums1</code> by using <code>sort()</code> function with lambda function.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sort (nums1.begin(), nums1.end(), [](<span class="keyword">int</span>&amp; a, <span class="keyword">int</span>&amp; b)&#123;</span><br><span class="line">    <span class="keyword">return</span> a &lt; b;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="Full-code"><a href="#Full-code" class="headerlink" title="Full code"></a>Full code</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">merge</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums1, <span class="keyword">int</span> m, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums2, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> j = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums1.size(); i ++)&#123;</span><br><span class="line">            <span class="keyword">if</span> (nums1[i] == <span class="number">0</span> &amp;&amp; n != <span class="number">0</span> &amp;&amp; i &gt;= m)&#123;</span><br><span class="line">                nums1[i] = nums2[j];</span><br><span class="line">                j++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> ( m == <span class="number">0</span>)&#123;</span><br><span class="line">            nums1 = nums2;</span><br><span class="line">        &#125;</span><br><span class="line">        sort (nums1.begin(), nums1.end(), [](<span class="keyword">int</span>&amp; a, <span class="keyword">int</span>&amp; b)&#123;</span><br><span class="line">            <span class="keyword">return</span> a &lt; b;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="Time-complexity"><a href="#Time-complexity" class="headerlink" title="Time complexity"></a>Time complexity</h3><p>The for loop runs for <code>nums1.size()</code> iterations, which is <code>m + n</code> in the worst case.<br>Inside the loop, there is a conditional statement and potentially a <code>nums1 </code>assignment, both of which have constant time complexity.<br>The dominant factor in the time complexity is the sorting step at the end of the code:</p>
+<p>Sorting nums1 using <code>std::sort</code> has a time complexity of <code>O((m + n) * log(m + n))</code> in the worst case, where <code>m + n</code> is the total number of elements in nums1 and nums2.<br>So, the overall time complexity of the solution is <code>O((m + n) * log(m + n))</code> due to the sorting step.</p>
+<h2 id="Improved-solution-run-in-O-m-n-time"><a href="#Improved-solution-run-in-O-m-n-time" class="headerlink" title="Improved solution run in O(m + n) time"></a>Improved solution run in O(m + n) time</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">merge</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums1, <span class="keyword">int</span> m, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums2, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> i = m - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> j = n - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> k = m + n - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (i &gt;= <span class="number">0</span> &amp;&amp; j &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums1[i] &gt; nums2[j]) &#123;</span><br><span class="line">                nums1[k--] = nums1[i--];</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                nums1[k--] = nums2[j--];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (j &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">            nums1[k--] = nums2[j--];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>The key idea in this algorithm is to work from the end of the arrays towards the beginning, comparing elements and placing them in the correct position in nums1. This approach efficiently merges the two sorted arrays without the need for additional sorting</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Sorting/" rel="tag">Sorting</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Two-Pointers/" rel="tag">Two Pointers</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
+  id="post-LeetCode0918"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2023/09/18/LeetCode0918/"
+    >Leetcode Study Day 1</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/09/18/LeetCode0918/" class="article-date">
+  <time datetime="2023-09-18T07:35:15.000Z" itemprop="datePublished">2023-09-18</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
+  </div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="The-K-Weakest-Rows-in-a-Matrix"><a href="#The-K-Weakest-Rows-in-a-Matrix" class="headerlink" title="The K Weakest Rows in a Matrix"></a>The K Weakest Rows in a Matrix</h1><p>You are given an m x n binary matrix mat of 1’s (representing soldiers) and 0’s (representing civilians). The soldiers are positioned in front of the civilians. That is, all the 1’s will appear to the left of all the 0’s in each row.</p>
+<p>A row i is weaker than a row j if one of the following is true:</p>
+<p>The number of soldiers in row i is less than the number of soldiers in row j.<br>Both rows have the same number of soldiers and i &lt; j.<br>Return the indices of the k weakest rows in the matrix ordered from weakest to strongest.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: mat &#x3D; </span><br><span class="line">[[1,1,0,0,0],</span><br><span class="line"> [1,1,1,1,0],</span><br><span class="line"> [1,0,0,0,0],</span><br><span class="line"> [1,1,0,0,0],</span><br><span class="line"> [1,1,1,1,1]], </span><br><span class="line">k &#x3D; 3</span><br><span class="line">Output: [2,0,3]</span><br><span class="line">Explanation: </span><br><span class="line">The number of soldiers in each row is: </span><br><span class="line">- Row 0: 2 </span><br><span class="line">- Row 1: 4 </span><br><span class="line">- Row 2: 1 </span><br><span class="line">- Row 3: 2 </span><br><span class="line">- Row 4: 5 </span><br><span class="line">The rows ordered from weakest to strongest are [2,0,3,1,4].</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: mat &#x3D; </span><br><span class="line">[[1,0,0,0],</span><br><span class="line"> [1,1,1,1],</span><br><span class="line"> [1,0,0,0],</span><br><span class="line"> [1,0,0,0]], </span><br><span class="line">k &#x3D; 2</span><br><span class="line">Output: [0,2]</span><br><span class="line">Explanation: </span><br><span class="line">The number of soldiers in each row is: </span><br><span class="line">- Row 0: 1 </span><br><span class="line">- Row 1: 4 </span><br><span class="line">- Row 2: 1 </span><br><span class="line">- Row 3: 1 </span><br><span class="line">The rows ordered from weakest to strongest are [0,2,3,1].</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">m &#x3D;&#x3D; mat.length</span><br><span class="line">n &#x3D;&#x3D; mat[i].length</span><br><span class="line">2 &lt;&#x3D; n, m &lt;&#x3D; 100</span><br><span class="line">1 &lt;&#x3D; k &lt;&#x3D; m</span><br><span class="line">matrix[i][j] is either 0 or 1.</span><br></pre></td></tr></table></figure>
+<h2 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h2><h3 id="Count-soliders-in-the-row"><a href="#Count-soliders-in-the-row" class="headerlink" title="Count soliders in the row"></a>Count soliders in the row</h3><p>Since defining whether a row is weak, is based on the number of 1s in this row. So we can count how many 1s in a row first.</p>
+<p>And since the 1s are always infront of the 0s, so once there is a 0 in the row, we can stop the loop. We then push the number of 1s and the index of the row into a vector.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">pair</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;&gt; strength;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; mat.size(); i++)&#123;</span><br><span class="line">    <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j =<span class="number">0</span>; j &lt; mat[i].size(); j++)&#123;</span><br><span class="line">    <span class="keyword">if</span> (mat[i][j] == <span class="number">1</span>) </span><br><span class="line">        count ++;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    strength.push_back(&#123;count, i&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Sort-the-vector"><a href="#Sort-the-vector" class="headerlink" title="Sort the vector"></a>Sort the vector</h3><p>After getting a vector of number of soliders and the index of each rows,<br>we then sort this vector based on this idea: we first consider the number of soliders and put the index of row with less soliders number in front of the row with more soliders number. If the number of soldiers are the same, then we compare the index of the row, and put the row with smaller index in front of the row with bigger index.</p>
+<p>Explanation of this sort function: the first and the second parameters are the start and end position of the array, the third parameter is a lambda function, which is used to compare two elements in the array by the logic inside the function.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sort(strength.begin(), strength.end(), [](<span class="keyword">const</span> <span class="built_in">pair</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;&amp; a, <span class="keyword">const</span> <span class="built_in">pair</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;&amp; b) &#123;</span><br><span class="line">        <span class="keyword">if</span> (a.first != b.first) &#123;</span><br><span class="line">            <span class="keyword">return</span> a.first &lt; b.first;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> a.second &lt; b.second;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="Get-the-result"><a href="#Get-the-result" class="headerlink" title="Get the result"></a>Get the result</h2><p>After sorting the vector, we can get the result by pushing the index of the row into a vector.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; result;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; k; ++i) &#123;</span><br><span class="line">    result.push_back(strength[i].second);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> result;</span><br></pre></td></tr></table></figure>
+<h3 id="The-full-code"><a href="#The-full-code" class="headerlink" title="The full code"></a>The full code</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">kWeakestRows</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; mat, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">      <span class="built_in">vector</span>&lt;<span class="built_in">pair</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;&gt; strength;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; mat.size(); i++)&#123;</span><br><span class="line">          <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">          <span class="keyword">for</span> (<span class="keyword">int</span> j =<span class="number">0</span>; j &lt; mat[i].size(); j++)&#123;</span><br><span class="line">            <span class="keyword">if</span> (mat[i][j] == <span class="number">1</span>) </span><br><span class="line">              count ++;</span><br><span class="line">             <span class="keyword">else</span></span><br><span class="line">              <span class="keyword">break</span>;</span><br><span class="line">          &#125;</span><br><span class="line">          strength.push_back(&#123;count, i&#125;);</span><br><span class="line">        &#125;</span><br><span class="line">      <span class="comment">// Sort the strength vector based on the number of soldiers and then by row index</span></span><br><span class="line">      sort(strength.begin(), strength.end(), [](<span class="keyword">const</span> <span class="built_in">pair</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;&amp; a, <span class="keyword">const</span> <span class="built_in">pair</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;&amp; b) &#123;</span><br><span class="line">        <span class="keyword">if</span> (a.first != b.first) &#123;</span><br><span class="line">            <span class="keyword">return</span> a.first &lt; b.first;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> a.second &lt; b.second;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Extract the first k indices from the sorted strength vector</span></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; result;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; k; ++i) &#123;</span><br><span class="line">        result.push_back(strength[i].second);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
   id="post-application"
   class="article article-type-post"
   itemscope
@@ -560,120 +693,6 @@
        
   <p>坦克大战做的差不多了，作为收尾，讲讲计时器和如何切换页面<br>并附上完整的代码链接</p> 
       <a class="article-more-link" href="/2021/04/11/Unity%E5%85%A5%E9%97%A8%E7%AC%AC%E4%B8%83%E5%A4%A9%EF%BC%9A%E8%AE%A1%E6%97%B6%E5%99%A8-%E5%88%87%E6%8D%A2%E9%A1%B5%E9%9D%A2/"
-        >Read More...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Unity/" rel="tag">Unity</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-Unity入门第六天：敌人AI，地图随机生成"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2021/03/24/Unity%E5%85%A5%E9%97%A8%E7%AC%AC%E5%85%AD%E5%A4%A9%EF%BC%9A%E6%95%8C%E4%BA%BAAI%EF%BC%8C%E5%9C%B0%E5%9B%BE%E9%9A%8F%E6%9C%BA%E7%94%9F%E6%88%90/"
-    >Unity入门第六天：敌人AI，地图随机生成</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2021/03/24/Unity%E5%85%A5%E9%97%A8%E7%AC%AC%E5%85%AD%E5%A4%A9%EF%BC%9A%E6%95%8C%E4%BA%BAAI%EF%BC%8C%E5%9C%B0%E5%9B%BE%E9%9A%8F%E6%9C%BA%E7%94%9F%E6%88%90/" class="article-date">
-  <time datetime="2021-03-24T13:55:33.000Z" itemprop="datePublished">2021-03-24</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Coding/">Coding</a>
-  </div>
- 
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p><img src="/images/tank_demo2.gif"><br>\像模像样/<br>本篇讲述了如何使敌方坦克的进攻更加智能，以及如何生成随机的地图</p> 
-      <a class="article-more-link" href="/2021/03/24/Unity%E5%85%A5%E9%97%A8%E7%AC%AC%E5%85%AD%E5%A4%A9%EF%BC%9A%E6%95%8C%E4%BA%BAAI%EF%BC%8C%E5%9C%B0%E5%9B%BE%E9%9A%8F%E6%9C%BA%E7%94%9F%E6%88%90/"
-        >Read More...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Unity/" rel="tag">Unity</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-Unity入门第五天：玩家与敌人的生成，基地爆炸"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2021/03/23/Unity%E5%85%A5%E9%97%A8%E7%AC%AC%E4%BA%94%E5%A4%A9%EF%BC%9A%E7%8E%A9%E5%AE%B6%E4%B8%8E%E6%95%8C%E4%BA%BA%E7%9A%84%E7%94%9F%E6%88%90%EF%BC%8C%E5%9F%BA%E5%9C%B0%E7%88%86%E7%82%B8/"
-    >Unity入门第五天：玩家与敌人的生成，基地爆炸动画</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2021/03/23/Unity%E5%85%A5%E9%97%A8%E7%AC%AC%E4%BA%94%E5%A4%A9%EF%BC%9A%E7%8E%A9%E5%AE%B6%E4%B8%8E%E6%95%8C%E4%BA%BA%E7%9A%84%E7%94%9F%E6%88%90%EF%BC%8C%E5%9F%BA%E5%9C%B0%E7%88%86%E7%82%B8/" class="article-date">
-  <time datetime="2021-03-23T14:30:42.000Z" itemprop="datePublished">2021-03-23</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Coding/">Coding</a>
-  </div>
- 
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>本篇讲述了在游戏开始时的角色是如何生成的，以及基地爆炸动画的触发和设置</p> 
-      <a class="article-more-link" href="/2021/03/23/Unity%E5%85%A5%E9%97%A8%E7%AC%AC%E4%BA%94%E5%A4%A9%EF%BC%9A%E7%8E%A9%E5%AE%B6%E4%B8%8E%E6%95%8C%E4%BA%BA%E7%9A%84%E7%94%9F%E6%88%90%EF%BC%8C%E5%9F%BA%E5%9C%B0%E7%88%86%E7%82%B8/"
         >Read More...</a
       >
        
