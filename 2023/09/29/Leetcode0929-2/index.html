@@ -13,7 +13,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title> Yangyang</title>
+      <title>Leetcode Study Day 11 |  Yangyang</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon2.ico" />
@@ -53,324 +53,129 @@
     
       
     <main class="content on">
-      
-<section class="cover">
+      <section class="outer">
+  <article
+  id="post-Leetcode0929-2"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
     
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  Leetcode Study Day 11
+</h1>
+ 
+
       
-      <a class="forkMe" href="https://github.com/yangocean-sudo"
-        target="_blank"><img width="149" height="149" src="/images/forkme.png"
-          class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/09/29/Leetcode0929-2/" class="article-date">
+  <time datetime="2023-09-29T14:03:12.000Z" itemprop="datePublished">2023-09-29</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
+  </div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Zigzag-Conversion"><a href="#Zigzag-Conversion" class="headerlink" title="Zigzag Conversion"></a>Zigzag Conversion</h1><p>The string “PAYPALISHIRING” is written in a zigzag pattern on a given number of rows like this: (you may want to display this pattern in a fixed font for better legibility)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">P   A   H   N</span><br><span class="line">A P L S I I G</span><br><span class="line">Y   I   R</span><br></pre></td></tr></table></figure>
+<p>And then read line by line: “PAHNAPLSIIGYIR”</p>
+<p>Write the code that will take a string and make this conversion given a number of rows:</p>
+<p>string convert(string s, int numRows);</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: s &#x3D; &quot;PAYPALISHIRING&quot;, numRows &#x3D; 3</span><br><span class="line">Output: &quot;PAHNAPLSIIGYIR&quot;</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: s &#x3D; &quot;PAYPALISHIRING&quot;, numRows &#x3D; 4</span><br><span class="line">Output: &quot;PINALSIGYAHRPI&quot;</span><br><span class="line">Explanation:</span><br><span class="line">P     I    N</span><br><span class="line">A   L S  I G</span><br><span class="line">Y A   H R</span><br><span class="line">P     I</span><br><span class="line">Example 3:</span><br><span class="line"></span><br><span class="line">Input: s &#x3D; &quot;A&quot;, numRows &#x3D; 1</span><br><span class="line">Output: &quot;A&quot;</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">1 &lt;&#x3D; s.length &lt;&#x3D; 1000</span><br><span class="line">s consists of English letters (lower-case and upper-case), &#39;,&#39; and &#39;.&#39;.</span><br><span class="line">1 &lt;&#x3D; numRows &lt;&#x3D; 1000</span><br></pre></td></tr></table></figure>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>I asked chatGPT for help and it shows me the pseudo code and the idea:</p>
+<p>Let’s first understand the pattern of the zigzag.</p>
+<p>For <code>numRows = 3</code>, the sequence of rows for the characters is: <code>0, 1, 2, 1, 0, 1, 2, 1, 0...</code></p>
+<p>For <code>numRows = 4</code>, the sequence is: <code>0, 1, 2, 3, 2, 1, 0, 1, 2, 3, 2, 1, 0...</code></p>
+<p>So, the pattern is basically to increment the row number from 0 to <code>numRows - 1</code>, then decrement it back to 0, and repeat.</p>
+<p>Given this understanding, you can approach this problem using the following steps:</p>
+<ol>
+<li>Initialize an array of strings <code>rows</code> of size <code>numRows</code>.</li>
+<li>Iterate through each character of the input string <code>s</code>.</li>
+<li>For each character, determine its row in the zigzag pattern and append it to the corresponding row’s string in the <code>rows</code> array.</li>
+<li>Finally, concatenate all the rows to get the final result.</li>
+</ol>
+<p>Here’s the pseudocode:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">function convert(s, numRows):</span><br><span class="line">    if numRows &#x3D;&#x3D; 1:</span><br><span class="line">        return s</span><br><span class="line"></span><br><span class="line">    rows &#x3D; array of empty strings of size numRows</span><br><span class="line">    currentRow &#x3D; 0</span><br><span class="line">    direction &#x3D; -1  &#x2F;&#x2F; -1 for moving up, 1 for moving down</span><br><span class="line"></span><br><span class="line">    for each character c in s:</span><br><span class="line">        rows[currentRow] +&#x3D; c</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; Change direction if we&#39;re at the top or bottom</span><br><span class="line">        if currentRow &#x3D;&#x3D; 0 or currentRow &#x3D;&#x3D; numRows - 1:</span><br><span class="line">            direction *&#x3D; -1</span><br><span class="line"></span><br><span class="line">        currentRow +&#x3D; direction</span><br><span class="line"></span><br><span class="line">    result &#x3D; concatenate all strings in rows</span><br><span class="line">    return result</span><br></pre></td></tr></table></figure>
+<p>Here’s the corresponding C++ code:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">convert</span><span class="params">(<span class="built_in">string</span> s, <span class="keyword">int</span> numRows)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (numRows == <span class="number">1</span>) <span class="keyword">return</span> s;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; <span class="title">rows</span><span class="params">(min(numRows, <span class="keyword">int</span>(s.size())))</span></span>;</span><br><span class="line">    <span class="keyword">int</span> currentRow = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> direction = <span class="number">-1</span>;  <span class="comment">// -1 for moving up, 1 for moving down</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">char</span> c : s) &#123;</span><br><span class="line">        rows[currentRow] += c;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (currentRow == <span class="number">0</span> || currentRow == numRows - <span class="number">1</span>) &#123;</span><br><span class="line">            direction *= <span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        currentRow += direction;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">string</span> result;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">string</span> row : rows) &#123;</span><br><span class="line">        result += row;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
     
-  <div class="cover-frame">
-    <div class="bg-box">
-      <img src="/images/wall_paper_code_sleep.jpeg" alt="image frame" />
-    </div>
-    <div class="cover-inner text-center text-white">
-      <h1><a href="/">Yangyang</a></h1>
-      <div id="subtitle-box">
-        
-          <span id="subtitle">Think. Learn. Create</span>
-        
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        Share
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
       </div>
-      <div>
-        
-      </div>
-    </div>
-  </div>
-  <div class="cover-learn-more">
-    <a href="javascript:void(0)" class="anchor"><i class="ri-arrow-down-line"></i></a>
-  </div>
-</section>
-
-
-
-
-<!-- Subtitle -->
-
-<div id="main">
-  <section class="outer">
-  
-  
-  
-<div class="notice" style="margin-top:50px">
-    <i class="ri-heart-fill"></i>
-    <div class="notice-content">Try to update hard.</div>
 </div>
 
-
-<style>
-    .notice {
-        padding: 20px;
-        border: 1px dashed #e6e6e6;
-        color: #969696;
-        position: relative;
-        display: inline-block;
-        width: 100%;
-        background: #fbfbfb50;
-        border-radius: 10px;
-    }
-
-    .notice i {
-        float: left;
-        color: #999;
-        font-size: 16px;
-        padding-right: 10px;
-        vertical-align: middle;
-        margin-top: -2px;
-    }
-
-    .notice-content {
-        display: initial;
-        vertical-align: middle;
-    }
-</style>
-  
-  <article class="articles">
-    
-    
-    
-    
-    <article
-  id="post-Unity入门第四天：子弹接触物体的反应I"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2021/03/22/Unity%E5%85%A5%E9%97%A8%E7%AC%AC%E5%9B%9B%E5%A4%A9%EF%BC%9A%E5%AD%90%E5%BC%B9%E6%8E%A5%E8%A7%A6%E7%89%A9%E4%BD%93%E7%9A%84%E5%8F%8D%E5%BA%94I/"
-    >Unity入门第四天：子弹接触物体的反应</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2021/03/22/Unity%E5%85%A5%E9%97%A8%E7%AC%AC%E5%9B%9B%E5%A4%A9%EF%BC%9A%E5%AD%90%E5%BC%B9%E6%8E%A5%E8%A7%A6%E7%89%A9%E4%BD%93%E7%9A%84%E5%8F%8D%E5%BA%94I/" class="article-date">
-  <time datetime="2021-03-22T12:54:54.000Z" itemprop="datePublished">2021-03-22</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Coding/">Coding</a>
-  </div>
- 
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2023/09/29/Leetcode0929-2/" alt="微信分享二维码">
     </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>本篇讲述了当子弹遇到玩家，基地，砖墙和铁墙时的不同情况。</p> 
-      <a class="article-more-link" href="/2021/03/22/Unity%E5%85%A5%E9%97%A8%E7%AC%AC%E5%9B%9B%E5%A4%A9%EF%BC%9A%E5%AD%90%E5%BC%B9%E6%8E%A5%E8%A7%A6%E7%89%A9%E4%BD%93%E7%9A%84%E5%8F%8D%E5%BA%94I/"
-        >Read More...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
+</div>
 
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Unity/" rel="tag">Unity</a></li></ul>
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/String/" rel="tag">String</a></li></ul>
 
     </footer>
   </div>
 
    
-   
-  
-</article>
-
+  <nav class="article-nav">
     
-    <article
-  id="post-Unity入门第三天：子弹发射，触发器，标签与无敌死亡动画"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
     
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2021/03/15/Unity%E5%85%A5%E9%97%A8%E7%AC%AC%E4%B8%89%E5%A4%A9%EF%BC%9A%E5%AD%90%E5%BC%B9%E5%8F%91%E5%B0%84%EF%BC%8C%E8%A7%A6%E5%8F%91%E5%99%A8%EF%BC%8C%E6%A0%87%E7%AD%BE%E4%B8%8E%E6%97%A0%E6%95%8C%E6%AD%BB%E4%BA%A1%E5%8A%A8%E7%94%BB/"
-    >Unity入门第三天：子弹发射，触发器，标签与无敌死亡动画</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2021/03/15/Unity%E5%85%A5%E9%97%A8%E7%AC%AC%E4%B8%89%E5%A4%A9%EF%BC%9A%E5%AD%90%E5%BC%B9%E5%8F%91%E5%B0%84%EF%BC%8C%E8%A7%A6%E5%8F%91%E5%99%A8%EF%BC%8C%E6%A0%87%E7%AD%BE%E4%B8%8E%E6%97%A0%E6%95%8C%E6%AD%BB%E4%BA%A1%E5%8A%A8%E7%94%BB/" class="article-date">
-  <time datetime="2021-03-15T15:13:55.000Z" itemprop="datePublished">2021-03-15</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Coding/">Coding</a>
-  </div>
- 
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>本篇讲述了子弹的发射代码，子弹碰到不同物体时的不同触发，和角色的死亡，无敌时间的动画。</p> 
-      <a class="article-more-link" href="/2021/03/15/Unity%E5%85%A5%E9%97%A8%E7%AC%AC%E4%B8%89%E5%A4%A9%EF%BC%9A%E5%AD%90%E5%BC%B9%E5%8F%91%E5%B0%84%EF%BC%8C%E8%A7%A6%E5%8F%91%E5%99%A8%EF%BC%8C%E6%A0%87%E7%AD%BE%E4%B8%8E%E6%97%A0%E6%95%8C%E6%AD%BB%E4%BA%A1%E5%8A%A8%E7%94%BB/"
-        >Read More...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
+      <a href="/2023/09/29/Leetcode0929/" class="article-nav-link">
+        <strong class="article-nav-caption">Next Article</strong>
+        <div class="article-nav-title">Leetcode Study Day 11</div>
+      </a>
     
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Unity/" rel="tag">Unity</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-Unity入门第二天：移动，碰撞与渲染"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2021/03/13/Unity%E5%85%A5%E9%97%A8%E7%AC%AC%E4%BA%8C%E5%A4%A9%EF%BC%9A%E7%A7%BB%E5%8A%A8%EF%BC%8C%E7%A2%B0%E6%92%9E%E4%B8%8E%E6%B8%B2%E6%9F%93/"
-    >Unity入门第二天：移动，碰撞与渲染</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2021/03/13/Unity%E5%85%A5%E9%97%A8%E7%AC%AC%E4%BA%8C%E5%A4%A9%EF%BC%9A%E7%A7%BB%E5%8A%A8%EF%BC%8C%E7%A2%B0%E6%92%9E%E4%B8%8E%E6%B8%B2%E6%9F%93/" class="article-date">
-  <time datetime="2021-03-13T15:50:23.000Z" itemprop="datePublished">2021-03-13</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Coding/">Coding</a>
-  </div>
- 
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>本篇讲述了物体的碰撞体积，与地图优先级的渲染。</p> 
-      <a class="article-more-link" href="/2021/03/13/Unity%E5%85%A5%E9%97%A8%E7%AC%AC%E4%BA%8C%E5%A4%A9%EF%BC%9A%E7%A7%BB%E5%8A%A8%EF%BC%8C%E7%A2%B0%E6%92%9E%E4%B8%8E%E6%B8%B2%E6%9F%93/"
-        >Read More...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Unity/" rel="tag">Unity</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-Unity入门"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2021/03/10/Unity%E5%85%A5%E9%97%A8/"
-    >Unity入门第一天： 熟悉界面与物体移动</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2021/03/10/Unity%E5%85%A5%E9%97%A8/" class="article-date">
-  <time datetime="2021-03-10T15:18:01.000Z" itemprop="datePublished">2021-03-10</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Coding/">Coding</a>
-  </div>
- 
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>这是我学习Unity的第一天，是跟着Siki学院的坦克大战教程总结了一些经验。</p>
-<p>这篇文章讲述了Unity界面和角色移动。</p> 
-      <a class="article-more-link" href="/2021/03/10/Unity%E5%85%A5%E9%97%A8/"
-        >Read More...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Unity/" rel="tag">Unity</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-  </article>
-  
-
-  
-  <nav class="page-nav">
-    
-    <a class="extend prev" rel="prev" href="/page/3/">Last Page</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
   </nav>
-  
-</section>
-</div>
 
+  
+   
+  
+    
+</article>
+
+</section>
       <footer class="footer">
   <div class="outer">
     <ul>
@@ -485,6 +290,22 @@
 <script src="/js/lazyload.min.js"></script>
 
 <!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
 
 <script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
 <link
