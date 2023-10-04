@@ -131,6 +131,68 @@
     
     
     <article
+  id="post-Leetcode1004-2"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2023/10/04/Leetcode1004-2/"
+    >Leetcode Study Day 12</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/10/04/Leetcode1004-2/" class="article-date">
+  <time datetime="2023-10-04T09:10:40.000Z" itemprop="datePublished">2023-10-04</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
+  </div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Sqrt-x"><a href="#Sqrt-x" class="headerlink" title="Sqrt(x)"></a>Sqrt(x)</h1><p>Given a non-negative integer x, return the square root of x rounded down to the nearest integer. The returned integer should be non-negative as well.</p>
+<p>You must not use any built-in exponent function or operator.</p>
+<p>For example, do not use pow(x, 0.5) in c++ or x ** 0.5 in python.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: x &#x3D; 4</span><br><span class="line">Output: 2</span><br><span class="line">Explanation: The square root of 4 is 2, so we return 2.</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: x &#x3D; 8</span><br><span class="line">Output: 2</span><br><span class="line">Explanation: The square root of 8 is 2.82842..., and since we round it down to the nearest integer, 2 is returned.</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">0 &lt;&#x3D; x &lt;&#x3D; 231 - 1</span><br></pre></td></tr></table></figure>
+<h2 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h2><p>My solution is intuitive and simple, but it costs O(n) time complexity.</p>
+<p>Once a number’s square is larger than x, we return the previous number.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">mySqrt</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">long</span> i = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>)&#123;</span><br><span class="line">            <span class="keyword">long</span> j = i + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (i * i &lt;= x &amp;&amp; j * j &gt; x)</span><br><span class="line">                <span class="keyword">return</span> i;</span><br><span class="line">            <span class="keyword">else</span> </span><br><span class="line">                i ++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="Binary-Search"><a href="#Binary-Search" class="headerlink" title="Binary Search"></a>Binary Search</h2><p>Then I saw a solution that using binary search to solve it. It costs O(logn) time complexity.<br>In this solution, we find the mid number between <code>first</code> (which is initiated as 1) and <code>last</code> (which is initiated as x). If the mid number is equal to x / mid, we return mid. If the mid number is larger than x / mid, we set last as mid - 1. If the mid number is smaller than x / mid, we set first as mid + 1.</p>
+<p>Finally, if the first is larger than the last, we return last.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">mySqrt</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (x == <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> first = <span class="number">1</span>, last = x;</span><br><span class="line">        <span class="keyword">while</span> (first &lt;= last)&#123;</span><br><span class="line">            <span class="keyword">int</span> mid = (first+ (last - first)/<span class="number">2</span>);</span><br><span class="line">            <span class="keyword">if</span> (mid == x / mid)</span><br><span class="line">                <span class="keyword">return</span> mid;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (mid &gt;= x / mid)</span><br><span class="line">                last = mid - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span> first = mid + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> last;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Binary-Search/" rel="tag">Binary Search</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Math/" rel="tag">Math</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
   id="post-Leetcode1004"
   class="article article-type-post"
   itemscope
@@ -731,69 +793,6 @@
     <footer class="article-footer">
        
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Greedy/" rel="tag">Greedy</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-Leetcode0925"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2023/09/25/Leetcode0925/"
-    >Leetcode Study Day 8</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2023/09/25/Leetcode0925/" class="article-date">
-  <time datetime="2023-09-25T01:38:20.000Z" itemprop="datePublished">2023-09-25</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
-  </div>
- 
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h1 id="Product-of-Array-Except-Self"><a href="#Product-of-Array-Except-Self" class="headerlink" title="Product of Array Except Self"></a>Product of Array Except Self</h1><p>Given an integer array nums, return an array answer such that answer[i] is equal to the product of all the elements of nums except nums[i].</p>
-<p>The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit integer.</p>
-<p>You must write an algorithm that runs in O(n) time and without using the division operation.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: nums &#x3D; [1,2,3,4]</span><br><span class="line">Output: [24,12,8,6]</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: nums &#x3D; [-1,1,0,-3,3]</span><br><span class="line">Output: [0,0,9,0,0]</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">2 &lt;&#x3D; nums.length &lt;&#x3D; 105</span><br><span class="line">-30 &lt;&#x3D; nums[i] &lt;&#x3D; 30</span><br><span class="line">The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit integer.</span><br></pre></td></tr></table></figure>
-<h2 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h2><p>I actually use division operation to solve this question. But this is the first idea that come up to my head, so I record it here:</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">productExceptSelf</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = nums.size();</span><br><span class="line">        <span class="keyword">int</span> tot_prod = <span class="number">1</span>;</span><br><span class="line">        <span class="comment">// To count how many zero are there in the array</span></span><br><span class="line">        <span class="keyword">int</span> zero_num = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[i] == <span class="number">0</span>)&#123;</span><br><span class="line">                zero_num ++;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// Calculate the total product for all the elements</span></span><br><span class="line">            tot_prod *= nums[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">vector</span> &lt;<span class="keyword">int</span>&gt; answer;</span><br><span class="line">        <span class="comment">// If there is no zero</span></span><br><span class="line">        <span class="keyword">if</span> (zero_num == <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">                <span class="comment">// each element in the answer is total product divided by itself</span></span><br><span class="line">                answer.push_back(tot_prod / nums[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (zero_num == <span class="number">1</span>)&#123;</span><br><span class="line">            <span class="comment">// If there is one 0, all the element is 0 except for the index of 0</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">                <span class="keyword">if</span> (nums[i] == <span class="number">0</span>)</span><br><span class="line">                    answer.push_back(tot_prod);</span><br><span class="line">                <span class="keyword">else</span> answer.push_back(<span class="number">0</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="comment">// If there are more than one 0, all the elements are 0.</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">                answer.push_back(<span class="number">0</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> answer;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="Improved-Solution"><a href="#Improved-Solution" class="headerlink" title="Improved Solution"></a>Improved Solution</h2><p>The improved idea is based on computing the products to the left and right of the current element and multiplying them, we obtain the product of all elements except the current one. To be specific, we firstly compute the product of all elements to the left of the current element.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> n = nums.size();</span><br><span class="line"><span class="built_in">vector</span> &lt;<span class="keyword">int</span>&gt; answer(n);</span><br><span class="line">answer[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++)&#123;</span><br><span class="line">    answer[i] = answer[i<span class="number">-1</span>] * nums[i<span class="number">-1</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Then we initiate a variabe <code>right</code> which is equal to 1 to represent the element at the right of the end element. Then we iterate the array from the end to the beginning, and update the answer array. The variable <code>right</code> is the product of all the elements to the right of the current element.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> right = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = n - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--)&#123;</span><br><span class="line">    answer[i] = right * answer[i];</span><br><span class="line">    right = right * nums[i];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Full-code"><a href="#Full-code" class="headerlink" title="Full code"></a>Full code</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">productExceptSelf</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = nums.size();</span><br><span class="line">        <span class="built_in">vector</span> &lt;<span class="keyword">int</span>&gt; answer(n);</span><br><span class="line">        answer[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++)&#123;</span><br><span class="line">            answer[i] = answer[i<span class="number">-1</span>] * nums[i<span class="number">-1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> right = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = n - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--)&#123;</span><br><span class="line">            answer[i] = right * answer[i];</span><br><span class="line">            right = right * nums[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> answer;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Prefix-Sum/" rel="tag">Prefix Sum</a></li></ul>
 
     </footer>
   </div>
