@@ -131,6 +131,134 @@
     
     
     <article
+  id="post-Leetcode1014-2"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2023/10/14/Leetcode1014-2/"
+    >Leetcode Study Day 20</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/10/14/Leetcode1014-2/" class="article-date">
+  <time datetime="2023-10-14T15:33:44.000Z" itemprop="datePublished">2023-10-14</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
+  </div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Two-Sum"><a href="#Two-Sum" class="headerlink" title="Two Sum"></a>Two Sum</h1><p>Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.</p>
+<p>You may assume that each input would have exactly one solution, and you may not use the same element twice.</p>
+<p>You can return the answer in any order.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: nums &#x3D; [2,7,11,15], target &#x3D; 9</span><br><span class="line">Output: [0,1]</span><br><span class="line">Explanation: Because nums[0] + nums[1] &#x3D;&#x3D; 9, we return [0, 1].</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: nums &#x3D; [3,2,4], target &#x3D; 6</span><br><span class="line">Output: [1,2]</span><br><span class="line">Example 3:</span><br><span class="line"></span><br><span class="line">Input: nums &#x3D; [3,3], target &#x3D; 6</span><br><span class="line">Output: [0,1]</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">2 &lt;&#x3D; nums.length &lt;&#x3D; 104</span><br><span class="line">-109 &lt;&#x3D; nums[i] &lt;&#x3D; 109</span><br><span class="line">-109 &lt;&#x3D; target &lt;&#x3D; 109</span><br><span class="line">Only one valid answer exists.</span><br></pre></td></tr></table></figure>
+<h2 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h2><p>My first idea is to use two for loops to loop through the array and find the two numbers. However, this method is not efficient. The time complexity is O(n^2).</p>
+<p>Then I found a better solution. I use a unordered_map to store the numbers and their indices. Then I loop through the array and check if the target minus the current number is in the map. If it is, then we find the two numbers. If it is not, we put the current number and its index into the map.</p>
+<p>What I learnt today:</p>
+<ol>
+<li>I can insert multiple numbers into a vector at the same time:<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">list</span>.insert(<span class="built_in">list</span>.end(), &#123;element,element&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="Full-code"><a href="#Full-code" class="headerlink" title="Full code"></a>Full code</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">twoSum</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">unordered_map</span> &lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; <span class="built_in">map</span>;</span><br><span class="line">        <span class="built_in">vector</span> &lt;<span class="keyword">int</span>&gt; ans;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i&lt; nums.size(); i++)&#123;</span><br><span class="line">            <span class="keyword">int</span> plusNo = target - nums[i];</span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">map</span>.find(plusNo) != <span class="built_in">map</span>.end())&#123;</span><br><span class="line">                ans.insert(ans.end(), &#123;i,<span class="built_in">map</span>[plusNo]&#125;);</span><br><span class="line">                <span class="keyword">return</span> ans;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">map</span>[nums[i]] = i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+</ol>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hash-Table/" rel="tag">Hash Table</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
+  id="post-Leetcode1014"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2023/10/14/Leetcode1014/"
+    >Leetcode Study Day 21</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/10/14/Leetcode1014/" class="article-date">
+  <time datetime="2023-10-14T15:04:48.000Z" itemprop="datePublished">2023-10-14</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
+  </div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Group-Anagrams"><a href="#Group-Anagrams" class="headerlink" title="Group Anagrams"></a>Group Anagrams</h1><p>Given an array of strings strs, group the anagrams together. You can return the answer in any order.</p>
+<p>An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: strs &#x3D; [&quot;eat&quot;,&quot;tea&quot;,&quot;tan&quot;,&quot;ate&quot;,&quot;nat&quot;,&quot;bat&quot;]</span><br><span class="line">Output: [[&quot;bat&quot;],[&quot;nat&quot;,&quot;tan&quot;],[&quot;ate&quot;,&quot;eat&quot;,&quot;tea&quot;]]</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: strs &#x3D; [&quot;&quot;]</span><br><span class="line">Output: [[&quot;&quot;]]</span><br><span class="line">Example 3:</span><br><span class="line"></span><br><span class="line">Input: strs &#x3D; [&quot;a&quot;]</span><br><span class="line">Output: [[&quot;a&quot;]]</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">1 &lt;&#x3D; strs.length &lt;&#x3D; 104</span><br><span class="line">0 &lt;&#x3D; strs[i].length &lt;&#x3D; 100</span><br><span class="line">strs[i] consists of lowercase English letters.</span><br></pre></td></tr></table></figure>
+<h2 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h2><p>I found one solution to solve “Anagrams” problems, which is to sort the string. If the sorted result for two strings are the same, then they are anagrams.</p>
+<p>Based on this idea, I sort each string and put the sorted result as the keys of the map. The values of the map are the original strings. Then I loop through the map and put the values into the result vector.</p>
+<p>Two things I learnt today:</p>
+<ol>
+<li>How to create a map:<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">map</span> &lt;<span class="built_in">string</span>, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; strOrder;</span><br></pre></td></tr></table></figure></li>
+<li>How to loop through a map and select the values (select key is pair.first):<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> &amp;<span class="built_in">pair</span>: strOrder)&#123;</span><br><span class="line">    ans.push_back(<span class="built_in">pair</span>.second);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Full-code"><a href="#Full-code" class="headerlink" title="Full code"></a>Full code</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; groupAnagrams(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; strs) &#123;</span><br><span class="line">        <span class="built_in">map</span> &lt;<span class="built_in">string</span>, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; strOrder;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; strs.size(); i++)&#123;</span><br><span class="line">            <span class="function"><span class="built_in">string</span> <span class="title">str_copy</span><span class="params">(strs[i])</span></span>; </span><br><span class="line">            sort(str_copy.begin(), str_copy.end());</span><br><span class="line">            strOrder[str_copy].push_back(strs[i]);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">vector</span> &lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; ans;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> &amp;<span class="built_in">pair</span>: strOrder)&#123;</span><br><span class="line">            ans.push_back(<span class="built_in">pair</span>.second);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+</ol>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hash-Table/" rel="tag">Hash Table</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Sorting/" rel="tag">Sorting</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/string/" rel="tag">string</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
   id="post-Leetcode1013"
   class="article article-type-post"
   itemscope
@@ -674,125 +802,6 @@
     <footer class="article-footer">
        
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hash-Table/" rel="tag">Hash Table</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Matrix/" rel="tag">Matrix</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-Leetcode1009"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2023/10/09/Leetcode1009/"
-    >Leetcode Study Day 16</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2023/10/09/Leetcode1009/" class="article-date">
-  <time datetime="2023-10-09T09:36:51.000Z" itemprop="datePublished">2023-10-09</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
-  </div>
- 
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h1 id="Minimum-Window-Substring"><a href="#Minimum-Window-Substring" class="headerlink" title="Minimum Window Substring"></a>Minimum Window Substring</h1><p>Given two strings s and t of lengths m and n respectively, return the minimum window<br>substring<br> of s such that every character in t (including duplicates) is included in the window. If there is no such substring, return the empty string “”.</p>
-<p>The testcases will be generated such that the answer is unique.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: s &#x3D; &quot;ADOBECODEBANC&quot;, t &#x3D; &quot;ABC&quot;</span><br><span class="line">Output: &quot;BANC&quot;</span><br><span class="line">Explanation: The minimum window substring &quot;BANC&quot; includes &#39;A&#39;, &#39;B&#39;, and &#39;C&#39; from string t.</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: s &#x3D; &quot;a&quot;, t &#x3D; &quot;a&quot;</span><br><span class="line">Output: &quot;a&quot;</span><br><span class="line">Explanation: The entire string s is the minimum window.</span><br><span class="line">Example 3:</span><br><span class="line"></span><br><span class="line">Input: s &#x3D; &quot;a&quot;, t &#x3D; &quot;aa&quot;</span><br><span class="line">Output: &quot;&quot;</span><br><span class="line">Explanation: Both &#39;a&#39;s from t must be included in the window.</span><br><span class="line">Since the largest window of s only has one &#39;a&#39;, return empty string.</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">m &#x3D;&#x3D; s.length</span><br><span class="line">n &#x3D;&#x3D; t.length</span><br><span class="line">1 &lt;&#x3D; m, n &lt;&#x3D; 105</span><br><span class="line">s and t consist of uppercase and lowercase English letters.</span><br></pre></td></tr></table></figure>
-<h2 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h2><p>I write specific comments in my code</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">string</span> <span class="title">minWindow</span><span class="params">(<span class="built_in">string</span> s, <span class="built_in">string</span> t)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// A map to store chars with their appears number</span></span><br><span class="line">        <span class="built_in">unordered_map</span> &lt;<span class="keyword">char</span>, <span class="keyword">int</span>&gt; charCount;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; t.size(); i++)</span><br><span class="line">            charCount[t[i]] ++;</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>, right = <span class="number">0</span>, counter = t.size(), minStart = <span class="number">0</span>, minLen = INT_MAX;</span><br><span class="line">        <span class="keyword">while</span> (right &lt; s.size())&#123;</span><br><span class="line">            <span class="comment">// if the character in s is in t, we decrease the counter</span></span><br><span class="line">            <span class="keyword">if</span> (charCount[s[right]] &gt; <span class="number">0</span>)</span><br><span class="line">                counter --;</span><br><span class="line">            <span class="comment">// Then we decrease the appears number which is stored in the map</span></span><br><span class="line">            charCount[s[right]] --;</span><br><span class="line">            <span class="comment">// we move the right pointer</span></span><br><span class="line">            right ++;</span><br><span class="line">            <span class="comment">// counter equals to 0 means we find a fixed window</span></span><br><span class="line">            <span class="keyword">while</span> (counter == <span class="number">0</span>)&#123;</span><br><span class="line">                <span class="comment">// we update the minimum length of the substring, and the minStart</span></span><br><span class="line">                <span class="keyword">if</span> (right - left &lt; minLen)&#123;</span><br><span class="line">                    minLen = right - left;</span><br><span class="line">                    minStart = left;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">// Try to move window to the right position</span></span><br><span class="line">                charCount[s[left]]++;</span><br><span class="line">                <span class="comment">// If it is greater than 0, means s[left] is in t, we need increase the counter</span></span><br><span class="line">                <span class="keyword">if</span> (charCount[s[left]] &gt; <span class="number">0</span>)</span><br><span class="line">                    counter ++;</span><br><span class="line">                <span class="comment">// We move the left pointer</span></span><br><span class="line">                left ++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// return the substring is minLen is not MAX</span></span><br><span class="line">        <span class="keyword">if</span> (minLen != INT_MAX)</span><br><span class="line">            <span class="keyword">return</span> s.substr(minStart, minLen);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hash-Table/" rel="tag">Hash Table</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Sliding-Window/" rel="tag">Sliding Window</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/String/" rel="tag">String</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-Leetcode1008"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2023/10/08/Leetcode1008/"
-    >Leetcode Study Day 15</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2023/10/08/Leetcode1008/" class="article-date">
-  <time datetime="2023-10-08T20:09:55.000Z" itemprop="datePublished">2023-10-08</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
-  </div>
- 
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h1 id="Substring-with-Concatenation-of-All-Words"><a href="#Substring-with-Concatenation-of-All-Words" class="headerlink" title="Substring with Concatenation of All Words"></a>Substring with Concatenation of All Words</h1><p>You are given a string s and an array of strings words. All the strings of words are of the same length.</p>
-<p>A concatenated substring in s is a substring that contains all the strings of any permutation of words concatenated.</p>
-<p>For example, if words = [“ab”,”cd”,”ef”], then “abcdef”, “abefcd”, “cdabef”, “cdefab”, “efabcd”, and “efcdab” are all concatenated strings. “acdbef” is not a concatenated substring because it is not the concatenation of any permutation of words.<br>Return the starting indices of all the concatenated substrings in s. You can return the answer in any order.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: s &#x3D; &quot;barfoothefoobarman&quot;, words &#x3D; [&quot;foo&quot;,&quot;bar&quot;]</span><br><span class="line">Output: [0,9]</span><br><span class="line">Explanation: Since words.length &#x3D;&#x3D; 2 and words[i].length &#x3D;&#x3D; 3, the concatenated substring has to be of length 6.</span><br><span class="line">The substring starting at 0 is &quot;barfoo&quot;. It is the concatenation of [&quot;bar&quot;,&quot;foo&quot;] which is a permutation of words.</span><br><span class="line">The substring starting at 9 is &quot;foobar&quot;. It is the concatenation of [&quot;foo&quot;,&quot;bar&quot;] which is a permutation of words.</span><br><span class="line">The output order does not matter. Returning [9,0] is fine too.</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: s &#x3D; &quot;wordgoodgoodgoodbestword&quot;, words &#x3D; [&quot;word&quot;,&quot;good&quot;,&quot;best&quot;,&quot;word&quot;]</span><br><span class="line">Output: []</span><br><span class="line">Explanation: Since words.length &#x3D;&#x3D; 4 and words[i].length &#x3D;&#x3D; 4, the concatenated substring has to be of length 16.</span><br><span class="line">There is no substring of length 16 in s that is equal to the concatenation of any permutation of words.</span><br><span class="line">We return an empty array.</span><br><span class="line">Example 3:</span><br><span class="line"></span><br><span class="line">Input: s &#x3D; &quot;barfoofoobarthefoobarman&quot;, words &#x3D; [&quot;bar&quot;,&quot;foo&quot;,&quot;the&quot;]</span><br><span class="line">Output: [6,9,12]</span><br><span class="line">Explanation: Since words.length &#x3D;&#x3D; 3 and words[i].length &#x3D;&#x3D; 3, the concatenated substring has to be of length 9.</span><br><span class="line">The substring starting at 6 is &quot;foobarthe&quot;. It is the concatenation of [&quot;foo&quot;,&quot;bar&quot;,&quot;the&quot;] which is a permutation of words.</span><br><span class="line">The substring starting at 9 is &quot;barthefoo&quot;. It is the concatenation of [&quot;bar&quot;,&quot;the&quot;,&quot;foo&quot;] which is a permutation of words.</span><br><span class="line">The substring starting at 12 is &quot;thefoobar&quot;. It is the concatenation of [&quot;the&quot;,&quot;foo&quot;,&quot;bar&quot;] which is a permutation of words.</span><br></pre></td></tr></table></figure>
-<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>The solution is firstly, we store the word in the array <code>words</code> in a unordered_map. For each word, we count the number of times it appears. Then we use the sliding window method to find the substring. We use a method <code>checkSubstring</code> to check if the substring of the original input string <code>s</code> is a concatenated substring.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">findSubstring</span><span class="params">(<span class="built_in">string</span> s, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; words)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">vector</span> &lt;<span class="keyword">int</span>&gt; answer;</span><br><span class="line">        <span class="keyword">int</span> singleWordLen = words[<span class="number">0</span>].size();</span><br><span class="line">        <span class="keyword">int</span> windowSize = words.size() * singleWordLen;</span><br><span class="line">        <span class="comment">// creating a map stores words count</span></span><br><span class="line">        <span class="built_in">unordered_map</span> &lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt; wordCount;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; words.size(); i++)&#123;</span><br><span class="line">            wordCount[words[i]]++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (i + windowSize &lt;= s.size())&#123;</span><br><span class="line">            <span class="keyword">if</span> (checkSubstring(wordCount, s.substr(i, windowSize), singleWordLen))</span><br><span class="line">                answer.push_back(i);</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> answer;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>In the function <code>checkSubstring</code>, we iterate the <code>substring</code>, which is passed in the main function and check if the word in the array <code>words</code> is in the substring. If it is, we decrease the count of the word in the map. If the count is equal to -1, which means the word appears more times than it should be, we return false. If the word is not in the map, we return false. If the word is in the map and the count is not equal to -1, we continue to check the next word. If we finish checking all the words in the map, we return true.</p>
-<p>It is noticeable that <code>wordCount</code> is passed by value, any changes made to it within the checkSubstring function are local to that function and do not affect the original wordCount map in the findSubstring method. This means that every time checkSubstring is called, it receives a fresh copy of the wordCount map with the original word counts. As a result, there’s no need to reset the map after each call to checkSubstring.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">checkSubstring</span><span class="params">(<span class="built_in">unordered_map</span> &lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt; wordCount, <span class="built_in">string</span> s, <span class="keyword">int</span> singleWordLen)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.size(); i += singleWordLen)&#123;</span><br><span class="line">        <span class="built_in">string</span> subString = s.substr(i, singleWordLen);</span><br><span class="line">        <span class="keyword">if</span> (wordCount.find(subString) != wordCount.end())&#123;</span><br><span class="line">            <span class="keyword">if</span> (--wordCount[subString] == <span class="number">-1</span>)</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h2 id="Full-code"><a href="#Full-code" class="headerlink" title="Full code"></a>Full code</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">checkSubstring</span><span class="params">(<span class="built_in">unordered_map</span> &lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt; wordCount, <span class="built_in">string</span> s, <span class="keyword">int</span> singleWordLen)</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.size(); i += singleWordLen)&#123;</span><br><span class="line">            <span class="built_in">string</span> subString = s.substr(i, singleWordLen);</span><br><span class="line">            <span class="keyword">if</span> (wordCount.find(subString) != wordCount.end())&#123;</span><br><span class="line">                <span class="keyword">if</span> (--wordCount[subString] == <span class="number">-1</span>)</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">findSubstring</span><span class="params">(<span class="built_in">string</span> s, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; words)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">vector</span> &lt;<span class="keyword">int</span>&gt; answer;</span><br><span class="line">        <span class="keyword">int</span> singleWordLen = words[<span class="number">0</span>].size();</span><br><span class="line">        <span class="keyword">int</span> windowSize = words.size() * singleWordLen;</span><br><span class="line">        <span class="comment">// creating a map stores words count</span></span><br><span class="line">        <span class="built_in">unordered_map</span> &lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt; wordCount;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; words.size(); i++)&#123;</span><br><span class="line">            wordCount[words[i]]++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (i + windowSize &lt;= s.size())&#123;</span><br><span class="line">            <span class="keyword">if</span> (checkSubstring(wordCount, s.substr(i, windowSize), singleWordLen))</span><br><span class="line">                answer.push_back(i);</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> answer;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure> 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hash-Table/" rel="tag">Hash Table</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Sliding-Window/" rel="tag">Sliding Window</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/String/" rel="tag">String</a></li></ul>
 
     </footer>
   </div>
