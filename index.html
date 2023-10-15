@@ -131,6 +131,206 @@
     
     
     <article
+  id="post-Leetcode1015-2"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2023/10/15/Leetcode1015-2/"
+    >Leetcode Study Day 22</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/10/15/Leetcode1015-2/" class="article-date">
+  <time datetime="2023-10-15T10:55:18.000Z" itemprop="datePublished">2023-10-15</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
+  </div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Contains-Duplicate-II"><a href="#Contains-Duplicate-II" class="headerlink" title="Contains Duplicate II"></a>Contains Duplicate II</h1><p>Given an integer array nums and an integer k, return true if there are two distinct indices i and j in the array such that nums[i] == nums[j] and abs(i - j) &lt;= k.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: nums &#x3D; [1,2,3,1], k &#x3D; 3</span><br><span class="line">Output: true</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: nums &#x3D; [1,0,1,1], k &#x3D; 1</span><br><span class="line">Output: true</span><br><span class="line">Example 3:</span><br><span class="line"></span><br><span class="line">Input: nums &#x3D; [1,2,3,1,2,3], k &#x3D; 2</span><br><span class="line">Output: false</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">1 &lt;&#x3D; nums.length &lt;&#x3D; 105</span><br><span class="line">-109 &lt;&#x3D; nums[i] &lt;&#x3D; 109</span><br><span class="line">0 &lt;&#x3D; k &lt;&#x3D; 105</span><br></pre></td></tr></table></figure>
+<h2 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h2><p>My solution is using a map to store the value in the array as the key and the index as the value. If the map already contains the key, we check if the difference between the current index and the index stored in the map is less than or equal to k. If it is, then we return true. If not, we update the value of the key in the map to the current index. If the map does not contain the key, we add the key and value to the map. If we finish the loop, we return false.</p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">containsNearbyDuplicate</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">map</span> &lt;<span class="keyword">int</span>, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; numberMap;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.size(); i++)&#123;</span><br><span class="line">            <span class="keyword">if</span> (numberMap[nums[i]].size()&gt;<span class="number">0</span>)&#123;</span><br><span class="line">                <span class="keyword">if</span>(i- numberMap[nums[i]][<span class="number">0</span>] &lt;= k)</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    numberMap[nums[i]].pop_back();</span><br><span class="line">            &#125;</span><br><span class="line">            numberMap[nums[i]].push_back(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="Difference-between-map-and-unordered-map"><a href="#Difference-between-map-and-unordered-map" class="headerlink" title="Difference between map and unordered_map"></a>Difference between map and unordered_map</h3><p>I also see some solutions with unordered_map. So I did some research on the difference between map and unordered_map.<br>Both <code>std::map</code> and <code>std::unordered_map</code> are associative containers in C++ that store elements in key-value pairs, but they have some fundamental differences in terms of their internal workings, performance characteristics, and functionalities:</p>
+<ol>
+<li><p><strong>Underlying Data Structure</strong>:</p>
+<ul>
+<li><code>std::map</code>: Implemented using a balanced tree (usually a red-black tree). This guarantees that the elements are always ordered by their keys.</li>
+<li><code>std::unordered_map</code>: Implemented using a hash table. The elements are not ordered.</li>
+</ul>
+</li>
+<li><p><strong>Order of Elements</strong>:</p>
+<ul>
+<li><code>std::map</code>: The elements are always ordered according to the keys (based on the comparison function, which is <code>operator&lt;</code> by default).</li>
+<li><code>std::unordered_map</code>: There is no order guarantee for the keys or the values.</li>
+</ul>
+</li>
+<li><p><strong>Performance</strong>:</p>
+<ul>
+<li><code>std::map</code>: <ul>
+<li>Insertion, deletion, and search have a logarithmic complexity: (O(\log n)).</li>
+</ul>
+</li>
+<li><code>std::unordered_map</code>: <ul>
+<li>In average cases, the insertion, deletion, and search have constant time complexity: (O(1)).</li>
+<li>In the worst case (when there are hash collisions), these operations can degrade to (O(n)).</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Hash Function</strong>:</p>
+<ul>
+<li><code>std::map</code>: Does not use hashing, so there’s no need for a hash function.</li>
+<li><code>std::unordered_map</code>: Uses a hash function to map keys to buckets. You can provide a custom hash function, but there’s a default one provided for most standard types.</li>
+</ul>
+</li>
+<li><p><strong>Memory Overhead</strong>:</p>
+<ul>
+<li><code>std::map</code>: Typically has a lesser memory overhead compared to <code>std::unordered_map</code> because it doesn’t need to manage the hash table.</li>
+<li><code>std::unordered_map</code>: Might have more memory overhead due to managing the hash table, especially when the load factor increases.</li>
+</ul>
+</li>
+<li><p><strong>Iterators</strong>:</p>
+<ul>
+<li><code>std::map</code>: Iterators are ordered and remain valid as long as the corresponding element exists in the map. Inserting or deleting elements does not invalidate iterators to other elements.</li>
+<li><code>std::unordered_map</code>: Iterators are not ordered. Inserting an element might invalidate iterators if rehashing occurs, but erasing an element only invalidates the iterator to that element.</li>
+</ul>
+</li>
+<li><p><strong>Usage Scenarios</strong>:</p>
+<ul>
+<li><code>std::map</code>: Useful when you need to maintain an order (like when you need the smallest or largest key frequently) or when you need to work with operations that rely on order (e.g., finding elements in a range).</li>
+<li><code>std::unordered_map</code>: Useful when you need faster average-case insertion, deletion, and search times, and you don’t need the keys to be ordered.</li>
+</ul>
+</li>
+</ol>
+<p>In summary, the choice between <code>std::map</code> and <code>std::unordered_map</code> depends on the specific requirements of your application. If ordering is essential, go with <code>std::map</code>. If you need faster average-time operations and don’t care about order, <code>std::unordered_map</code> might be the better choice.</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hash-Table/" rel="tag">Hash Table</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Sliding-Window/" rel="tag">Sliding Window</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
+  id="post-Leetcode1015"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2023/10/15/Leetcode1015/"
+    >Leetcode Study Day 22</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/10/15/Leetcode1015/" class="article-date">
+  <time datetime="2023-10-15T10:02:44.000Z" itemprop="datePublished">2023-10-15</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
+  </div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Happy-Number"><a href="#Happy-Number" class="headerlink" title="Happy Number"></a>Happy Number</h1><p>Write an algorithm to determine if a number n is happy.</p>
+<p>A happy number is a number defined by the following process:</p>
+<p>Starting with any positive integer, replace the number by the sum of the squares of its digits.<br>Repeat the process until the number equals 1 (where it will stay), or it loops endlessly in a cycle which does not include 1.<br>Those numbers for which this process ends in 1 are happy.<br>Return true if n is a happy number, and false if not.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: n &#x3D; 19</span><br><span class="line">Output: true</span><br><span class="line">Explanation:</span><br><span class="line">12 + 92 &#x3D; 82</span><br><span class="line">82 + 22 &#x3D; 68</span><br><span class="line">62 + 82 &#x3D; 100</span><br><span class="line">12 + 02 + 02 &#x3D; 1</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: n &#x3D; 2</span><br><span class="line">Output: false</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">1 &lt;&#x3D; n &lt;&#x3D; 231 - 1</span><br></pre></td></tr></table></figure>
+<h2 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h2><p>My solution is very intuitive, I convert the number to string and then convert each digit back to int and square it. Then I add all the squared digits together. I repeat this process until the sum is 1 or the iterate times achieve the maximum set. If the sum is 1, then the number is happy. If the loop is endless, then the number is not happy.</p>
+<p>I learnt that in C++, we can use <code>to_string()</code> to convert a number to string and <code>stoi()</code> to convert a string to int.</p>
+<p>If we want to convert a char to int, we can use <code>char - &#39;0&#39;</code>. The reason is that the ASCII value of ‘0’ is 48, ‘1’ is 49, etc. So if we want to convert ‘0’ to 0, we can use 48 - 48 = 0, for other digits, we can use 49 - 48 = 1, 50 - 48 = 2, etc.</p>
+<h2 id="Floyd-Cycle-Detection-Algorithm"><a href="#Floyd-Cycle-Detection-Algorithm" class="headerlink" title="Floyd Cycle Detection Algorithm"></a>Floyd Cycle Detection Algorithm</h2><p>Firstly, let’s find out what is Floyd Cycle Detection Algorithm. It is also called Tortoise and Hare Algorithm. </p>
+<h3 id="Basic-Idea"><a href="#Basic-Idea" class="headerlink" title="Basic Idea:"></a>Basic Idea:</h3><p>The algorithm uses two pointers that move through the sequence at different speeds:</p>
+<ul>
+<li><strong>Tortoise (or slow pointer)</strong>: Advances one step at a time.</li>
+<li><strong>Hare (or fast pointer)</strong>: Advances two steps at a time.</li>
+</ul>
+<p>If there’s a loop in the sequence, the hare will eventually catch up to the tortoise.</p>
+<h3 id="Relationship-with-the-Happy-Number-Problem"><a href="#Relationship-with-the-Happy-Number-Problem" class="headerlink" title="Relationship with the Happy Number Problem:"></a>Relationship with the Happy Number Problem:</h3><p>In the context of the happy number problem, the sequence is formed by repeatedly applying the “sum of the squares of its digits” operation. If a number is not happy, it will eventually fall into a cycle (or loop).</p>
+<p>For example, for the number 4:</p>
+<ol>
+<li>(4^2 = 16)</li>
+<li>(1^2 + 6^2 = 37)</li>
+<li>(3^2 + 7^2 = 58)</li>
+<li>(5^2 + 8^2 = 89)</li>
+<li>(8^2 + 9^2 = 145)</li>
+<li>(1^2 + 4^2 + 5^2 = 42)</li>
+<li>(4^2 + 2^2 = 20)</li>
+<li>(2^2 + 0^2 = 4)<br>… and it goes back to 4, forming a cycle.</li>
+</ol>
+<p>By using the Tortoise and Hare approach:</p>
+<ul>
+<li>The <strong>slow pointer</strong> will produce the sequence: 4, 16, 37, 58, …</li>
+<li>The <strong>fast pointer</strong> will produce the sequence: 16, 58, 20, 4, …</li>
+</ul>
+<p>After a few iterations, both the slow and fast pointers will meet, indicating a cycle. In this problem, detecting a cycle means the number is not happy.</p>
+<h3 id="Why-it-works"><a href="#Why-it-works" class="headerlink" title="Why it works:"></a>Why it works:</h3><p>Imagine a circular racetrack. If you have two runners - one running twice as fast as the other - they’ll eventually end up at the same position on the track, because the faster runner will catch up to the slower runner from behind.</p>
+<p>Similarly, in the context of sequences, if there’s a cycle, the fast pointer (hare) will eventually meet the slow pointer (tortoise) inside the loop.</p>
+<h3 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion:"></a>Conclusion:</h3><p>Floyd’s Cycle Detection Algorithm is a powerful tool for detecting loops in sequences without needing to use extra space (like storing all seen elements in a set).</p>
+<h2 id="Get-the-sum-of-the-squared-digits"><a href="#Get-the-sum-of-the-squared-digits" class="headerlink" title="Get the sum of the squared digits"></a>Get the sum of the squared digits</h2><p>I learnt that we can use <code>%</code> to get the last digit of a number and <code>/</code> to get the rest of the digits. For example, if we want to get the last digit of 123, we can use <code>123 % 10 = 3</code>. If we want to get the rest of the digits, we can use <code>123 / 10 = 12</code>. </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getSum</span> <span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>, digit;</span><br><span class="line">    <span class="keyword">while</span> (n != <span class="number">0</span>)&#123;</span><br><span class="line">        digit = n % <span class="number">10</span>;</span><br><span class="line">        sum += digit * digit;</span><br><span class="line">        n = n / <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Implementation-of-Floyd-Cycle-Detection-Algorithm"><a href="#Implementation-of-Floyd-Cycle-Detection-Algorithm" class="headerlink" title="Implementation of Floyd Cycle Detection Algorithm"></a>Implementation of Floyd Cycle Detection Algorithm</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isHappy</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> slow = n, fast = n;</span><br><span class="line">    <span class="keyword">do</span>&#123; slow = getSum(slow);</span><br><span class="line">        fast = getSum(getSum(fast));</span><br><span class="line">        <span class="keyword">if</span> (fast == <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;<span class="keyword">while</span>(fast!=slow);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hash-Table/" rel="tag">Hash Table</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Math/" rel="tag">Math</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Two-Pointers/" rel="tag">Two Pointers</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
   id="post-Leetcode1014-2"
   class="article article-type-post"
   itemscope
@@ -680,128 +880,6 @@
     <footer class="article-footer">
        
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Math/" rel="tag">Math</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Matrix/" rel="tag">Matrix</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-Leetcode1010"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2023/10/10/Leetcode1010/"
-    >Leetcode Study Day 17</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2023/10/10/Leetcode1010/" class="article-date">
-  <time datetime="2023-10-10T19:02:26.000Z" itemprop="datePublished">2023-10-10</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
-  </div>
- 
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h1 id="Spiral-Matrix"><a href="#Spiral-Matrix" class="headerlink" title="Spiral Matrix"></a>Spiral Matrix</h1><p>Given an m x n matrix, return all elements of the matrix in spiral order.</p>
-<p><img src="https://assets.leetcode.com/uploads/2020/11/13/spiral1.jpg"> </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Input: matrix &#x3D; [[1,2,3],[4,5,6],[7,8,9]]</span><br><span class="line">Output: [1,2,3,6,9,8,7,4,5]</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Input: matrix &#x3D; [[1,2,3,4],[5,6,7,8],[9,10,11,12]]</span><br><span class="line">Output: [1,2,3,4,8,12,11,10,9,5,6,7]</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">m &#x3D;&#x3D; matrix.length</span><br><span class="line">n &#x3D;&#x3D; matrix[i].length</span><br><span class="line">1 &lt;&#x3D; m, n &lt;&#x3D; 10</span><br><span class="line">-100 &lt;&#x3D; matrix[i][j] &lt;&#x3D; 100</span><br></pre></td></tr></table></figure>
-<p><img src="https://assets.leetcode.com/uploads/2020/11/13/spiral.jpg"> </p>
-<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>The solution is actually easy to understand. Firstly, we found the width and the height of the matrix:</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> width = matrix[<span class="number">0</span>].size();</span><br><span class="line"><span class="keyword">int</span> height = matrix.size();</span><br><span class="line"><span class="keyword">int</span> count = width * height;</span><br></pre></td></tr></table></figure>
-<p>Then we initialise four pointers for this matrix, which is up, right, down and left. We also initialise a vector to store the answer.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> left = <span class="number">0</span>, right = width - <span class="number">1</span>, up = <span class="number">0</span>, down = height - <span class="number">1</span>;</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; answer;</span><br></pre></td></tr></table></figure>
-<p>Then we use a while loop to iterate through the matrix. We use four for loops to iterate through the matrix. The first for loop is to iterate through the top row, the second for loop is to iterate through the right column, the third for loop is to iterate through the bottom row and the last for loop is to iterate through the left column. After each for loop, we need to check if the size of the answer array is greater than the total size, if it is, we break the while loop.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (answer.size() &lt; count)&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = left; i &lt;= right &amp;&amp; answer.size() &lt; count ; i++)&#123;</span><br><span class="line">            answer.push_back(matrix[up][i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = up + <span class="number">1</span>; i &lt;= down - <span class="number">1</span> &amp;&amp; answer.size() &lt; count; i++)&#123;</span><br><span class="line">            answer.push_back(matrix[i][right]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = right; i &gt;= left &amp;&amp; answer.size() &lt; count; i--)&#123;</span><br><span class="line">            answer.push_back(matrix[down][i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = down - <span class="number">1</span>; i &gt;= up + <span class="number">1</span> &amp;&amp; answer.size() &lt; count; i--)&#123;</span><br><span class="line">            answer.push_back(matrix[i][left]);</span><br><span class="line">        &#125;            </span><br><span class="line">        left ++;</span><br><span class="line">        right --;</span><br><span class="line">        up ++;</span><br><span class="line">        down --;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>Finally, we return our answer array.</p>
-<h2 id="Full-code"><a href="#Full-code" class="headerlink" title="Full code"></a>Full code</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">spiralOrder</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; matrix)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> width = matrix[<span class="number">0</span>].size();</span><br><span class="line">        <span class="keyword">int</span> height = matrix.size();</span><br><span class="line">        <span class="keyword">int</span> count = width * height;</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>, right = width - <span class="number">1</span>, up = <span class="number">0</span>, down = height - <span class="number">1</span>;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; answer;</span><br><span class="line">        <span class="keyword">while</span> (answer.size() &lt; count)&#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = left; i &lt;= right &amp;&amp; answer.size() &lt; count ; i++)&#123;</span><br><span class="line">                answer.push_back(matrix[up][i]);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = up + <span class="number">1</span>; i &lt;= down - <span class="number">1</span> &amp;&amp; answer.size() &lt; count; i++)&#123;</span><br><span class="line">                answer.push_back(matrix[i][right]);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = right; i &gt;= left &amp;&amp; answer.size() &lt; count; i--)&#123;</span><br><span class="line">                answer.push_back(matrix[down][i]);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = down - <span class="number">1</span>; i &gt;= up + <span class="number">1</span> &amp;&amp; answer.size() &lt; count; i--)&#123;</span><br><span class="line">                answer.push_back(matrix[i][left]);</span><br><span class="line">            &#125;            </span><br><span class="line">            left ++;</span><br><span class="line">            right --;</span><br><span class="line">            up ++;</span><br><span class="line">            down --;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> answer;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Matrix/" rel="tag">Matrix</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Simulation/" rel="tag">Simulation</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-Leetcode1009-2"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2023/10/09/Leetcode1009-2/"
-    >Leetcode Study Day 16</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2023/10/09/Leetcode1009-2/" class="article-date">
-  <time datetime="2023-10-09T10:10:06.000Z" itemprop="datePublished">2023-10-09</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
-  </div>
- 
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h1 id="Valid-Sudoku"><a href="#Valid-Sudoku" class="headerlink" title="Valid Sudoku"></a>Valid Sudoku</h1><p>Determine if a 9 x 9 Sudoku board is valid. Only the filled cells need to be validated according to the following rules:</p>
-<p>Each row must contain the digits 1-9 without repetition.<br>Each column must contain the digits 1-9 without repetition.<br>Each of the nine 3 x 3 sub-boxes of the grid must contain the digits 1-9 without repetition.<br>Note:</p>
-<p>A Sudoku board (partially filled) could be valid but is not necessarily solvable.<br>Only the filled cells need to be validated according to the mentioned rules.<br><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Sudoku-by-L2G-20050714.svg/250px-Sudoku-by-L2G-20050714.svg.png"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Input: board &#x3D; </span><br><span class="line">[[&quot;5&quot;,&quot;3&quot;,&quot;.&quot;,&quot;.&quot;,&quot;7&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;]</span><br><span class="line">,[&quot;6&quot;,&quot;.&quot;,&quot;.&quot;,&quot;1&quot;,&quot;9&quot;,&quot;5&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;]</span><br><span class="line">,[&quot;.&quot;,&quot;9&quot;,&quot;8&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;6&quot;,&quot;.&quot;]</span><br><span class="line">,[&quot;8&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;6&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;3&quot;]</span><br><span class="line">,[&quot;4&quot;,&quot;.&quot;,&quot;.&quot;,&quot;8&quot;,&quot;.&quot;,&quot;3&quot;,&quot;.&quot;,&quot;.&quot;,&quot;1&quot;]</span><br><span class="line">,[&quot;7&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;2&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;6&quot;]</span><br><span class="line">,[&quot;.&quot;,&quot;6&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;2&quot;,&quot;8&quot;,&quot;.&quot;]</span><br><span class="line">,[&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;4&quot;,&quot;1&quot;,&quot;9&quot;,&quot;.&quot;,&quot;.&quot;,&quot;5&quot;]</span><br><span class="line">,[&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;8&quot;,&quot;.&quot;,&quot;.&quot;,&quot;7&quot;,&quot;9&quot;]]</span><br><span class="line">Output: true</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: board &#x3D; </span><br><span class="line">[[&quot;8&quot;,&quot;3&quot;,&quot;.&quot;,&quot;.&quot;,&quot;7&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;]</span><br><span class="line">,[&quot;6&quot;,&quot;.&quot;,&quot;.&quot;,&quot;1&quot;,&quot;9&quot;,&quot;5&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;]</span><br><span class="line">,[&quot;.&quot;,&quot;9&quot;,&quot;8&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;6&quot;,&quot;.&quot;]</span><br><span class="line">,[&quot;8&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;6&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;3&quot;]</span><br><span class="line">,[&quot;4&quot;,&quot;.&quot;,&quot;.&quot;,&quot;8&quot;,&quot;.&quot;,&quot;3&quot;,&quot;.&quot;,&quot;.&quot;,&quot;1&quot;]</span><br><span class="line">,[&quot;7&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;2&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;6&quot;]</span><br><span class="line">,[&quot;.&quot;,&quot;6&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;2&quot;,&quot;8&quot;,&quot;.&quot;]</span><br><span class="line">,[&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;4&quot;,&quot;1&quot;,&quot;9&quot;,&quot;.&quot;,&quot;.&quot;,&quot;5&quot;]</span><br><span class="line">,[&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;8&quot;,&quot;.&quot;,&quot;.&quot;,&quot;7&quot;,&quot;9&quot;]]</span><br><span class="line">Output: false</span><br><span class="line">Explanation: Same as Example 1, except with the 5 in the top left corner being modified to 8. Since there are two 8&#39;s in the top left 3x3 sub-box, it is invalid.</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">board.length &#x3D;&#x3D; 9</span><br><span class="line">board[i].length &#x3D;&#x3D; 9</span><br><span class="line">board[i][j] is a digit 1-9 or &#39;.&#39;.</span><br></pre></td></tr></table></figure>
-<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>This solution is found in the Leetcode discussion board. His idea is to iterate all the elements in the board, and insert this element’s horizontal, vertical and grid information into a set. If the set already contains this element, we return false. Otherwise, we continue the iteration. If the iteration is finished, we return true.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isValidSudoku</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&gt;&amp; board)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">set</span>&lt;<span class="built_in">string</span>&gt; seen;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">9</span>; ++i) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">9</span>; ++j) &#123;</span><br><span class="line">            <span class="keyword">char</span> number = board[i][j];</span><br><span class="line">            <span class="keyword">if</span> (number != <span class="string">&#x27;.&#x27;</span>) &#123;</span><br><span class="line">                <span class="comment">// Construct the unique strings for row, column, and block checks</span></span><br><span class="line">                <span class="comment">// We use std::string(1, number) to create a single-character string from the char number.</span></span><br><span class="line">                <span class="built_in">string</span> rowStr = <span class="built_in">string</span>(<span class="number">1</span>, number) + <span class="string">&quot; in row &quot;</span> + to_string(i);</span><br><span class="line">                <span class="built_in">string</span> colStr = <span class="built_in">string</span>(<span class="number">1</span>, number) + <span class="string">&quot; in column &quot;</span> + to_string(j);</span><br><span class="line">                <span class="built_in">string</span> blockStr = <span class="built_in">string</span>(<span class="number">1</span>, number) + <span class="string">&quot; in block &quot;</span> + to_string(i / <span class="number">3</span>) + <span class="string">&quot;-&quot;</span> + to_string(j / <span class="number">3</span>);</span><br><span class="line">                </span><br><span class="line">                <span class="comment">// Check if any of the strings already exist in the set</span></span><br><span class="line">                <span class="keyword">if</span> (!seen.insert(rowStr).second || </span><br><span class="line">                    !seen.insert(colStr).second || </span><br><span class="line">                    !seen.insert(blockStr).second)</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hash-Table/" rel="tag">Hash Table</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Matrix/" rel="tag">Matrix</a></li></ul>
 
     </footer>
   </div>
