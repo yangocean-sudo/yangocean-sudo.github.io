@@ -131,6 +131,126 @@
     
     
     <article
+  id="post-Leetcode1016-2"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2023/10/16/Leetcode1016-2/"
+    >Leetcode Study Day 23</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/10/16/Leetcode1016-2/" class="article-date">
+  <time datetime="2023-10-16T18:56:21.000Z" itemprop="datePublished">2023-10-16</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
+  </div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Summary-Ranges"><a href="#Summary-Ranges" class="headerlink" title="Summary Ranges"></a>Summary Ranges</h1><p>You are given a <strong>sorted unique</strong> integer array <code>nums</code>. A range [a,b] is the set of all integers from a to b (inclusive).</p>
+<p>Return the smallest sorted list of ranges that cover all the numbers in the array exactly. That is, each element of nums is covered by exactly one of the ranges, and there is no integer x such that x is in one of the ranges but not in nums.</p>
+<p>Each range [a,b] in the list should be output as:</p>
+<p>“a-&gt;b” if a != b<br>“a” if a == b</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: nums &#x3D; [0,1,2,4,5,7]</span><br><span class="line">Output: [&quot;0-&gt;2&quot;,&quot;4-&gt;5&quot;,&quot;7&quot;]</span><br><span class="line">Explanation: The ranges are:</span><br><span class="line">[0,2] --&gt; &quot;0-&gt;2&quot;</span><br><span class="line">[4,5] --&gt; &quot;4-&gt;5&quot;</span><br><span class="line">[7,7] --&gt; &quot;7&quot;</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: nums &#x3D; [0,2,3,4,6,8,9]</span><br><span class="line">Output: [&quot;0&quot;,&quot;2-&gt;4&quot;,&quot;6&quot;,&quot;8-&gt;9&quot;]</span><br><span class="line">Explanation: The ranges are:</span><br><span class="line">[0,0] --&gt; &quot;0&quot;</span><br><span class="line">[2,4] --&gt; &quot;2-&gt;4&quot;</span><br><span class="line">[6,6] --&gt; &quot;6&quot;</span><br><span class="line">[8,9] --&gt; &quot;8-&gt;9&quot;</span><br></pre></td></tr></table></figure>
+<h2 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h2><p>My solution is redundant and not elegant. I use two pointers to record the first and last number of a range. If the next number is not the next number of the last number, then I push the range to the answer vector. If the next number is the next number of the last number, then I update the last number. If the last number is the last number of the array, then I push the range to the answer vector. If the array is empty, then I return an empty vector. If the array only has one number, then I return a vector with only one element.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; <span class="title">summaryRanges</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = nums.size();</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; ans;</span><br><span class="line">        <span class="built_in">string</span> single_ans = <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">if</span> (nums.empty())&#123;</span><br><span class="line">            <span class="keyword">return</span> ans;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> first = nums[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> last = nums[<span class="number">0</span>] ;</span><br><span class="line">        <span class="keyword">if</span> (nums.size() == <span class="number">1</span>)&#123;</span><br><span class="line">            ans.push_back(to_string(nums[<span class="number">0</span>]));</span><br><span class="line">            <span class="keyword">return</span> ans;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n<span class="number">-1</span>; i ++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[i+<span class="number">1</span>] != nums[i] + <span class="number">1</span> &amp;&amp; first != last)&#123;</span><br><span class="line">                single_ans = to_string(first) + <span class="string">&quot;-&gt;&quot;</span> + to_string(last);</span><br><span class="line">                ans.push_back(single_ans);</span><br><span class="line">                first = last = nums[i+<span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (nums[i+<span class="number">1</span>] != nums[i] + <span class="number">1</span> &amp;&amp; first == last)&#123;</span><br><span class="line">                single_ans = to_string(first);</span><br><span class="line">                ans.push_back(single_ans);</span><br><span class="line">                first = last = nums[i+<span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                last++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (nums[n<span class="number">-1</span>] != nums[n<span class="number">-2</span>]+<span class="number">1</span>)</span><br><span class="line">            ans.push_back(to_string(nums[n<span class="number">-1</span>]));</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            ans.push_back(to_string(first) + <span class="string">&quot;-&gt;&quot;</span> + to_string(last));</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="Solution-from-Leetcode"><a href="#Solution-from-Leetcode" class="headerlink" title="Solution from Leetcode"></a>Solution from Leetcode</h2><p>A solution with similar idea but more elegant shows below:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; <span class="title">summaryRanges</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; arr)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = arr.size(); <span class="comment">// extracting size of the array</span></span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; ans; <span class="comment">// declaring answer array to store our answer</span></span><br><span class="line">        </span><br><span class="line">        <span class="built_in">string</span> temp = <span class="string">&quot;&quot;</span>; <span class="comment">// temproray string that stores all possible answer</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) <span class="comment">// start traversing from the array</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> j = i; <span class="comment">// declare anthor pointer that will move</span></span><br><span class="line">            </span><br><span class="line">            <span class="comment">// run that pointer until our range is not break</span></span><br><span class="line">            <span class="keyword">while</span>(j + <span class="number">1</span> &lt; n &amp;&amp; arr[j + <span class="number">1</span>] == arr[j] + <span class="number">1</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                j++;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// if j &gt; i, that means we got our range more than one element</span></span><br><span class="line">            <span class="keyword">if</span>(j &gt; i)</span><br><span class="line">            &#123;</span><br><span class="line">                temp += to_string(arr[i]); <span class="comment">// first store starting point</span></span><br><span class="line">                temp += <span class="string">&quot;-&gt;&quot;</span>; <span class="comment">// then store arrow, as question wants it</span></span><br><span class="line">                temp += to_string(arr[j]); <span class="comment">// and lastly store the end point</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="comment">// we got only one element as range</span></span><br><span class="line">            &#123;</span><br><span class="line">                temp += to_string(arr[i]); <span class="comment">// then store that element in temp</span></span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            ans.push_back(temp); <span class="comment">// push one possible answer string to our answer</span></span><br><span class="line">            temp = <span class="string">&quot;&quot;</span>; <span class="comment">// again reintiliaze temp for new possible answers</span></span><br><span class="line">            i = j; <span class="comment">// and move i to j for a fresh start</span></span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> ans; <span class="comment">// and at last finally return the answer array</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>In his code, he doesn’t need to check if the array is empty or only has one element. He uses a while loop to check if the next number is the next number of the last number. If it is, then he updates the last number. If it is not, then he pushes the range to the answer vector. </p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
+  id="post-Leetcode1016"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2023/10/16/Leetcode1016/"
+    >Leetcode Study Day 23</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/10/16/Leetcode1016/" class="article-date">
+  <time datetime="2023-10-16T18:53:36.000Z" itemprop="datePublished">2023-10-16</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
+  </div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Longest-Consecutive-Sequence"><a href="#Longest-Consecutive-Sequence" class="headerlink" title="Longest Consecutive Sequence"></a>Longest Consecutive Sequence</h1><p>Given an unsorted array of integers nums, return the length of the longest consecutive elements sequence.</p>
+<p>You must write an algorithm that runs in O(n) time.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: nums &#x3D; [100,4,200,1,3,2]</span><br><span class="line">Output: 4</span><br><span class="line">Explanation: The longest consecutive elements sequence is [1, 2, 3, 4]. Therefore its length is 4.</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: nums &#x3D; [0,3,7,2,5,8,4,6,0,1]</span><br><span class="line">Output: 9</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">0 &lt;&#x3D; nums.length &lt;&#x3D; 105</span><br><span class="line">-109 &lt;&#x3D; nums[i] &lt;&#x3D; 109</span><br></pre></td></tr></table></figure>
+<h2 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h2><p>We use the data structure <code>unordered_set</code> to store all the numbers in the array. Then we iterate through the array and check if the number is the start of a consecutive sequence. If it is, we keep checking the next number until we find the end of the sequence. We update the best length if the current length is longer than the best length.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">longestConsecutive</span><span class="params">(<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="built_in">std</span>::<span class="built_in">unordered_set</span>&lt;<span class="keyword">int</span>&gt; <span class="title">numSet</span><span class="params">(nums.begin(), nums.end())</span></span>;</span><br><span class="line">        <span class="keyword">int</span> best = <span class="number">0</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> n : numSet) &#123;</span><br><span class="line">            <span class="keyword">if</span> (numSet.find(n - <span class="number">1</span>) == numSet.end()) &#123;  <span class="comment">// only check for one direction</span></span><br><span class="line">                <span class="keyword">int</span> m = n + <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">while</span> (numSet.find(m) != numSet.end()) &#123;</span><br><span class="line">                    m++;</span><br><span class="line">                &#125;</span><br><span class="line">                best = <span class="built_in">std</span>::max(best, m - n);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> best;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hash-Table/" rel="tag">Hash Table</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Union-Find/" rel="tag">Union Find</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
   id="post-Leetcode1015-2"
   class="article article-type-post"
   itemscope
@@ -219,6 +339,12 @@
 </li>
 </ol>
 <p>In summary, the choice between <code>std::map</code> and <code>std::unordered_map</code> depends on the specific requirements of your application. If ordering is essential, go with <code>std::map</code>. If you need faster average-time operations and don’t care about order, <code>std::unordered_map</code> might be the better choice.</p>
+<p>I’d like to share my third year project experience with you. It is to use Mitsuba, which is a physical based renderer to simulate the chenrenkov particles in the Europe Large Hadron Collider, which is in CERN. The reason that I did this is because for now, the experiences in CERN are simulated by Geant4, which is a Monte Carlo simulation toolkit. However, Geant4 is very slow and cost huge memory usage. In the end, with collaborating with students in the department of physics, our application reduce over 99% time and only cost less than 1mb memory usage with the same accuracy. </p>
+<p>The challanges I faced out is that I knew nothing about the particle physics since my major is computer science. So in the beginning of the project, it’s tough for me to understand what the result should be look like and how to achieve it. In the team, everyone has their own role. Mine is to implement the Mitsuba renderer and the interface between Mitsuba and Geant4, wheareas my colleagues’ are study the physical theory of Cherenkov radiation. The method that I overcame the challange is to communicate with my colleagues frequently and ask them questions. We held weekly meetings and in the meeting, we shared our new progress and discussed the problems we met. If they have any questions about the Mitsuba, they will ask me. If I have any questions about the physical theory, I will ask them.</p>
+<p>This project is meaningful for me because it is not a toy tool. It is a real application that can be used in the future. We also attend the sharing meeting in CERN and got a lot of positive feedbacks. </p>
+<p>At the beginning of choosing my third year project, I noticed that there are large amount of resources consumed and cost has always been a problem with simulation experiments based on the report of usage of computing resources by CERN. Therefore, I got the idea to reduce simulation time by using other tools.</p>
+<p>My step to develop this idea is firstly, shared this idea with my supervisor. She is very supportive and told me that the department of physics is also interested in this topic. Then I contacted the department of physics and we decided to collaborate together. After that, I started to learn Mitsuba and implemented the Mitsuba renderer and the interface between Mitsuba and Geant4. My colleagues studied the physical theory of Cherenkov radiation. In the end, we combined our work together and got the final result.</p>
+<p>It was important to be innovative in this instance because it is the first time that Mitsuba is used to simulate the Cherenkov radiation. Before that, Geant4 is the only tool that can be used to simulate the Cherenkov radiation. Also, the tool we developed can be used in real life, it is different from the tools that I developed before, which are just for fun or course projects. I’m motivated to do this project because I want to do something meaningful and useful. I want to use my knowledge to help others.</p>
  
       <!-- reward -->
       
@@ -721,165 +847,6 @@
     <footer class="article-footer">
        
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Matrix/" rel="tag">Matrix</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Simulation/" rel="tag">Simulation</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-Leetcode1011"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2023/10/11/Leetcode1011/"
-    >Leetcode Study Day 18</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2023/10/11/Leetcode1011/" class="article-date">
-  <time datetime="2023-10-11T14:12:23.000Z" itemprop="datePublished">2023-10-11</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
-  </div>
- 
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h1 id="Set-Matrix-Zeroes"><a href="#Set-Matrix-Zeroes" class="headerlink" title="Set Matrix Zeroes"></a>Set Matrix Zeroes</h1><p>Given an m x n integer matrix matrix, if an element is 0, set its entire row and column to 0’s.</p>
-<p>You must do it in place.<br><img src="https://assets.leetcode.com/uploads/2020/08/17/mat1.jpg"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Input: matrix &#x3D; [[1,1,1],[1,0,1],[1,1,1]]</span><br><span class="line">Output: [[1,0,1],[0,0,0],[1,0,1]]</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Input: matrix &#x3D; [[0,1,2,0],[3,4,5,2],[1,3,1,5]]</span><br><span class="line">Output: [[0,0,0,0],[0,4,5,0],[0,3,1,0]]</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">m &#x3D;&#x3D; matrix.length</span><br><span class="line">n &#x3D;&#x3D; matrix[0].length</span><br><span class="line">1 &lt;&#x3D; m, n &lt;&#x3D; 200</span><br><span class="line">-231 &lt;&#x3D; matrix[i][j] &lt;&#x3D; 231 - 1</span><br></pre></td></tr></table></figure>
-<p><img src="https://assets.leetcode.com/uploads/2020/08/17/mat2.jpg"></p>
-<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>The solution is to move the elements with 0 value to the boundary of the martix, which is the first row and the first column specifically, then we can use the first row and the first column to mark the rows and columns that need to be set to 0. </p>
-<p>Let’s breakdown the solution step by step:</p>
-<ol>
-<li>Check if the first row and the first column contains 0. If so, we set two boolean variables <code>isZeroCol</code> and <code>isZeroCol</code> to true.<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> length = matrix[<span class="number">0</span>].size();</span><br><span class="line"><span class="keyword">int</span> height = matrix.size();</span><br><span class="line"><span class="keyword">bool</span> isZeroCol = <span class="literal">false</span>;</span><br><span class="line"><span class="keyword">bool</span> isZeroRow = <span class="literal">false</span>;</span><br><span class="line"><span class="comment">// Check the first row</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; length; i++)&#123;</span><br><span class="line">    <span class="keyword">if</span>(matrix[<span class="number">0</span>][i] == <span class="number">0</span>)&#123;</span><br><span class="line">        isZeroRow = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Check the first column</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; height; i++)&#123;</span><br><span class="line">    <span class="keyword">if</span>(matrix[i][<span class="number">0</span>] == <span class="number">0</span>)&#123;</span><br><span class="line">        isZeroCol = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>Iterate through the matrix, if the element is 0, set the first element of the row and the column to 0.<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Check columns and rows except the first one</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; height; i++)&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; length; j++)&#123;</span><br><span class="line">        <span class="keyword">if</span> (matrix[i][j]==<span class="number">0</span>)&#123;</span><br><span class="line">            matrix[<span class="number">0</span>][j] = <span class="number">0</span>;</span><br><span class="line">            matrix[i][<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>We check if there is any element in first row and first column is 0, if so, we set the whole row and column to 0.<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Set columns and rows except the first one to 0</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; height; i++)&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; length; j++)&#123;</span><br><span class="line">        <span class="keyword">if</span> (matrix[<span class="number">0</span>][j]==<span class="number">0</span>)</span><br><span class="line">            matrix[i][j] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (matrix[i][<span class="number">0</span>]==<span class="number">0</span>)</span><br><span class="line">            matrix[i][j] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>Finally, we set the first row and the first column to 0 if our boolean flag is true.</li>
-</ol>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Now set the first column if there exists 0 in first column</span></span><br><span class="line"><span class="keyword">if</span> (isZeroCol)&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; height; i++)</span><br><span class="line">        matrix[i][<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Now set the first row if there exists 0 in first row</span></span><br><span class="line"><span class="keyword">if</span> (isZeroRow)&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; length; i++)</span><br><span class="line">        matrix[<span class="number">0</span>][i] = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Full-code"><a href="#Full-code" class="headerlink" title="Full code"></a>Full code</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">setZeroes</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; matrix)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> length = matrix[<span class="number">0</span>].size();</span><br><span class="line">        <span class="keyword">int</span> height = matrix.size();</span><br><span class="line">        <span class="keyword">bool</span> isZeroCol = <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">bool</span> isZeroRow = <span class="literal">false</span>;</span><br><span class="line">        <span class="comment">// Check the first row</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; length; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(matrix[<span class="number">0</span>][i] == <span class="number">0</span>)&#123;</span><br><span class="line">                isZeroRow = <span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Check the first column</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; height; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(matrix[i][<span class="number">0</span>] == <span class="number">0</span>)&#123;</span><br><span class="line">                isZeroCol = <span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Check columns and rows except the first one</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; height; i++)&#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; length; j++)&#123;</span><br><span class="line">                <span class="keyword">if</span> (matrix[i][j]==<span class="number">0</span>)&#123;</span><br><span class="line">                    matrix[<span class="number">0</span>][j] = <span class="number">0</span>;</span><br><span class="line">                    matrix[i][<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Set columns and rows except the first one to 0</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; height; i++)&#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; length; j++)&#123;</span><br><span class="line">                <span class="keyword">if</span> (matrix[<span class="number">0</span>][j]==<span class="number">0</span>)</span><br><span class="line">                    matrix[i][j] = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">if</span> (matrix[i][<span class="number">0</span>]==<span class="number">0</span>)</span><br><span class="line">                    matrix[i][j] = <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Now set the first column if there exists 0 in first column</span></span><br><span class="line">        <span class="keyword">if</span> (isZeroCol)&#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; height; i++)</span><br><span class="line">                matrix[i][<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Now set the first row if there exists 0 in first row</span></span><br><span class="line">        <span class="keyword">if</span> (isZeroRow)&#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; length; i++)</span><br><span class="line">                matrix[<span class="number">0</span>][i] = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hash-Table/" rel="tag">Hash Table</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Matrix/" rel="tag">Matrix</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-Leetcode1010-2"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2023/10/10/Leetcode1010-2/"
-    >Leetcode Study Day 17</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2023/10/10/Leetcode1010-2/" class="article-date">
-  <time datetime="2023-10-10T19:48:03.000Z" itemprop="datePublished">2023-10-10</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
-  </div>
- 
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h1 id="Rotate-Image"><a href="#Rotate-Image" class="headerlink" title="Rotate Image"></a>Rotate Image</h1><p>You are given an n x n 2D matrix representing an image, rotate the image by 90 degrees (clockwise).</p>
-<p>You have to rotate the image in-place, which means you have to modify the input 2D matrix directly. DO NOT allocate another 2D matrix and do the rotation.</p>
-<p><img src="https://assets.leetcode.com/uploads/2020/08/28/mat1.jpg"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Input: matrix &#x3D; [[1,2,3],[4,5,6],[7,8,9]]</span><br><span class="line">Output: [[7,4,1],[8,5,2],[9,6,3]]</span><br><span class="line"></span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Input: matrix &#x3D; [[5,1,9,11],[2,4,8,10],[13,3,6,7],[15,14,12,16]]</span><br><span class="line">Output: [[15,13,2,5],[14,3,4,1],[12,6,8,9],[16,7,10,11]]</span><br></pre></td></tr></table></figure>
-<p><img src="https://assets.leetcode.com/uploads/2020/08/28/mat2.jpg"></p>
-<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>Rotating a 2D matrix (or image) by 90 degrees in-place can be broken down into two steps:</p>
-<ol>
-<li><p><strong>Transpose the Matrix</strong>: This means converting all the rows of the matrix into columns.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a b</span><br><span class="line"></span><br><span class="line">c d</span><br></pre></td></tr></table></figure>
-<p>becomes</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a c</span><br><span class="line"></span><br><span class="line">b d</span><br></pre></td></tr></table></figure></li>
-<li><p><strong>Reverse the Columns</strong>: After transposition, the columns are reversed (or you can think of it as reversing each row).</p>
-<p>Taking the transposed matrix from the example above:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a c</span><br><span class="line"></span><br><span class="line">b d</span><br></pre></td></tr></table></figure>
-
-<p>becomes</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">c a</span><br><span class="line"></span><br><span class="line">d b</span><br></pre></td></tr></table></figure>
-
-<p>which is the original matrix rotated 90 degrees clockwise.</p>
-</li>
-</ol>
-<p>Here’s a step-by-step breakdown:</p>
-<ol>
-<li><strong>Transpose the Matrix</strong>:<ul>
-<li>Loop through the matrix.</li>
-<li>For each element at position ((i, j)), swap it with the element at position ((j, i)). Note: We only need to swap the elements once, so ensure that we are not swapping them back in a later iteration.</li>
-</ul>
-</li>
-</ol>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> length = matrix.size();</span><br><span class="line"><span class="keyword">int</span> start = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; length; i++)&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = start; j &lt; length; j++)&#123;</span><br><span class="line">        <span class="keyword">int</span> cache = matrix[i][j];</span><br><span class="line">        matrix[i][j] = matrix[j][i];</span><br><span class="line">        matrix[j][i] = cache;</span><br><span class="line">    &#125;</span><br><span class="line">    start ++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li><strong>Reverse the Columns</strong>:<ul>
-<li>Loop through the matrix.</li>
-<li>For each row, reverse the elements in the row. This can be achieved by swapping the first element with the last, the second with the second last, and so on.</li>
-</ul>
-</li>
-</ol>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; length  ; i ++)&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; length/<span class="number">2</span>; j++)&#123;</span><br><span class="line">        <span class="keyword">int</span> cache = matrix[i][length<span class="number">-1</span>-j];</span><br><span class="line">        matrix[i][length<span class="number">-1</span>-j] = matrix[i][j];</span><br><span class="line">        matrix[i][j] = cache;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Full-code"><a href="#Full-code" class="headerlink" title="Full code"></a>Full code</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">rotate</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; matrix)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> length = matrix.size();</span><br><span class="line">        <span class="keyword">int</span> start = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; length; i++)&#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = start; j &lt; length; j++)&#123;</span><br><span class="line">                <span class="keyword">int</span> cache = matrix[i][j];</span><br><span class="line">                matrix[i][j] = matrix[j][i];</span><br><span class="line">                matrix[j][i] = cache;</span><br><span class="line">            &#125;</span><br><span class="line">            start ++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; length  ; i ++)&#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; length/<span class="number">2</span>; j++)&#123;</span><br><span class="line">                <span class="keyword">int</span> cache = matrix[i][length<span class="number">-1</span>-j];</span><br><span class="line">                matrix[i][length<span class="number">-1</span>-j] = matrix[i][j];</span><br><span class="line">                matrix[i][j] = cache;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Math/" rel="tag">Math</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Matrix/" rel="tag">Matrix</a></li></ul>
 
     </footer>
   </div>
