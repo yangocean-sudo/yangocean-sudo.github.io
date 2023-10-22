@@ -131,6 +131,238 @@
     
     
     <article
+  id="post-Leetcode1022-2"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2023/10/22/Leetcode1022-2/"
+    >Leetcode Study Day 28</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/10/22/Leetcode1022-2/" class="article-date">
+  <time datetime="2023-10-22T19:03:35.000Z" itemprop="datePublished">2023-10-22</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
+  </div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Merge-Two-Sorted-Lists"><a href="#Merge-Two-Sorted-Lists" class="headerlink" title="Merge Two Sorted Lists"></a>Merge Two Sorted Lists</h1><p>You are given the heads of two sorted linked lists list1 and list2.</p>
+<p>Merge the two lists into one sorted list. The list should be made by splicing together the nodes of the first two lists.</p>
+<p>Return the head of the merged linked list.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Input: list1 &#x3D; [1,2,4], list2 &#x3D; [1,3,4]</span><br><span class="line">Output: [1,1,2,3,4,4]</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: list1 &#x3D; [], list2 &#x3D; []</span><br><span class="line">Output: []</span><br><span class="line">Example 3:</span><br><span class="line"></span><br><span class="line">Input: list1 &#x3D; [], list2 &#x3D; [0]</span><br><span class="line">Output: [0]</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">The number of nodes in both lists is in the range [0, 50].</span><br><span class="line">-100 &lt;&#x3D; Node.val &lt;&#x3D; 100</span><br><span class="line">Both list1 and list2 are sorted in non-decreasing order.</span><br></pre></td></tr></table></figure>
+<h2 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h2><p>The solution is to use a dummy node to simplify the edge cases. Then we use a while loop to iterate through both linked lists. We compare the values of the current nodes of the two linked lists. We add the smaller one to the merged list. Then we move the current pointer of the merged list to the next node. We also move the current pointer of the linked list that we add the node from to the next node. We repeat this process until one of the linked lists is empty. Then we add the rest of the other linked list to the merged list. Then we return the actual head of the merged list.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">mergeTwoLists</span><span class="params">(ListNode* list1, ListNode* list2)</span> </span>&#123;</span><br><span class="line">        ListNode* dummyHead = <span class="keyword">new</span> ListNode();  <span class="comment">// Create a dummy node to simplify edge cases.</span></span><br><span class="line">        ListNode* current = dummyHead;</span><br><span class="line">        <span class="keyword">while</span> (list1 &amp;&amp; list2) &#123;</span><br><span class="line">            <span class="keyword">if</span> (list1-&gt;val &lt; list2-&gt;val) &#123;</span><br><span class="line">                current-&gt;next = list1;</span><br><span class="line">                list1 = list1-&gt;next;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                current-&gt;next = list2;</span><br><span class="line">                list2 = list2-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">            current = current-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (list1) &#123;</span><br><span class="line">            current-&gt;next = list1;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            current-&gt;next = list2;</span><br><span class="line">        &#125;</span><br><span class="line">        ListNode* mergedHead = dummyHead-&gt;next;  <span class="comment">// The actual start of the merged list.</span></span><br><span class="line">        <span class="keyword">delete</span> dummyHead;  <span class="comment">// Remove the dummy node.</span></span><br><span class="line">        <span class="keyword">return</span> mergedHead;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linked-List/" rel="tag">Linked List</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Recursion/" rel="tag">Recursion</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
+  id="post-Leetcode1022"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2023/10/22/Leetcode1022/"
+    >Leetcode Study Day 28</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/10/22/Leetcode1022/" class="article-date">
+  <time datetime="2023-10-22T18:01:25.000Z" itemprop="datePublished">2023-10-22</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
+  </div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Add-Two-Numbers"><a href="#Add-Two-Numbers" class="headerlink" title="Add Two Numbers"></a>Add Two Numbers</h1><p>You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order, and each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list.</p>
+<p>You may assume the two numbers do not contain any leading zero, except the number 0 itself.</p>
+<p><img src="https://assets.leetcode.com/uploads/2020/10/02/addtwonumber1.jpg"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Input: l1 &#x3D; [2,4,3], l2 &#x3D; [5,6,4]</span><br><span class="line">Output: [7,0,8]</span><br><span class="line">Explanation: 342 + 465 &#x3D; 807.</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: l1 &#x3D; [0], l2 &#x3D; [0]</span><br><span class="line">Output: [0]</span><br><span class="line">Example 3:</span><br><span class="line"></span><br><span class="line">Input: l1 &#x3D; [9,9,9,9,9,9,9], l2 &#x3D; [9,9,9,9]</span><br><span class="line">Output: [8,9,9,9,0,0,0,1]</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">The number of nodes in each linked list is in the range [1, 100].</span><br><span class="line">0 &lt;&#x3D; Node.val &lt;&#x3D; 9</span><br><span class="line">It is guaranteed that the list represents a number that does not have leading zeros.</span><br></pre></td></tr></table></figure>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>The solution is to use a linked list to store the sum of two digits. The carry is stored in a variable. The sum of two digits is the sum of the two digits plus the carry. The carry is the sum divided by 10. The sum is the sum mod 10. The sum is the new node of the linked list. The carry is the carry of the next iteration. Once we compute the carry and the sum value, we create a new ListNode with the sum value, and then linked the current Node to this new ListNode, and then set the temp, which is the current node to the next one. The iteration stops when both linked lists are empty and the carry is 0.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode() : val(0), next(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x, ListNode *next) : val(x), next(next) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">addTwoNumbers</span><span class="params">(ListNode* l1, ListNode* l2)</span> </span>&#123;</span><br><span class="line">        ListNode* head = <span class="keyword">new</span> ListNode();</span><br><span class="line">        ListNode* temp = head;</span><br><span class="line">        <span class="keyword">int</span> carry = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (l1 || l2|| carry )&#123;</span><br><span class="line">            <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">if</span> (l1)&#123;</span><br><span class="line">                sum += l1-&gt;val;</span><br><span class="line">                l1 = l1-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(l2)&#123;</span><br><span class="line">                sum += l2-&gt;val;</span><br><span class="line">                l2 = l2-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">            sum += carry;</span><br><span class="line">            carry = sum/<span class="number">10</span>;</span><br><span class="line">            ListNode *head =  <span class="keyword">new</span> ListNode(sum%<span class="number">10</span>);</span><br><span class="line">            temp -&gt; next =head;</span><br><span class="line">            temp = temp-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> head -&gt; next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linked-List/" rel="tag">Linked List</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Math/" rel="tag">Math</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Recursion/" rel="tag">Recursion</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
+  id="post-Leetcode1021-2"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2023/10/21/Leetcode1021-2/"
+    >Leetcode Study Day 28</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/10/21/Leetcode1021-2/" class="article-date">
+  <time datetime="2023-10-21T16:35:23.000Z" itemprop="datePublished">2023-10-21</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
+  </div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Linked-List-Cycle"><a href="#Linked-List-Cycle" class="headerlink" title="Linked List Cycle"></a>Linked List Cycle</h1><p>Given head, the head of a linked list, determine if the linked list has a cycle in it.</p>
+<p>There is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the next pointer. Internally, pos is used to denote the index of the node that tail’s next pointer is connected to. Note that pos is not passed as a parameter.</p>
+<p>Return true if there is a cycle in the linked list. Otherwise, return false.</p>
+<p><img src="https://assets.leetcode.com/uploads/2018/12/07/circularlinkedlist.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Input: head &#x3D; [3,2,0,-4], pos &#x3D; 1</span><br><span class="line">Output: true</span><br><span class="line">Explanation: There is a cycle in the linked list, where the tail connects to the 1st node (0-indexed).</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Input: head &#x3D; [1,2], pos &#x3D; 0</span><br><span class="line">Output: true</span><br><span class="line">Explanation: There is a cycle in the linked list, where the tail connects to the 0th node.</span><br><span class="line">Example 3:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Input: head &#x3D; [1], pos &#x3D; -1</span><br><span class="line">Output: false</span><br><span class="line">Explanation: There is no cycle in the linked list.</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">The number of the nodes in the list is in the range [0, 104].</span><br><span class="line">-105 &lt;&#x3D; Node.val &lt;&#x3D; 105</span><br><span class="line">pos is -1 or a valid index in the linked-list.</span><br></pre></td></tr></table></figure>
+<h2 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h2><p>My solution is to use an <code>unordered_set</code> to store the linked list that I’ve met. If I meet a node that is already in the set, then I return true. If I reach the end of the linked list, then I return false.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">hasCycle</span><span class="params">(ListNode *head)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">unordered_set</span> &lt;ListNode*&gt; linkSet;</span><br><span class="line">        <span class="keyword">while</span>(head != <span class="literal">NULL</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span> (linkSet.find(head) != linkSet.end())</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                linkSet.insert(head);</span><br><span class="line">            head = head -&gt; next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hash-Table/" rel="tag">Hash Table</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linked-List/" rel="tag">Linked List</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Two-Pointers/" rel="tag">Two Pointers</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
+  id="post-Leetcode1021"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2023/10/21/Leetcode1021/"
+    >Leetcode Study Day 28</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/10/21/Leetcode1021/" class="article-date">
+  <time datetime="2023-10-21T15:25:45.000Z" itemprop="datePublished">2023-10-21</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
+  </div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Basic-Calculator"><a href="#Basic-Calculator" class="headerlink" title="Basic Calculator"></a>Basic Calculator</h1><p>Given a string s representing a valid expression, implement a basic calculator to evaluate it, and return the result of the evaluation.</p>
+<p>Note: You are not allowed to use any built-in function which evaluates strings as mathematical expressions, such as eval().</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: s &#x3D; &quot;1 + 1&quot;</span><br><span class="line">Output: 2</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: s &#x3D; &quot; 2-1 + 2 &quot;</span><br><span class="line">Output: 3</span><br><span class="line">Example 3:</span><br><span class="line"></span><br><span class="line">Input: s &#x3D; &quot;(1+(4+5+2)-3)+(6+8)&quot;</span><br><span class="line">Output: 23</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">1 &lt;&#x3D; s.length &lt;&#x3D; 3 * 105</span><br><span class="line">s consists of digits, &#39;+&#39;, &#39;-&#39;, &#39;(&#39;, &#39;)&#39;, and &#39; &#39;.</span><br><span class="line">s represents a valid expression.</span><br><span class="line">&#39;+&#39; is not used as a unary operation (i.e., &quot;+1&quot; and &quot;+(2 + 3)&quot; is invalid).</span><br><span class="line">&#39;-&#39; could be used as a unary operation (i.e., &quot;-1&quot; and &quot;-(2 + 3)&quot; is valid).</span><br><span class="line">There will be no two consecutive operators in the input.</span><br><span class="line">Every number and running calculation will fit in a signed 32-bit integer.</span><br></pre></td></tr></table></figure>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>I found a recursive solution to solve this probelm. then main idea is use a recursive function to get the result from the start of the string to the end or the ‘)’ character. It first find the number between operators, then it add the number with the sign to the result value, then it reset the number to 0. If it finds a ‘(‘, it calls the recursive function again to get the result of the expression inside the ‘()’. If it finds a ‘+’, it sets the sign to 1, if it finds a ‘-‘, it sets the sign to -1. If it finds a ‘)’, it returns the result value. </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cctype&gt;</span></span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">calculate</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>, N = s.size();</span><br><span class="line">        <span class="keyword">return</span> dfs(s, i, N);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">dfs</span><span class="params">(<span class="keyword">const</span> <span class="built_in">string</span>&amp; s, <span class="keyword">int</span>&amp; i, <span class="keyword">const</span> <span class="keyword">int</span>&amp; N)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>, sign = <span class="number">1</span>, num = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(i &lt; N &amp;&amp; s[i] != <span class="string">&#x27;)&#x27;</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">isdigit</span>(s[i]))</span><br><span class="line">                num = num * <span class="number">10</span> + (s[i] - <span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                res += sign * num;</span><br><span class="line">                num = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">if</span>(s[i] == <span class="string">&#x27;+&#x27;</span>) sign = <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(s[i] == <span class="string">&#x27;-&#x27;</span>) sign = <span class="number">-1</span>;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(s[i] == <span class="string">&#x27;(&#x27;</span>)&#123;</span><br><span class="line">                    i++;</span><br><span class="line">                    res = res + sign * dfs(s, i, N);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res + sign * num;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Math/" rel="tag">Math</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Recursion/" rel="tag">Recursion</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Stack/" rel="tag">Stack</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/String/" rel="tag">String</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
   id="post-Leetcode1020-2"
   class="article article-type-post"
   itemscope
@@ -483,298 +715,6 @@
     <footer class="article-footer">
        
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-Leetcode1017"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2023/10/17/Leetcode1017/"
-    >Leetcode Study Day 24</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2023/10/17/Leetcode1017/" class="article-date">
-  <time datetime="2023-10-17T19:16:47.000Z" itemprop="datePublished">2023-10-17</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
-  </div>
- 
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h1 id="Merge-Intervals"><a href="#Merge-Intervals" class="headerlink" title="Merge Intervals"></a>Merge Intervals</h1><p>Given an array of intervals where intervals[i] = [starti, endi], merge all overlapping intervals, and return an array of the non-overlapping intervals that cover all the intervals in the input.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: intervals &#x3D; [[1,3],[2,6],[8,10],[15,18]]</span><br><span class="line">Output: [[1,6],[8,10],[15,18]]</span><br><span class="line">Explanation: Since intervals [1,3] and [2,6] overlap, merge them into [1,6].</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: intervals &#x3D; [[1,4],[4,5]]</span><br><span class="line">Output: [[1,5]]</span><br><span class="line">Explanation: Intervals [1,4] and [4,5] are considered overlapping.</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">1 &lt;&#x3D; intervals.length &lt;&#x3D; 104</span><br><span class="line">intervals[i].length &#x3D;&#x3D; 2</span><br><span class="line">0 &lt;&#x3D; starti &lt;&#x3D; endi &lt;&#x3D; 104</span><br></pre></td></tr></table></figure>
-<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>In the solution, we sort the array first, then we iterate through the array. If the next interval’s start is smaller than the current interval’s end, then we merge the two intervals. If not, we push the current interval to the answer vector. After the iteration, we push the last interval to the answer vector.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; merge(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; intervals) &#123;</span><br><span class="line">        <span class="keyword">if</span> (intervals.empty()) &#123;</span><br><span class="line">            <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Sort intervals by start time</span></span><br><span class="line">        sort(intervals.begin(), intervals.end());</span><br><span class="line"></span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; ans;</span><br><span class="line">        ans.push_back(intervals[<span class="number">0</span>]);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; intervals.size(); i++) &#123;</span><br><span class="line">            <span class="comment">// If current interval overlaps with the last interval in ans</span></span><br><span class="line">            <span class="keyword">if</span> (intervals[i][<span class="number">0</span>] &lt;= ans.back()[<span class="number">1</span>]) &#123;</span><br><span class="line">                <span class="comment">// Merge the overlapping intervals</span></span><br><span class="line">                ans.back()[<span class="number">1</span>] = max(ans.back()[<span class="number">1</span>], intervals[i][<span class="number">1</span>]);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                ans.push_back(intervals[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Sorting/" rel="tag">Sorting</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-Leetcode1016-2"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2023/10/16/Leetcode1016-2/"
-    >Leetcode Study Day 23</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2023/10/16/Leetcode1016-2/" class="article-date">
-  <time datetime="2023-10-16T18:56:21.000Z" itemprop="datePublished">2023-10-16</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
-  </div>
- 
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h1 id="Summary-Ranges"><a href="#Summary-Ranges" class="headerlink" title="Summary Ranges"></a>Summary Ranges</h1><p>You are given a <strong>sorted unique</strong> integer array <code>nums</code>. A range [a,b] is the set of all integers from a to b (inclusive).</p>
-<p>Return the smallest sorted list of ranges that cover all the numbers in the array exactly. That is, each element of nums is covered by exactly one of the ranges, and there is no integer x such that x is in one of the ranges but not in nums.</p>
-<p>Each range [a,b] in the list should be output as:</p>
-<p>“a-&gt;b” if a != b<br>“a” if a == b</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: nums &#x3D; [0,1,2,4,5,7]</span><br><span class="line">Output: [&quot;0-&gt;2&quot;,&quot;4-&gt;5&quot;,&quot;7&quot;]</span><br><span class="line">Explanation: The ranges are:</span><br><span class="line">[0,2] --&gt; &quot;0-&gt;2&quot;</span><br><span class="line">[4,5] --&gt; &quot;4-&gt;5&quot;</span><br><span class="line">[7,7] --&gt; &quot;7&quot;</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: nums &#x3D; [0,2,3,4,6,8,9]</span><br><span class="line">Output: [&quot;0&quot;,&quot;2-&gt;4&quot;,&quot;6&quot;,&quot;8-&gt;9&quot;]</span><br><span class="line">Explanation: The ranges are:</span><br><span class="line">[0,0] --&gt; &quot;0&quot;</span><br><span class="line">[2,4] --&gt; &quot;2-&gt;4&quot;</span><br><span class="line">[6,6] --&gt; &quot;6&quot;</span><br><span class="line">[8,9] --&gt; &quot;8-&gt;9&quot;</span><br></pre></td></tr></table></figure>
-<h2 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h2><p>My solution is redundant and not elegant. I use two pointers to record the first and last number of a range. If the next number is not the next number of the last number, then I push the range to the answer vector. If the next number is the next number of the last number, then I update the last number. If the last number is the last number of the array, then I push the range to the answer vector. If the array is empty, then I return an empty vector. If the array only has one number, then I return a vector with only one element.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; <span class="title">summaryRanges</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = nums.size();</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; ans;</span><br><span class="line">        <span class="built_in">string</span> single_ans = <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">if</span> (nums.empty())&#123;</span><br><span class="line">            <span class="keyword">return</span> ans;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> first = nums[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> last = nums[<span class="number">0</span>] ;</span><br><span class="line">        <span class="keyword">if</span> (nums.size() == <span class="number">1</span>)&#123;</span><br><span class="line">            ans.push_back(to_string(nums[<span class="number">0</span>]));</span><br><span class="line">            <span class="keyword">return</span> ans;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n<span class="number">-1</span>; i ++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[i+<span class="number">1</span>] != nums[i] + <span class="number">1</span> &amp;&amp; first != last)&#123;</span><br><span class="line">                single_ans = to_string(first) + <span class="string">&quot;-&gt;&quot;</span> + to_string(last);</span><br><span class="line">                ans.push_back(single_ans);</span><br><span class="line">                first = last = nums[i+<span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (nums[i+<span class="number">1</span>] != nums[i] + <span class="number">1</span> &amp;&amp; first == last)&#123;</span><br><span class="line">                single_ans = to_string(first);</span><br><span class="line">                ans.push_back(single_ans);</span><br><span class="line">                first = last = nums[i+<span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                last++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (nums[n<span class="number">-1</span>] != nums[n<span class="number">-2</span>]+<span class="number">1</span>)</span><br><span class="line">            ans.push_back(to_string(nums[n<span class="number">-1</span>]));</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            ans.push_back(to_string(first) + <span class="string">&quot;-&gt;&quot;</span> + to_string(last));</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="Solution-from-Leetcode"><a href="#Solution-from-Leetcode" class="headerlink" title="Solution from Leetcode"></a>Solution from Leetcode</h2><p>A solution with similar idea but more elegant shows below:</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; <span class="title">summaryRanges</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; arr)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = arr.size(); <span class="comment">// extracting size of the array</span></span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; ans; <span class="comment">// declaring answer array to store our answer</span></span><br><span class="line">        </span><br><span class="line">        <span class="built_in">string</span> temp = <span class="string">&quot;&quot;</span>; <span class="comment">// temproray string that stores all possible answer</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) <span class="comment">// start traversing from the array</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> j = i; <span class="comment">// declare anthor pointer that will move</span></span><br><span class="line">            </span><br><span class="line">            <span class="comment">// run that pointer until our range is not break</span></span><br><span class="line">            <span class="keyword">while</span>(j + <span class="number">1</span> &lt; n &amp;&amp; arr[j + <span class="number">1</span>] == arr[j] + <span class="number">1</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                j++;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// if j &gt; i, that means we got our range more than one element</span></span><br><span class="line">            <span class="keyword">if</span>(j &gt; i)</span><br><span class="line">            &#123;</span><br><span class="line">                temp += to_string(arr[i]); <span class="comment">// first store starting point</span></span><br><span class="line">                temp += <span class="string">&quot;-&gt;&quot;</span>; <span class="comment">// then store arrow, as question wants it</span></span><br><span class="line">                temp += to_string(arr[j]); <span class="comment">// and lastly store the end point</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="comment">// we got only one element as range</span></span><br><span class="line">            &#123;</span><br><span class="line">                temp += to_string(arr[i]); <span class="comment">// then store that element in temp</span></span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            ans.push_back(temp); <span class="comment">// push one possible answer string to our answer</span></span><br><span class="line">            temp = <span class="string">&quot;&quot;</span>; <span class="comment">// again reintiliaze temp for new possible answers</span></span><br><span class="line">            i = j; <span class="comment">// and move i to j for a fresh start</span></span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> ans; <span class="comment">// and at last finally return the answer array</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>In his code, he doesn’t need to check if the array is empty or only has one element. He uses a while loop to check if the next number is the next number of the last number. If it is, then he updates the last number. If it is not, then he pushes the range to the answer vector. </p>
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-Leetcode1016"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2023/10/16/Leetcode1016/"
-    >Leetcode Study Day 23</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2023/10/16/Leetcode1016/" class="article-date">
-  <time datetime="2023-10-16T18:53:36.000Z" itemprop="datePublished">2023-10-16</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
-  </div>
- 
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h1 id="Longest-Consecutive-Sequence"><a href="#Longest-Consecutive-Sequence" class="headerlink" title="Longest Consecutive Sequence"></a>Longest Consecutive Sequence</h1><p>Given an unsorted array of integers nums, return the length of the longest consecutive elements sequence.</p>
-<p>You must write an algorithm that runs in O(n) time.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: nums &#x3D; [100,4,200,1,3,2]</span><br><span class="line">Output: 4</span><br><span class="line">Explanation: The longest consecutive elements sequence is [1, 2, 3, 4]. Therefore its length is 4.</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: nums &#x3D; [0,3,7,2,5,8,4,6,0,1]</span><br><span class="line">Output: 9</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">0 &lt;&#x3D; nums.length &lt;&#x3D; 105</span><br><span class="line">-109 &lt;&#x3D; nums[i] &lt;&#x3D; 109</span><br></pre></td></tr></table></figure>
-<h2 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h2><p>We use the data structure <code>unordered_set</code> to store all the numbers in the array. Then we iterate through the array and check if the number is the start of a consecutive sequence. If it is, we keep checking the next number until we find the end of the sequence. We update the best length if the current length is longer than the best length.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">longestConsecutive</span><span class="params">(<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="built_in">std</span>::<span class="built_in">unordered_set</span>&lt;<span class="keyword">int</span>&gt; <span class="title">numSet</span><span class="params">(nums.begin(), nums.end())</span></span>;</span><br><span class="line">        <span class="keyword">int</span> best = <span class="number">0</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> n : numSet) &#123;</span><br><span class="line">            <span class="keyword">if</span> (numSet.find(n - <span class="number">1</span>) == numSet.end()) &#123;  <span class="comment">// only check for one direction</span></span><br><span class="line">                <span class="keyword">int</span> m = n + <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">while</span> (numSet.find(m) != numSet.end()) &#123;</span><br><span class="line">                    m++;</span><br><span class="line">                &#125;</span><br><span class="line">                best = <span class="built_in">std</span>::max(best, m - n);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> best;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hash-Table/" rel="tag">Hash Table</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Union-Find/" rel="tag">Union Find</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-Leetcode1015-2"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2023/10/15/Leetcode1015-2/"
-    >Leetcode Study Day 22</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2023/10/15/Leetcode1015-2/" class="article-date">
-  <time datetime="2023-10-15T10:55:18.000Z" itemprop="datePublished">2023-10-15</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
-  </div>
- 
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h1 id="Contains-Duplicate-II"><a href="#Contains-Duplicate-II" class="headerlink" title="Contains Duplicate II"></a>Contains Duplicate II</h1><p>Given an integer array nums and an integer k, return true if there are two distinct indices i and j in the array such that nums[i] == nums[j] and abs(i - j) &lt;= k.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: nums &#x3D; [1,2,3,1], k &#x3D; 3</span><br><span class="line">Output: true</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: nums &#x3D; [1,0,1,1], k &#x3D; 1</span><br><span class="line">Output: true</span><br><span class="line">Example 3:</span><br><span class="line"></span><br><span class="line">Input: nums &#x3D; [1,2,3,1,2,3], k &#x3D; 2</span><br><span class="line">Output: false</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">1 &lt;&#x3D; nums.length &lt;&#x3D; 105</span><br><span class="line">-109 &lt;&#x3D; nums[i] &lt;&#x3D; 109</span><br><span class="line">0 &lt;&#x3D; k &lt;&#x3D; 105</span><br></pre></td></tr></table></figure>
-<h2 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h2><p>My solution is using a map to store the value in the array as the key and the index as the value. If the map already contains the key, we check if the difference between the current index and the index stored in the map is less than or equal to k. If it is, then we return true. If not, we update the value of the key in the map to the current index. If the map does not contain the key, we add the key and value to the map. If we finish the loop, we return false.</p>
-<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">containsNearbyDuplicate</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">map</span> &lt;<span class="keyword">int</span>, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; numberMap;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.size(); i++)&#123;</span><br><span class="line">            <span class="keyword">if</span> (numberMap[nums[i]].size()&gt;<span class="number">0</span>)&#123;</span><br><span class="line">                <span class="keyword">if</span>(i- numberMap[nums[i]][<span class="number">0</span>] &lt;= k)</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    numberMap[nums[i]].pop_back();</span><br><span class="line">            &#125;</span><br><span class="line">            numberMap[nums[i]].push_back(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h3 id="Difference-between-map-and-unordered-map"><a href="#Difference-between-map-and-unordered-map" class="headerlink" title="Difference between map and unordered_map"></a>Difference between map and unordered_map</h3><p>I also see some solutions with unordered_map. So I did some research on the difference between map and unordered_map.<br>Both <code>std::map</code> and <code>std::unordered_map</code> are associative containers in C++ that store elements in key-value pairs, but they have some fundamental differences in terms of their internal workings, performance characteristics, and functionalities:</p>
-<ol>
-<li><p><strong>Underlying Data Structure</strong>:</p>
-<ul>
-<li><code>std::map</code>: Implemented using a balanced tree (usually a red-black tree). This guarantees that the elements are always ordered by their keys.</li>
-<li><code>std::unordered_map</code>: Implemented using a hash table. The elements are not ordered.</li>
-</ul>
-</li>
-<li><p><strong>Order of Elements</strong>:</p>
-<ul>
-<li><code>std::map</code>: The elements are always ordered according to the keys (based on the comparison function, which is <code>operator&lt;</code> by default).</li>
-<li><code>std::unordered_map</code>: There is no order guarantee for the keys or the values.</li>
-</ul>
-</li>
-<li><p><strong>Performance</strong>:</p>
-<ul>
-<li><code>std::map</code>: <ul>
-<li>Insertion, deletion, and search have a logarithmic complexity: (O(\log n)).</li>
-</ul>
-</li>
-<li><code>std::unordered_map</code>: <ul>
-<li>In average cases, the insertion, deletion, and search have constant time complexity: (O(1)).</li>
-<li>In the worst case (when there are hash collisions), these operations can degrade to (O(n)).</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p><strong>Hash Function</strong>:</p>
-<ul>
-<li><code>std::map</code>: Does not use hashing, so there’s no need for a hash function.</li>
-<li><code>std::unordered_map</code>: Uses a hash function to map keys to buckets. You can provide a custom hash function, but there’s a default one provided for most standard types.</li>
-</ul>
-</li>
-<li><p><strong>Memory Overhead</strong>:</p>
-<ul>
-<li><code>std::map</code>: Typically has a lesser memory overhead compared to <code>std::unordered_map</code> because it doesn’t need to manage the hash table.</li>
-<li><code>std::unordered_map</code>: Might have more memory overhead due to managing the hash table, especially when the load factor increases.</li>
-</ul>
-</li>
-<li><p><strong>Iterators</strong>:</p>
-<ul>
-<li><code>std::map</code>: Iterators are ordered and remain valid as long as the corresponding element exists in the map. Inserting or deleting elements does not invalidate iterators to other elements.</li>
-<li><code>std::unordered_map</code>: Iterators are not ordered. Inserting an element might invalidate iterators if rehashing occurs, but erasing an element only invalidates the iterator to that element.</li>
-</ul>
-</li>
-<li><p><strong>Usage Scenarios</strong>:</p>
-<ul>
-<li><code>std::map</code>: Useful when you need to maintain an order (like when you need the smallest or largest key frequently) or when you need to work with operations that rely on order (e.g., finding elements in a range).</li>
-<li><code>std::unordered_map</code>: Useful when you need faster average-case insertion, deletion, and search times, and you don’t need the keys to be ordered.</li>
-</ul>
-</li>
-</ol>
-<p>In summary, the choice between <code>std::map</code> and <code>std::unordered_map</code> depends on the specific requirements of your application. If ordering is essential, go with <code>std::map</code>. If you need faster average-time operations and don’t care about order, <code>std::unordered_map</code> might be the better choice.</p>
-<p>I’d like to share my third year project experience with you. It is to use Mitsuba, which is a physical based renderer to simulate the chenrenkov particles in the Europe Large Hadron Collider, which is in CERN. The reason that I did this is because for now, the experiences in CERN are simulated by Geant4, which is a Monte Carlo simulation toolkit. However, Geant4 is very slow and cost huge memory usage. In the end, with collaborating with students in the department of physics, our application reduce over 99% time and only cost less than 1mb memory usage with the same accuracy. </p>
-<p>The challanges I faced out is that I knew nothing about the particle physics since my major is computer science. So in the beginning of the project, it’s tough for me to understand what the result should be look like and how to achieve it. In the team, everyone has their own role. Mine is to implement the Mitsuba renderer and the interface between Mitsuba and Geant4, wheareas my colleagues’ are study the physical theory of Cherenkov radiation. The method that I overcame the challange is to communicate with my colleagues frequently and ask them questions. We held weekly meetings and in the meeting, we shared our new progress and discussed the problems we met. If they have any questions about the Mitsuba, they will ask me. If I have any questions about the physical theory, I will ask them.</p>
-<p>This project is meaningful for me because it is not a toy tool. It is a real application that can be used in the future. We also attend the sharing meeting in CERN and got a lot of positive feedbacks. </p>
-<p>At the beginning of choosing my third year project, I noticed that there are large amount of resources consumed and cost has always been a problem with simulation experiments based on the report of usage of computing resources by CERN. Therefore, I got the idea to reduce simulation time by using other tools.</p>
-<p>My step to develop this idea is firstly, shared this idea with my supervisor. She is very supportive and told me that the department of physics is also interested in this topic. Then I contacted the department of physics and we decided to collaborate together. After that, I started to learn Mitsuba and implemented the Mitsuba renderer and the interface between Mitsuba and Geant4. My colleagues studied the physical theory of Cherenkov radiation. In the end, we combined our work together and got the final result.</p>
-<p>It was important to be innovative in this instance because it is the first time that Mitsuba is used to simulate the Cherenkov radiation. Before that, Geant4 is the only tool that can be used to simulate the Cherenkov radiation. Also, the tool we developed can be used in real life, it is different from the tools that I developed before, which are just for fun or course projects. I’m motivated to do this project because I want to do something meaningful and useful. I want to use my knowledge to help others.</p>
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hash-Table/" rel="tag">Hash Table</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Sliding-Window/" rel="tag">Sliding Window</a></li></ul>
 
     </footer>
   </div>

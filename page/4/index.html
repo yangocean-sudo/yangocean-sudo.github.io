@@ -131,6 +131,243 @@
     
     
     <article
+  id="post-Leetcode1006"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2023/10/06/Leetcode1006/"
+    >Leetcode Study Day 14</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/10/06/Leetcode1006/" class="article-date">
+  <time datetime="2023-10-06T09:36:50.000Z" itemprop="datePublished">2023-10-06</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
+  </div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Container-With-Most-Water"><a href="#Container-With-Most-Water" class="headerlink" title="Container With Most Water"></a>Container With Most Water</h1><p>You are given an integer array height of length n. There are n vertical lines drawn such that the two endpoints of the ith line are (i, 0) and (i, height[i]).</p>
+<p>Find two lines that together with the x-axis form a container, such that the container contains the most water.</p>
+<p>Return the maximum amount of water a container can store.</p>
+<p>Notice that you may not slant the container.<br><img src="https://s3-lc-upload.s3.amazonaws.com/uploads/2018/07/17/question_11.jpg"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Input: height &#x3D; [1,8,6,2,5,4,8,3,7]</span><br><span class="line">Output: 49</span><br><span class="line">Explanation: The above vertical lines are represented by array [1,8,6,2,5,4,8,3,7]. In this case, the max area of water (blue section) the container can contain is 49.</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: height &#x3D; [1,1]</span><br><span class="line">Output: 1</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">n &#x3D;&#x3D; height.length</span><br><span class="line">2 &lt;&#x3D; n &lt;&#x3D; 105</span><br><span class="line">0 &lt;&#x3D; height[i] &lt;&#x3D; 104</span><br></pre></td></tr></table></figure>
+<h2 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h2><p>My solution is using the two pointers method. As what we want is the maximum water we could have, we need to find the height and the width. The height is determined by the lower height of two lines, while the width is the distance between two lines. Therefore, we use two pointers to find the maximum water. The left pointer starts from the leftmost line and the right pointer starts from the rightmost line. We find the lower height between them, times the width between them. If the result is greater than the current <code>maxWater</code>, we replace it. If the left pointer is the shorter one, we move to the next height, whearas we move the right pointer to left. We repeat the process until the two pointers meet each other.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxArea</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; height)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = height.size();</span><br><span class="line">        <span class="keyword">int</span> maxWater = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> right = n - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (left &lt; right)&#123;</span><br><span class="line">            <span class="keyword">int</span> minHeight = min(height[left], height[right]);</span><br><span class="line">            <span class="keyword">if</span> (minHeight * (right - left)&gt; maxWater)</span><br><span class="line">                maxWater = minHeight * (right - left);</span><br><span class="line">            <span class="keyword">if</span> (height[left] &gt; height[right])</span><br><span class="line">                right --;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                left ++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> maxWater;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Greedy/" rel="tag">Greedy</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Two-Pointers/" rel="tag">Two Pointers</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
+  id="post-Leetcode1005-2"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2023/10/05/Leetcode1005-2/"
+    >Leetcode Study Day 12</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/10/05/Leetcode1005-2/" class="article-date">
+  <time datetime="2023-10-05T14:40:26.000Z" itemprop="datePublished">2023-10-05</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
+  </div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Two-Sum-II-Input-Array-Is-Sorted"><a href="#Two-Sum-II-Input-Array-Is-Sorted" class="headerlink" title="Two Sum II - Input Array Is Sorted"></a>Two Sum II - Input Array Is Sorted</h1><p>Given a 1-indexed array of integers numbers that is already sorted in non-decreasing order, find two numbers such that they add up to a specific target number. Let these two numbers be numbers[index1] and numbers[index2] where 1 &lt;= index1 &lt; index2 &lt; numbers.length.</p>
+<p>Return the indices of the two numbers, index1 and index2, added by one as an integer array [index1, index2] of length 2.</p>
+<p>The tests are generated such that there is exactly one solution. You may not use the same element twice.</p>
+<p>Your solution must use only constant extra space.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: numbers &#x3D; [2,7,11,15], target &#x3D; 9</span><br><span class="line">Output: [1,2]</span><br><span class="line">Explanation: The sum of 2 and 7 is 9. Therefore, index1 &#x3D; 1, index2 &#x3D; 2. We return [1, 2].</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: numbers &#x3D; [2,3,4], target &#x3D; 6</span><br><span class="line">Output: [1,3]</span><br><span class="line">Explanation: The sum of 2 and 4 is 6. Therefore index1 &#x3D; 1, index2 &#x3D; 3. We return [1, 3].</span><br><span class="line">Example 3:</span><br><span class="line"></span><br><span class="line">Input: numbers &#x3D; [-1,0], target &#x3D; -1</span><br><span class="line">Output: [1,2]</span><br><span class="line">Explanation: The sum of -1 and 0 is -1. Therefore index1 &#x3D; 1, index2 &#x3D; 2. We return [1, 2].</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">2 &lt;&#x3D; numbers.length &lt;&#x3D; 3 * 104</span><br><span class="line">-1000 &lt;&#x3D; numbers[i] &lt;&#x3D; 1000</span><br><span class="line">numbers is sorted in non-decreasing order.</span><br><span class="line">-1000 &lt;&#x3D; target &lt;&#x3D; 1000</span><br><span class="line">The tests are generated such that there is exactly one solution.</span><br></pre></td></tr></table></figure>
+<h2 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h2><p>My solution is initialise the first number as the variable <code>first</code> and the last number as the variable <code>last</code>. Then we add these two numbers, if they are larger than the target, we set the last number as the previous number of the last number. If they are smaller than the target, we set the first number as the next number of the first number. If they are equal to the target, we return the index of the first number and the last number.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">twoSum</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; numbers, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = numbers.size();</span><br><span class="line">        <span class="keyword">int</span> j = n - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> first = numbers[i];</span><br><span class="line">        <span class="keyword">int</span> last = numbers[j];</span><br><span class="line">        <span class="keyword">while</span> (first + last != target)&#123;</span><br><span class="line">            <span class="keyword">if</span> (first + last &gt; target)&#123;</span><br><span class="line">                j --;</span><br><span class="line">                last = numbers[j];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                i++;</span><br><span class="line">                first = numbers[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">vector</span> &lt;<span class="keyword">int</span>&gt; answer;</span><br><span class="line">        answer.push_back(i+<span class="number">1</span>);</span><br><span class="line">        answer.push_back(j+<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">return</span> answer;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Binary-Search/" rel="tag">Binary Search</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Two-Pointers/" rel="tag">Two Pointers</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
+  id="post-Leetcode1005"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2023/10/05/Leetcode1005/"
+    >Leetcode Study Day 13</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/10/05/Leetcode1005/" class="article-date">
+  <time datetime="2023-10-05T14:33:42.000Z" itemprop="datePublished">2023-10-05</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
+  </div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Valid-Palindrome"><a href="#Valid-Palindrome" class="headerlink" title="Valid Palindrome"></a>Valid Palindrome</h1><p>A phrase is a palindrome if, after converting all uppercase letters into lowercase letters and removing all non-alphanumeric characters, it reads the same forward and backward. Alphanumeric characters include letters and numbers.</p>
+<p>Given a string s, return true if it is a palindrome, or false otherwise.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: s &#x3D; &quot;A man, a plan, a canal: Panama&quot;</span><br><span class="line">Output: true</span><br><span class="line">Explanation: &quot;amanaplanacanalpanama&quot; is a palindrome.</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: s &#x3D; &quot;race a car&quot;</span><br><span class="line">Output: false</span><br><span class="line">Explanation: &quot;raceacar&quot; is not a palindrome.</span><br><span class="line">Example 3:</span><br><span class="line"></span><br><span class="line">Input: s &#x3D; &quot; &quot;</span><br><span class="line">Output: true</span><br><span class="line">Explanation: s is an empty string &quot;&quot; after removing non-alphanumeric characters.</span><br><span class="line">Since an empty string reads the same forward and backward, it is a palindrome.</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">1 &lt;&#x3D; s.length &lt;&#x3D; 2 * 105</span><br><span class="line">s consists only of printable ASCII characters.</span><br></pre></td></tr></table></figure>
+<h2 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h2><p>My solution is convert all uppercase letters to lowercase, meanwhile, remove all non-alphanumeric characters by comparing the ASCII Value. Then, we use two pointers to check if the string is a palindrome.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isPalindrome</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">string</span> answer = <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="comment">// tolower() is a string to transform all uppercase letters to lowercase</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.size(); i++)&#123;</span><br><span class="line">            <span class="comment">// ASCII Value of uppercase letters is from 65 to 90</span></span><br><span class="line">            <span class="keyword">if</span> (s[i] &gt;= <span class="number">65</span> &amp;&amp; s[i] &lt;= <span class="number">90</span>)</span><br><span class="line">                answer += <span class="built_in">tolower</span>(s[i]);</span><br><span class="line">            <span class="comment">// ASCII Value of lowercase letters is from 97 to 122 and the ASCII Value of numbers is from 48 to 57</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> ( s[i] &gt;= <span class="number">97</span> &amp;&amp; s[i] &lt;= <span class="number">122</span> || s[i] &gt;= <span class="number">48</span> &amp;&amp; s[i] &lt;= <span class="number">57</span>)</span><br><span class="line">                answer += s[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> j = answer.size() - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= j ; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span> (answer[i] != answer[j])</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            j --;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/String/" rel="tag">String</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Two-Pointers/" rel="tag">Two Pointers</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
+  id="post-Leetcode1004-2"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2023/10/04/Leetcode1004-2/"
+    >Leetcode Study Day 12</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/10/04/Leetcode1004-2/" class="article-date">
+  <time datetime="2023-10-04T09:10:40.000Z" itemprop="datePublished">2023-10-04</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
+  </div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Sqrt-x"><a href="#Sqrt-x" class="headerlink" title="Sqrt(x)"></a>Sqrt(x)</h1><p>Given a non-negative integer x, return the square root of x rounded down to the nearest integer. The returned integer should be non-negative as well.</p>
+<p>You must not use any built-in exponent function or operator.</p>
+<p>For example, do not use pow(x, 0.5) in c++ or x ** 0.5 in python.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: x &#x3D; 4</span><br><span class="line">Output: 2</span><br><span class="line">Explanation: The square root of 4 is 2, so we return 2.</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: x &#x3D; 8</span><br><span class="line">Output: 2</span><br><span class="line">Explanation: The square root of 8 is 2.82842..., and since we round it down to the nearest integer, 2 is returned.</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">0 &lt;&#x3D; x &lt;&#x3D; 231 - 1</span><br></pre></td></tr></table></figure>
+<h2 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h2><p>My solution is intuitive and simple, but it costs O(n) time complexity.</p>
+<p>Once a number’s square is larger than x, we return the previous number.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">mySqrt</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">long</span> i = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>)&#123;</span><br><span class="line">            <span class="keyword">long</span> j = i + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (i * i &lt;= x &amp;&amp; j * j &gt; x)</span><br><span class="line">                <span class="keyword">return</span> i;</span><br><span class="line">            <span class="keyword">else</span> </span><br><span class="line">                i ++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="Binary-Search"><a href="#Binary-Search" class="headerlink" title="Binary Search"></a>Binary Search</h2><p>Then I saw a solution that using binary search to solve it. It costs O(logn) time complexity.<br>In this solution, we find the mid number between <code>first</code> (which is initiated as 1) and <code>last</code> (which is initiated as x). If the mid number is equal to x / mid, we return mid. If the mid number is larger than x / mid, we set last as mid - 1. If the mid number is smaller than x / mid, we set first as mid + 1.</p>
+<p>Finally, if the first is larger than the last, we return last.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">mySqrt</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (x == <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> first = <span class="number">1</span>, last = x;</span><br><span class="line">        <span class="keyword">while</span> (first &lt;= last)&#123;</span><br><span class="line">            <span class="keyword">int</span> mid = (first+ (last - first)/<span class="number">2</span>);</span><br><span class="line">            <span class="keyword">if</span> (mid == x / mid)</span><br><span class="line">                <span class="keyword">return</span> mid;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (mid &gt;= x / mid)</span><br><span class="line">                last = mid - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span> first = mid + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> last;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Binary-Search/" rel="tag">Binary Search</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Math/" rel="tag">Math</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
   id="post-Leetcode1004"
   class="article article-type-post"
   itemscope
@@ -540,260 +777,6 @@
     <footer class="article-footer">
        
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hash-Table/" rel="tag">Hash Table</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Math/" rel="tag">Math</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/String/" rel="tag">String</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-Leetcode0926-2"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2023/09/26/Leetcode0926-2/"
-    >Leetcode Study Day 8</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2023/09/26/Leetcode0926-2/" class="article-date">
-  <time datetime="2023-09-26T05:19:59.000Z" itemprop="datePublished">2023-09-26</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
-  </div>
- 
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h1 id="Trapping-Rain-Water"><a href="#Trapping-Rain-Water" class="headerlink" title="Trapping Rain Water"></a>Trapping Rain Water</h1><p>Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining.<br><img src="https://assets.leetcode.com/uploads/2018/10/22/rainwatertrap.png"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line">Input: height &#x3D; [0,1,0,2,1,0,1,3,2,1,2,1]</span><br><span class="line">Output: 6</span><br><span class="line">Explanation: The above elevation map (black section) is represented by array [0,1,0,2,1,0,1,3,2,1,2,1]. In this case, 6 units of rain water (blue section) are being trapped.</span><br><span class="line"></span><br><span class="line">Example 2:</span><br><span class="line">Input: height &#x3D; [4,2,0,3,2,5]</span><br><span class="line">Output: 9</span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">n &#x3D;&#x3D; height.length</span><br><span class="line">1 &lt;&#x3D; n &lt;&#x3D; 2 * 104</span><br><span class="line">0 &lt;&#x3D; height[i] &lt;&#x3D; 105</span><br></pre></td></tr></table></figure>
-<h2 id="Max-Height-Approach"><a href="#Max-Height-Approach" class="headerlink" title="Max Height Approach"></a>Max Height Approach</h2><p>The first solution is to get the maximum height of the left of each element and the maximum height of the right of each element respectively. Then based on the two maximum height, we can calculate the water that can be trapped in each element. The total water is the sum of the water trapped in each element.</p>
-<h3 id="Left-and-Right-Max-Height"><a href="#Left-and-Right-Max-Height" class="headerlink" title="Left and Right Max Height"></a>Left and Right Max Height</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> n = height.size();</span><br><span class="line">    <span class="built_in">vector</span> &lt;<span class="keyword">int</span>&gt; max_Left(n, <span class="number">0</span>);</span><br><span class="line">    <span class="built_in">vector</span> &lt;<span class="keyword">int</span>&gt; max_Right(n, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span> (height[i - <span class="number">1</span>] &gt; max_Left[i<span class="number">-1</span>])&#123;</span><br><span class="line">            max_Left[i] = height[i - <span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            max_Left[i] = max_Left[i<span class="number">-1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = n - <span class="number">2</span>; i &gt;=<span class="number">0</span>; i --)&#123;</span><br><span class="line">        <span class="keyword">if</span> (height[i + <span class="number">1</span>] &gt; max_Right[i+<span class="number">1</span>])&#123;</span><br><span class="line">            max_Right[i] = height[i + <span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            max_Right[i] = max_Right[i+<span class="number">1</span>];</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h3 id="The-water-trapped-in-each-element"><a href="#The-water-trapped-in-each-element" class="headerlink" title="The water trapped in each element"></a>The water trapped in each element</h3><p>For each element, we know the max height of the left and right, we choose the smaller one because the condition of the trapped water is based on the shortest height. Then we minus the height of the current element, the result is the water trapped in the current element. The reason that we minus the current height is that it represents the height that is solid, which represents that the water can’t be trapped in. We then add the water trapped in each element together, the result is the total water trapped in the elevation map.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> trap_water = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">    <span class="keyword">int</span> minMaxHeight = min (max_Left[i], max_Right[i]);</span><br><span class="line">    <span class="keyword">if</span> (minMaxHeight - height[i] &gt; <span class="number">0</span>)</span><br><span class="line">        trap_water += (minMaxHeight - height[i]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> trap_water;</span><br></pre></td></tr></table></figure>
-<h3 id="Full-code"><a href="#Full-code" class="headerlink" title="Full code"></a>Full code</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">trap</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; height)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = height.size();</span><br><span class="line">        <span class="built_in">vector</span> &lt;<span class="keyword">int</span>&gt; max_Left(n, <span class="number">0</span>);</span><br><span class="line">        <span class="built_in">vector</span> &lt;<span class="keyword">int</span>&gt; max_Right(n, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span> (height[i - <span class="number">1</span>] &gt; max_Left[i<span class="number">-1</span>])&#123;</span><br><span class="line">                max_Left[i] = height[i - <span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                max_Left[i] = max_Left[i<span class="number">-1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = n - <span class="number">2</span>; i &gt;=<span class="number">0</span>; i --)&#123;</span><br><span class="line">            <span class="keyword">if</span> (height[i + <span class="number">1</span>] &gt; max_Right[i+<span class="number">1</span>])&#123;</span><br><span class="line">                max_Right[i] = height[i + <span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                max_Right[i] = max_Right[i+<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> trap_water = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">            <span class="keyword">int</span> minMaxHeight = min (max_Left[i], max_Right[i]);</span><br><span class="line">            <span class="keyword">if</span> (minMaxHeight - height[i] &gt; <span class="number">0</span>)</span><br><span class="line">                trap_water += (minMaxHeight - height[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> trap_water;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="Two-pointer-solution"><a href="#Two-pointer-solution" class="headerlink" title="Two pointer solution"></a>Two pointer solution</h2><p>We can also improved the last solution by using a two pointer solution. In this solution, we don’t need to iterate the loop for three times. The two pointers are called <code>left</code> and <code>right</code> respectively. The <code>left</code> pointer is the index of the leftmost element and the <code>right</code> pointer is the index of the rightmost element. We also create two variables called <code>leftMax</code> and <code>rightMax</code> to store the maximum height of the left and right respectively. </p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> n = height.size();</span><br><span class="line"><span class="keyword">int</span> total_water = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">int</span> left_max = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">int</span> right_max = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">int</span> left = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">int</span> right = n<span class="number">-1</span> ;</span><br></pre></td></tr></table></figure>
-<p>We called the minimum of <code>leftMax</code> and <code>rightMax</code> <code>water_level</code>, which is to make sure the water will not be leaked in this height. If <code>water_level</code> is higher than the current element’s height, which means some water is trapped in this element, we then update the <code>total_water</code>, <code>left</code> and skip the following operations and jump to the next iteration. The idea from right to the left is similar.</p>
-<p>If the current left or right element is higher than the <code>leftMax</code> and the <code>rightMax</code>, we then update the <code>leftmax</code> and the <code>rightMax</code></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (left &lt; right)&#123;</span><br><span class="line">    <span class="keyword">int</span> water_level = min (left_max, right_max);</span><br><span class="line">    <span class="keyword">if</span> (water_level &gt;= height[left])&#123;</span><br><span class="line">        total_water += (water_level - height[left]);</span><br><span class="line">        left ++;</span><br><span class="line">        <span class="keyword">continue</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (water_level &gt;= height[right])&#123;</span><br><span class="line">        total_water += (water_level - height[right]);</span><br><span class="line">        right --;</span><br><span class="line">        <span class="keyword">continue</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    left_max = max(left_max, height[left]);</span><br><span class="line">    right_max = max(right_max, height[right]);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Full-Code"><a href="#Full-Code" class="headerlink" title="Full Code"></a>Full Code</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">trap</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; height)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = height.size();</span><br><span class="line">        <span class="keyword">int</span> total_water = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> left_max = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> right_max = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> right = n<span class="number">-1</span> ;</span><br><span class="line">        <span class="keyword">while</span> (left &lt; right)&#123;</span><br><span class="line">            <span class="keyword">int</span> water_level = min (left_max, right_max);</span><br><span class="line">            <span class="keyword">if</span> (water_level &gt;= height[left])&#123;</span><br><span class="line">                total_water += (water_level - height[left]);</span><br><span class="line">                left ++;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (water_level &gt;= height[right])&#123;</span><br><span class="line">                total_water += (water_level - height[right]);</span><br><span class="line">                right --;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            left_max = max(left_max, height[left]);</span><br><span class="line">            right_max = max(right_max, height[right]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> total_water;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Dynamic-Programming/" rel="tag">Dynamic Programming</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Monotonic-Stack/" rel="tag">Monotonic Stack</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Stack/" rel="tag">Stack</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Two-Pointers/" rel="tag">Two Pointers</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-LeetCode0926"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2023/09/26/LeetCode0926/"
-    >Leetcode Study Day 8</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2023/09/26/LeetCode0926/" class="article-date">
-  <time datetime="2023-09-26T01:23:43.000Z" itemprop="datePublished">2023-09-26</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
-  </div>
- 
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h1 id="Candy"><a href="#Candy" class="headerlink" title="Candy"></a>Candy</h1><p>There are n children standing in a line. Each child is assigned a rating value given in the integer array ratings.</p>
-<p>You are giving candies to these children subjected to the following requirements:</p>
-<p>Each child must have at least one candy.<br>Children with a higher rating get more candies than their neighbors.<br>Return the minimum number of candies you need to have to distribute the candies to the children.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: ratings &#x3D; [1,0,2]</span><br><span class="line">Output: 5</span><br><span class="line">Explanation: You can allocate to the first, second and third child with 2, 1, 2 candies respectively.</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: ratings &#x3D; [1,2,2]</span><br><span class="line">Output: 4</span><br><span class="line">Explanation: You can allocate to the first, second and third child with 1, 2, 1 candies respectively.</span><br><span class="line">The third child gets 1 candy because it satisfies the above two conditions.</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">n &#x3D;&#x3D; ratings.length</span><br><span class="line">1 &lt;&#x3D; n &lt;&#x3D; 2 * 104</span><br><span class="line">0 &lt;&#x3D; ratings[i] &lt;&#x3D; 2 * 104</span><br></pre></td></tr></table></figure>
-<h2 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h2><p>We can use greedy approach to accomplish this question. </p>
-<p>We initialise an array full of 1 as the candy number with the same size of <code>ratings</code>. </p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> n = ratings.size();</span><br><span class="line"><span class="built_in">vector</span> &lt;<span class="keyword">int</span>&gt; candies (n,<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
-<p>The main idea is iterate the <code>ratings</code> array from left to right first.  If a child’s rating is greater than their left neighbor’s rating, assign them one more candy than their left neighbor.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++)&#123;</span><br><span class="line">    <span class="keyword">if</span> (ratings[i] &gt; ratings[i<span class="number">-1</span>])&#123;</span><br><span class="line">        candies[i] = candies[i<span class="number">-1</span>] + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Then we iterate the array again but this time we from the right to the left. If the current child’s rating is greater than the right neighbour’s rating, and the number of candies is smaller than the number of neighbour’s candy plus one, then we update the current child’s candy number by adding one to the neighbour’s candy number.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = n - <span class="number">2</span>; i &gt;= <span class="number">0</span>; i--)&#123;</span><br><span class="line">    <span class="keyword">if</span> (ratings[i] &gt; ratings[i+<span class="number">1</span>])&#123;</span><br><span class="line">        <span class="keyword">if</span> (candies[i] &gt; candies[i+<span class="number">1</span>] + <span class="number">1</span>)&#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> candies[i] = candies[i+<span class="number">1</span>] + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Finally, we sum up the candy array and return the result.</p>
-<h2 id="Full-code"><a href="#Full-code" class="headerlink" title="Full code"></a>Full code</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">candy</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; ratings)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = ratings.size();</span><br><span class="line">        <span class="built_in">vector</span> &lt;<span class="keyword">int</span>&gt; candies (n,<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span> (ratings[i] &gt; ratings[i<span class="number">-1</span>])&#123;</span><br><span class="line">                candies[i] = candies[i<span class="number">-1</span>] + <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = n - <span class="number">2</span>; i &gt;= <span class="number">0</span>; i--)&#123;</span><br><span class="line">            <span class="keyword">if</span> (ratings[i] &gt; ratings[i+<span class="number">1</span>])&#123;</span><br><span class="line">                <span class="keyword">if</span> (candies[i] &gt; candies[i+<span class="number">1</span>] + <span class="number">1</span>)&#123;</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> candies[i] = candies[i+<span class="number">1</span>] + <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> total = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i ++)&#123;</span><br><span class="line">            total += candies[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> total;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Greedy/" rel="tag">Greedy</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-Leetcode0925-2"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2023/09/25/Leetcode0925-2/"
-    >Leetcode Study Day 8</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2023/09/25/Leetcode0925-2/" class="article-date">
-  <time datetime="2023-09-25T04:52:42.000Z" itemprop="datePublished">2023-09-25</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
-  </div>
- 
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h1 id="Gas-Station"><a href="#Gas-Station" class="headerlink" title="Gas Station"></a>Gas Station</h1><p>There are n gas stations along a circular route, where the amount of gas at the ith station is gas[i].</p>
-<p>You have a car with an unlimited gas tank and it costs cost[i] of gas to travel from the ith station to its next (i + 1)th station. You begin the journey with an empty tank at one of the gas stations.</p>
-<p>Given two integer arrays gas and cost, return the starting gas station’s index if you can travel around the circuit once in the clockwise direction, otherwise return -1. If there exists a solution, it is guaranteed to be unique</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">Example <span class="number">1</span>:</span><br><span class="line"></span><br><span class="line">Input: gas = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>], cost = [<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">1</span>,<span class="number">2</span>]</span><br><span class="line">Output: <span class="number">3</span></span><br><span class="line">Explanation:</span><br><span class="line">Start at station <span class="number">3</span> (index <span class="number">3</span>) <span class="keyword">and</span> fill up with <span class="number">4</span> unit of gas. Your tank = <span class="number">0</span> + <span class="number">4</span> = <span class="number">4</span></span><br><span class="line">Travel to station <span class="number">4.</span> Your tank = <span class="number">4</span> - <span class="number">1</span> + <span class="number">5</span> = <span class="number">8</span></span><br><span class="line">Travel to station <span class="number">0.</span> Your tank = <span class="number">8</span> - <span class="number">2</span> + <span class="number">1</span> = <span class="number">7</span></span><br><span class="line">Travel to station <span class="number">1.</span> Your tank = <span class="number">7</span> - <span class="number">3</span> + <span class="number">2</span> = <span class="number">6</span></span><br><span class="line">Travel to station <span class="number">2.</span> Your tank = <span class="number">6</span> - <span class="number">4</span> + <span class="number">3</span> = <span class="number">5</span></span><br><span class="line">Travel to station <span class="number">3.</span> The cost is <span class="number">5.</span> Your gas is just enough to travel back to station <span class="number">3.</span></span><br><span class="line">Therefore, <span class="keyword">return</span> <span class="number">3</span> as the starting index.</span><br><span class="line">Example <span class="number">2</span>:</span><br><span class="line"></span><br><span class="line">Input: gas = [<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>], cost = [<span class="number">3</span>,<span class="number">4</span>,<span class="number">3</span>]</span><br><span class="line">Output: <span class="number">-1</span></span><br><span class="line">Explanation:</span><br><span class="line">You can<span class="number">&#x27;</span>t start at station <span class="number">0</span> <span class="keyword">or</span> <span class="number">1</span>, as there is <span class="keyword">not</span> enough gas to travel to the next station.</span><br><span class="line">Let<span class="number">&#x27;</span>s start at station <span class="number">2</span> <span class="keyword">and</span> fill up with <span class="number">4</span> unit of gas. Your tank = <span class="number">0</span> + <span class="number">4</span> = <span class="number">4</span></span><br><span class="line">Travel to station <span class="number">0.</span> Your tank = <span class="number">4</span> - <span class="number">3</span> + <span class="number">2</span> = <span class="number">3</span></span><br><span class="line">Travel to station <span class="number">1.</span> Your tank = <span class="number">3</span> - <span class="number">3</span> + <span class="number">3</span> = <span class="number">3</span></span><br><span class="line">You cannot travel back to station <span class="number">2</span>, as it <span class="keyword">requires</span> <span class="number">4</span> unit of gas but you only have <span class="number">3.</span></span><br><span class="line">Therefore, you can<span class="number">&#x27;</span>t travel around the circuit once no matter where you start.</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">n == gas.length == cost.length</span><br><span class="line"><span class="number">1</span> &lt;= n &lt;= <span class="number">105</span></span><br><span class="line"><span class="number">0</span> &lt;= gas[i], cost[i] &lt;= <span class="number">104</span></span><br></pre></td></tr></table></figure>
-<h2 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h2><p>My solution is complex and cost O(n^2) time complexity. It fails in the last two tests as the time exceed problem. Here is the fulle code with explanation:</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">canCompleteCircuit</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; gas, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; cost)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// An array to store the Ind that is not zero</span></span><br><span class="line">        <span class="built_in">vector</span> &lt;<span class="keyword">int</span>&gt; maxInd;</span><br><span class="line">        <span class="keyword">int</span> n = gas.size();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i ++)&#123;</span><br><span class="line">            <span class="comment">// if the difference is not zero, store the index to the vector</span></span><br><span class="line">            <span class="keyword">if</span> (gas[i] - cost[i] &gt;= <span class="number">0</span>)&#123;</span><br><span class="line">                maxInd.push_back(i);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (!maxInd.empty())&#123;</span><br><span class="line">            <span class="keyword">int</span> maxIndLength = maxInd.size();</span><br><span class="line">            <span class="comment">// the index that want to check</span></span><br><span class="line">            <span class="keyword">int</span> targetInd = maxInd[maxIndLength<span class="number">-1</span>];</span><br><span class="line">            <span class="keyword">int</span> current =  targetInd + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">int</span> currentGas = gas[targetInd] - cost[targetInd];</span><br><span class="line">            <span class="comment">// loop the array to find out if it can run in a circular route</span></span><br><span class="line">            <span class="keyword">while</span> (current != targetInd)&#123;</span><br><span class="line">                <span class="comment">// if go to the end of the array, return to 0 index</span></span><br><span class="line">                <span class="keyword">if</span> (current == n)&#123;</span><br><span class="line">                    current = <span class="number">0</span>;</span><br><span class="line">                    <span class="comment">// if the 0 index is the target Index.</span></span><br><span class="line">                    <span class="keyword">if</span> (current == targetInd)</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">// run and calculate the gas we have</span></span><br><span class="line">                currentGas = currentGas + gas[current] - cost[current];</span><br><span class="line">                <span class="comment">// smaller than 0, means can&#x27;t run the whole circle from this station</span></span><br><span class="line">                <span class="keyword">if</span> (currentGas &lt; <span class="number">0</span>)</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                current ++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (currentGas &gt;= <span class="number">0</span>)</span><br><span class="line">                <span class="keyword">return</span> targetInd;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                maxInd.pop_back();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="Improved-Solution"><a href="#Improved-Solution" class="headerlink" title="Improved Solution"></a>Improved Solution</h2><p>The improved solution only cost O(n) time complexity.<br>The main idea is to make sure that the car have enough gas to run around the whole circuit, the total gas, which is the sum of all the gas[i] - cost[i], should be larger than 0. If it is smaller than 0, it means that the car can’t run around the whole circuit.</p>
-<p>The second idea is to find out the gas station that can run the whole circuit. If the car can run from gasStation[i] to gasStation[i+1], it means that the car can run from gasStation[i+1] to gasStation[i+2]. So we can use a variable called <code>currentGas</code> to record the gas we have. If the <code>currentGas</code> is smaller than 0, it means that the car can’t run from gasStation[i] to gasStation[i+1], so we update the <code>currentGas</code> to 0 and update the <code>gasStation</code> to i+1.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">canCompleteCircuit</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; gas, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; cost)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = gas.size();</span><br><span class="line">        <span class="keyword">int</span> totalGas = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> currentGas = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> gasStation = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">            totalGas += (gas[i] - cost[i]);</span><br><span class="line">            currentGas += (gas[i] - cost[i]);</span><br><span class="line">            <span class="keyword">if</span> (currentGas &lt; <span class="number">0</span>)&#123;</span><br><span class="line">                currentGas = <span class="number">0</span>;</span><br><span class="line">                gasStation = i + <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (totalGas &gt;= <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> gasStation;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Greedy/" rel="tag">Greedy</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-Leetcode0925"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2023/09/25/Leetcode0925/"
-    >Leetcode Study Day 8</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2023/09/25/Leetcode0925/" class="article-date">
-  <time datetime="2023-09-25T01:38:20.000Z" itemprop="datePublished">2023-09-25</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
-  </div>
- 
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h1 id="Product-of-Array-Except-Self"><a href="#Product-of-Array-Except-Self" class="headerlink" title="Product of Array Except Self"></a>Product of Array Except Self</h1><p>Given an integer array nums, return an array answer such that answer[i] is equal to the product of all the elements of nums except nums[i].</p>
-<p>The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit integer.</p>
-<p>You must write an algorithm that runs in O(n) time and without using the division operation.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: nums &#x3D; [1,2,3,4]</span><br><span class="line">Output: [24,12,8,6]</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: nums &#x3D; [-1,1,0,-3,3]</span><br><span class="line">Output: [0,0,9,0,0]</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">2 &lt;&#x3D; nums.length &lt;&#x3D; 105</span><br><span class="line">-30 &lt;&#x3D; nums[i] &lt;&#x3D; 30</span><br><span class="line">The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit integer.</span><br></pre></td></tr></table></figure>
-<h2 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h2><p>I actually use division operation to solve this question. But this is the first idea that come up to my head, so I record it here:</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">productExceptSelf</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = nums.size();</span><br><span class="line">        <span class="keyword">int</span> tot_prod = <span class="number">1</span>;</span><br><span class="line">        <span class="comment">// To count how many zero are there in the array</span></span><br><span class="line">        <span class="keyword">int</span> zero_num = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[i] == <span class="number">0</span>)&#123;</span><br><span class="line">                zero_num ++;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// Calculate the total product for all the elements</span></span><br><span class="line">            tot_prod *= nums[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">vector</span> &lt;<span class="keyword">int</span>&gt; answer;</span><br><span class="line">        <span class="comment">// If there is no zero</span></span><br><span class="line">        <span class="keyword">if</span> (zero_num == <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">                <span class="comment">// each element in the answer is total product divided by itself</span></span><br><span class="line">                answer.push_back(tot_prod / nums[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (zero_num == <span class="number">1</span>)&#123;</span><br><span class="line">            <span class="comment">// If there is one 0, all the element is 0 except for the index of 0</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">                <span class="keyword">if</span> (nums[i] == <span class="number">0</span>)</span><br><span class="line">                    answer.push_back(tot_prod);</span><br><span class="line">                <span class="keyword">else</span> answer.push_back(<span class="number">0</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="comment">// If there are more than one 0, all the elements are 0.</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">                answer.push_back(<span class="number">0</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> answer;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="Improved-Solution"><a href="#Improved-Solution" class="headerlink" title="Improved Solution"></a>Improved Solution</h2><p>The improved idea is based on computing the products to the left and right of the current element and multiplying them, we obtain the product of all elements except the current one. To be specific, we firstly compute the product of all elements to the left of the current element.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> n = nums.size();</span><br><span class="line"><span class="built_in">vector</span> &lt;<span class="keyword">int</span>&gt; answer(n);</span><br><span class="line">answer[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++)&#123;</span><br><span class="line">    answer[i] = answer[i<span class="number">-1</span>] * nums[i<span class="number">-1</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Then we initiate a variabe <code>right</code> which is equal to 1 to represent the element at the right of the end element. Then we iterate the array from the end to the beginning, and update the answer array. The variable <code>right</code> is the product of all the elements to the right of the current element.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> right = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = n - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--)&#123;</span><br><span class="line">    answer[i] = right * answer[i];</span><br><span class="line">    right = right * nums[i];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Full-code"><a href="#Full-code" class="headerlink" title="Full code"></a>Full code</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">productExceptSelf</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = nums.size();</span><br><span class="line">        <span class="built_in">vector</span> &lt;<span class="keyword">int</span>&gt; answer(n);</span><br><span class="line">        answer[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++)&#123;</span><br><span class="line">            answer[i] = answer[i<span class="number">-1</span>] * nums[i<span class="number">-1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> right = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = n - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--)&#123;</span><br><span class="line">            answer[i] = right * answer[i];</span><br><span class="line">            right = right * nums[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> answer;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Prefix-Sum/" rel="tag">Prefix Sum</a></li></ul>
 
     </footer>
   </div>
