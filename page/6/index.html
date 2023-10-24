@@ -131,6 +131,144 @@
     
     
     <article
+  id="post-Leetcode0923"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2023/09/23/Leetcode0923/"
+    >Leetcode Study Day 6</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/09/23/Leetcode0923/" class="article-date">
+  <time datetime="2023-09-23T02:29:54.000Z" itemprop="datePublished">2023-09-23</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
+  </div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Jump-Game"><a href="#Jump-Game" class="headerlink" title="Jump Game"></a>Jump Game</h1><p>You are given an integer array nums. You are initially positioned at the array’s first index, and each element in the array represents your maximum jump length at that position.</p>
+<p>Return true if you can reach the last index, or false otherwise.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: nums &#x3D; [2,3,1,1,4]</span><br><span class="line">Output: true</span><br><span class="line">Explanation: Jump 1 step from index 0 to 1, then 3 steps to the last index.</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: nums &#x3D; [3,2,1,0,4]</span><br><span class="line">Output: false</span><br><span class="line">Explanation: You will always arrive at index 3 no matter what. Its maximum jump length is 0, which makes it impossible to reach the last index.</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">1 &lt;&#x3D; nums.length &lt;&#x3D; 104</span><br><span class="line">0 &lt;&#x3D; nums[i] &lt;&#x3D; 105</span><br></pre></td></tr></table></figure>
+<h2 id="Greedy-solution"><a href="#Greedy-solution" class="headerlink" title="Greedy solution"></a>Greedy solution</h2><p>I try to solve this problem by greedy solution by myself but I failed. One solution is to use greedy method. </p>
+<p>First, we initiate a variable called maxReach, which means how far can we jump from a specific index.</p>
+<p>Then, we iterate the loop, in each iteration, we compare if the index is larger than the maxReach, if so, it means it cannot jump to the current index, we return false.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (i &gt; maxReach)</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br></pre></td></tr></table></figure>
+<p>Then we find the max value between <code>maxReach</code> and <code>i + nums[i]</code>, the larger one will be the new value of <code>maxReach</code></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">maxReach = max (maxReach, i + nums[i]);</span><br></pre></td></tr></table></figure>
+<p>If the vlaue of maxReach is larger than the length of the array, which means we can jump to the end of the array, we return true.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (maxReach &gt;= n - <span class="number">1</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="Full-code"><a href="#Full-code" class="headerlink" title="Full code"></a>Full code</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">canJump</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = nums.size();</span><br><span class="line">        <span class="keyword">int</span> maxReach = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span> (i &gt; maxReach)</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">            maxReach = max (maxReach, i + nums[i]);</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span> (maxReach &gt;= n - <span class="number">1</span>)</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="Jump-Game-II"><a href="#Jump-Game-II" class="headerlink" title="Jump Game II"></a>Jump Game II</h1><p>You are given a 0-indexed array of integers nums of length n. You are initially positioned at nums[0].</p>
+<p>Each element nums[i] represents the maximum length of a forward jump from index i. In other words, if you are at nums[i], you can jump to any nums[i + j] where:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">0 &lt;&#x3D; j &lt;&#x3D; nums[i] and</span><br><span class="line">i + j &lt; n</span><br><span class="line">Return the minimum number of jumps to reach nums[n - 1]. The test cases are generated such that you can reach nums[n - 1].</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: nums &#x3D; [2,3,1,1,4]</span><br><span class="line">Output: 2</span><br><span class="line">Explanation: The minimum number of jumps to reach the last index is 2. Jump 1 step from index 0 to 1, then 3 steps to the last index.</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: nums &#x3D; [2,3,0,1,4]</span><br><span class="line">Output: 2</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">1 &lt;&#x3D; nums.length &lt;&#x3D; 104</span><br><span class="line">0 &lt;&#x3D; nums[i] &lt;&#x3D; 1000</span><br><span class="line">It&#39;s guaranteed that you can reach nums[n - 1].</span><br></pre></td></tr></table></figure>
+<h2 id="Greedy-solution-1"><a href="#Greedy-solution-1" class="headerlink" title="Greedy solution"></a>Greedy solution</h2><p>In this solution, we create a new vairable called <code>currentPosition</code>. When its value is equal to the index in the loop, it means a jump is needed, so we increase the count, and update the currentPosition to the maxJump, which means we need to jump when the index is equal to the current maxJump. Also, during the iteration, we update the maxJump by comparing the current maxJump with (i+nums[i]).</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">jump</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = nums.size();</span><br><span class="line">        <span class="keyword">int</span> maxJump = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> currentPosition = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n<span class="number">-1</span>; i++)&#123;</span><br><span class="line">            maxJump = max(maxJump, i + nums[i]);</span><br><span class="line">            <span class="keyword">if</span> (currentPosition == i)&#123;</span><br><span class="line">                currentPosition = maxJump;</span><br><span class="line">                count ++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Dynamic-Programming/" rel="tag">Dynamic Programming</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Greedy/" rel="tag">Greedy</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
+  id="post-Leetcode0922-2"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2023/09/22/Leetcode0922-2/"
+    >Leetcode Study Day 5</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/09/22/Leetcode0922-2/" class="article-date">
+  <time datetime="2023-09-22T06:30:13.000Z" itemprop="datePublished">2023-09-22</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
+  </div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Best-Time-to-Buy-and-Sell-Stock-II"><a href="#Best-Time-to-Buy-and-Sell-Stock-II" class="headerlink" title="Best Time to Buy and Sell Stock II"></a>Best Time to Buy and Sell Stock II</h1><p>You are given an integer array prices where prices[i] is the price of a given stock on the ith day.</p>
+<p>On each day, you may decide to buy and/or sell the stock. You can only hold at most one share of the stock at any time. However, you can buy it then immediately sell it on the same day.</p>
+<p>Find and return the maximum profit you can achieve.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: prices &#x3D; [7,1,5,3,6,4]</span><br><span class="line">Output: 7</span><br><span class="line">Explanation: Buy on day 2 (price &#x3D; 1) and sell on day 3 (price &#x3D; 5), profit &#x3D; 5-1 &#x3D; 4.</span><br><span class="line">Then buy on day 4 (price &#x3D; 3) and sell on day 5 (price &#x3D; 6), profit &#x3D; 6-3 &#x3D; 3.</span><br><span class="line">Total profit is 4 + 3 &#x3D; 7.</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: prices &#x3D; [1,2,3,4,5]</span><br><span class="line">Output: 4</span><br><span class="line">Explanation: Buy on day 1 (price &#x3D; 1) and sell on day 5 (price &#x3D; 5), profit &#x3D; 5-1 &#x3D; 4.</span><br><span class="line">Total profit is 4.</span><br><span class="line">Example 3:</span><br><span class="line"></span><br><span class="line">Input: prices &#x3D; [7,6,4,3,1]</span><br><span class="line">Output: 0</span><br><span class="line">Explanation: There is no way to make a positive profit, so we never buy the stock to achieve the maximum profit of 0.</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">1 &lt;&#x3D; prices.length &lt;&#x3D; 3 * 104</span><br><span class="line">0 &lt;&#x3D; prices[i] &lt;&#x3D; 104</span><br></pre></td></tr></table></figure>
+<h2 id="Greedy-solution"><a href="#Greedy-solution" class="headerlink" title="Greedy solution"></a>Greedy solution</h2><p>The greedy solution loop the whole array and compare the current elemnt to the previous element, if the current one is larger than the previous one, the difference between these two elemets is added to the maximum profits. It’s really a clever method that I can’t think by myself at the first time. The reason that we can use greedy solution is we only can hold one stock at a time and we can’t buy a stock before we sell the previous one. </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; prices)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = prices.size();</span><br><span class="line">        <span class="keyword">if</span> (n &lt; <span class="number">2</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> maximum_profit = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span> (prices[i] &gt; prices[i<span class="number">-1</span>])&#123;</span><br><span class="line">                maximum_profit += (prices[i]-prices[i<span class="number">-1</span>]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> maximum_profit;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="Dynamic-Programming"><a href="#Dynamic-Programming" class="headerlink" title="Dynamic Programming"></a>Dynamic Programming</h2><p>We can also solve it by using dynamic programming method, though it’s harder for me to understand. </p>
+<p>First, we create two arrays, one is called <code>withstock</code>, which means we buy a stock; the other is called <code>withoutstock</code>, which means we sold a stock or we don’t have one.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">withstock</span> <span class="params">(n,<span class="number">0</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">withoutstock</span> <span class="params">(n,<span class="number">0</span>)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>Then we initialise the first value of these two arrays. The first element of <code>withstock</code> is <code>0 - prices[0]</code> because we loose money for buying this stock. The first element of <code>withoutstock</code> is 0 because we don’t buy the first stock.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">withstock[<span class="number">0</span>] = -prices[<span class="number">0</span>];</span><br><span class="line">withoutstock[<span class="number">0</span>] = <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+<p>Then we loop the <code>prices</code> array to update the value of <code>withstock</code> and <code>withoutstock</code>. During each iteration, we should find the best solution for each array. For example, for the array <code>withstock</code>, we should find the maximum value between the previous value in the <code>withstock</code> and the difference between the previous value of <code>withoutstock</code> and the price of this current element. It means we are comparing the money we get by don’t buying this current stock (element) or buying this one. </p>
+<p>Similarly, for the <code>withoutstock</code> array, we decide whether we keep the stock we had or we sell it by finding the maximum value between <code>withoutstock[i-1]</code> and <code>withstock[i-1] + prices[i]</code>. Uhh, it’s do hard to explain it by words.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++)&#123;</span><br><span class="line">    withstock[i] = max(withstock[i - <span class="number">1</span>], (withoutstock[i<span class="number">-1</span>] - prices[i]));</span><br><span class="line">    withoutstock[i] = max(withoutstock[i<span class="number">-1</span>], (withstock[i<span class="number">-1</span>] + prices[i]));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Finally, we return the last element in the <code>withoutstock</code> array because we can’t have a stock at the end of the day.</p>
+<h3 id="Full-code"><a href="#Full-code" class="headerlink" title="Full code"></a>Full code</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; prices)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = prices.size();</span><br><span class="line">        <span class="keyword">if</span> (n &lt; <span class="number">2</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">withstock</span> <span class="params">(n,<span class="number">0</span>)</span></span>;</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">withoutstock</span> <span class="params">(n,<span class="number">0</span>)</span></span>;</span><br><span class="line">        withstock[<span class="number">0</span>] = -prices[<span class="number">0</span>];</span><br><span class="line">        withoutstock[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++)&#123;</span><br><span class="line">            withstock[i] = max(withstock[i - <span class="number">1</span>], (withoutstock[i<span class="number">-1</span>] - prices[i]));</span><br><span class="line">            withoutstock[i] = max(withoutstock[i<span class="number">-1</span>], (withstock[i<span class="number">-1</span>] + prices[i]));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> withoutstock[n<span class="number">-1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Dynamic-Programming/" rel="tag">Dynamic Programming</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Greedy/" rel="tag">Greedy</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
   id="post-Leetcode0922"
   class="article article-type-post"
   itemscope
@@ -631,120 +769,6 @@
     <footer class="article-footer">
        
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-Distributed-System"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2022/05/07/Distributed-System/"
-    >Distributed System</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2022/05/07/Distributed-System/" class="article-date">
-  <time datetime="2022-05-07T10:46:26.000Z" itemprop="datePublished">2022-05-07</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Coding/">Coding</a>
-  </div>
- 
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h1 id="Introduction-to-Distributed-System"><a href="#Introduction-to-Distributed-System" class="headerlink" title="Introduction to Distributed System"></a>Introduction to Distributed System</h1> 
-      <a class="article-more-link" href="/2022/05/07/Distributed-System/"
-        >Read More...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Distributed-System/" rel="tag">Distributed System</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-Programming-Languages-and-Paradigms-Part-1"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2022/04/21/Programming-Languages-and-Paradigms-Part-1/"
-    >Programming Languages and Paradigms -- Part 1</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2022/04/21/Programming-Languages-and-Paradigms-Part-1/" class="article-date">
-  <time datetime="2022-04-21T17:15:41.000Z" itemprop="datePublished">2022-04-21</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Coding/">Coding</a>
-  </div>
- 
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>A programming paradigm is a fundamental style of programming used to classify programming languages.</p> 
-      <a class="article-more-link" href="/2022/04/21/Programming-Languages-and-Paradigms-Part-1/"
-        >Read More...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/26020-Programming-Languages-and-Paradigms/" rel="tag">26020 Programming Languages and Paradigms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C</a></li></ul>
 
     </footer>
   </div>
