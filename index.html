@@ -131,6 +131,126 @@
     
     
     <article
+  id="post-Leetcode1026-2"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2023/10/26/Leetcode1026-2/"
+    >Leetcode Study Day 31</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/10/26/Leetcode1026-2/" class="article-date">
+  <time datetime="2023-10-26T17:50:13.000Z" itemprop="datePublished">2023-10-26</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
+  </div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="LRU-Cache"><a href="#LRU-Cache" class="headerlink" title="LRU Cache"></a>LRU Cache</h1><p>Design a data structure that follows the constraints of a Least Recently Used (LRU) cache.</p>
+<p>Implement the LRUCache class:</p>
+<p>LRUCache(int capacity) Initialize the LRU cache with positive size capacity.<br>int get(int key) Return the value of the key if the key exists, otherwise return -1.<br>void put(int key, int value) Update the value of the key if the key exists. Otherwise, add the key-value pair to the cache. If the number of keys exceeds the capacity from this operation, evict the least recently used key.<br>The functions get and put must each run in O(1) average time complexity.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input</span><br><span class="line">[&quot;LRUCache&quot;, &quot;put&quot;, &quot;put&quot;, &quot;get&quot;, &quot;put&quot;, &quot;get&quot;, &quot;put&quot;, &quot;get&quot;, &quot;get&quot;, &quot;get&quot;]</span><br><span class="line">[[2], [1, 1], [2, 2], [1], [3, 3], [2], [4, 4], [1], [3], [4]]</span><br><span class="line">Output</span><br><span class="line">[null, null, null, 1, null, -1, null, -1, 3, 4]</span><br><span class="line"></span><br><span class="line">Explanation</span><br><span class="line">LRUCache lRUCache &#x3D; new LRUCache(2);</span><br><span class="line">lRUCache.put(1, 1); &#x2F;&#x2F; cache is &#123;1&#x3D;1&#125;</span><br><span class="line">lRUCache.put(2, 2); &#x2F;&#x2F; cache is &#123;1&#x3D;1, 2&#x3D;2&#125;</span><br><span class="line">lRUCache.get(1);    &#x2F;&#x2F; return 1</span><br><span class="line">lRUCache.put(3, 3); &#x2F;&#x2F; LRU key was 2, evicts key 2, cache is &#123;1&#x3D;1, 3&#x3D;3&#125;</span><br><span class="line">lRUCache.get(2);    &#x2F;&#x2F; returns -1 (not found)</span><br><span class="line">lRUCache.put(4, 4); &#x2F;&#x2F; LRU key was 1, evicts key 1, cache is &#123;4&#x3D;4, 3&#x3D;3&#125;</span><br><span class="line">lRUCache.get(1);    &#x2F;&#x2F; return -1 (not found)</span><br><span class="line">lRUCache.get(3);    &#x2F;&#x2F; return 3</span><br><span class="line">lRUCache.get(4);    &#x2F;&#x2F; return 4</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">1 &lt;&#x3D; capacity &lt;&#x3D; 3000</span><br><span class="line">0 &lt;&#x3D; key &lt;&#x3D; 104</span><br><span class="line">0 &lt;&#x3D; value &lt;&#x3D; 105</span><br><span class="line">At most 2 * 105 calls will be made to get and put.</span><br></pre></td></tr></table></figure>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>The idea to implement an LRU cache with O(1) operations is to use a combination of a hash map (or dictionary) and a doubly-linked list:</p>
+<p><strong>Doubly-linked list</strong>: This ensures that the items can be added, removed, and moved to the front in O(1) time. The most recently accessed or added item is at the front, while the least recently accessed item is at the back.</p>
+<p><strong>Hash map</strong>: It’s used to achieve O(1) lookup times. The key will be the actual key of the cache, and the value will be a reference (or pointer) to the corresponding node in the doubly-linked list.</p>
+<h3 id="Full-code"><a href="#Full-code" class="headerlink" title="Full code:"></a>Full code:</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LRUCache</span> &#123;</span></span><br><span class="line">    <span class="comment">// initialise the node structure</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Node</span> &#123;</span></span><br><span class="line">        <span class="keyword">int</span> key, value;</span><br><span class="line">        Node* prev;</span><br><span class="line">        Node* next;</span><br><span class="line">        Node(<span class="keyword">int</span> k, <span class="keyword">int</span> v) : key(k), value(v), prev(<span class="literal">nullptr</span>), next(<span class="literal">nullptr</span>) &#123;&#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> capacity;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>, Node*&gt; <span class="built_in">map</span>;</span><br><span class="line">    Node *head, *tail;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Helper function to add a node after the head</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(Node* node)</span> </span>&#123;</span><br><span class="line">        node-&gt;next = head-&gt;next;</span><br><span class="line">        head-&gt;next-&gt;prev = node;</span><br><span class="line">        node-&gt;prev = head;</span><br><span class="line">        head-&gt;next = node;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Helper function to remove a node</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">remove</span><span class="params">(Node* node)</span> </span>&#123;</span><br><span class="line">        node-&gt;prev-&gt;next = node-&gt;next;</span><br><span class="line">        node-&gt;next-&gt;prev = node-&gt;prev;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// initialise the LRUCahce, with two dummy nodes head and tail</span></span><br><span class="line">    <span class="comment">// The actual cached items lie between head and tail.</span></span><br><span class="line">    LRUCache(<span class="keyword">int</span> capacity) : capacity(capacity) &#123;</span><br><span class="line">        head = <span class="keyword">new</span> Node(<span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">        tail = <span class="keyword">new</span> Node(<span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">        head-&gt;next = tail;</span><br><span class="line">        tail-&gt;prev = head;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// clean up the memory used by the doubly-linked list</span></span><br><span class="line">    ~LRUCache() &#123;</span><br><span class="line">        <span class="keyword">while</span> (head) &#123;</span><br><span class="line">            Node* temp = head-&gt;next;</span><br><span class="line">            <span class="keyword">delete</span> head;</span><br><span class="line">            head = temp;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">get</span><span class="params">(<span class="keyword">int</span> key)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// if we find the key in the map</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">map</span>.find(key) != <span class="built_in">map</span>.end()) &#123;</span><br><span class="line">            Node* node = <span class="built_in">map</span>[key];</span><br><span class="line">            <span class="comment">// we remove and add the node to make sure the postion of the node is head-&gt;next</span></span><br><span class="line">            remove(node);</span><br><span class="line">            add(node);</span><br><span class="line">            <span class="keyword">return</span> node-&gt;value;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">put</span><span class="params">(<span class="keyword">int</span> key, <span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// if we find the key in map, we delete the key and erase it in the map</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">map</span>.find(key) != <span class="built_in">map</span>.end()) &#123;</span><br><span class="line">            remove(<span class="built_in">map</span>[key]);</span><br><span class="line">            <span class="keyword">delete</span> <span class="built_in">map</span>[key];</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Node* node = <span class="keyword">new</span> Node(key, value);</span><br><span class="line">        add(node);</span><br><span class="line">        <span class="built_in">map</span>[key] = node;</span><br><span class="line">        <span class="comment">// if the amount of nodes is greater than that of capacity</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">map</span>.size() &gt; capacity) &#123;</span><br><span class="line">            <span class="comment">// the least recently used (LRU) item is the one right before the tail</span></span><br><span class="line">            Node* lastNode = tail-&gt;prev;</span><br><span class="line">            remove(lastNode);</span><br><span class="line">            <span class="built_in">map</span>.erase(lastNode-&gt;key);</span><br><span class="line">            <span class="keyword">delete</span> lastNode;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Your LRUCache object will be instantiated and called as such:</span></span><br><span class="line"><span class="comment"> * LRUCache* obj = new LRUCache(capacity);</span></span><br><span class="line"><span class="comment"> * int param_1 = obj-&gt;get(key);</span></span><br><span class="line"><span class="comment"> * obj-&gt;put(key,value);</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Design/" rel="tag">Design</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Doubly-Linked-List/" rel="tag">Doubly-Linked List</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hash-Table/" rel="tag">Hash Table</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linked-List/" rel="tag">Linked List</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
+  id="post-Leetcode1026"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2023/10/26/Leetcode1026/"
+    >Leetcode Study Day 31</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/10/26/Leetcode1026/" class="article-date">
+  <time datetime="2023-10-26T17:23:14.000Z" itemprop="datePublished">2023-10-26</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
+  </div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Partition-List"><a href="#Partition-List" class="headerlink" title="Partition List"></a>Partition List</h1><p>Given the head of a linked list and a value x, partition it such that all nodes less than x come before nodes greater than or equal to x.</p>
+<p>You should preserve the original relative order of the nodes in each of the two partitions.</p>
+<p><img src="https://assets.leetcode.com/uploads/2021/01/04/partition.jpg"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Input: head &#x3D; [1,4,3,2,5,2], x &#x3D; 3</span><br><span class="line">Output: [1,2,2,4,3,5]</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: head &#x3D; [2,1], x &#x3D; 2</span><br><span class="line">Output: [1,2]</span><br></pre></td></tr></table></figure>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>I saw a short and elegant solution from Leetcode. </p>
+<p>Firstly, it initialised two Listnode, than using two pointers to track the nodes that are less than x and the nodes that are greater than or equal to x. If the current value is smaller than x, we link the first node to the current node. Otherwise, we link the second node to the current node. Then, we update the current node to the next node.</p>
+<p>Finally, we set the second node’s next node to nullptr and link the first node to the second node’s next node.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode() : val(0), next(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x, ListNode *next) : val(x), next(next) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">partition</span><span class="params">(ListNode* head, <span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">        ListNode node1(0), node2(0);</span><br><span class="line">        ListNode *p1 = &amp;node1;</span><br><span class="line">        ListNode *p2 = &amp;node2;</span><br><span class="line">        <span class="keyword">while</span>(head)&#123;</span><br><span class="line">            <span class="keyword">if</span>(head-&gt;val&lt;x)&#123;</span><br><span class="line">                p1 -&gt; next = head;</span><br><span class="line">                p1 = p1 -&gt; next;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                p2 -&gt; next = head;</span><br><span class="line">                p2 = p2 -&gt; next;</span><br><span class="line">            &#125;</span><br><span class="line">            head = head -&gt; next;</span><br><span class="line">        &#125;</span><br><span class="line">        p2 -&gt; next = <span class="literal">nullptr</span>;</span><br><span class="line">        p1 -&gt; next = node2.next;</span><br><span class="line">        <span class="keyword">return</span> node1.next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linked-List/" rel="tag">Linked List</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Two-Pointers/" rel="tag">Two Pointers</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
   id="post-Leetcode1025-2"
   class="article article-type-post"
   itemscope
@@ -143,7 +263,7 @@
        
 <h2 itemprop="name">
   <a class="article-title" href="/2023/10/25/Leetcode1025-2/"
-    >Leetcode1025-2</a> 
+    >Leetcode Study Day 30</a> 
 </h2>
  
 
@@ -628,122 +748,6 @@
     <footer class="article-footer">
        
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linked-List/" rel="tag">Linked List</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Math/" rel="tag">Math</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Recursion/" rel="tag">Recursion</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-Leetcode1021-2"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2023/10/21/Leetcode1021-2/"
-    >Leetcode Study Day 28</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2023/10/21/Leetcode1021-2/" class="article-date">
-  <time datetime="2023-10-21T16:35:23.000Z" itemprop="datePublished">2023-10-21</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
-  </div>
- 
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h1 id="Linked-List-Cycle"><a href="#Linked-List-Cycle" class="headerlink" title="Linked List Cycle"></a>Linked List Cycle</h1><p>Given head, the head of a linked list, determine if the linked list has a cycle in it.</p>
-<p>There is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the next pointer. Internally, pos is used to denote the index of the node that tail’s next pointer is connected to. Note that pos is not passed as a parameter.</p>
-<p>Return true if there is a cycle in the linked list. Otherwise, return false.</p>
-<p><img src="https://assets.leetcode.com/uploads/2018/12/07/circularlinkedlist.png"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Input: head &#x3D; [3,2,0,-4], pos &#x3D; 1</span><br><span class="line">Output: true</span><br><span class="line">Explanation: There is a cycle in the linked list, where the tail connects to the 1st node (0-indexed).</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Input: head &#x3D; [1,2], pos &#x3D; 0</span><br><span class="line">Output: true</span><br><span class="line">Explanation: There is a cycle in the linked list, where the tail connects to the 0th node.</span><br><span class="line">Example 3:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Input: head &#x3D; [1], pos &#x3D; -1</span><br><span class="line">Output: false</span><br><span class="line">Explanation: There is no cycle in the linked list.</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">The number of the nodes in the list is in the range [0, 104].</span><br><span class="line">-105 &lt;&#x3D; Node.val &lt;&#x3D; 105</span><br><span class="line">pos is -1 or a valid index in the linked-list.</span><br></pre></td></tr></table></figure>
-<h2 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h2><p>My solution is to use an <code>unordered_set</code> to store the linked list that I’ve met. If I meet a node that is already in the set, then I return true. If I reach the end of the linked list, then I return false.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">hasCycle</span><span class="params">(ListNode *head)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">unordered_set</span> &lt;ListNode*&gt; linkSet;</span><br><span class="line">        <span class="keyword">while</span>(head != <span class="literal">NULL</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span> (linkSet.find(head) != linkSet.end())</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                linkSet.insert(head);</span><br><span class="line">            head = head -&gt; next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hash-Table/" rel="tag">Hash Table</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linked-List/" rel="tag">Linked List</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Two-Pointers/" rel="tag">Two Pointers</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-Leetcode1021"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2023/10/21/Leetcode1021/"
-    >Leetcode Study Day 28</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2023/10/21/Leetcode1021/" class="article-date">
-  <time datetime="2023-10-21T15:25:45.000Z" itemprop="datePublished">2023-10-21</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
-  </div>
- 
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h1 id="Basic-Calculator"><a href="#Basic-Calculator" class="headerlink" title="Basic Calculator"></a>Basic Calculator</h1><p>Given a string s representing a valid expression, implement a basic calculator to evaluate it, and return the result of the evaluation.</p>
-<p>Note: You are not allowed to use any built-in function which evaluates strings as mathematical expressions, such as eval().</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: s &#x3D; &quot;1 + 1&quot;</span><br><span class="line">Output: 2</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: s &#x3D; &quot; 2-1 + 2 &quot;</span><br><span class="line">Output: 3</span><br><span class="line">Example 3:</span><br><span class="line"></span><br><span class="line">Input: s &#x3D; &quot;(1+(4+5+2)-3)+(6+8)&quot;</span><br><span class="line">Output: 23</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">1 &lt;&#x3D; s.length &lt;&#x3D; 3 * 105</span><br><span class="line">s consists of digits, &#39;+&#39;, &#39;-&#39;, &#39;(&#39;, &#39;)&#39;, and &#39; &#39;.</span><br><span class="line">s represents a valid expression.</span><br><span class="line">&#39;+&#39; is not used as a unary operation (i.e., &quot;+1&quot; and &quot;+(2 + 3)&quot; is invalid).</span><br><span class="line">&#39;-&#39; could be used as a unary operation (i.e., &quot;-1&quot; and &quot;-(2 + 3)&quot; is valid).</span><br><span class="line">There will be no two consecutive operators in the input.</span><br><span class="line">Every number and running calculation will fit in a signed 32-bit integer.</span><br></pre></td></tr></table></figure>
-<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>I found a recursive solution to solve this probelm. then main idea is use a recursive function to get the result from the start of the string to the end or the ‘)’ character. It first find the number between operators, then it add the number with the sign to the result value, then it reset the number to 0. If it finds a ‘(‘, it calls the recursive function again to get the result of the expression inside the ‘()’. If it finds a ‘+’, it sets the sign to 1, if it finds a ‘-‘, it sets the sign to -1. If it finds a ‘)’, it returns the result value. </p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cctype&gt;</span></span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">calculate</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>, N = s.size();</span><br><span class="line">        <span class="keyword">return</span> dfs(s, i, N);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">dfs</span><span class="params">(<span class="keyword">const</span> <span class="built_in">string</span>&amp; s, <span class="keyword">int</span>&amp; i, <span class="keyword">const</span> <span class="keyword">int</span>&amp; N)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>, sign = <span class="number">1</span>, num = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(i &lt; N &amp;&amp; s[i] != <span class="string">&#x27;)&#x27;</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">isdigit</span>(s[i]))</span><br><span class="line">                num = num * <span class="number">10</span> + (s[i] - <span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                res += sign * num;</span><br><span class="line">                num = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">if</span>(s[i] == <span class="string">&#x27;+&#x27;</span>) sign = <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(s[i] == <span class="string">&#x27;-&#x27;</span>) sign = <span class="number">-1</span>;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(s[i] == <span class="string">&#x27;(&#x27;</span>)&#123;</span><br><span class="line">                    i++;</span><br><span class="line">                    res = res + sign * dfs(s, i, N);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res + sign * num;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Math/" rel="tag">Math</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Recursion/" rel="tag">Recursion</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Stack/" rel="tag">Stack</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/String/" rel="tag">String</a></li></ul>
 
     </footer>
   </div>
