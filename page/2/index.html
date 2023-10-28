@@ -131,6 +131,64 @@
     
     
     <article
+  id="post-Leetcode1022-2"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2023/10/22/Leetcode1022-2/"
+    >Leetcode Study Day 28</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/10/22/Leetcode1022-2/" class="article-date">
+  <time datetime="2023-10-22T19:03:35.000Z" itemprop="datePublished">2023-10-22</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
+  </div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Merge-Two-Sorted-Lists"><a href="#Merge-Two-Sorted-Lists" class="headerlink" title="Merge Two Sorted Lists"></a>Merge Two Sorted Lists</h1><p>You are given the heads of two sorted linked lists list1 and list2.</p>
+<p>Merge the two lists into one sorted list. The list should be made by splicing together the nodes of the first two lists.</p>
+<p>Return the head of the merged linked list.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Input: list1 &#x3D; [1,2,4], list2 &#x3D; [1,3,4]</span><br><span class="line">Output: [1,1,2,3,4,4]</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: list1 &#x3D; [], list2 &#x3D; []</span><br><span class="line">Output: []</span><br><span class="line">Example 3:</span><br><span class="line"></span><br><span class="line">Input: list1 &#x3D; [], list2 &#x3D; [0]</span><br><span class="line">Output: [0]</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">The number of nodes in both lists is in the range [0, 50].</span><br><span class="line">-100 &lt;&#x3D; Node.val &lt;&#x3D; 100</span><br><span class="line">Both list1 and list2 are sorted in non-decreasing order.</span><br></pre></td></tr></table></figure>
+<h2 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h2><p>The solution is to use a dummy node to simplify the edge cases. Then we use a while loop to iterate through both linked lists. We compare the values of the current nodes of the two linked lists. We add the smaller one to the merged list. Then we move the current pointer of the merged list to the next node. We also move the current pointer of the linked list that we add the node from to the next node. We repeat this process until one of the linked lists is empty. Then we add the rest of the other linked list to the merged list. Then we return the actual head of the merged list.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">mergeTwoLists</span><span class="params">(ListNode* list1, ListNode* list2)</span> </span>&#123;</span><br><span class="line">        ListNode* dummyHead = <span class="keyword">new</span> ListNode();  <span class="comment">// Create a dummy node to simplify edge cases.</span></span><br><span class="line">        ListNode* current = dummyHead;</span><br><span class="line">        <span class="keyword">while</span> (list1 &amp;&amp; list2) &#123;</span><br><span class="line">            <span class="keyword">if</span> (list1-&gt;val &lt; list2-&gt;val) &#123;</span><br><span class="line">                current-&gt;next = list1;</span><br><span class="line">                list1 = list1-&gt;next;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                current-&gt;next = list2;</span><br><span class="line">                list2 = list2-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">            current = current-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (list1) &#123;</span><br><span class="line">            current-&gt;next = list1;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            current-&gt;next = list2;</span><br><span class="line">        &#125;</span><br><span class="line">        ListNode* mergedHead = dummyHead-&gt;next;  <span class="comment">// The actual start of the merged list.</span></span><br><span class="line">        <span class="keyword">delete</span> dummyHead;  <span class="comment">// Remove the dummy node.</span></span><br><span class="line">        <span class="keyword">return</span> mergedHead;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linked-List/" rel="tag">Linked List</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Recursion/" rel="tag">Recursion</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
   id="post-Leetcode1022"
   class="article article-type-post"
   itemscope
@@ -657,62 +715,6 @@
     <footer class="article-footer">
        
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-Leetcode1017"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2023/10/17/Leetcode1017/"
-    >Leetcode Study Day 24</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2023/10/17/Leetcode1017/" class="article-date">
-  <time datetime="2023-10-17T19:16:47.000Z" itemprop="datePublished">2023-10-17</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
-  </div>
- 
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h1 id="Merge-Intervals"><a href="#Merge-Intervals" class="headerlink" title="Merge Intervals"></a>Merge Intervals</h1><p>Given an array of intervals where intervals[i] = [starti, endi], merge all overlapping intervals, and return an array of the non-overlapping intervals that cover all the intervals in the input.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: intervals &#x3D; [[1,3],[2,6],[8,10],[15,18]]</span><br><span class="line">Output: [[1,6],[8,10],[15,18]]</span><br><span class="line">Explanation: Since intervals [1,3] and [2,6] overlap, merge them into [1,6].</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: intervals &#x3D; [[1,4],[4,5]]</span><br><span class="line">Output: [[1,5]]</span><br><span class="line">Explanation: Intervals [1,4] and [4,5] are considered overlapping.</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">1 &lt;&#x3D; intervals.length &lt;&#x3D; 104</span><br><span class="line">intervals[i].length &#x3D;&#x3D; 2</span><br><span class="line">0 &lt;&#x3D; starti &lt;&#x3D; endi &lt;&#x3D; 104</span><br></pre></td></tr></table></figure>
-<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>In the solution, we sort the array first, then we iterate through the array. If the next interval’s start is smaller than the current interval’s end, then we merge the two intervals. If not, we push the current interval to the answer vector. After the iteration, we push the last interval to the answer vector.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; merge(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; intervals) &#123;</span><br><span class="line">        <span class="keyword">if</span> (intervals.empty()) &#123;</span><br><span class="line">            <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Sort intervals by start time</span></span><br><span class="line">        sort(intervals.begin(), intervals.end());</span><br><span class="line"></span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; ans;</span><br><span class="line">        ans.push_back(intervals[<span class="number">0</span>]);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; intervals.size(); i++) &#123;</span><br><span class="line">            <span class="comment">// If current interval overlaps with the last interval in ans</span></span><br><span class="line">            <span class="keyword">if</span> (intervals[i][<span class="number">0</span>] &lt;= ans.back()[<span class="number">1</span>]) &#123;</span><br><span class="line">                <span class="comment">// Merge the overlapping intervals</span></span><br><span class="line">                ans.back()[<span class="number">1</span>] = max(ans.back()[<span class="number">1</span>], intervals[i][<span class="number">1</span>]);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                ans.push_back(intervals[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Sorting/" rel="tag">Sorting</a></li></ul>
 
     </footer>
   </div>

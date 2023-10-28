@@ -131,6 +131,62 @@
     
     
     <article
+  id="post-Leetcode1017"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2023/10/17/Leetcode1017/"
+    >Leetcode Study Day 24</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/10/17/Leetcode1017/" class="article-date">
+  <time datetime="2023-10-17T19:16:47.000Z" itemprop="datePublished">2023-10-17</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
+  </div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Merge-Intervals"><a href="#Merge-Intervals" class="headerlink" title="Merge Intervals"></a>Merge Intervals</h1><p>Given an array of intervals where intervals[i] = [starti, endi], merge all overlapping intervals, and return an array of the non-overlapping intervals that cover all the intervals in the input.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: intervals &#x3D; [[1,3],[2,6],[8,10],[15,18]]</span><br><span class="line">Output: [[1,6],[8,10],[15,18]]</span><br><span class="line">Explanation: Since intervals [1,3] and [2,6] overlap, merge them into [1,6].</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: intervals &#x3D; [[1,4],[4,5]]</span><br><span class="line">Output: [[1,5]]</span><br><span class="line">Explanation: Intervals [1,4] and [4,5] are considered overlapping.</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">1 &lt;&#x3D; intervals.length &lt;&#x3D; 104</span><br><span class="line">intervals[i].length &#x3D;&#x3D; 2</span><br><span class="line">0 &lt;&#x3D; starti &lt;&#x3D; endi &lt;&#x3D; 104</span><br></pre></td></tr></table></figure>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>In the solution, we sort the array first, then we iterate through the array. If the next interval’s start is smaller than the current interval’s end, then we merge the two intervals. If not, we push the current interval to the answer vector. After the iteration, we push the last interval to the answer vector.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; merge(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; intervals) &#123;</span><br><span class="line">        <span class="keyword">if</span> (intervals.empty()) &#123;</span><br><span class="line">            <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Sort intervals by start time</span></span><br><span class="line">        sort(intervals.begin(), intervals.end());</span><br><span class="line"></span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; ans;</span><br><span class="line">        ans.push_back(intervals[<span class="number">0</span>]);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; intervals.size(); i++) &#123;</span><br><span class="line">            <span class="comment">// If current interval overlaps with the last interval in ans</span></span><br><span class="line">            <span class="keyword">if</span> (intervals[i][<span class="number">0</span>] &lt;= ans.back()[<span class="number">1</span>]) &#123;</span><br><span class="line">                <span class="comment">// Merge the overlapping intervals</span></span><br><span class="line">                ans.back()[<span class="number">1</span>] = max(ans.back()[<span class="number">1</span>], intervals[i][<span class="number">1</span>]);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                ans.push_back(intervals[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Sorting/" rel="tag">Sorting</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
   id="post-Leetcode1016-2"
   class="article article-type-post"
   itemscope
@@ -757,96 +813,6 @@
     <footer class="article-footer">
        
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Counting/" rel="tag">Counting</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hash-Table/" rel="tag">Hash Table</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/String/" rel="tag">String</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-Leetcode1011-2"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2023/10/11/Leetcode1011-2/"
-    >Leetcode Study Day 18</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2023/10/11/Leetcode1011-2/" class="article-date">
-  <time datetime="2023-10-11T15:36:29.000Z" itemprop="datePublished">2023-10-11</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
-  </div>
- 
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h1 id="Game-of-Life"><a href="#Game-of-Life" class="headerlink" title="Game of Life"></a>Game of Life</h1><p>According to Wikipedia’s article: “The Game of Life, also known simply as Life, is a cellular automaton devised by the British mathematician John Horton Conway in 1970.”</p>
-<p>The board is made up of an m x n grid of cells, where each cell has an initial state: live (represented by a 1) or dead (represented by a 0). Each cell interacts with its eight neighbors (horizontal, vertical, diagonal) using the following four rules (taken from the above Wikipedia article):</p>
-<p>Any live cell with fewer than two live neighbors dies as if caused by under-population.<br>Any live cell with two or three live neighbors lives on to the next generation.<br>Any live cell with more than three live neighbors dies, as if by over-population.<br>Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction.<br>The next state is created by applying the above rules simultaneously to every cell in the current state, where births and deaths occur simultaneously. Given the current state of the m x n grid board, return the next state.</p>
-<p><img src="https://assets.leetcode.com/uploads/2020/12/26/grid1.jpg"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Input: board &#x3D; [[0,1,0],[0,0,1],[1,1,1],[0,0,0]]</span><br><span class="line">Output: [[0,0,0],[1,0,1],[0,1,1],[0,1,0]]</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Input: board &#x3D; [[1,1],[1,0]]</span><br><span class="line">Output: [[1,1],[1,1]]</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">m &#x3D;&#x3D; board.length</span><br><span class="line">n &#x3D;&#x3D; board[i].length</span><br><span class="line">1 &lt;&#x3D; m, n &lt;&#x3D; 25</span><br><span class="line">board[i][j] is 0 or 1.</span><br></pre></td></tr></table></figure>
-<p><img src="https://assets.leetcode.com/uploads/2020/12/26/grid2.jpg"></p>
-<h2 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h2><p>My solution is intuitive. I create a new matrix to store the next state of the board. Then I iterate through the board and check the number of live neighbours. Then I apply the rules to the new matrix. Finally, I copy the new matrix to the board.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">gameOfLife</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; board)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; answer(board.size(), <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(board[<span class="number">0</span>].size(), <span class="number">0</span>));</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; board.size(); i ++)&#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; board[<span class="number">0</span>].size(); j++)&#123;</span><br><span class="line">                <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">                <span class="comment">// check neighbours</span></span><br><span class="line">                <span class="comment">// up-left</span></span><br><span class="line">                <span class="keyword">if</span> (j!= <span class="number">0</span> &amp;&amp; i != <span class="number">0</span>)&#123;</span><br><span class="line">                    <span class="keyword">int</span> up_left = board[i<span class="number">-1</span>][j<span class="number">-1</span>];</span><br><span class="line">                    count += up_left;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">// up </span></span><br><span class="line">                <span class="keyword">if</span> (i != <span class="number">0</span>)&#123;</span><br><span class="line">                    <span class="keyword">int</span> up = board[i<span class="number">-1</span>][j];</span><br><span class="line">                    count += up;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">// up-right</span></span><br><span class="line">                <span class="keyword">if</span> (j != board[<span class="number">0</span>].size()<span class="number">-1</span> &amp;&amp; i != <span class="number">0</span>)</span><br><span class="line">                    &#123;<span class="keyword">int</span> up_right = board[i<span class="number">-1</span>][j+<span class="number">1</span>];</span><br><span class="line">                    count += up_right;&#125;</span><br><span class="line">                <span class="comment">// left</span></span><br><span class="line">                <span class="keyword">if</span> (j != <span class="number">0</span>)</span><br><span class="line">                    &#123;<span class="keyword">int</span> left = board[i][j<span class="number">-1</span>];</span><br><span class="line">                    count += left;&#125;</span><br><span class="line">                <span class="comment">// right</span></span><br><span class="line">                <span class="keyword">if</span> (j != board[<span class="number">0</span>].size() <span class="number">-1</span>)</span><br><span class="line">                    &#123;<span class="keyword">int</span> right = board[i][j+<span class="number">1</span>];</span><br><span class="line">                    count += right;&#125;</span><br><span class="line">                <span class="comment">// down-left</span></span><br><span class="line">                <span class="keyword">if</span> (j != <span class="number">0</span> &amp;&amp; i!= board.size() <span class="number">-1</span>)</span><br><span class="line">                    &#123;<span class="keyword">int</span> down_left = board[i+<span class="number">1</span>][j<span class="number">-1</span>];</span><br><span class="line">                    count += down_left;&#125;</span><br><span class="line">                <span class="comment">// down</span></span><br><span class="line">                <span class="keyword">if</span> (i != board.size() - <span class="number">1</span>)</span><br><span class="line">                    &#123;<span class="keyword">int</span> down = board[i+<span class="number">1</span>][j];</span><br><span class="line">                    count += down;&#125;</span><br><span class="line">                <span class="comment">// down-right</span></span><br><span class="line">                <span class="keyword">if</span> (i != board.size() - <span class="number">1</span> &amp;&amp; j != board[<span class="number">0</span>].size()<span class="number">-1</span>)</span><br><span class="line">                    &#123;<span class="keyword">int</span> down_right = board[i+<span class="number">1</span>][j+<span class="number">1</span>];</span><br><span class="line">                    count += down_right;&#125;</span><br><span class="line">                <span class="keyword">if</span> (board[i][j] == <span class="number">1</span> &amp;&amp; count &lt; <span class="number">2</span>)&#123;</span><br><span class="line">                    answer[i][j] = <span class="number">0</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (board[i][j] == <span class="number">1</span> &amp;&amp; count &gt; <span class="number">3</span>)&#123;</span><br><span class="line">                    answer[i][j] = <span class="number">0</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (board[i][j] == <span class="number">0</span> &amp;&amp; count == <span class="number">3</span>)&#123;</span><br><span class="line">                    answer[i][j] = <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    answer[i][j] = board[i][j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        board = answer;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="O-1-space-O-mn-time"><a href="#O-1-space-O-mn-time" class="headerlink" title="O(1) space, O(mn) time"></a>O(1) space, O(mn) time</h2><p>I found a solution using O(1) space and O(mn) time to solve this question. The reason that he solved it in O(1) space is because he used the second bit to store the next state of the cell.</p>
-<p>Let’s break down the code, line by line:</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> m=board.size(), n=m?board[<span class="number">0</span>].size():<span class="number">0</span>;</span><br></pre></td></tr></table></figure>
-<p>We define two integer variables <code>m</code> and <code>n</code>:</p>
-<ul>
-<li><code>m</code> stores the number of rows of the <code>board</code>.</li>
-<li><code>n</code> stores the number of columns of the <code>board</code> if <code>m</code> is not zero. If <code>m</code> is zero (i.e., board is empty), <code>n</code> is set to zero.</li>
-</ul>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;m; i++)&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;n; j++)&#123;</span><br></pre></td></tr></table></figure>
-<p>These nested loops iterate over each cell in the <code>board</code>.</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> count=<span class="number">0</span>;</span><br></pre></td></tr></table></figure>
-<p>This initializes a counter to count the number of live neighbors for the current cell <code>(i, j)</code>.</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> ss=max(i<span class="number">-1</span>, <span class="number">0</span>); ss&lt;min(i+<span class="number">2</span>, m); ss++)&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> tt=max(j<span class="number">-1</span>, <span class="number">0</span>); tt&lt;min(j+<span class="number">2</span>, n); tt++)&#123;</span><br></pre></td></tr></table></figure>
-<p>These nested loops iterate over the neighbors of the current cell <code>(i, j)</code>. They ensure that the loops do not go out of bounds by using the <code>max</code> and <code>min</code> functions.</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">count+=board[ss][tt]&amp;<span class="number">1</span>;</span><br></pre></td></tr></table></figure>
-<p>Here, the code checks the least significant bit of the neighboring cell <code>(ss, tt)</code> to see if it’s alive (<code>1</code>) or dead (<code>0</code>). The operation &amp; 1 when applied to an integer effectively isolates the least significant bit (LSB) of its binary representation. The result is added to the <code>count</code>, which accumulates the number of live neighbors.</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#125;</span><br><span class="line">count-=board[i][j];</span><br></pre></td></tr></table></figure>
-<p>After counting all the live neighbors, we subtract the state of the current cell <code>(i, j)</code> from the <code>count</code> since we included it in our previous loop.</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(count==<span class="number">3</span> || (board[i][j]&amp;&amp;count==<span class="number">2</span>))</span><br><span class="line">    board[i][j]|=<span class="number">2</span>;</span><br></pre></td></tr></table></figure>
-<p>Here, we’re applying the rules of Conway’s Game of Life:</p>
-<ul>
-<li>If a cell has exactly 3 live neighbors, it becomes alive (or stays alive).</li>
-<li>If a live cell has exactly 2 live neighbors, it stays alive.</li>
-</ul>
-<p>The <code>board[i][j] |= 2;</code> operation sets the second least significant bit of the current cell to <code>1</code>, indicating that the cell will be alive in the next state.</p>
-<p>These close the nested loops iterating over each cell in the <code>board</code>.</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;m; i++)</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;n; j++)</span><br><span class="line">        board[i][j]&gt;&gt;=<span class="number">1</span>;</span><br></pre></td></tr></table></figure>
-<p>These nested loops go over each cell in the <code>board</code> again. For each cell, it right shifts its bits by one position. This is done to update the board to its next state by making the second least significant bit (which represents the next state) the current state.</p>
-<p>The cleverness of this implementation lies in its use of bitwise operations to store both the current state and the next state of each cell in the same integer. This way, the algorithm can compute the next state of the board in-place without needing additional memory for a temporary board.</p>
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Matrix/" rel="tag">Matrix</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Simulation/" rel="tag">Simulation</a></li></ul>
 
     </footer>
   </div>
