@@ -131,6 +131,136 @@
     
     
     <article
+  id="post-Leetcode0922-2"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2023/09/22/Leetcode0922-2/"
+    >Leetcode Study Day 5</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/09/22/Leetcode0922-2/" class="article-date">
+  <time datetime="2023-09-22T13:30:13.000Z" itemprop="datePublished">2023-09-22</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
+  </div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Best-Time-to-Buy-and-Sell-Stock-II"><a href="#Best-Time-to-Buy-and-Sell-Stock-II" class="headerlink" title="Best Time to Buy and Sell Stock II"></a>Best Time to Buy and Sell Stock II</h1><p>You are given an integer array prices where prices[i] is the price of a given stock on the ith day.</p>
+<p>On each day, you may decide to buy and/or sell the stock. You can only hold at most one share of the stock at any time. However, you can buy it then immediately sell it on the same day.</p>
+<p>Find and return the maximum profit you can achieve.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: prices &#x3D; [7,1,5,3,6,4]</span><br><span class="line">Output: 7</span><br><span class="line">Explanation: Buy on day 2 (price &#x3D; 1) and sell on day 3 (price &#x3D; 5), profit &#x3D; 5-1 &#x3D; 4.</span><br><span class="line">Then buy on day 4 (price &#x3D; 3) and sell on day 5 (price &#x3D; 6), profit &#x3D; 6-3 &#x3D; 3.</span><br><span class="line">Total profit is 4 + 3 &#x3D; 7.</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: prices &#x3D; [1,2,3,4,5]</span><br><span class="line">Output: 4</span><br><span class="line">Explanation: Buy on day 1 (price &#x3D; 1) and sell on day 5 (price &#x3D; 5), profit &#x3D; 5-1 &#x3D; 4.</span><br><span class="line">Total profit is 4.</span><br><span class="line">Example 3:</span><br><span class="line"></span><br><span class="line">Input: prices &#x3D; [7,6,4,3,1]</span><br><span class="line">Output: 0</span><br><span class="line">Explanation: There is no way to make a positive profit, so we never buy the stock to achieve the maximum profit of 0.</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">1 &lt;&#x3D; prices.length &lt;&#x3D; 3 * 104</span><br><span class="line">0 &lt;&#x3D; prices[i] &lt;&#x3D; 104</span><br></pre></td></tr></table></figure>
+<h2 id="Greedy-solution"><a href="#Greedy-solution" class="headerlink" title="Greedy solution"></a>Greedy solution</h2><p>The greedy solution loop the whole array and compare the current elemnt to the previous element, if the current one is larger than the previous one, the difference between these two elemets is added to the maximum profits. It’s really a clever method that I can’t think by myself at the first time. The reason that we can use greedy solution is we only can hold one stock at a time and we can’t buy a stock before we sell the previous one. </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; prices)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = prices.size();</span><br><span class="line">        <span class="keyword">if</span> (n &lt; <span class="number">2</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> maximum_profit = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span> (prices[i] &gt; prices[i<span class="number">-1</span>])&#123;</span><br><span class="line">                maximum_profit += (prices[i]-prices[i<span class="number">-1</span>]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> maximum_profit;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="Dynamic-Programming"><a href="#Dynamic-Programming" class="headerlink" title="Dynamic Programming"></a>Dynamic Programming</h2><p>We can also solve it by using dynamic programming method, though it’s harder for me to understand. </p>
+<p>First, we create two arrays, one is called <code>withstock</code>, which means we buy a stock; the other is called <code>withoutstock</code>, which means we sold a stock or we don’t have one.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">withstock</span> <span class="params">(n,<span class="number">0</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">withoutstock</span> <span class="params">(n,<span class="number">0</span>)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>Then we initialise the first value of these two arrays. The first element of <code>withstock</code> is <code>0 - prices[0]</code> because we loose money for buying this stock. The first element of <code>withoutstock</code> is 0 because we don’t buy the first stock.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">withstock[<span class="number">0</span>] = -prices[<span class="number">0</span>];</span><br><span class="line">withoutstock[<span class="number">0</span>] = <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+<p>Then we loop the <code>prices</code> array to update the value of <code>withstock</code> and <code>withoutstock</code>. During each iteration, we should find the best solution for each array. For example, for the array <code>withstock</code>, we should find the maximum value between the previous value in the <code>withstock</code> and the difference between the previous value of <code>withoutstock</code> and the price of this current element. It means we are comparing the money we get by don’t buying this current stock (element) or buying this one. </p>
+<p>Similarly, for the <code>withoutstock</code> array, we decide whether we keep the stock we had or we sell it by finding the maximum value between <code>withoutstock[i-1]</code> and <code>withstock[i-1] + prices[i]</code>. Uhh, it’s do hard to explain it by words.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++)&#123;</span><br><span class="line">    withstock[i] = max(withstock[i - <span class="number">1</span>], (withoutstock[i<span class="number">-1</span>] - prices[i]));</span><br><span class="line">    withoutstock[i] = max(withoutstock[i<span class="number">-1</span>], (withstock[i<span class="number">-1</span>] + prices[i]));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Finally, we return the last element in the <code>withoutstock</code> array because we can’t have a stock at the end of the day.</p>
+<h3 id="Full-code"><a href="#Full-code" class="headerlink" title="Full code"></a>Full code</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; prices)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = prices.size();</span><br><span class="line">        <span class="keyword">if</span> (n &lt; <span class="number">2</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">withstock</span> <span class="params">(n,<span class="number">0</span>)</span></span>;</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">withoutstock</span> <span class="params">(n,<span class="number">0</span>)</span></span>;</span><br><span class="line">        withstock[<span class="number">0</span>] = -prices[<span class="number">0</span>];</span><br><span class="line">        withoutstock[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++)&#123;</span><br><span class="line">            withstock[i] = max(withstock[i - <span class="number">1</span>], (withoutstock[i<span class="number">-1</span>] - prices[i]));</span><br><span class="line">            withoutstock[i] = max(withoutstock[i<span class="number">-1</span>], (withstock[i<span class="number">-1</span>] + prices[i]));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> withoutstock[n<span class="number">-1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Dynamic-Programming/" rel="tag">Dynamic Programming</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Greedy/" rel="tag">Greedy</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
+  id="post-Leetcode0922"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2023/09/22/Leetcode0922/"
+    >Leetcode Study Day 5</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/09/22/Leetcode0922/" class="article-date">
+  <time datetime="2023-09-22T09:31:23.000Z" itemprop="datePublished">2023-09-22</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
+  </div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Best-Time-to-Buy-and-Sell-Stock"><a href="#Best-Time-to-Buy-and-Sell-Stock" class="headerlink" title="Best Time to Buy and Sell Stock"></a>Best Time to Buy and Sell Stock</h1><p>You are given an array prices where prices[i] is the price of a given stock on the ith day.</p>
+<p>You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.</p>
+<p>Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: prices &#x3D; [7,1,5,3,6,4]</span><br><span class="line">Output: 5</span><br><span class="line">Explanation: Buy on day 2 (price &#x3D; 1) and sell on day 5 (price &#x3D; 6), profit &#x3D; 6-1 &#x3D; 5.</span><br><span class="line">Note that buying on day 2 and selling on day 1 is not allowed because you must buy before you sell.</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: prices &#x3D; [7,6,4,3,1]</span><br><span class="line">Output: 0</span><br><span class="line">Explanation: In this case, no transactions are done and the max profit &#x3D; 0.</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">1 &lt;&#x3D; prices.length &lt;&#x3D; 105</span><br><span class="line">0 &lt;&#x3D; prices[i] &lt;&#x3D; 104</span><br></pre></td></tr></table></figure>
+<h2 id="My-Solution"><a href="#My-Solution" class="headerlink" title="My Solution"></a>My Solution</h2><p>Failed to find a solution by myself. So sad. I was trying to record the index and the value for every element and compare each element’s value and index. However, I failed to solve the situation that if the last element is the smallest one and we should ignore it.</p>
+<h2 id="“Buy-low-sell-high”"><a href="#“Buy-low-sell-high”" class="headerlink" title="“Buy low, sell high”"></a>“Buy low, sell high”</h2><p>The idea is to find the minimum price (the day to buy) and the maximum profit (the day to sell) while iterating through the array of prices. </p>
+<p>In ChatGPT’s code, there is no need to record the maximum value, the only two variables are the minimum value and the max profit. In the loop, we comapre the minimum value with the current value, find who is the smallest, and find the profit between them. Then we compare the profit with the max profit, find who is the largest. </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; prices)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = prices.size();</span><br><span class="line">        <span class="keyword">if</span> (n &lt;= <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>; <span class="comment">// If there are less than 2 days, you can&#x27;t make a profit.</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> minPrice = prices[<span class="number">0</span>]; <span class="comment">// Initialize the minimum price as the first day&#x27;s price.</span></span><br><span class="line">        <span class="keyword">int</span> maxProfit = <span class="number">0</span>;       <span class="comment">// Initialize the maximum profit as 0.</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; ++i) &#123;</span><br><span class="line">            <span class="comment">// Update the minimum price if a lower price is encountered.</span></span><br><span class="line">            minPrice = min(minPrice, prices[i]);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Calculate the potential profit if you sell on the current day.</span></span><br><span class="line">            <span class="keyword">int</span> potentialProfit = prices[i] - minPrice;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Update the maximum profit if the potential profit is higher.</span></span><br><span class="line">            maxProfit = max(maxProfit, potentialProfit);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> maxProfit;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>This is a smart idea and I am annoying that I didn’t think of it.</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Dynamic-Programming/" rel="tag">Dynamic Programming</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
   id="post-Leetcode0921-2"
   class="article article-type-post"
   itemscope
@@ -636,127 +766,13 @@
 </article>
 
     
-    <article
-  id="post-Programming-Languages-and-Paradigms-Part-1"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2022/04/22/Programming-Languages-and-Paradigms-Part-1/"
-    >Programming Languages and Paradigms -- Part 1</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2022/04/22/Programming-Languages-and-Paradigms-Part-1/" class="article-date">
-  <time datetime="2022-04-22T00:15:41.000Z" itemprop="datePublished">2022-04-22</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Coding/">Coding</a>
-  </div>
- 
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>A programming paradigm is a fundamental style of programming used to classify programming languages.</p> 
-      <a class="article-more-link" href="/2022/04/22/Programming-Languages-and-Paradigms-Part-1/"
-        >Read More...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/26020-Programming-Languages-and-Paradigms/" rel="tag">26020 Programming Languages and Paradigms</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-算法：栈、队列、链表"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2021/09/03/%E7%AE%97%E6%B3%95%EF%BC%9A%E6%A0%88%E3%80%81%E9%98%9F%E5%88%97%E3%80%81%E9%93%BE%E8%A1%A8/"
-    >算法：栈、队列、链表</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2021/09/03/%E7%AE%97%E6%B3%95%EF%BC%9A%E6%A0%88%E3%80%81%E9%98%9F%E5%88%97%E3%80%81%E9%93%BE%E8%A1%A8/" class="article-date">
-  <time datetime="2021-09-03T13:33:47.000Z" itemprop="datePublished">2021-09-03</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Coding/">Coding</a>
-  </div>
- 
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>本篇讲述了三种data structure的特点</p> 
-      <a class="article-more-link" href="/2021/09/03/%E7%AE%97%E6%B3%95%EF%BC%9A%E6%A0%88%E3%80%81%E9%98%9F%E5%88%97%E3%80%81%E9%93%BE%E8%A1%A8/"
-        >Read More...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
   </article>
   
 
   
   <nav class="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/6/">Last Page</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/8/">Next Page</a>
+    <a class="extend prev" rel="prev" href="/page/6/">Last Page</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/8/">Next Page</a>
   </nav>
   
 </section>
