@@ -131,6 +131,65 @@
     
     
     <article
+  id="post-Leetcode1024-2"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2023/10/24/Leetcode1024-2/"
+    >Leetcode Study Day 29</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/10/24/Leetcode1024-2/" class="article-date">
+  <time datetime="2023-10-24T19:12:56.000Z" itemprop="datePublished">2023-10-24</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
+  </div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Remove-Nth-Node-From-End-of-List"><a href="#Remove-Nth-Node-From-End-of-List" class="headerlink" title="Remove Nth Node From End of List"></a>Remove Nth Node From End of List</h1><p>Given the head of a linked list, remove the nth node from the end of the list and return its head.</p>
+<p><img src="https://assets.leetcode.com/uploads/2020/10/03/remove_ex1.jpg"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Input: head &#x3D; [1,2,3,4,5], n &#x3D; 2</span><br><span class="line">Output: [1,2,3,5]</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: head &#x3D; [1], n &#x3D; 1</span><br><span class="line">Output: []</span><br><span class="line">Example 3:</span><br><span class="line"></span><br><span class="line">Input: head &#x3D; [1,2], n &#x3D; 1</span><br><span class="line">Output: [1]</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">The number of nodes in the list is sz.</span><br><span class="line">1 &lt;&#x3D; sz &lt;&#x3D; 30</span><br><span class="line">0 &lt;&#x3D; Node.val &lt;&#x3D; 100</span><br><span class="line">1 &lt;&#x3D; n &lt;&#x3D; sz</span><br></pre></td></tr></table></figure>
+<h2 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h2><p>My solution is firstly iterate the list to get the length of the list. Then we can calculate the index of the node we want to remove. Then we iterate the list again to remove the node.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode() : val(0), next(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x, ListNode *next) : val(x), next(next) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">removeNthFromEnd</span><span class="params">(ListNode* head, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        ListNode* current = head;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (current)&#123;</span><br><span class="line">            current = current-&gt;next;</span><br><span class="line">            count += <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (count == n)</span><br><span class="line">            <span class="keyword">return</span> head -&gt; next;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (count &lt; n) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        current = head;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; count - n; i++)&#123;</span><br><span class="line">            current = current -&gt; next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (current -&gt; next)</span><br><span class="line">            current -&gt; next = current -&gt; next -&gt; next;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            current -&gt; next = <span class="literal">NULL</span>;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>We can also use two pointers to solve this question. To be specific, we can create one pointer called fast and one pointer called slow. The fast pointer will move n steps first. Then the slow pointer will move with the fast pointer. When the fast pointer reaches the end of the list, the slow pointer will be at the node we want to remove.</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linked-List/" rel="tag">Linked List</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Two-Pointers/" rel="tag">Two Pointers</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
   id="post-Leetcode1024"
   class="article article-type-post"
   itemscope
@@ -690,65 +749,6 @@
     <footer class="article-footer">
        
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Design/" rel="tag">Design</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Stack/" rel="tag">Stack</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-Leetcode1019-2"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2023/10/19/Leetcode1019-2/"
-    >Leetcode Study Day 26</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2023/10/19/Leetcode1019-2/" class="article-date">
-  <time datetime="2023-10-19T10:17:44.000Z" itemprop="datePublished">2023-10-19</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
-  </div>
- 
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>Given a string path, which is an absolute path (starting with a slash ‘/‘) to a file or directory in a Unix-style file system, convert it to the simplified canonical path.</p>
-<p>In a Unix-style file system, a period ‘.’ refers to the current directory, a double period ‘..’ refers to the directory up a level, and any multiple consecutive slashes (i.e. ‘//‘) are treated as a single slash ‘/‘. For this problem, any other format of periods such as ‘…’ are treated as file/directory names.</p>
-<p>The canonical path should have the following format:</p>
-<p>The path starts with a single slash ‘/‘.<br>Any two directories are separated by a single slash ‘/‘.<br>The path does not end with a trailing ‘/‘.<br>The path only contains the directories on the path from the root directory to the target file or directory (i.e., no period ‘.’ or double period ‘..’)<br>Return the simplified canonical path.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: path &#x3D; &quot;&#x2F;home&#x2F;&quot;</span><br><span class="line">Output: &quot;&#x2F;home&quot;</span><br><span class="line">Explanation: Note that there is no trailing slash after the last directory name.</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: path &#x3D; &quot;&#x2F;..&#x2F;&quot;</span><br><span class="line">Output: &quot;&#x2F;&quot;</span><br><span class="line">Explanation: Going one level up from the root directory is a no-op, as the root level is the highest level you can go.</span><br><span class="line">Example 3:</span><br><span class="line"></span><br><span class="line">Input: path &#x3D; &quot;&#x2F;home&#x2F;&#x2F;foo&#x2F;&quot;</span><br><span class="line">Output: &quot;&#x2F;home&#x2F;foo&quot;</span><br><span class="line">Explanation: In the canonical path, multiple consecutive slashes are replaced by a single one.</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">1 &lt;&#x3D; path.length &lt;&#x3D; 3000</span><br><span class="line">path consists of English letters, digits, period &#39;.&#39;, slash &#39;&#x2F;&#39; or &#39;_&#39;.</span><br><span class="line">path is a valid absolute Unix path.</span><br></pre></td></tr></table></figure>
-<h2 id="Solutions"><a href="#Solutions" class="headerlink" title="Solutions"></a>Solutions</h2><p>The solution is using stack to store the the folder names. If we meet “.”, we just skip it, if we meet “..”, we pop the top of the stack, if we meet a folder name, we push it into the stack. After the iteration, we pop the stack and add the folder names to the answer string. If the answer string is empty, we return “/“. If it is not, we return the answer string.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">string</span> <span class="title">simplifyPath</span><span class="params">(<span class="built_in">string</span> path)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">stack</span>&lt;<span class="built_in">string</span>&gt; <span class="built_in">stack</span>;</span><br><span class="line">        <span class="built_in">string</span> answer;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; path.size(); i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(path[i] == <span class="string">&#x27;/&#x27;</span>)</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            <span class="built_in">string</span> temp = <span class="string">&quot;&quot;</span>;</span><br><span class="line">            <span class="keyword">while</span> (i &lt; path.size() &amp;&amp; path[i] != <span class="string">&#x27;/&#x27;</span>)&#123;</span><br><span class="line">                temp += path[i];</span><br><span class="line">                i++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (temp == <span class="string">&quot;.&quot;</span>) <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (temp == <span class="string">&quot;..&quot;</span>)&#123;</span><br><span class="line">                <span class="keyword">if</span> (!<span class="built_in">stack</span>.empty())</span><br><span class="line">                    <span class="built_in">stack</span>.pop();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="built_in">stack</span>.push(temp);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (!<span class="built_in">stack</span>.empty())&#123;</span><br><span class="line">            answer = <span class="string">&quot;/&quot;</span> + <span class="built_in">stack</span>.top() + answer;</span><br><span class="line">            <span class="built_in">stack</span>.pop();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (answer.size() == <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;/&quot;</span>;</span><br><span class="line">        <span class="keyword">return</span> answer;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Stack/" rel="tag">Stack</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/String/" rel="tag">String</a></li></ul>
 
     </footer>
   </div>
