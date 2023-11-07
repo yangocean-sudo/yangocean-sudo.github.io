@@ -131,6 +131,70 @@
     
     
     <article
+  id="post-Leetcode1018-2"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2023/10/18/Leetcode1018-2/"
+    >Minimum Number of Arrows to Burst Balloons</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/10/18/Leetcode1018-2/" class="article-date">
+  <time datetime="2023-10-18T10:49:25.000Z" itemprop="datePublished">2023-10-18</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
+  </div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Minimum-Number-of-Arrows-to-Burst-Balloons"><a href="#Minimum-Number-of-Arrows-to-Burst-Balloons" class="headerlink" title="Minimum Number of Arrows to Burst Balloons"></a>Minimum Number of Arrows to Burst Balloons</h1><p>There are some spherical balloons taped onto a flat wall that represents the XY-plane. The balloons are represented as a 2D integer array points where points[i] = [xstart, xend] denotes a balloon whose horizontal diameter stretches between xstart and xend. You do not know the exact y-coordinates of the balloons.</p>
+<p>Arrows can be shot up directly vertically (in the positive y-direction) from different points along the x-axis. A balloon with xstart and xend is burst by an arrow shot at x if xstart &lt;= x &lt;= xend. There is no limit to the number of arrows that can be shot. A shot arrow keeps traveling up infinitely, bursting any balloons in its path.</p>
+<p>Given the array points, return the minimum number of arrows that must be shot to burst all balloons.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: points &#x3D; [[10,16],[2,8],[1,6],[7,12]]</span><br><span class="line">Output: 2</span><br><span class="line">Explanation: The balloons can be burst by 2 arrows:</span><br><span class="line">- Shoot an arrow at x &#x3D; 6, bursting the balloons [2,8] and [1,6].</span><br><span class="line">- Shoot an arrow at x &#x3D; 11, bursting the balloons [10,16] and [7,12].</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: points &#x3D; [[1,2],[3,4],[5,6],[7,8]]</span><br><span class="line">Output: 4</span><br><span class="line">Explanation: One arrow needs to be shot for each balloon for a total of 4 arrows.</span><br><span class="line">Example 3:</span><br><span class="line"></span><br><span class="line">Input: points &#x3D; [[1,2],[2,3],[3,4],[4,5]]</span><br><span class="line">Output: 2</span><br><span class="line">Explanation: The balloons can be burst by 2 arrows:</span><br><span class="line">- Shoot an arrow at x &#x3D; 2, bursting the balloons [1,2] and [2,3].</span><br><span class="line">- Shoot an arrow at x &#x3D; 4, bursting the balloons [3,4] and [4,5].</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">1 &lt;&#x3D; points.length &lt;&#x3D; 105</span><br><span class="line">points[i].length &#x3D;&#x3D; 2</span><br><span class="line">-231 &lt;&#x3D; xstart &lt; xend &lt;&#x3D; 231 - 1</span><br></pre></td></tr></table></figure>
+<p><img src="https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/solutions/288049/Figures/452/arrows.png"></p>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>Main idea:</p>
+<p>We know that eventually we have to shoot down every balloon, so for each ballon there must be an arrow whose position is between balloon[0] and balloon[1] inclusively. Given that, <strong>we can sort the array of balloons by their ending position.</strong> Then we make sure that while we take care of each balloon in order, we can shoot as many following balloons as possible.</p>
+<p>So what position should we pick each time? We should shoot <strong>as to the right as possible</strong>, because since balloons are sorted, this gives you the best chance to take down more balloons. Therefore the position should always be balloon[i][1] for the ith balloon.</p>
+<p>This is exactly what I do in the for loop: check how many balloons I can shoot down with one shot aiming at the ending position of the current balloon. Then I skip all these balloons and start again from the next one (or the leftmost remaining one) that needs another arrow.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Example:</span><br><span class="line"></span><br><span class="line">balloons &#x3D; [[7,10], [1,5], [3,6], [2,4], [1,4]]</span><br><span class="line">After sorting, it becomes:</span><br><span class="line"></span><br><span class="line">balloons &#x3D; [[2,4], [1,4], [1,5], [3,6], [7,10]]</span><br><span class="line">So first of all, we shoot at position 4, we go through the array and see that all first 4 balloons can be taken care of by this single shot. Then we need another shot for one last balloon. So the result should be 2.</span><br></pre></td></tr></table></figure>
+<p>So we need to first order by the right position of each ballon first, then iterate the loop. The Arrow position is the right position of the first ballon. If the next ballon’s left position is smaller than the arrow position, then we can skip this ballon. If the next ballon’s left position is larger than the arrow position, then we need to shoot another arrow. The arrow position is the right position of the next ballon. After the iteration, we get the number of arrows.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int findMinArrowShots(vector&lt;vector&lt;int&gt;&gt;&amp; points) &#123;</span><br><span class="line">        if (points.empty()) return 0;</span><br><span class="line">        sort(points.begin(), points.end(), [](vector&lt;int&gt; &amp; a, vector&lt;int&gt; &amp; b)&#123;</span><br><span class="line">            return a[1] &lt; b[1];</span><br><span class="line">        &#125;);</span><br><span class="line">        int n &#x3D; points.size();</span><br><span class="line">        int count &#x3D; 1;</span><br><span class="line">        int arrowPosition &#x3D; points[0][1];</span><br><span class="line">        for (int i &#x3D; 1; i &lt; n; i++)&#123;</span><br><span class="line">            if (arrowPosition &gt;&#x3D; points[i][0])&#123;</span><br><span class="line">                continue;</span><br><span class="line">            &#125;</span><br><span class="line">            else&#123;</span><br><span class="line">                count ++;</span><br><span class="line">                arrowPosition &#x3D; points[i][1];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Greedy/" rel="tag">Greedy</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Sorting/" rel="tag">Sorting</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
   id="post-Leetcode1018"
   class="article article-type-post"
   itemscope
@@ -760,75 +824,13 @@
 </article>
 
     
-    <article
-  id="post-Leetcode1012-2"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2023/10/12/Leetcode1012-2/"
-    >Leetcode Study Day 19</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2023/10/12/Leetcode1012-2/" class="article-date">
-  <time datetime="2023-10-12T14:56:26.000Z" itemprop="datePublished">2023-10-12</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
-  </div>
- 
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h1 id="Isomorphic-Strings"><a href="#Isomorphic-Strings" class="headerlink" title="Isomorphic Strings"></a>Isomorphic Strings</h1><p>Given two strings s and t, determine if they are isomorphic.</p>
-<p>Two strings s and t are isomorphic if the characters in s can be replaced to get t.</p>
-<p>All occurrences of a character must be replaced with another character while preserving the order of characters. No two characters may map to the same character, but a character may map to itself.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: s &#x3D; &quot;egg&quot;, t &#x3D; &quot;add&quot;</span><br><span class="line">Output: true</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: s &#x3D; &quot;foo&quot;, t &#x3D; &quot;bar&quot;</span><br><span class="line">Output: false</span><br><span class="line">Example 3:</span><br><span class="line"></span><br><span class="line">Input: s &#x3D; &quot;paper&quot;, t &#x3D; &quot;title&quot;</span><br><span class="line">Output: true</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">1 &lt;&#x3D; s.length &lt;&#x3D; 5 * 104</span><br><span class="line">t.length &#x3D;&#x3D; s.length</span><br><span class="line">s and t consist of any valid ascii character.</span><br></pre></td></tr></table></figure>
-<h2 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h2><p>My solution is using <code>unordered_map</code> to store the mapping between characters in <code>s</code> and <code>t</code>. We loop through the string <code>s</code> and check if the character is in the <code>unordered_map</code>. If it is, we check if the character in <code>t</code> is the same as the character in <code>unordered_map</code>. If it is not, we return false. If it is, we continue to check the next character in <code>s</code>. After the iteration, we can make sure that all the characters in <code>s</code> can be mapped to <code>t</code>. </p>
-<p>Then we clear the <code>unordered_map</code> and do the same thing for <code>t</code> and <code>s</code>. If all the characters in <code>t</code> can be mapped to <code>s</code>, we return true. Otherwise, we return false.</p>
-<p>An example if we only check <code>s</code> and <code>t</code> once:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">s &#x3D; &quot;badc&quot;</span><br><span class="line">t &#x3D; &quot;baba&quot;</span><br></pre></td></tr></table></figure>
-<p>In this case, if we only check whether the characters in <code>s</code> can be mapped to <code>t</code>, we will get the result <code>true</code>. However, the character <code>b</code> in the string <code>t</code> can be mapped to <code>a</code> and <code>d</code> in the string <code>s</code>. Therefore, we need to check whether the characters in <code>t</code> can be mapped to <code>s</code> as well.</p>
-<h3 id="Full-code"><a href="#Full-code" class="headerlink" title="Full code"></a>Full code</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isIsomorphic</span><span class="params">(<span class="built_in">string</span> s, <span class="built_in">string</span> t)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (s.size() != t.size()) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="built_in">unordered_map</span>&lt;<span class="keyword">char</span>, <span class="keyword">char</span>&gt; wordMatch;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.size(); i ++)&#123;</span><br><span class="line">            <span class="keyword">auto</span> ifMatch = wordMatch.find(s[i]);</span><br><span class="line">            <span class="comment">// don&#x27;t find the element in the map</span></span><br><span class="line">            <span class="keyword">if</span> (ifMatch == wordMatch.end())</span><br><span class="line">                wordMatch[s[i]] = t[i];</span><br><span class="line">            <span class="comment">// find the element in the map</span></span><br><span class="line">            <span class="keyword">if</span> (ifMatch != wordMatch.end())&#123;</span><br><span class="line">                <span class="keyword">if</span> (wordMatch[s[i]] != t[i])</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        wordMatch.clear();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; t.size(); i ++)&#123;</span><br><span class="line">            <span class="keyword">auto</span> ifMatch = wordMatch.find(t[i]);</span><br><span class="line">            <span class="comment">// don&#x27;t find the element in the map</span></span><br><span class="line">            <span class="keyword">if</span> (ifMatch == wordMatch.end())</span><br><span class="line">                wordMatch[t[i]] = s[i];</span><br><span class="line">            <span class="comment">// find the element in the map</span></span><br><span class="line">            <span class="keyword">if</span> (ifMatch != wordMatch.end())&#123;</span><br><span class="line">                <span class="keyword">if</span> (wordMatch[t[i]] != s[i])</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;        </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hash-Table/" rel="tag">Hash Table</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/String/" rel="tag">String</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
   </article>
   
 
   
   <nav class="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/3/">Last Page</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/5/">Next Page</a>
+    <a class="extend prev" rel="prev" href="/page/3/">Last Page</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/5/">Next Page</a>
   </nav>
   
 </section>

@@ -131,6 +131,87 @@
     
     
     <article
+  id="post-Leetcode0928"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2023/09/28/Leetcode0928/"
+    >Leetcode Study Day 10</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/09/28/Leetcode0928/" class="article-date">
+  <time datetime="2023-09-28T07:35:45.000Z" itemprop="datePublished">2023-09-28</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
+  </div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Length-of-Last-Word"><a href="#Length-of-Last-Word" class="headerlink" title="Length of Last Word"></a>Length of Last Word</h1><p>Given a string s consisting of words and spaces, return the length of the last word in the string.</p>
+<p>A word is a maximal<br>substring consisting of non-space characters only.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: s &#x3D; &quot;Hello World&quot;</span><br><span class="line">Output: 5</span><br><span class="line">Explanation: The last word is &quot;World&quot; with length 5.</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: s &#x3D; &quot;   fly me   to   the moon  &quot;</span><br><span class="line">Output: 4</span><br><span class="line">Explanation: The last word is &quot;moon&quot; with length 4.</span><br><span class="line">Example 3:</span><br><span class="line"></span><br><span class="line">Input: s &#x3D; &quot;luffy is still joyboy&quot;</span><br><span class="line">Output: 6</span><br><span class="line">Explanation: The last word is &quot;joyboy&quot; with length 6.</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">1 &lt;&#x3D; s.length &lt;&#x3D; 104</span><br><span class="line">s consists of only English letters and spaces &#39; &#39;.</span><br><span class="line">There will be at least one word in s.</span><br></pre></td></tr></table></figure>
+<h2 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h2><p>At first, my solution is to split the string by space and store the words in a vector. Then I return the length of the last word in the vector. So I learned about how to split by space in C++:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span> &lt;<span class="built_in">string</span>&gt; tokens;</span><br><span class="line"><span class="function"><span class="built_in">istringstream</span> <span class="title">iss</span><span class="params">(s)</span></span>;</span><br><span class="line"><span class="built_in">string</span> token;</span><br><span class="line"><span class="keyword">while</span>(iss &gt;&gt; token)</span><br><span class="line">    tokens.push_back(token);</span><br><span class="line"><span class="keyword">return</span> (tokens[tokens.size()<span class="number">-1</span>].length());</span><br></pre></td></tr></table></figure>
+<p>In this code, </p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">std</span>::<span class="built_in">istringstream</span> <span class="title">iss</span><span class="params">(s)</span></span>;</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p><code>std::istringstream</code> is a type provided by the <code>&lt;sstream&gt;</code> header. It stands for “input string stream” and can be thought of as a stream that operates on strings, just as you’d read from or write to files with file streams. </p>
+</li>
+<li><p>When you create an <code>istringstream</code> with a string argument, the content of the string is loaded into the stream. In this case, the content of <code>s</code> is loaded into the <code>iss</code> stream, and you can then “read” from this stream using extraction (<code>&gt;&gt;</code>) operators, as you would with <code>std::cin</code> or any other stream.</p>
+</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">std</span>::<span class="built_in">string</span> token;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>This line simply declares a string named <code>token</code>. This will be used to hold individual space-separated segments (tokens) from the original string as we extract them from the stream.</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (iss &gt;&gt; token) &#123;</span><br><span class="line">    tokens.push_back(token);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>The loop’s condition, <code>iss &gt;&gt; token</code>, tries to extract a “word” (a space-separated segment) from the <code>iss</code> stream and put it into the <code>token</code> string. If the extraction is successful (meaning there’s still content in the stream), the loop continues. If the extraction fails (meaning there’s no more content to extract), the loop exits.</p>
+</li>
+<li><p>The <code>&gt;&gt;</code> operator, when used with streams and strings, automatically splits on whitespace (like spaces, newlines, and tabs), so each iteration extracts one word from the string up to the next space or end of the string.</p>
+</li>
+<li><p><code>tokens.push_back(token);</code> adds the extracted token to the <code>tokens</code> vector.</p>
+</li>
+</ol>
+<p>The loop, in essence, continues extracting words from <code>iss</code> and adding them to the <code>tokens</code> vector until there’s no more content left in <code>iss</code>.</p>
+<h2 id="A-solution-with-more-algorithmic-idea"><a href="#A-solution-with-more-algorithmic-idea" class="headerlink" title="A solution with more algorithmic idea"></a>A solution with more algorithmic idea</h2><p>Then I thought that a string is actually a vector in c++, and we can use a more algorithmic idea to solve it. To be specific, we can iterate the string from the last to the first, if we meet a character that is not a space, we increase the count by one, if we meet a space and it is behind all the characters, we skip it, if we meet a space and the count is not 0, we then break our loop and return the count:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">lengthOfLastWord</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = s.size();</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = n <span class="number">-1</span>; i &gt;= <span class="number">0</span>; i--)&#123;</span><br><span class="line">            <span class="keyword">if</span> (s[i] == <span class="string">&#x27; &#x27;</span> &amp;&amp; count == <span class="number">0</span>)</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">if</span> (s[i] != <span class="string">&#x27; &#x27;</span>)</span><br><span class="line">                count ++;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (s[i] == <span class="string">&#x27; &#x27;</span>)</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/string/" rel="tag">string</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
   id="post-Leetcode0927"
   class="article article-type-post"
   itemscope
@@ -742,75 +823,13 @@
 </article>
 
     
-    <article
-  id="post-Leetcode0922"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2023/09/22/Leetcode0922/"
-    >Leetcode Study Day 5</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2023/09/22/Leetcode0922/" class="article-date">
-  <time datetime="2023-09-22T09:31:23.000Z" itemprop="datePublished">2023-09-22</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
-  </div>
- 
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h1 id="Best-Time-to-Buy-and-Sell-Stock"><a href="#Best-Time-to-Buy-and-Sell-Stock" class="headerlink" title="Best Time to Buy and Sell Stock"></a>Best Time to Buy and Sell Stock</h1><p>You are given an array prices where prices[i] is the price of a given stock on the ith day.</p>
-<p>You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.</p>
-<p>Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: prices &#x3D; [7,1,5,3,6,4]</span><br><span class="line">Output: 5</span><br><span class="line">Explanation: Buy on day 2 (price &#x3D; 1) and sell on day 5 (price &#x3D; 6), profit &#x3D; 6-1 &#x3D; 5.</span><br><span class="line">Note that buying on day 2 and selling on day 1 is not allowed because you must buy before you sell.</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: prices &#x3D; [7,6,4,3,1]</span><br><span class="line">Output: 0</span><br><span class="line">Explanation: In this case, no transactions are done and the max profit &#x3D; 0.</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">1 &lt;&#x3D; prices.length &lt;&#x3D; 105</span><br><span class="line">0 &lt;&#x3D; prices[i] &lt;&#x3D; 104</span><br></pre></td></tr></table></figure>
-<h2 id="My-Solution"><a href="#My-Solution" class="headerlink" title="My Solution"></a>My Solution</h2><p>Failed to find a solution by myself. So sad. I was trying to record the index and the value for every element and compare each element’s value and index. However, I failed to solve the situation that if the last element is the smallest one and we should ignore it.</p>
-<h2 id="“Buy-low-sell-high”"><a href="#“Buy-low-sell-high”" class="headerlink" title="“Buy low, sell high”"></a>“Buy low, sell high”</h2><p>The idea is to find the minimum price (the day to buy) and the maximum profit (the day to sell) while iterating through the array of prices. </p>
-<p>In ChatGPT’s code, there is no need to record the maximum value, the only two variables are the minimum value and the max profit. In the loop, we comapre the minimum value with the current value, find who is the smallest, and find the profit between them. Then we compare the profit with the max profit, find who is the largest. </p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; prices)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = prices.size();</span><br><span class="line">        <span class="keyword">if</span> (n &lt;= <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>; <span class="comment">// If there are less than 2 days, you can&#x27;t make a profit.</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> minPrice = prices[<span class="number">0</span>]; <span class="comment">// Initialize the minimum price as the first day&#x27;s price.</span></span><br><span class="line">        <span class="keyword">int</span> maxProfit = <span class="number">0</span>;       <span class="comment">// Initialize the maximum profit as 0.</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; ++i) &#123;</span><br><span class="line">            <span class="comment">// Update the minimum price if a lower price is encountered.</span></span><br><span class="line">            minPrice = min(minPrice, prices[i]);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Calculate the potential profit if you sell on the current day.</span></span><br><span class="line">            <span class="keyword">int</span> potentialProfit = prices[i] - minPrice;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Update the maximum profit if the potential profit is higher.</span></span><br><span class="line">            maxProfit = max(maxProfit, potentialProfit);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> maxProfit;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>This is a smart idea and I am annoying that I didn’t think of it.</p>
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Dynamic-Programming/" rel="tag">Dynamic Programming</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
   </article>
   
 
   
   <nav class="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/6/">Last Page</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/8/">Next Page</a>
+    <a class="extend prev" rel="prev" href="/page/6/">Last Page</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/8/">Next Page</a>
   </nav>
   
 </section>
