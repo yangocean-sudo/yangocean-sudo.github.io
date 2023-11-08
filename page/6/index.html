@@ -131,6 +131,126 @@
     
     
     <article
+  id="post-Leetcode1008"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2023/10/08/Leetcode1008/"
+    >Leetcode Study Day 15</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/10/08/Leetcode1008/" class="article-date">
+  <time datetime="2023-10-08T20:09:55.000Z" itemprop="datePublished">2023-10-08</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
+  </div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Substring-with-Concatenation-of-All-Words"><a href="#Substring-with-Concatenation-of-All-Words" class="headerlink" title="Substring with Concatenation of All Words"></a>Substring with Concatenation of All Words</h1><p>You are given a string s and an array of strings words. All the strings of words are of the same length.</p>
+<p>A concatenated substring in s is a substring that contains all the strings of any permutation of words concatenated.</p>
+<p>For example, if words = [“ab”,”cd”,”ef”], then “abcdef”, “abefcd”, “cdabef”, “cdefab”, “efabcd”, and “efcdab” are all concatenated strings. “acdbef” is not a concatenated substring because it is not the concatenation of any permutation of words.<br>Return the starting indices of all the concatenated substrings in s. You can return the answer in any order.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: s &#x3D; &quot;barfoothefoobarman&quot;, words &#x3D; [&quot;foo&quot;,&quot;bar&quot;]</span><br><span class="line">Output: [0,9]</span><br><span class="line">Explanation: Since words.length &#x3D;&#x3D; 2 and words[i].length &#x3D;&#x3D; 3, the concatenated substring has to be of length 6.</span><br><span class="line">The substring starting at 0 is &quot;barfoo&quot;. It is the concatenation of [&quot;bar&quot;,&quot;foo&quot;] which is a permutation of words.</span><br><span class="line">The substring starting at 9 is &quot;foobar&quot;. It is the concatenation of [&quot;foo&quot;,&quot;bar&quot;] which is a permutation of words.</span><br><span class="line">The output order does not matter. Returning [9,0] is fine too.</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: s &#x3D; &quot;wordgoodgoodgoodbestword&quot;, words &#x3D; [&quot;word&quot;,&quot;good&quot;,&quot;best&quot;,&quot;word&quot;]</span><br><span class="line">Output: []</span><br><span class="line">Explanation: Since words.length &#x3D;&#x3D; 4 and words[i].length &#x3D;&#x3D; 4, the concatenated substring has to be of length 16.</span><br><span class="line">There is no substring of length 16 in s that is equal to the concatenation of any permutation of words.</span><br><span class="line">We return an empty array.</span><br><span class="line">Example 3:</span><br><span class="line"></span><br><span class="line">Input: s &#x3D; &quot;barfoofoobarthefoobarman&quot;, words &#x3D; [&quot;bar&quot;,&quot;foo&quot;,&quot;the&quot;]</span><br><span class="line">Output: [6,9,12]</span><br><span class="line">Explanation: Since words.length &#x3D;&#x3D; 3 and words[i].length &#x3D;&#x3D; 3, the concatenated substring has to be of length 9.</span><br><span class="line">The substring starting at 6 is &quot;foobarthe&quot;. It is the concatenation of [&quot;foo&quot;,&quot;bar&quot;,&quot;the&quot;] which is a permutation of words.</span><br><span class="line">The substring starting at 9 is &quot;barthefoo&quot;. It is the concatenation of [&quot;bar&quot;,&quot;the&quot;,&quot;foo&quot;] which is a permutation of words.</span><br><span class="line">The substring starting at 12 is &quot;thefoobar&quot;. It is the concatenation of [&quot;the&quot;,&quot;foo&quot;,&quot;bar&quot;] which is a permutation of words.</span><br></pre></td></tr></table></figure>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>The solution is firstly, we store the word in the array <code>words</code> in a unordered_map. For each word, we count the number of times it appears. Then we use the sliding window method to find the substring. We use a method <code>checkSubstring</code> to check if the substring of the original input string <code>s</code> is a concatenated substring.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">findSubstring</span><span class="params">(<span class="built_in">string</span> s, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; words)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">vector</span> &lt;<span class="keyword">int</span>&gt; answer;</span><br><span class="line">        <span class="keyword">int</span> singleWordLen = words[<span class="number">0</span>].size();</span><br><span class="line">        <span class="keyword">int</span> windowSize = words.size() * singleWordLen;</span><br><span class="line">        <span class="comment">// creating a map stores words count</span></span><br><span class="line">        <span class="built_in">unordered_map</span> &lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt; wordCount;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; words.size(); i++)&#123;</span><br><span class="line">            wordCount[words[i]]++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (i + windowSize &lt;= s.size())&#123;</span><br><span class="line">            <span class="keyword">if</span> (checkSubstring(wordCount, s.substr(i, windowSize), singleWordLen))</span><br><span class="line">                answer.push_back(i);</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> answer;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>In the function <code>checkSubstring</code>, we iterate the <code>substring</code>, which is passed in the main function and check if the word in the array <code>words</code> is in the substring. If it is, we decrease the count of the word in the map. If the count is equal to -1, which means the word appears more times than it should be, we return false. If the word is not in the map, we return false. If the word is in the map and the count is not equal to -1, we continue to check the next word. If we finish checking all the words in the map, we return true.</p>
+<p>It is noticeable that <code>wordCount</code> is passed by value, any changes made to it within the checkSubstring function are local to that function and do not affect the original wordCount map in the findSubstring method. This means that every time checkSubstring is called, it receives a fresh copy of the wordCount map with the original word counts. As a result, there’s no need to reset the map after each call to checkSubstring.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">checkSubstring</span><span class="params">(<span class="built_in">unordered_map</span> &lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt; wordCount, <span class="built_in">string</span> s, <span class="keyword">int</span> singleWordLen)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.size(); i += singleWordLen)&#123;</span><br><span class="line">        <span class="built_in">string</span> subString = s.substr(i, singleWordLen);</span><br><span class="line">        <span class="keyword">if</span> (wordCount.find(subString) != wordCount.end())&#123;</span><br><span class="line">            <span class="keyword">if</span> (--wordCount[subString] == <span class="number">-1</span>)</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="Full-code"><a href="#Full-code" class="headerlink" title="Full code"></a>Full code</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">checkSubstring</span><span class="params">(<span class="built_in">unordered_map</span> &lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt; wordCount, <span class="built_in">string</span> s, <span class="keyword">int</span> singleWordLen)</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.size(); i += singleWordLen)&#123;</span><br><span class="line">            <span class="built_in">string</span> subString = s.substr(i, singleWordLen);</span><br><span class="line">            <span class="keyword">if</span> (wordCount.find(subString) != wordCount.end())&#123;</span><br><span class="line">                <span class="keyword">if</span> (--wordCount[subString] == <span class="number">-1</span>)</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">findSubstring</span><span class="params">(<span class="built_in">string</span> s, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; words)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">vector</span> &lt;<span class="keyword">int</span>&gt; answer;</span><br><span class="line">        <span class="keyword">int</span> singleWordLen = words[<span class="number">0</span>].size();</span><br><span class="line">        <span class="keyword">int</span> windowSize = words.size() * singleWordLen;</span><br><span class="line">        <span class="comment">// creating a map stores words count</span></span><br><span class="line">        <span class="built_in">unordered_map</span> &lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt; wordCount;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; words.size(); i++)&#123;</span><br><span class="line">            wordCount[words[i]]++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (i + windowSize &lt;= s.size())&#123;</span><br><span class="line">            <span class="keyword">if</span> (checkSubstring(wordCount, s.substr(i, windowSize), singleWordLen))</span><br><span class="line">                answer.push_back(i);</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> answer;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hash-Table/" rel="tag">Hash Table</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Sliding-Window/" rel="tag">Sliding Window</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/String/" rel="tag">String</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
+  id="post-Leetcode1007-2"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2023/10/07/Leetcode1007-2/"
+    >Leetcode Study Day 15</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/10/07/Leetcode1007-2/" class="article-date">
+  <time datetime="2023-10-07T13:49:17.000Z" itemprop="datePublished">2023-10-07</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
+  </div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Longest-Substring-Without-Repeating-Characters"><a href="#Longest-Substring-Without-Repeating-Characters" class="headerlink" title="Longest Substring Without Repeating Characters"></a>Longest Substring Without Repeating Characters</h1><p>Given a string s, find the length of the longest<br>substring<br> without repeating characters.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: s &#x3D; &quot;abcabcbb&quot;</span><br><span class="line">Output: 3</span><br><span class="line">Explanation: The answer is &quot;abc&quot;, with the length of 3.</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: s &#x3D; &quot;bbbbb&quot;</span><br><span class="line">Output: 1</span><br><span class="line">Explanation: The answer is &quot;b&quot;, with the length of 1.</span><br><span class="line">Example 3:</span><br><span class="line"></span><br><span class="line">Input: s &#x3D; &quot;pwwkew&quot;</span><br><span class="line">Output: 3</span><br><span class="line">Explanation: The answer is &quot;wke&quot;, with the length of 3.</span><br><span class="line">Notice that the answer must be a substring, &quot;pwke&quot; is a subsequence and not a substring.</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">0 &lt;&#x3D; s.length &lt;&#x3D; 5 * 104</span><br><span class="line">s consists of English letters, digits, symbols and spaces.</span><br></pre></td></tr></table></figure>
+<h2 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h2><p>My solution is using the sliding window method. We use two pointers, <code>left</code> and <code>right</code>, to represent the left and right bound of the substring. We move the right pointer to the right until the substring contains a repeating character. Then we move the left pointer to the right and update the maximum length of the substring. We repeat the process until the right pointer reaches the end of the string.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> right = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> n = s.size();</span><br><span class="line">        <span class="keyword">int</span> maxCount = INT_MIN;</span><br><span class="line">        <span class="built_in">string</span> subString = <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (right &lt; n)&#123;</span><br><span class="line">            <span class="keyword">if</span> (subString.find(s[right]) == <span class="built_in">string</span>::npos)&#123;</span><br><span class="line">                subString += s[right];</span><br><span class="line">                right ++;</span><br><span class="line">                maxCount = max(maxCount, <span class="keyword">int</span>(subString.size()));</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                maxCount = max(maxCount, <span class="keyword">int</span>(subString.size()));</span><br><span class="line">                left ++;</span><br><span class="line">                right = left;</span><br><span class="line">                subString = <span class="string">&quot;&quot;</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> (maxCount == INT_MIN) ? <span class="number">0</span> : maxCount;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>In C++, we can use the <code>find</code> method of the std::string class, if the substring or character I’m looking for is not found, the method will return <code>std::string::npos</code>.</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hash-Table/" rel="tag">Hash Table</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Sliding-Window/" rel="tag">Sliding Window</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/String/" rel="tag">String</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
   id="post-Leetcode1007"
   class="article article-type-post"
   itemscope
@@ -607,139 +727,6 @@
     <footer class="article-footer">
        
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/String/" rel="tag">String</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-Leetcode0929"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2023/09/29/Leetcode0929/"
-    >Leetcode Study Day 11</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2023/09/29/Leetcode0929/" class="article-date">
-  <time datetime="2023-09-29T20:38:39.000Z" itemprop="datePublished">2023-09-29</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
-  </div>
- 
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h1 id="Reverse-Words-in-a-String"><a href="#Reverse-Words-in-a-String" class="headerlink" title="Reverse Words in a String"></a>Reverse Words in a String</h1><p>Given an input string s, reverse the order of the words.</p>
-<p>A word is defined as a sequence of non-space characters. The words in s will be separated by at least one space.</p>
-<p>Return a string of the words in reverse order concatenated by a single space.</p>
-<p>Note that s may contain leading or trailing spaces or multiple spaces between two words. The returned string should only have a single space separating the words. Do not include any extra spaces.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: s &#x3D; &quot;the sky is blue&quot;</span><br><span class="line">Output: &quot;blue is sky the&quot;</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: s &#x3D; &quot;  hello world  &quot;</span><br><span class="line">Output: &quot;world hello&quot;</span><br><span class="line">Explanation: Your reversed string should not contain leading or trailing spaces.</span><br><span class="line">Example 3:</span><br><span class="line"></span><br><span class="line">Input: s &#x3D; &quot;a good   example&quot;</span><br><span class="line">Output: &quot;example good a&quot;</span><br><span class="line">Explanation: You need to reduce multiple spaces between two words to a single space in the reversed string.</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">1 &lt;&#x3D; s.length &lt;&#x3D; 104</span><br><span class="line">s contains English letters (upper-case and lower-case), digits, and spaces &#39; &#39;.</span><br><span class="line">There is at least one word in s.</span><br></pre></td></tr></table></figure>
-<h2 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h2><p>My solution is very intuitive, firstly, I iterate the whole string, and store all the word into an array. Then we iterate the array from back to front, and combine the words with a space.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">string</span> <span class="title">reverseWords</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">string</span> output = <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="built_in">string</span> word =<span class="string">&quot;&quot;</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">vector</span> &lt;<span class="built_in">string</span>&gt; words;</span><br><span class="line">        <span class="keyword">int</span> n = s.size();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span> (s[i] == <span class="string">&#x27; &#x27;</span> &amp;&amp; word.size() != <span class="number">0</span>)&#123;</span><br><span class="line">                words.push_back(word);</span><br><span class="line">                word = <span class="string">&quot;&quot;</span>;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (s[i] == <span class="string">&#x27; &#x27;</span> &amp;&amp; word.size() == <span class="number">0</span>)</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            word += s[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (word != <span class="string">&quot;&quot;</span>)</span><br><span class="line">            words.push_back(word);</span><br><span class="line">        <span class="keyword">int</span> words_size = words.size();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = words_size<span class="number">-1</span>; i &gt;= <span class="number">0</span>; i--)&#123;</span><br><span class="line"></span><br><span class="line">            output += words[i];</span><br><span class="line">            <span class="keyword">if</span> (i != <span class="number">0</span>) output += <span class="string">&#x27; &#x27;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> output;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/String/" rel="tag">String</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Two-Pointers/" rel="tag">Two Pointers</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-Leetcode0928-2"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2023/09/28/Leetcode0928-2/"
-    >Leetcode Study Day 10</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2023/09/28/Leetcode0928-2/" class="article-date">
-  <time datetime="2023-09-28T08:15:23.000Z" itemprop="datePublished">2023-09-28</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
-  </div>
- 
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h1 id="Longest-Common-Prefix"><a href="#Longest-Common-Prefix" class="headerlink" title="Longest Common Prefix"></a>Longest Common Prefix</h1><p>Write a function to find the longest common prefix string amongst an array of strings.</p>
-<p>If there is no common prefix, return an empty string “”.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: strs &#x3D; [&quot;flower&quot;,&quot;flow&quot;,&quot;flight&quot;]</span><br><span class="line">Output: &quot;fl&quot;</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: strs &#x3D; [&quot;dog&quot;,&quot;racecar&quot;,&quot;car&quot;]</span><br><span class="line">Output: &quot;&quot;</span><br><span class="line">Explanation: There is no common prefix among the input strings.</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">1 &lt;&#x3D; strs.length &lt;&#x3D; 200</span><br><span class="line">0 &lt;&#x3D; strs[i].length &lt;&#x3D; 200</span><br><span class="line">strs[i] consists of only lowercase English letters.</span><br></pre></td></tr></table></figure>
-<h2 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h2><p>My idea is to compare the character of one word to the others which are in the same position. If all the characters on the same position are same, we add this character to our return string, then we go to the next position, once the characters are not the same, we return the string. Here is my code:</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">string</span> <span class="title">longestCommonPrefix</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; strs)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">string</span> commonPrefix = <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; strs[<span class="number">0</span>].size(); i++)&#123;</span><br><span class="line">            <span class="keyword">char</span> cache = strs[<span class="number">0</span>][i];</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; strs.size(); j++)&#123;</span><br><span class="line">                <span class="keyword">if</span> (strs[j][i] == cache)</span><br><span class="line">                    cache = strs[j][i];</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    <span class="keyword">return</span> commonPrefix;</span><br><span class="line">            &#125;</span><br><span class="line">            commonPrefix += cache;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> commonPrefix;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="Sort-lexicographically-solution"><a href="#Sort-lexicographically-solution" class="headerlink" title="Sort lexicographically solution"></a>Sort lexicographically solution</h2><p>The main idea of this solution is that:</p>
-<blockquote>
-<p>If the array is sorted alphabetically then you can assume that the first element of the array and the last element of the array will have most different prefixes of all comparisons that could be made between strings in the array. If this is true, you only have to compare these two strings.</p>
-</blockquote>
-<p>And this is the step:</p>
-<blockquote>
-<ol>
-<li>Initialize an empty string ans to store the common prefix.</li>
-<li>Sort the input list v lexicographically. This step is necessary because the common prefix should be common to all the strings, so we need to find the common prefix of the first and last string in the sorted list.</li>
-<li>Iterate through the characters of the first and last string in the sorted list, stopping at the length of the shorter string.</li>
-<li>If the current character of the first string is not equal to the current character of the last string, return the common prefix found so far.</li>
-<li>Otherwise, append the current character to the ans string.</li>
-<li>Return the ans string containing the longest common prefix.</li>
-</ol>
-</blockquote>
-<p>And this is the code:</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">string</span> <span class="title">longestCommonPrefix</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; v)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">string</span> ans=<span class="string">&quot;&quot;</span>;</span><br><span class="line">        sort(v.begin(),v.end());</span><br><span class="line">        <span class="keyword">int</span> n=v.size();</span><br><span class="line">        <span class="built_in">string</span> first=v[<span class="number">0</span>],last=v[n<span class="number">-1</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;min(first.size(),last.size());i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(first[i]!=last[i])&#123;</span><br><span class="line">                <span class="keyword">return</span> ans;</span><br><span class="line">            &#125;</span><br><span class="line">            ans+=first[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Trie/" rel="tag">Trie</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/string/" rel="tag">string</a></li></ul>
 
     </footer>
   </div>

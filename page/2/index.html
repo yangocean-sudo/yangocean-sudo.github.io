@@ -131,6 +131,142 @@
     
     
     <article
+  id="post-Leetcode1101"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2023/11/01/Leetcode1101/"
+    >Leetcode Study Day 36</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/11/01/Leetcode1101/" class="article-date">
+  <time datetime="2023-11-01T09:07:47.000Z" itemprop="datePublished">2023-11-01</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
+  </div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Path-Sum"><a href="#Path-Sum" class="headerlink" title="Path Sum"></a>Path Sum</h1><p>Given the root of a binary tree and an integer targetSum, return true if the tree has a root-to-leaf path such that adding up all the values along the path equals targetSum.<br>A leaf is a node with no children.<br><img src="https://assets.leetcode.com/uploads/2021/01/18/pathsum1.jpg"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line">Input: root &#x3D; [5,4,8,11,null,13,4,7,2,null,null,null,1], targetSum &#x3D; 22</span><br><span class="line">Output: true</span><br><span class="line">Explanation: The root-to-leaf path with the target sum is shown.</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Input: root &#x3D; [1,2,3], targetSum &#x3D; 5</span><br><span class="line">Output: false</span><br><span class="line">Explanation: There two root-to-leaf paths in the tree:</span><br><span class="line">(1 --&gt; 2): The sum is 3.</span><br><span class="line">(1 --&gt; 3): The sum is 4.</span><br><span class="line">There is no root-to-leaf path with sum &#x3D; 5.</span><br><span class="line">Example 3:</span><br><span class="line"></span><br><span class="line">Input: root &#x3D; [], targetSum &#x3D; 0</span><br><span class="line">Output: false</span><br><span class="line">Explanation: Since the tree is empty, there are no root-to-leaf paths.</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">The number of nodes in the tree is in the range [0, 5000].</span><br><span class="line">-1000 &lt;&#x3D; Node.val &lt;&#x3D; 1000</span><br><span class="line">-1000 &lt;&#x3D; targetSum &lt;&#x3D; 1000</span><br></pre></td></tr></table></figure>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>I saw a very simple solution from Leetcode.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * struct TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode *left;</span></span><br><span class="line"><span class="comment"> *     TreeNode *right;</span></span><br><span class="line"><span class="comment"> *     TreeNode() : val(0), left(nullptr), right(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">hasPathSum</span><span class="params">(TreeNode* root, <span class="keyword">int</span> targetSum)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// If the node is empty, return false</span></span><br><span class="line">        <span class="keyword">if</span> (!root)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="comment">// If it is the end of the tree and the value is equal to the sum passed in, return true</span></span><br><span class="line">        <span class="keyword">if</span> (root -&gt; val == targetSum &amp;&amp; !root -&gt; left &amp;&amp; !root -&gt; right)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="comment">// If it is not the end of the tree, check the left and right node, with the sum minus the current value</span></span><br><span class="line">        <span class="keyword">return</span> (hasPathSum(root -&gt; left, targetSum - root -&gt; val) || hasPathSum(root -&gt; right, targetSum - root -&gt; val)); </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="Sum-Root-to-Leaf-Numbers"><a href="#Sum-Root-to-Leaf-Numbers" class="headerlink" title="Sum Root to Leaf Numbers"></a>Sum Root to Leaf Numbers</h1><p>You are given the root of a binary tree containing digits from 0 to 9 only.</p>
+<p>Each root-to-leaf path in the tree represents a number.</p>
+<p>For example, the root-to-leaf path 1 -&gt; 2 -&gt; 3 represents the number 123.<br>Return the total sum of all root-to-leaf numbers. Test cases are generated so that the answer will fit in a 32-bit integer.</p>
+<p>A leaf node is a node with no children.</p>
+<p><img src="https://assets.leetcode.com/uploads/2021/02/19/num1tree.jpg" alt="Example 1"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Input: root &#x3D; [1,2,3]</span><br><span class="line">Output: 25</span><br><span class="line">Explanation:</span><br><span class="line">The root-to-leaf path 1-&gt;2 represents the number 12.</span><br><span class="line">The root-to-leaf path 1-&gt;3 represents the number 13.</span><br><span class="line">Therefore, sum &#x3D; 12 + 13 &#x3D; 25.</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Input: root &#x3D; [4,9,0,5,1]</span><br><span class="line">Output: 1026</span><br><span class="line">Explanation:</span><br><span class="line">The root-to-leaf path 4-&gt;9-&gt;5 represents the number 495.</span><br><span class="line">The root-to-leaf path 4-&gt;9-&gt;1 represents the number 491.</span><br><span class="line">The root-to-leaf path 4-&gt;0 represents the number 40.</span><br><span class="line">Therefore, sum &#x3D; 495 + 491 + 40 &#x3D; 1026.</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">The number of nodes in the tree is in the range [1, 1000].</span><br><span class="line">0 &lt;&#x3D; Node.val &lt;&#x3D; 9</span><br><span class="line">The depth of the tree will not exceed 10.</span><br></pre></td></tr></table></figure>
+<p><img src="https://assets.leetcode.com/uploads/2021/02/19/num2tree.jpg"></p>
+<h2 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h2><p>I found that for each layer, the number of that path is 10 times the last layer. For example, for node 9, it represents for 49, which equals 4 (the previous node) * 10 + 9 (the current node). Based on this idea, I wrote the following code.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * struct TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode *left;</span></span><br><span class="line"><span class="comment"> *     TreeNode *right;</span></span><br><span class="line"><span class="comment"> *     TreeNode() : val(0), left(nullptr), right(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">sumPath</span><span class="params">(TreeNode* node, <span class="keyword">int</span> sum)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!node)  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// the end of the tree</span></span><br><span class="line">        <span class="keyword">if</span>(node &amp;&amp; !node -&gt; left &amp;&amp; !node-&gt;right)&#123;</span><br><span class="line">            <span class="keyword">return</span> sum = <span class="number">10</span> * sum + node -&gt; val;</span><br><span class="line">        &#125;</span><br><span class="line">        sum = <span class="number">10</span> * sum + node-&gt;val;</span><br><span class="line">        <span class="keyword">return</span> sum = sumPath(node-&gt;left, sum)+ sumPath(node-&gt;right,sum);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">sumNumbers</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!root) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        <span class="keyword">return</span> sumPath(root, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Binary-Tree/" rel="tag">Binary Tree</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Breadth-First-Search/" rel="tag">Breadth-First Search</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Depth-First-Search/" rel="tag">Depth-First Search</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tree/" rel="tag">Tree</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
+  id="post-Leetcode1031-2"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2023/10/31/Leetcode1031-2/"
+    >Leetcode Study Day 35</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/10/31/Leetcode1031-2/" class="article-date">
+  <time datetime="2023-10-31T11:06:55.000Z" itemprop="datePublished">2023-10-31</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
+  </div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Flatten-Binary-Tree-to-Linked-List"><a href="#Flatten-Binary-Tree-to-Linked-List" class="headerlink" title="Flatten Binary Tree to Linked List"></a>Flatten Binary Tree to Linked List</h1><p>Given the root of a binary tree, flatten the tree into a “linked list”:</p>
+<p>The “linked list” should use the same TreeNode class where the right child pointer points to the next node in the list and the left child pointer is always null.<br>The “linked list” should be in the same order as a pre-order traversal of the binary tree.</p>
+<p><img src="https://assets.leetcode.com/uploads/2021/01/14/flaten.jpg"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Input: root &#x3D; [1,2,5,3,4,null,6]</span><br><span class="line">Output: [1,null,2,null,3,null,4,null,5,null,6]</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: root &#x3D; []</span><br><span class="line">Output: []</span><br><span class="line">Example 3:</span><br><span class="line"></span><br><span class="line">Input: root &#x3D; [0]</span><br><span class="line">Output: [0]</span><br></pre></td></tr></table></figure>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>I found this <a target="_blank" rel="noopener" href="https://leetcode.com/problems/flatten-binary-tree-to-linked-list/solutions/288414/c-solution-beats-100/?envType=study-plan-v2&envId=top-interview-150">smart solution</a> from Leetcode. </p>
+<h3 id="Full-code"><a href="#Full-code" class="headerlink" title="Full code"></a>Full code</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * struct TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode *left;</span></span><br><span class="line"><span class="comment"> *     TreeNode *right;</span></span><br><span class="line"><span class="comment"> *     TreeNode() : val(0), left(nullptr), right(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">flatten</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// if current node is not empty</span></span><br><span class="line">        <span class="keyword">if</span>(root)&#123;</span><br><span class="line">            <span class="comment">// store right node, and move left to right</span></span><br><span class="line">            TreeNode *temp = root -&gt; right;</span><br><span class="line">            root -&gt; right = root -&gt; left;</span><br><span class="line">            <span class="comment">// set left to nullptr</span></span><br><span class="line">            root -&gt; left = <span class="literal">nullptr</span>;</span><br><span class="line">            <span class="comment">// find the end of right node</span></span><br><span class="line">            TreeNode *currentNode = root;</span><br><span class="line">            <span class="keyword">while</span>(currentNode -&gt; right)</span><br><span class="line">                currentNode = currentNode -&gt; right;</span><br><span class="line">            <span class="comment">// Connect temp at the end of right node</span></span><br><span class="line">            currentNode -&gt; right = temp;</span><br><span class="line">            <span class="comment">// mvoe to the next right node</span></span><br><span class="line">            flatten(root-&gt;right);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="Understand"><a href="#Understand" class="headerlink" title="Understand"></a>Understand</h2><p>To understand this method better, I asked ChatGPT to draw a procedure diagram for me. Here is the result:</p>
+<p>Given the input binary tree root = [1,2,5,3,4,null,6], the tree structure would initially look like this:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">    1</span><br><span class="line">   &#x2F; \</span><br><span class="line">  2   5</span><br><span class="line"> &#x2F; \   \</span><br><span class="line">3   4   6</span><br></pre></td></tr></table></figure>
+<p>Here’s how the flatten function would process this tree step-by-step:</p>
+<p>Initial call with root (node 1):</p>
+<p>Moves left (node 2) to right.<br>Sets left to nullptr.<br>Now the tree looks like this:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line"> \</span><br><span class="line">  2</span><br><span class="line"> &#x2F; \</span><br><span class="line">3   4</span><br></pre></td></tr></table></figure>
+<p>Then we add the right subtree (node 5) to the end of the rightmost branch:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line"> \</span><br><span class="line">  2</span><br><span class="line"> &#x2F; \</span><br><span class="line">3   4</span><br><span class="line">     \</span><br><span class="line">      5</span><br><span class="line">       \</span><br><span class="line">        6</span><br></pre></td></tr></table></figure>
+<p>Then we call flatten on the right subtree (node 2), we move left (node 3) to right and move the other nodes to the right child of node 3.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line"> \</span><br><span class="line">  2</span><br><span class="line">   \</span><br><span class="line">    3</span><br><span class="line">     \</span><br><span class="line">      4</span><br><span class="line">       \</span><br><span class="line">        5</span><br><span class="line">         \</span><br><span class="line">          6</span><br></pre></td></tr></table></figure>
+<p>Then we find that actually, all the nodes are at the right side, however, the function will continue running, like put the temp(node 5) connect to the end of the node 4, but the result will still be the same.</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Binary-Tree/" rel="tag">Binary Tree</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Depth-First-Search/" rel="tag">Depth-First Search</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linked-List/" rel="tag">Linked List</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Stack/" rel="tag">Stack</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tree/" rel="tag">Tree</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
   id="post-Leetcode1031"
   class="article article-type-post"
   itemscope
@@ -606,159 +742,6 @@
     <footer class="article-footer">
        
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linked-List/" rel="tag">Linked List</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Two-Pointers/" rel="tag">Two Pointers</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-Leetcode1024-2"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2023/10/24/Leetcode1024-2/"
-    >Leetcode Study Day 29</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2023/10/24/Leetcode1024-2/" class="article-date">
-  <time datetime="2023-10-24T19:12:56.000Z" itemprop="datePublished">2023-10-24</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
-  </div>
- 
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h1 id="Remove-Nth-Node-From-End-of-List"><a href="#Remove-Nth-Node-From-End-of-List" class="headerlink" title="Remove Nth Node From End of List"></a>Remove Nth Node From End of List</h1><p>Given the head of a linked list, remove the nth node from the end of the list and return its head.</p>
-<p><img src="https://assets.leetcode.com/uploads/2020/10/03/remove_ex1.jpg"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Input: head &#x3D; [1,2,3,4,5], n &#x3D; 2</span><br><span class="line">Output: [1,2,3,5]</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: head &#x3D; [1], n &#x3D; 1</span><br><span class="line">Output: []</span><br><span class="line">Example 3:</span><br><span class="line"></span><br><span class="line">Input: head &#x3D; [1,2], n &#x3D; 1</span><br><span class="line">Output: [1]</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">The number of nodes in the list is sz.</span><br><span class="line">1 &lt;&#x3D; sz &lt;&#x3D; 30</span><br><span class="line">0 &lt;&#x3D; Node.val &lt;&#x3D; 100</span><br><span class="line">1 &lt;&#x3D; n &lt;&#x3D; sz</span><br></pre></td></tr></table></figure>
-<h2 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h2><p>My solution is firstly iterate the list to get the length of the list. Then we can calculate the index of the node we want to remove. Then we iterate the list again to remove the node.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode() : val(0), next(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x, ListNode *next) : val(x), next(next) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">removeNthFromEnd</span><span class="params">(ListNode* head, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        ListNode* current = head;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (current)&#123;</span><br><span class="line">            current = current-&gt;next;</span><br><span class="line">            count += <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (count == n)</span><br><span class="line">            <span class="keyword">return</span> head -&gt; next;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (count &lt; n) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        current = head;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; count - n; i++)&#123;</span><br><span class="line">            current = current -&gt; next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (current -&gt; next)</span><br><span class="line">            current -&gt; next = current -&gt; next -&gt; next;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            current -&gt; next = <span class="literal">NULL</span>;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>We can also use two pointers to solve this question. To be specific, we can create one pointer called fast and one pointer called slow. The fast pointer will move n steps first. Then the slow pointer will move with the fast pointer. When the fast pointer reaches the end of the list, the slow pointer will be at the node we want to remove.</p>
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linked-List/" rel="tag">Linked List</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Two-Pointers/" rel="tag">Two Pointers</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-Leetcode1024"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2023/10/24/Leetcode1024/"
-    >Leetcode Study Day 29</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2023/10/24/Leetcode1024/" class="article-date">
-  <time datetime="2023-10-24T17:49:02.000Z" itemprop="datePublished">2023-10-24</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
-  </div>
- 
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h1 id="Reverse-Nodes-in-k-Group"><a href="#Reverse-Nodes-in-k-Group" class="headerlink" title="Reverse Nodes in k-Group"></a>Reverse Nodes in k-Group</h1><p>Given the head of a linked list, reverse the nodes of the list k at a time, and return the modified list.</p>
-<p>k is a positive integer and is less than or equal to the length of the linked list. If the number of nodes is not a multiple of k then left-out nodes, in the end, should remain as it is.</p>
-<p>You may not alter the values in the list’s nodes, only nodes themselves may be changed.</p>
-<p><img src="https://assets.leetcode.com/uploads/2020/10/03/reverse_ex1.jpg"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Input: head &#x3D; [1,2,3,4,5], k &#x3D; 2</span><br><span class="line">Output: [2,1,4,3,5]</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Input: head &#x3D; [1,2,3,4,5], k &#x3D; 3</span><br><span class="line">Output: [3,2,1,4,5]</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">The number of nodes in the list is n.</span><br><span class="line">1 &lt;&#x3D; k &lt;&#x3D; n &lt;&#x3D; 5000</span><br><span class="line">0 &lt;&#x3D; Node.val &lt;&#x3D; 1000</span><br></pre></td></tr></table></figure>
-<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode() : val(0), next(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x, ListNode *next) : val(x), next(next) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function">ListNode* <span class="title">reverseKGroup</span><span class="params">(ListNode* head, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// copy of the head</span></span><br><span class="line">        ListNode* cursor = head;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; k; i++)&#123;</span><br><span class="line">            <span class="comment">// if the length is not enough for reverse</span></span><br><span class="line">            <span class="keyword">if</span>(cursor == <span class="literal">nullptr</span>) <span class="keyword">return</span> head;</span><br><span class="line">            cursor = cursor-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// copy of the head</span></span><br><span class="line">        ListNode* curr = head;</span><br><span class="line">        ListNode* prev = <span class="literal">nullptr</span>;</span><br><span class="line">        ListNode* nxt = <span class="literal">nullptr</span>;</span><br><span class="line">        <span class="comment">// reverse the list</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; k; i++)&#123;</span><br><span class="line">            nxt = curr-&gt;next;</span><br><span class="line">            curr-&gt;next = prev;</span><br><span class="line">            prev = curr;</span><br><span class="line">            curr = nxt;</span><br><span class="line">        &#125;</span><br><span class="line">        head-&gt;next = reverseKGroup(curr, k);</span><br><span class="line">        <span class="keyword">return</span> prev;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>In the reverse function, let’s used an example to explain the logic:</p>
-<p>Consider a portion of the linked list:</p>
-<p>A→B→C→D→E→F→…</p>
-<p>Let’s assume k=3, so we want to reverse the first three nodes (A, B, C). After reversing:</p>
-<p>C→B→A→D→E→F→…</p>
-<p>Now, let’s use the code to understand how this happens:</p>
-<ol>
-<li>Initial setup:<br>prev → null</li>
-</ol>
-<p>curr → A</p>
-<p>nxt → null</p>
-<ol start="2">
-<li>First iteration (i = 0):<br>nxt → B</li>
-</ol>
-<p>curr<br>(<br>A’s next<br>)<br>→<br>null</p>
-<p>prev<br>→<br>A</p>
-<p>curr<br>→<br>B</p>
-<p>After this iteration:</p>
-<p>A←B→C→D→E→F→…</p>
-<ol start="3">
-<li>Second iteration (i = 1):<br>nxt<br>→<br>C<br>curr<br>(<br>B’s next<br>)<br>→<br>A</li>
-</ol>
-<p>prev<br>→<br>B</p>
-<p>curr<br>→<br>C</p>
-<p>After this iteration:</p>
-<p>A←B←C→D→E→F→…</p>
-<ol start="4">
-<li>Third iteration (i = 2):<br>nxt<br>→<br>D</li>
-</ol>
-<p>curr<br>(<br>C’s next<br>)<br>→<br>B</p>
-<p>prev<br>→<br>C</p>
-<p>curr<br>→<br>D</p>
-<p>After this iteration:</p>
-<p>A←B←C→D→E→F→…</p>
-<p>After these three iterations, the reversal of the first three nodes is complete. The key thing to note is how the pointers (prev, curr, and nxt) are used to reverse the pointers of the nodes in the linked list.</p>
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linked-List/" rel="tag">Linked List</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Recursion/" rel="tag">Recursion</a></li></ul>
 
     </footer>
   </div>
