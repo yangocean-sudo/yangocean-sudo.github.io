@@ -131,6 +131,121 @@
     
     
     <article
+  id="post-Leetcode1009-2"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2023/10/09/Leetcode1009-2/"
+    >Leetcode Study Day 16</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/10/09/Leetcode1009-2/" class="article-date">
+  <time datetime="2023-10-09T10:10:06.000Z" itemprop="datePublished">2023-10-09</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
+  </div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Valid-Sudoku"><a href="#Valid-Sudoku" class="headerlink" title="Valid Sudoku"></a>Valid Sudoku</h1><p>Determine if a 9 x 9 Sudoku board is valid. Only the filled cells need to be validated according to the following rules:</p>
+<p>Each row must contain the digits 1-9 without repetition.<br>Each column must contain the digits 1-9 without repetition.<br>Each of the nine 3 x 3 sub-boxes of the grid must contain the digits 1-9 without repetition.<br>Note:</p>
+<p>A Sudoku board (partially filled) could be valid but is not necessarily solvable.<br>Only the filled cells need to be validated according to the mentioned rules.<br><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Sudoku-by-L2G-20050714.svg/250px-Sudoku-by-L2G-20050714.svg.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Input: board &#x3D; </span><br><span class="line">[[&quot;5&quot;,&quot;3&quot;,&quot;.&quot;,&quot;.&quot;,&quot;7&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;]</span><br><span class="line">,[&quot;6&quot;,&quot;.&quot;,&quot;.&quot;,&quot;1&quot;,&quot;9&quot;,&quot;5&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;]</span><br><span class="line">,[&quot;.&quot;,&quot;9&quot;,&quot;8&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;6&quot;,&quot;.&quot;]</span><br><span class="line">,[&quot;8&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;6&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;3&quot;]</span><br><span class="line">,[&quot;4&quot;,&quot;.&quot;,&quot;.&quot;,&quot;8&quot;,&quot;.&quot;,&quot;3&quot;,&quot;.&quot;,&quot;.&quot;,&quot;1&quot;]</span><br><span class="line">,[&quot;7&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;2&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;6&quot;]</span><br><span class="line">,[&quot;.&quot;,&quot;6&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;2&quot;,&quot;8&quot;,&quot;.&quot;]</span><br><span class="line">,[&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;4&quot;,&quot;1&quot;,&quot;9&quot;,&quot;.&quot;,&quot;.&quot;,&quot;5&quot;]</span><br><span class="line">,[&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;8&quot;,&quot;.&quot;,&quot;.&quot;,&quot;7&quot;,&quot;9&quot;]]</span><br><span class="line">Output: true</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: board &#x3D; </span><br><span class="line">[[&quot;8&quot;,&quot;3&quot;,&quot;.&quot;,&quot;.&quot;,&quot;7&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;]</span><br><span class="line">,[&quot;6&quot;,&quot;.&quot;,&quot;.&quot;,&quot;1&quot;,&quot;9&quot;,&quot;5&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;]</span><br><span class="line">,[&quot;.&quot;,&quot;9&quot;,&quot;8&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;6&quot;,&quot;.&quot;]</span><br><span class="line">,[&quot;8&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;6&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;3&quot;]</span><br><span class="line">,[&quot;4&quot;,&quot;.&quot;,&quot;.&quot;,&quot;8&quot;,&quot;.&quot;,&quot;3&quot;,&quot;.&quot;,&quot;.&quot;,&quot;1&quot;]</span><br><span class="line">,[&quot;7&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;2&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;6&quot;]</span><br><span class="line">,[&quot;.&quot;,&quot;6&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;2&quot;,&quot;8&quot;,&quot;.&quot;]</span><br><span class="line">,[&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;4&quot;,&quot;1&quot;,&quot;9&quot;,&quot;.&quot;,&quot;.&quot;,&quot;5&quot;]</span><br><span class="line">,[&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;8&quot;,&quot;.&quot;,&quot;.&quot;,&quot;7&quot;,&quot;9&quot;]]</span><br><span class="line">Output: false</span><br><span class="line">Explanation: Same as Example 1, except with the 5 in the top left corner being modified to 8. Since there are two 8&#39;s in the top left 3x3 sub-box, it is invalid.</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">board.length &#x3D;&#x3D; 9</span><br><span class="line">board[i].length &#x3D;&#x3D; 9</span><br><span class="line">board[i][j] is a digit 1-9 or &#39;.&#39;.</span><br></pre></td></tr></table></figure>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>This solution is found in the Leetcode discussion board. His idea is to iterate all the elements in the board, and insert this element’s horizontal, vertical and grid information into a set. If the set already contains this element, we return false. Otherwise, we continue the iteration. If the iteration is finished, we return true.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isValidSudoku</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&gt;&amp; board)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">set</span>&lt;<span class="built_in">string</span>&gt; seen;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">9</span>; ++i) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">9</span>; ++j) &#123;</span><br><span class="line">            <span class="keyword">char</span> number = board[i][j];</span><br><span class="line">            <span class="keyword">if</span> (number != <span class="string">&#x27;.&#x27;</span>) &#123;</span><br><span class="line">                <span class="comment">// Construct the unique strings for row, column, and block checks</span></span><br><span class="line">                <span class="comment">// We use std::string(1, number) to create a single-character string from the char number.</span></span><br><span class="line">                <span class="built_in">string</span> rowStr = <span class="built_in">string</span>(<span class="number">1</span>, number) + <span class="string">&quot; in row &quot;</span> + to_string(i);</span><br><span class="line">                <span class="built_in">string</span> colStr = <span class="built_in">string</span>(<span class="number">1</span>, number) + <span class="string">&quot; in column &quot;</span> + to_string(j);</span><br><span class="line">                <span class="built_in">string</span> blockStr = <span class="built_in">string</span>(<span class="number">1</span>, number) + <span class="string">&quot; in block &quot;</span> + to_string(i / <span class="number">3</span>) + <span class="string">&quot;-&quot;</span> + to_string(j / <span class="number">3</span>);</span><br><span class="line">                </span><br><span class="line">                <span class="comment">// Check if any of the strings already exist in the set</span></span><br><span class="line">                <span class="keyword">if</span> (!seen.insert(rowStr).second || </span><br><span class="line">                    !seen.insert(colStr).second || </span><br><span class="line">                    !seen.insert(blockStr).second)</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hash-Table/" rel="tag">Hash Table</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Matrix/" rel="tag">Matrix</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
+  id="post-Leetcode1009"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2023/10/09/Leetcode1009/"
+    >Leetcode Study Day 16</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/10/09/Leetcode1009/" class="article-date">
+  <time datetime="2023-10-09T09:36:51.000Z" itemprop="datePublished">2023-10-09</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
+  </div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Minimum-Window-Substring"><a href="#Minimum-Window-Substring" class="headerlink" title="Minimum Window Substring"></a>Minimum Window Substring</h1><p>Given two strings s and t of lengths m and n respectively, return the minimum window<br>substring<br> of s such that every character in t (including duplicates) is included in the window. If there is no such substring, return the empty string “”.</p>
+<p>The testcases will be generated such that the answer is unique.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: s &#x3D; &quot;ADOBECODEBANC&quot;, t &#x3D; &quot;ABC&quot;</span><br><span class="line">Output: &quot;BANC&quot;</span><br><span class="line">Explanation: The minimum window substring &quot;BANC&quot; includes &#39;A&#39;, &#39;B&#39;, and &#39;C&#39; from string t.</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: s &#x3D; &quot;a&quot;, t &#x3D; &quot;a&quot;</span><br><span class="line">Output: &quot;a&quot;</span><br><span class="line">Explanation: The entire string s is the minimum window.</span><br><span class="line">Example 3:</span><br><span class="line"></span><br><span class="line">Input: s &#x3D; &quot;a&quot;, t &#x3D; &quot;aa&quot;</span><br><span class="line">Output: &quot;&quot;</span><br><span class="line">Explanation: Both &#39;a&#39;s from t must be included in the window.</span><br><span class="line">Since the largest window of s only has one &#39;a&#39;, return empty string.</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">m &#x3D;&#x3D; s.length</span><br><span class="line">n &#x3D;&#x3D; t.length</span><br><span class="line">1 &lt;&#x3D; m, n &lt;&#x3D; 105</span><br><span class="line">s and t consist of uppercase and lowercase English letters.</span><br></pre></td></tr></table></figure>
+<h2 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h2><p>I write specific comments in my code</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">string</span> <span class="title">minWindow</span><span class="params">(<span class="built_in">string</span> s, <span class="built_in">string</span> t)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// A map to store chars with their appears number</span></span><br><span class="line">        <span class="built_in">unordered_map</span> &lt;<span class="keyword">char</span>, <span class="keyword">int</span>&gt; charCount;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; t.size(); i++)</span><br><span class="line">            charCount[t[i]] ++;</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>, right = <span class="number">0</span>, counter = t.size(), minStart = <span class="number">0</span>, minLen = INT_MAX;</span><br><span class="line">        <span class="keyword">while</span> (right &lt; s.size())&#123;</span><br><span class="line">            <span class="comment">// if the character in s is in t, we decrease the counter</span></span><br><span class="line">            <span class="keyword">if</span> (charCount[s[right]] &gt; <span class="number">0</span>)</span><br><span class="line">                counter --;</span><br><span class="line">            <span class="comment">// Then we decrease the appears number which is stored in the map</span></span><br><span class="line">            charCount[s[right]] --;</span><br><span class="line">            <span class="comment">// we move the right pointer</span></span><br><span class="line">            right ++;</span><br><span class="line">            <span class="comment">// counter equals to 0 means we find a fixed window</span></span><br><span class="line">            <span class="keyword">while</span> (counter == <span class="number">0</span>)&#123;</span><br><span class="line">                <span class="comment">// we update the minimum length of the substring, and the minStart</span></span><br><span class="line">                <span class="keyword">if</span> (right - left &lt; minLen)&#123;</span><br><span class="line">                    minLen = right - left;</span><br><span class="line">                    minStart = left;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">// Try to move window to the right position</span></span><br><span class="line">                charCount[s[left]]++;</span><br><span class="line">                <span class="comment">// If it is greater than 0, means s[left] is in t, we need increase the counter</span></span><br><span class="line">                <span class="keyword">if</span> (charCount[s[left]] &gt; <span class="number">0</span>)</span><br><span class="line">                    counter ++;</span><br><span class="line">                <span class="comment">// We move the left pointer</span></span><br><span class="line">                left ++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// return the substring is minLen is not MAX</span></span><br><span class="line">        <span class="keyword">if</span> (minLen != INT_MAX)</span><br><span class="line">            <span class="keyword">return</span> s.substr(minStart, minLen);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hash-Table/" rel="tag">Hash Table</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Sliding-Window/" rel="tag">Sliding Window</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/String/" rel="tag">String</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
   id="post-Leetcode1008"
   class="article article-type-post"
   itemscope
@@ -592,141 +707,6 @@
     <footer class="article-footer">
        
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Binary-Search/" rel="tag">Binary Search</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Math/" rel="tag">Math</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-Leetcode1004"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2023/10/04/Leetcode1004/"
-    >Leetcode Study Day 12</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2023/10/04/Leetcode1004/" class="article-date">
-  <time datetime="2023-10-04T08:47:53.000Z" itemprop="datePublished">2023-10-04</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
-  </div>
- 
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h1 id="Text-Justification"><a href="#Text-Justification" class="headerlink" title="Text Justification"></a>Text Justification</h1><p>Given an array of strings words and a width maxWidth, format the text such that each line has exactly maxWidth characters and is fully (left and right) justified.</p>
-<p>You should pack your words in a greedy approach; that is, pack as many words as you can in each line. Pad extra spaces ‘ ‘ when necessary so that each line has exactly maxWidth characters.</p>
-<p>Extra spaces between words should be distributed as evenly as possible. If the number of spaces on a line does not divide evenly between words, the empty slots on the left will be assigned more spaces than the slots on the right.</p>
-<p>For the last line of text, it should be left-justified, and no extra space is inserted between words.</p>
-<p>Note:</p>
-<p>A word is defined as a character sequence consisting of non-space characters only.<br>Each word’s length is guaranteed to be greater than 0 and not exceed maxWidth.<br>The input array words contains at least one word.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: words &#x3D; [&quot;This&quot;, &quot;is&quot;, &quot;an&quot;, &quot;example&quot;, &quot;of&quot;, &quot;text&quot;, &quot;justification.&quot;], maxWidth &#x3D; 16</span><br><span class="line">Output:</span><br><span class="line">[</span><br><span class="line">   &quot;This    is    an&quot;,</span><br><span class="line">   &quot;example  of text&quot;,</span><br><span class="line">   &quot;justification.  &quot;</span><br><span class="line">]</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: words &#x3D; [&quot;What&quot;,&quot;must&quot;,&quot;be&quot;,&quot;acknowledgment&quot;,&quot;shall&quot;,&quot;be&quot;], maxWidth &#x3D; 16</span><br><span class="line">Output:</span><br><span class="line">[</span><br><span class="line">  &quot;What   must   be&quot;,</span><br><span class="line">  &quot;acknowledgment  &quot;,</span><br><span class="line">  &quot;shall be        &quot;</span><br><span class="line">]</span><br><span class="line">Explanation: Note that the last line is &quot;shall be    &quot; instead of &quot;shall     be&quot;, because the last line must be left-justified instead of fully-justified.</span><br><span class="line">Note that the second line is also left-justified because it contains only one word.</span><br><span class="line">Example 3:</span><br><span class="line"></span><br><span class="line">Input: words &#x3D; [&quot;Science&quot;,&quot;is&quot;,&quot;what&quot;,&quot;we&quot;,&quot;understand&quot;,&quot;well&quot;,&quot;enough&quot;,&quot;to&quot;,&quot;explain&quot;,&quot;to&quot;,&quot;a&quot;,&quot;computer.&quot;,&quot;Art&quot;,&quot;is&quot;,&quot;everything&quot;,&quot;else&quot;,&quot;we&quot;,&quot;do&quot;], maxWidth &#x3D; 20</span><br><span class="line">Output:</span><br><span class="line">[</span><br><span class="line">  &quot;Science  is  what we&quot;,</span><br><span class="line">  &quot;understand      well&quot;,</span><br><span class="line">  &quot;enough to explain to&quot;,</span><br><span class="line">  &quot;a  computer.  Art is&quot;,</span><br><span class="line">  &quot;everything  else  we&quot;,</span><br><span class="line">  &quot;do                  &quot;</span><br><span class="line">]</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">1 &lt;&#x3D; words.length &lt;&#x3D; 300</span><br><span class="line">1 &lt;&#x3D; words[i].length &lt;&#x3D; 20</span><br><span class="line">words[i] consists of only English letters and symbols.</span><br><span class="line">1 &lt;&#x3D; maxWidth &lt;&#x3D; 100</span><br><span class="line">words[i].length &lt;&#x3D; maxWidth</span><br></pre></td></tr></table></figure>
-<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>I didn’t find the solution by my own, so this is a good solution from the community with my understanding.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; <span class="title">fullJustify</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; words, <span class="keyword">int</span> maxWidth)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; result;</span><br><span class="line">        <span class="comment">// the index where the current line starts.</span></span><br><span class="line">        <span class="keyword">int</span> start = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (start &lt;words.size()) &#123;</span><br><span class="line">            <span class="comment">// Helps to find the last word that can fit in the current line.</span></span><br><span class="line">            <span class="keyword">int</span> end = start;</span><br><span class="line">            <span class="comment">// The length of the current line if words were just joined without extra spaces</span></span><br><span class="line">            <span class="keyword">int</span> lineLength = words[end].length();</span><br><span class="line"></span><br><span class="line">            <span class="comment">// The inner while loop checks if the next word can fit on the current line.</span></span><br><span class="line">            <span class="comment">//If it fits, end is incremented, and the length of the next word is added to lineLength.</span></span><br><span class="line">            <span class="comment">// The condition (end + 1 - start) calculates the minimum number of spaces required (one space for each word except the last one).</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span> (end + <span class="number">1</span> &lt; words.size() &amp;&amp; lineLength + words[end + <span class="number">1</span>].length() + (end + <span class="number">1</span> - start) &lt;= maxWidth) &#123;</span><br><span class="line">                ++end;</span><br><span class="line">                lineLength += words[end].length();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="built_in">string</span> line = words[start];</span><br><span class="line">            <span class="keyword">int</span> numWords = end - start;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (end == words.size() - <span class="number">1</span> || numWords == <span class="number">0</span>) &#123; <span class="comment">// Left justify for last line or single word line</span></span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> i = start + <span class="number">1</span>; i &lt;= end; ++i) &#123;</span><br><span class="line">                    line += <span class="string">&quot; &quot;</span> + words[i];</span><br><span class="line">                &#125;</span><br><span class="line">                line += <span class="built_in">string</span>(maxWidth - line.length(), <span class="string">&#x27; &#x27;</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// If not the last line</span></span><br><span class="line">                <span class="comment">// Calculate total spaces that need to be added to this line.</span></span><br><span class="line">                <span class="keyword">int</span> totalSpaces = maxWidth - lineLength;</span><br><span class="line">                <span class="comment">// Determine the average spaces between each word</span></span><br><span class="line">                <span class="keyword">int</span> spacesBetweenWords = totalSpaces / numWords;</span><br><span class="line">                <span class="comment">// Calculate extra spaces that cannot be evenly divided among words</span></span><br><span class="line">                <span class="keyword">int</span> extraSpaces = totalSpaces % numWords;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> i = start + <span class="number">1</span>; i &lt;= end; ++i) &#123;</span><br><span class="line">                    <span class="comment">// Determine the number of spaces before this word (spacesBetweenWords + 1 if there are extra spaces left, spacesBetweenWords otherwise).</span></span><br><span class="line">                    <span class="keyword">int</span> spaces = spacesBetweenWords + (extraSpaces-- &gt; <span class="number">0</span> ? <span class="number">1</span> : <span class="number">0</span>);</span><br><span class="line">                    line += <span class="built_in">string</span>(spaces, <span class="string">&#x27; &#x27;</span>) + words[i];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// After constructing the current line, push it to the result.</span></span><br><span class="line">            <span class="comment">// Move start to end + 1 for processing the next line.</span></span><br><span class="line">            result.push_back(line);</span><br><span class="line">            start = end + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/String/" rel="tag">String</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-Leetcode0929-2"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2023/09/29/Leetcode0929-2/"
-    >Leetcode Study Day 11</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2023/09/29/Leetcode0929-2/" class="article-date">
-  <time datetime="2023-09-29T21:03:12.000Z" itemprop="datePublished">2023-09-29</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
-  </div>
- 
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h1 id="Zigzag-Conversion"><a href="#Zigzag-Conversion" class="headerlink" title="Zigzag Conversion"></a>Zigzag Conversion</h1><p>The string “PAYPALISHIRING” is written in a zigzag pattern on a given number of rows like this: (you may want to display this pattern in a fixed font for better legibility)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">P   A   H   N</span><br><span class="line">A P L S I I G</span><br><span class="line">Y   I   R</span><br></pre></td></tr></table></figure>
-<p>And then read line by line: “PAHNAPLSIIGYIR”</p>
-<p>Write the code that will take a string and make this conversion given a number of rows:</p>
-<p>string convert(string s, int numRows);</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: s &#x3D; &quot;PAYPALISHIRING&quot;, numRows &#x3D; 3</span><br><span class="line">Output: &quot;PAHNAPLSIIGYIR&quot;</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: s &#x3D; &quot;PAYPALISHIRING&quot;, numRows &#x3D; 4</span><br><span class="line">Output: &quot;PINALSIGYAHRPI&quot;</span><br><span class="line">Explanation:</span><br><span class="line">P     I    N</span><br><span class="line">A   L S  I G</span><br><span class="line">Y A   H R</span><br><span class="line">P     I</span><br><span class="line">Example 3:</span><br><span class="line"></span><br><span class="line">Input: s &#x3D; &quot;A&quot;, numRows &#x3D; 1</span><br><span class="line">Output: &quot;A&quot;</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">1 &lt;&#x3D; s.length &lt;&#x3D; 1000</span><br><span class="line">s consists of English letters (lower-case and upper-case), &#39;,&#39; and &#39;.&#39;.</span><br><span class="line">1 &lt;&#x3D; numRows &lt;&#x3D; 1000</span><br></pre></td></tr></table></figure>
-<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>I asked chatGPT for help and it shows me the pseudo code and the idea:</p>
-<p>Let’s first understand the pattern of the zigzag.</p>
-<p>For <code>numRows = 3</code>, the sequence of rows for the characters is: <code>0, 1, 2, 1, 0, 1, 2, 1, 0...</code></p>
-<p>For <code>numRows = 4</code>, the sequence is: <code>0, 1, 2, 3, 2, 1, 0, 1, 2, 3, 2, 1, 0...</code></p>
-<p>So, the pattern is basically to increment the row number from 0 to <code>numRows - 1</code>, then decrement it back to 0, and repeat.</p>
-<p>Given this understanding, you can approach this problem using the following steps:</p>
-<ol>
-<li>Initialize an array of strings <code>rows</code> of size <code>numRows</code>.</li>
-<li>Iterate through each character of the input string <code>s</code>.</li>
-<li>For each character, determine its row in the zigzag pattern and append it to the corresponding row’s string in the <code>rows</code> array.</li>
-<li>Finally, concatenate all the rows to get the final result.</li>
-</ol>
-<p>Here’s the pseudocode:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">function convert(s, numRows):</span><br><span class="line">    if numRows &#x3D;&#x3D; 1:</span><br><span class="line">        return s</span><br><span class="line"></span><br><span class="line">    rows &#x3D; array of empty strings of size numRows</span><br><span class="line">    currentRow &#x3D; 0</span><br><span class="line">    direction &#x3D; -1  &#x2F;&#x2F; -1 for moving up, 1 for moving down</span><br><span class="line"></span><br><span class="line">    for each character c in s:</span><br><span class="line">        rows[currentRow] +&#x3D; c</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; Change direction if we&#39;re at the top or bottom</span><br><span class="line">        if currentRow &#x3D;&#x3D; 0 or currentRow &#x3D;&#x3D; numRows - 1:</span><br><span class="line">            direction *&#x3D; -1</span><br><span class="line"></span><br><span class="line">        currentRow +&#x3D; direction</span><br><span class="line"></span><br><span class="line">    result &#x3D; concatenate all strings in rows</span><br><span class="line">    return result</span><br></pre></td></tr></table></figure>
-<p>Here’s the corresponding C++ code:</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">convert</span><span class="params">(<span class="built_in">string</span> s, <span class="keyword">int</span> numRows)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (numRows == <span class="number">1</span>) <span class="keyword">return</span> s;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; <span class="title">rows</span><span class="params">(min(numRows, <span class="keyword">int</span>(s.size())))</span></span>;</span><br><span class="line">    <span class="keyword">int</span> currentRow = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> direction = <span class="number">-1</span>;  <span class="comment">// -1 for moving up, 1 for moving down</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">char</span> c : s) &#123;</span><br><span class="line">        rows[currentRow] += c;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (currentRow == <span class="number">0</span> || currentRow == numRows - <span class="number">1</span>) &#123;</span><br><span class="line">            direction *= <span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        currentRow += direction;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">string</span> result;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">string</span> row : rows) &#123;</span><br><span class="line">        result += row;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/String/" rel="tag">String</a></li></ul>
 
     </footer>
   </div>
