@@ -131,6 +131,274 @@
     
     
     <article
+  id="post-Leetcode0921"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2023/09/21/Leetcode0921/"
+    >Leetcode Study Day 4</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/09/21/Leetcode0921/" class="article-date">
+  <time datetime="2023-09-21T08:33:20.000Z" itemprop="datePublished">2023-09-21</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
+  </div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Majority-Element"><a href="#Majority-Element" class="headerlink" title="Majority Element"></a>Majority Element</h1><p>Given an array nums of size n, return the majority element.</p>
+<p>The majority element is the element that appears more than ⌊n / 2⌋ times. You may assume that the majority element always exists in the array.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: nums &#x3D; [3,2,3]</span><br><span class="line">Output: 3</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: nums &#x3D; [2,2,1,1,1,2,2]</span><br><span class="line">Output: 2</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">n &#x3D;&#x3D; nums.length</span><br><span class="line">1 &lt;&#x3D; n &lt;&#x3D; 5 * 104</span><br><span class="line">-109 &lt;&#x3D; nums[i] &lt;&#x3D; 109</span><br></pre></td></tr></table></figure>
+<h1 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h1><h2 id="Sort-the-array"><a href="#Sort-the-array" class="headerlink" title="Sort the array"></a>Sort the array</h2><p>We sort the array first in the non-decreasing order.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sort(nums.begin(), nums.end(), [](<span class="keyword">int</span> &amp; a, <span class="keyword">int</span> &amp; b)&#123;</span><br><span class="line">            <span class="keyword">return</span> a &lt; b ;</span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="Count-the-number-of-each-element"><a href="#Count-the-number-of-each-element" class="headerlink" title="Count the number of each element"></a>Count the number of each element</h2><p>Then we loop the array and count how many times one value appears in the array. As the array is sorted already, we just need to check whether the current element is equal to the previous one. If they are equal, we plus 1 to the count, otherwise, we set the count to 0. We also set one variable to store the best count, and another variable to store the value that has the best count. During the loop, we update the best count and the value that has most count.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; nums.size(); i++)&#123;</span><br><span class="line">           <span class="keyword">if</span> (nums[i] == nums[i<span class="number">-1</span>])&#123;</span><br><span class="line">               count ++;</span><br><span class="line">           &#125; </span><br><span class="line">           <span class="keyword">else</span>&#123;</span><br><span class="line">               count = <span class="number">0</span>;</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="keyword">if</span> (count &gt; best_count)&#123;</span><br><span class="line">               best_count = count;</span><br><span class="line">               return_val = nums[i];</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Full-code"><a href="#Full-code" class="headerlink" title="Full code"></a>Full code</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">majorityElement</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> best_count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> return_val = <span class="number">0</span>;</span><br><span class="line">        sort(nums.begin(), nums.end(), [](<span class="keyword">int</span> &amp; a, <span class="keyword">int</span> &amp; b)&#123;</span><br><span class="line">            <span class="keyword">return</span> a &lt; b ;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="keyword">if</span> (nums.size() == <span class="number">1</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> nums[<span class="number">0</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; nums.size(); i++)&#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[i] == nums[i<span class="number">-1</span>])&#123;</span><br><span class="line">                count ++;</span><br><span class="line">            &#125; </span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                count = <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (count &gt; best_count)&#123;</span><br><span class="line">                best_count = count;</span><br><span class="line">                return_val = nums[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> return_val;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="Improved-Solution"><a href="#Improved-Solution" class="headerlink" title="Improved Solution"></a>Improved Solution</h2><p>ChatGPT provides a better solution:</p>
+<p>You can solve this problem in linear time and O(1) space using a well-known algorithm called “Boyer-Moore Majority Vote Algorithm.” This algorithm allows you to find the majority element in an array efficiently.</p>
+<p>Here’s the algorithm in C++:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">majorityElement</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> candidate = nums[<span class="number">0</span>]; <span class="comment">// Initialize the candidate as the first element</span></span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">1</span>; <span class="comment">// Initialize the count of the candidate element</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; nums.size(); i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (count == <span class="number">0</span>) &#123;</span><br><span class="line">                candidate = nums[i]; <span class="comment">// Update the candidate if count becomes 0</span></span><br><span class="line">                count = <span class="number">1</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (nums[i] == candidate) &#123;</span><br><span class="line">                count++; <span class="comment">// Increment count if the current element is the same as the candidate</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                count--; <span class="comment">// Decrement count if the current element is different from the candidate</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> candidate; <span class="comment">// The candidate is the majority element</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>Compare to my solution, this solution doesn’t sort the array, which save a lot of time. Also, it only have two variables. If the count is not equal to zero, which means the candidate variable is still the majority value. If the count is equal to zero, which means the candidate variable is not the majority value, we update the candidate variable to the current element, and set the count to 1.</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Counting/" rel="tag">Counting</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Divide-and-Conquer/" rel="tag">Divide and Conquer</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hash-Table/" rel="tag">Hash Table</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Sorting/" rel="tag">Sorting</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
+  id="post-LeetCode0920"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2023/09/20/LeetCode0920/"
+    >Leetcode Study Day 3</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/09/20/LeetCode0920/" class="article-date">
+  <time datetime="2023-09-20T08:26:32.000Z" itemprop="datePublished">2023-09-20</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
+  </div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Remove-Duplicates-from-Sorted-Array"><a href="#Remove-Duplicates-from-Sorted-Array" class="headerlink" title="Remove Duplicates from Sorted Array"></a>Remove Duplicates from Sorted Array</h1><p>Given an integer array nums sorted in non-decreasing order, remove the duplicates in-place such that each unique element appears only once. The relative order of the elements should be kept the same. Then return the number of unique elements in nums.</p>
+<p>Consider the number of unique elements of nums to be k, to get accepted, you need to do the following things:</p>
+<ul>
+<li>Change the array nums such that the first k elements of nums contain the unique elements in the order they were present in nums initially. The remaining elements of nums are not important as well as the size of nums.</li>
+<li>Return k.<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Custom Judge:</span><br><span class="line"></span><br><span class="line">The judge will test your solution with the following code:</span><br><span class="line"></span><br><span class="line">int[] nums &#x3D; [...]; &#x2F;&#x2F; Input array</span><br><span class="line">int[] expectedNums &#x3D; [...]; &#x2F;&#x2F; The expected answer with correct length</span><br><span class="line"></span><br><span class="line">int k &#x3D; removeDuplicates(nums); &#x2F;&#x2F; Calls your implementation</span><br><span class="line"></span><br><span class="line">assert k &#x3D;&#x3D; expectedNums.length;</span><br><span class="line">for (int i &#x3D; 0; i &lt; k; i++) &#123;</span><br><span class="line">    assert nums[i] &#x3D;&#x3D; expectedNums[i];</span><br><span class="line">&#125;</span><br><span class="line">If all assertions pass, then your solution will be accepted.</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: nums &#x3D; [1,1,2]</span><br><span class="line">Output: 2, nums &#x3D; [1,2,_]</span><br><span class="line">Explanation: Your function should return k &#x3D; 2, with the first two elements of nums being 1 and 2 respectively.</span><br><span class="line">It does not matter what you leave beyond the returned k (hence they are underscores).</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: nums &#x3D; [0,0,1,1,1,2,2,3,3,4]</span><br><span class="line">Output: 5, nums &#x3D; [0,1,2,3,4,_,_,_,_,_]</span><br><span class="line">Explanation: Your function should return k &#x3D; 5, with the first five elements of nums being 0, 1, 2, 3, and 4 respectively.</span><br><span class="line">It does not matter what you leave beyond the returned k (hence they are underscores).</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">1 &lt;&#x3D; nums.length &lt;&#x3D; 3 * 104</span><br><span class="line">-100 &lt;&#x3D; nums[i] &lt;&#x3D; 100</span><br><span class="line">nums is sorted in non-decreasing order.</span><br></pre></td></tr></table></figure>
+<h2 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h2>My idea is loop the whole array from the second element to the end. If the element is equal to the previous one, we remove this element by using <code>array.erase(nums.begin()+ i )</code>. Then we return the size of the array.<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">removeDuplicates</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i&lt; nums.size(); i++)&#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[i] == nums[i<span class="number">-1</span>])&#123;</span><br><span class="line">                nums.erase(nums.begin()+i);</span><br><span class="line">                i--;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (i + <span class="number">1</span> == nums.size())</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> k = nums.size();</span><br><span class="line">        <span class="keyword">return</span> k;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="Remove-Duplicates-from-Sorted-Array-II"><a href="#Remove-Duplicates-from-Sorted-Array-II" class="headerlink" title="Remove Duplicates from Sorted Array II"></a>Remove Duplicates from Sorted Array II</h1>Given an integer array nums sorted in non-decreasing order, remove some duplicates in-place such that each unique element appears at most twice. The relative order of the elements should be kept the same.</li>
+</ul>
+<p>Since it is impossible to change the length of the array in some languages, you must instead have the result be placed in the first part of the array nums. More formally, if there are k elements after removing the duplicates, then the first k elements of nums should hold the final result. It does not matter what you leave beyond the first k elements.</p>
+<p>Return k after placing the final result in the first k slots of nums.</p>
+<p>Do not allocate extra space for another array. You must do this by modifying the input array in-place with O(1) extra memory.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: nums &#x3D; [1,1,1,2,2,3]</span><br><span class="line">Output: 5, nums &#x3D; [1,1,2,2,3,_]</span><br><span class="line">Explanation: Your function should return k &#x3D; 5, with the first five elements of nums being 1, 1, 2, 2 and 3 respectively.</span><br><span class="line">It does not matter what you leave beyond the returned k (hence they are underscores).</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: nums &#x3D; [0,0,1,1,1,1,2,3,3]</span><br><span class="line">Output: 7, nums &#x3D; [0,0,1,1,2,3,3,_,_]</span><br><span class="line">Explanation: Your function should return k &#x3D; 7, with the first seven elements of nums being 0, 0, 1, 1, 2, 3 and 3 respectively.</span><br><span class="line">It does not matter what you leave beyond the returned k (hence they are underscores).</span><br></pre></td></tr></table></figure>
+<p><code>The difference between this question and the first question is that we need to keep the first two elements of the duplicated elements.</code></p>
+<h2 id="My-solution-1"><a href="#My-solution-1" class="headerlink" title="My solution"></a>My solution</h2><p>Actually, my idea is similar with my solution of the first question. Compare the previous two elements, if the current one is equal to them, than wo remove them.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">removeDuplicates</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; nums.size(); i++)&#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[i] == nums[i<span class="number">-1</span>] &amp;&amp; nums[i] == nums[i<span class="number">-2</span>])&#123;</span><br><span class="line">                nums.erase(nums.begin() + i);</span><br><span class="line">                i --;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (i + <span class="number">1</span> == nums.size())&#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> nums.size();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="Improved-solution"><a href="#Improved-solution" class="headerlink" title="Improved solution"></a>Improved solution</h2><p>ChatGPT shows me an idea of using two pointers. It says my original solution cost O(n^2) time complexity because the function erase need to loop the whole array. Here is its improved solution:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">removeDuplicates</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = nums.size();</span><br><span class="line">        <span class="keyword">if</span> (n &lt;= <span class="number">2</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> n;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">1</span>; <span class="comment">// Initialize the count of the current element to 1</span></span><br><span class="line">        <span class="keyword">int</span> j = <span class="number">1</span>;     <span class="comment">// The pointer for the next available position in the array</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[i] == nums[i - <span class="number">1</span>]) &#123;</span><br><span class="line">                count++;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                count = <span class="number">1</span>; <span class="comment">// Reset the count for the new element</span></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (count &lt;= <span class="number">2</span>) &#123;</span><br><span class="line">                nums[j++] = nums[i]; <span class="comment">// Copy the element to the next available position</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> j; <span class="comment">// j now holds the length of the modified array</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>If the count is smaller than 2, which means for now, there are less than 2 duplicated elements, we can copy the element which in position j to the current element. Other wise, we just skip the operation of duplicating the jth element to the current element because there are already two elements in the array. The improved solution’s time complexity is <code>O(n)</code>.</p>
+<p>However, for this solution, the last element in the array will not be changed. Althought it doesn’t matter because the question only want the first j elements of the array.</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Two-Pointers/" rel="tag">Two Pointers</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
+  id="post-LeetCode0919-2"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2023/09/19/LeetCode0919-2/"
+    >Leetcode Study Day 3</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/09/19/LeetCode0919-2/" class="article-date">
+  <time datetime="2023-09-19T09:40:41.000Z" itemprop="datePublished">2023-09-19</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
+  </div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Remove-Element"><a href="#Remove-Element" class="headerlink" title="Remove Element"></a>Remove Element</h1><p>Given an integer array nums and an integer val, remove all occurrences of val in nums in-place. The order of the elements may be changed. Then return the number of elements in nums which are not equal to val.</p>
+<p>Consider the number of elements in nums which are not equal to val be k, to get accepted, you need to do the following things:</p>
+<p>Change the array nums such that the first k elements of nums contain the elements which are not equal to val. The remaining elements of nums are not important as well as the size of nums.<br>Return k.<br>Custom Judge:</p>
+<p>The judge will test your solution with the following code:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">int[] nums &#x3D; [...]; &#x2F;&#x2F; Input array</span><br><span class="line">int val &#x3D; ...; &#x2F;&#x2F; Value to remove</span><br><span class="line">int[] expectedNums &#x3D; [...]; &#x2F;&#x2F; The expected answer with correct length.</span><br><span class="line">                            &#x2F;&#x2F; It is sorted with no values equaling val.</span><br><span class="line"></span><br><span class="line">int k &#x3D; removeElement(nums, val); &#x2F;&#x2F; Calls your implementation</span><br><span class="line"></span><br><span class="line">assert k &#x3D;&#x3D; expectedNums.length;</span><br><span class="line">sort(nums, 0, k); &#x2F;&#x2F; Sort the first k elements of nums</span><br><span class="line">for (int i &#x3D; 0; i &lt; actualLength; i++) &#123;</span><br><span class="line">    assert nums[i] &#x3D;&#x3D; expectedNums[i];</span><br><span class="line">&#125;</span><br><span class="line">If all assertions pass, then your solution will be accepted.</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: nums &#x3D; [3,2,2,3], val &#x3D; 3</span><br><span class="line">Output: 2, nums &#x3D; [2,2,_,_]</span><br><span class="line">Explanation: Your function should return k &#x3D; 2, with the first two elements of nums being 2.</span><br><span class="line">It does not matter what you leave beyond the returned k (hence they are underscores).</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: nums &#x3D; [0,1,2,2,3,0,4,2], val &#x3D; 2</span><br><span class="line">Output: 5, nums &#x3D; [0,1,4,0,3,_,_,_]</span><br><span class="line">Explanation: Your function should return k &#x3D; 5, with the first five elements of nums containing 0, 0, 1, 3, and 4.</span><br><span class="line">Note that the five elements can be returned in any order.</span><br><span class="line">It does not matter what you leave beyond the returned k (hence they are underscores).</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">0 &lt;&#x3D; nums.length &lt;&#x3D; 100</span><br><span class="line">0 &lt;&#x3D; nums[i] &lt;&#x3D; 50</span><br><span class="line">0 &lt;&#x3D; val &lt;&#x3D; 100</span><br></pre></td></tr></table></figure>
+<h2 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h2><p>We create a variable that can count how many duplicate elements appears in the array, <code>k</code>. And a new array to store the elements that are not equal to <code>val</code>. Then we loop the array <code>nums</code>, once the current element is not equal to <code>val</code>, k plus 1, and we store this element in the new array. After the loop, we replace the array <code>nums</code> with the new array, and return <code>k</code>.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">removeElement</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; outcome;</span><br><span class="line">        <span class="keyword">int</span> k = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i&lt; nums.size(); i++)&#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[i] != val)&#123;</span><br><span class="line">                k ++;</span><br><span class="line">                outcome.push_back(nums[i]);</span><br><span class="line">            &#125; </span><br><span class="line">        &#125;</span><br><span class="line">        nums = outcome;</span><br><span class="line">        <span class="keyword">return</span> k;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Two-Pointers/" rel="tag">Two Pointers</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
+  id="post-LeetCode0919"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2023/09/19/LeetCode0919/"
+    >Leetcode Study Day 2</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/09/19/LeetCode0919/" class="article-date">
+  <time datetime="2023-09-19T08:33:52.000Z" itemprop="datePublished">2023-09-19</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
+  </div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Merge-Sorted-Array"><a href="#Merge-Sorted-Array" class="headerlink" title="Merge Sorted Array"></a>Merge Sorted Array</h1><p>You are given two integer arrays nums1 and nums2, sorted in non-decreasing order, and two integers m and n, representing the number of elements in nums1 and nums2 respectively.</p>
+<p>Merge nums1 and nums2 into a single array sorted in non-decreasing order.</p>
+<p>The final sorted array should not be returned by the function, but instead be stored inside the array nums1. To accommodate this, nums1 has a length of m + n, where the first m elements denote the elements that should be merged, and the last n elements are set to 0 and should be ignored. nums2 has a length of n.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line">Input: nums1 &#x3D; [1,2,3,0,0,0], m &#x3D; 3, nums2 &#x3D; [2,5,6], n &#x3D; 3</span><br><span class="line">Output: [1,2,2,3,5,6]</span><br><span class="line">Explanation: The arrays we are merging are [1,2,3] and [2,5,6].</span><br><span class="line">The result of the merge is [1,2,2,3,5,6] with the underlined elements coming from nums1.</span><br><span class="line"></span><br><span class="line">Example 2:</span><br><span class="line">Input: nums1 &#x3D; [1], m &#x3D; 1, nums2 &#x3D; [], n &#x3D; 0</span><br><span class="line">Output: [1]</span><br><span class="line">Explanation: The arrays we are merging are [1] and [].</span><br><span class="line">The result of the merge is [1].</span><br><span class="line"></span><br><span class="line">Example 3:</span><br><span class="line">Input: nums1 &#x3D; [0], m &#x3D; 0, nums2 &#x3D; [1], n &#x3D; 1</span><br><span class="line">Output: [1]</span><br><span class="line">Explanation: The arrays we are merging are [] and [1].</span><br><span class="line">The result of the merge is [1].</span><br><span class="line">Note that because m &#x3D; 0, there are no elements in nums1. The 0 is only there to ensure the merge result can fit in nums1.</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Constraints:</span><br><span class="line">nums1.length &#x3D;&#x3D; m + n</span><br><span class="line">nums2.length &#x3D;&#x3D; n</span><br><span class="line">0 &lt;&#x3D; m, n &lt;&#x3D; 200</span><br><span class="line">1 &lt;&#x3D; m + n &lt;&#x3D; 200</span><br><span class="line">-109 &lt;&#x3D; nums1[i], nums2[j] &lt;&#x3D; 109</span><br></pre></td></tr></table></figure>
+<h2 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h2><h3 id="Merge-two-arrays"><a href="#Merge-two-arrays" class="headerlink" title="Merge two arrays"></a>Merge two arrays</h3><p>Firstly, we loop the first array <code>nums1</code>, if we find the element in this array is 0 and the index is larger than <code>m</code>, we replace it with the element in <code>nums2</code> start from 0 to n, we call it <code>j</code> in my code.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> j = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums1.size(); i ++)&#123;</span><br><span class="line">    <span class="keyword">if</span> (nums1[i] == <span class="number">0</span> &amp;&amp; n != <span class="number">0</span> &amp;&amp; i &gt;= m)&#123;</span><br><span class="line">        nums1[i] = nums2[j];</span><br><span class="line">        j++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="If-m-is-0"><a href="#If-m-is-0" class="headerlink" title="If m is 0"></a>If m is 0</h3><p>If m is 0, which means the first array is empty, we just replace the first array with the second array.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> ( m == <span class="number">0</span>)&#123;</span><br><span class="line">    nums1 = nums2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Sort-the-Array-nums1"><a href="#Sort-the-Array-nums1" class="headerlink" title="Sort the Array nums1"></a>Sort the Array <code>nums1</code></h3><p>After merging the two arrays, we sort the array <code>nums1</code> by using <code>sort()</code> function with lambda function.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sort (nums1.begin(), nums1.end(), [](<span class="keyword">int</span>&amp; a, <span class="keyword">int</span>&amp; b)&#123;</span><br><span class="line">    <span class="keyword">return</span> a &lt; b;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="Full-code"><a href="#Full-code" class="headerlink" title="Full code"></a>Full code</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">merge</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums1, <span class="keyword">int</span> m, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums2, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> j = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums1.size(); i ++)&#123;</span><br><span class="line">            <span class="keyword">if</span> (nums1[i] == <span class="number">0</span> &amp;&amp; n != <span class="number">0</span> &amp;&amp; i &gt;= m)&#123;</span><br><span class="line">                nums1[i] = nums2[j];</span><br><span class="line">                j++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> ( m == <span class="number">0</span>)&#123;</span><br><span class="line">            nums1 = nums2;</span><br><span class="line">        &#125;</span><br><span class="line">        sort (nums1.begin(), nums1.end(), [](<span class="keyword">int</span>&amp; a, <span class="keyword">int</span>&amp; b)&#123;</span><br><span class="line">            <span class="keyword">return</span> a &lt; b;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="Time-complexity"><a href="#Time-complexity" class="headerlink" title="Time complexity"></a>Time complexity</h3><p>The for loop runs for <code>nums1.size()</code> iterations, which is <code>m + n</code> in the worst case.<br>Inside the loop, there is a conditional statement and potentially a <code>nums1 </code>assignment, both of which have constant time complexity.<br>The dominant factor in the time complexity is the sorting step at the end of the code:</p>
+<p>Sorting nums1 using <code>std::sort</code> has a time complexity of <code>O((m + n) * log(m + n))</code> in the worst case, where <code>m + n</code> is the total number of elements in nums1 and nums2.<br>So, the overall time complexity of the solution is <code>O((m + n) * log(m + n))</code> due to the sorting step.</p>
+<h2 id="Improved-solution-run-in-O-m-n-time"><a href="#Improved-solution-run-in-O-m-n-time" class="headerlink" title="Improved solution run in O(m + n) time"></a>Improved solution run in O(m + n) time</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">merge</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums1, <span class="keyword">int</span> m, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums2, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> i = m - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> j = n - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> k = m + n - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (i &gt;= <span class="number">0</span> &amp;&amp; j &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums1[i] &gt; nums2[j]) &#123;</span><br><span class="line">                nums1[k--] = nums1[i--];</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                nums1[k--] = nums2[j--];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (j &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">            nums1[k--] = nums2[j--];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>The key idea in this algorithm is to work from the end of the arrays towards the beginning, comparing elements and placing them in the correct position in nums1. This approach efficiently merges the two sorted arrays without the need for additional sorting</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Sorting/" rel="tag">Sorting</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Two-Pointers/" rel="tag">Two Pointers</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
   id="post-LeetCode0918"
   class="article article-type-post"
   itemscope
@@ -467,233 +735,6 @@
     <footer class="article-footer">
        
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Data-Analysis/" rel="tag">Data Analysis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web-crawling/" rel="tag">Web crawling</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-写一个微博奶茶推荐的机器人"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2021/07/26/%E5%86%99%E4%B8%80%E4%B8%AA%E5%BE%AE%E5%8D%9A%E5%A5%B6%E8%8C%B6%E6%8E%A8%E8%8D%90%E7%9A%84%E6%9C%BA%E5%99%A8%E4%BA%BA/"
-    >写一个微博奶茶推荐的机器人</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2021/07/26/%E5%86%99%E4%B8%80%E4%B8%AA%E5%BE%AE%E5%8D%9A%E5%A5%B6%E8%8C%B6%E6%8E%A8%E8%8D%90%E7%9A%84%E6%9C%BA%E5%99%A8%E4%BA%BA/" class="article-date">
-  <time datetime="2021-07-26T14:25:10.000Z" itemprop="datePublished">2021-07-26</time>
-</a>  
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>想尝试该功能的请发送微博@今天喝点啥捏，脚本不定期开启</p>
-<p>前几天看到有人在微博上@今天吃啥的bot，然后会秒收到一条随机的菜品推荐。这简直是选择困难症的福音，作为奶茶大户，我想着做一个奶茶推荐的bot。</p>
-<p>在网上查找了许多资料但都没有类似的bot，最近一个类似的代码是2015年的，完全不能用。</p> 
-      <a class="article-more-link" href="/2021/07/26/%E5%86%99%E4%B8%80%E4%B8%AA%E5%BE%AE%E5%8D%9A%E5%A5%B6%E8%8C%B6%E6%8E%A8%E8%8D%90%E7%9A%84%E6%9C%BA%E5%99%A8%E4%BA%BA/"
-        >Read More...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Self-Project/" rel="tag">Self Project</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-算法：排序"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2021/07/04/%E7%AE%97%E6%B3%95%EF%BC%9A%E6%8E%92%E5%BA%8F/"
-    >算法：排序</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2021/07/04/%E7%AE%97%E6%B3%95%EF%BC%9A%E6%8E%92%E5%BA%8F/" class="article-date">
-  <time datetime="2021-07-04T12:06:30.000Z" itemprop="datePublished">2021-07-04</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Coding/">Coding</a>
-  </div>
- 
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>在看《啊哈！算法》这本书，打算做一份读书笔记。</p>
-<p>第一章是排序，讲述了桶排序，冒泡排序和快速排序三种方法。</p> 
-      <a class="article-more-link" href="/2021/07/04/%E7%AE%97%E6%B3%95%EF%BC%9A%E6%8E%92%E5%BA%8F/"
-        >Read More...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-Unity入门第七天：计时器-切换页面"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2021/04/11/Unity%E5%85%A5%E9%97%A8%E7%AC%AC%E4%B8%83%E5%A4%A9%EF%BC%9A%E8%AE%A1%E6%97%B6%E5%99%A8-%E5%88%87%E6%8D%A2%E9%A1%B5%E9%9D%A2/"
-    >Unity入门第七天：计时器/切换页面</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2021/04/11/Unity%E5%85%A5%E9%97%A8%E7%AC%AC%E4%B8%83%E5%A4%A9%EF%BC%9A%E8%AE%A1%E6%97%B6%E5%99%A8-%E5%88%87%E6%8D%A2%E9%A1%B5%E9%9D%A2/" class="article-date">
-  <time datetime="2021-04-11T20:37:10.000Z" itemprop="datePublished">2021-04-11</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Coding/">Coding</a>
-  </div>
- 
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>坦克大战做的差不多了，作为收尾，讲讲计时器和如何切换页面<br>并附上完整的代码链接</p> 
-      <a class="article-more-link" href="/2021/04/11/Unity%E5%85%A5%E9%97%A8%E7%AC%AC%E4%B8%83%E5%A4%A9%EF%BC%9A%E8%AE%A1%E6%97%B6%E5%99%A8-%E5%88%87%E6%8D%A2%E9%A1%B5%E9%9D%A2/"
-        >Read More...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Unity/" rel="tag">Unity</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-Unity入门第六天：敌人AI，地图随机生成"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2021/03/24/Unity%E5%85%A5%E9%97%A8%E7%AC%AC%E5%85%AD%E5%A4%A9%EF%BC%9A%E6%95%8C%E4%BA%BAAI%EF%BC%8C%E5%9C%B0%E5%9B%BE%E9%9A%8F%E6%9C%BA%E7%94%9F%E6%88%90/"
-    >Unity入门第六天：敌人AI，地图随机生成</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2021/03/24/Unity%E5%85%A5%E9%97%A8%E7%AC%AC%E5%85%AD%E5%A4%A9%EF%BC%9A%E6%95%8C%E4%BA%BAAI%EF%BC%8C%E5%9C%B0%E5%9B%BE%E9%9A%8F%E6%9C%BA%E7%94%9F%E6%88%90/" class="article-date">
-  <time datetime="2021-03-24T21:55:33.000Z" itemprop="datePublished">2021-03-24</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Coding/">Coding</a>
-  </div>
- 
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p><img src="/images/tank_demo2.gif"><br>\像模像样/<br>本篇讲述了如何使敌方坦克的进攻更加智能，以及如何生成随机的地图</p> 
-      <a class="article-more-link" href="/2021/03/24/Unity%E5%85%A5%E9%97%A8%E7%AC%AC%E5%85%AD%E5%A4%A9%EF%BC%9A%E6%95%8C%E4%BA%BAAI%EF%BC%8C%E5%9C%B0%E5%9B%BE%E9%9A%8F%E6%9C%BA%E7%94%9F%E6%88%90/"
-        >Read More...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Unity/" rel="tag">Unity</a></li></ul>
 
     </footer>
   </div>

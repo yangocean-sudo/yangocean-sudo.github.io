@@ -131,6 +131,294 @@
     
     
     <article
+  id="post-Leetcode1111-2"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2023/11/11/Leetcode1111-2/"
+    >Leetcode Study Day 45</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/11/11/Leetcode1111-2/" class="article-date">
+  <time datetime="2023-11-11T14:04:57.000Z" itemprop="datePublished">2023-11-11</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
+  </div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Snakes-and-Ladders"><a href="#Snakes-and-Ladders" class="headerlink" title="Snakes and Ladders"></a>Snakes and Ladders</h1><p>You are given an n x n integer matrix board where the cells are labeled from 1 to n2 in a Boustrophedon style starting from the bottom left of the board (i.e. board[n - 1][0]) and alternating direction each row.</p>
+<p>You start on square 1 of the board. In each move, starting from square curr, do the following:</p>
+<p>Choose a destination square next with a label in the range [curr + 1, min(curr + 6, n2)].<br>This choice simulates the result of a standard 6-sided die roll: i.e., there are always at most 6 destinations, regardless of the size of the board.<br>If next has a snake or ladder, you must move to the destination of that snake or ladder. Otherwise, you move to next.<br>The game ends when you reach the square n2.<br>A board square on row r and column c has a snake or ladder if board[r][c] != -1. The destination of that snake or ladder is board[r][c]. Squares 1 and n2 do not have a snake or ladder.</p>
+<p>Note that you only take a snake or ladder at most once per move. If the destination to a snake or ladder is the start of another snake or ladder, you do not follow the subsequent snake or ladder.</p>
+<p>For example, suppose the board is [[-1,4],[-1,3]], and on the first move, your destination square is 2. You follow the ladder to square 3, but do not follow the subsequent ladder to 4.<br>Return the least number of moves required to reach the square n2. If it is not possible to reach the square, return -1.</p>
+<p><img src="image.png" alt="Alt text"> </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Input: board &#x3D; [[-1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1],[-1,35,-1,-1,13,-1],[-1,-1,-1,-1,-1,-1],[-1,15,-1,-1,-1,-1]]</span><br><span class="line">Output: 4</span><br><span class="line">Explanation: </span><br><span class="line">In the beginning, you start at square 1 (at row 5, column 0).</span><br><span class="line">You decide to move to square 2 and must take the ladder to square 15.</span><br><span class="line">You then decide to move to square 17 and must take the snake to square 13.</span><br><span class="line">You then decide to move to square 14 and must take the ladder to square 35.</span><br><span class="line">You then decide to move to square 36, ending the game.</span><br><span class="line">This is the lowest possible number of moves to reach the last square, so return 4.</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: board &#x3D; [[-1,-1],[-1,3]]</span><br><span class="line">Output: 1</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">n &#x3D;&#x3D; board.length &#x3D;&#x3D; board[i].length</span><br><span class="line">2 &lt;&#x3D; n &lt;&#x3D; 20</span><br><span class="line">board[i][j] is either -1 or in the range [1, n2].</span><br><span class="line">The squares labeled 1 and n2 do not have any ladders or snakes.</span><br></pre></td></tr></table></figure>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>I found this <a target="_blank" rel="noopener" href="https://leetcode.com/problems/snakes-and-ladders/solutions/3092265/c-simple-bfs-with-full-explanation-beats-100/?envType=study-plan-v2&envId=top-interview-150">solution</a> from Leetcode. Here is his explanation:</p>
+<blockquote>
+<p>Intuition</p>
+</blockquote>
+<blockquote>
+<p>The intuition behind this code is that it uses a breadth-first search (BFS) algorithm to find the minimum number of moves required to reach the last cell of the board from the first cell. BFS is an algorithm that explores all the vertices of a graph or all the nodes of a tree level by level.</p>
+</blockquote>
+<blockquote>
+<p>Approach</p>
+</blockquote>
+<blockquote>
+<p>The method starts by creating a vector of pairs called “cells” that stores the row and column of each cell in the board. It also creates a vector of integers called “dist” that stores the minimum number of moves required to reach each cell and initializes it to -1.</p>
+</blockquote>
+<blockquote>
+<p>It then uses a queue to keep track of the cells to be visited and starts by pushing the first cell (cell 1) into the queue. The method then enters a while loop that continues until the queue is empty. In each iteration of the loop, it takes the front element of the queue, which is the current cell, and pops it from the queue.</p>
+</blockquote>
+<blockquote>
+<p>For the current cell, the method loops through all the possible next cells which are from curr+1 to min(curr+6,n*n) (because in each move we can move to a dice roll max 6 steps) and checks if the minimum number of moves required to reach that cell has not been assigned yet. If it has not been assigned yet, the method assigns the minimum number of moves required to reach that cell as the minimum number of moves required to reach the current cell plus one. It also pushes the next cell into the queue to be visited in the next iteration.</p>
+</blockquote>
+<blockquote>
+<p>The method then continues this process until all the cells have been visited, and the minimum number of moves required to reach each cell has been assigned. Finally, the method returns the minimum number of moves required to reach the last cell, which is stored in dist[n*n].</p>
+</blockquote>
+<blockquote>
+<p>It also handles the case if there is a snake or ladder at the cell, it directly assigns the destination cell number as the cell number.</p>
+</blockquote>
+<blockquote>
+<p>Complexity</p>
+</blockquote>
+<blockquote>
+<p>Time complexity:</p>
+</blockquote>
+<blockquote>
+<p>The time complexity of this code is O(n^2), where n is the size of the board. This is because the method uses a breadth-first search algorithm to traverse through each cell of the board and assigns the distance of each cell from the starting cell. The outer loop iterates n times, and the inner loop iterates n times, so the total number of iterations is n*n.</p>
+</blockquote>
+<blockquote>
+<p>Note that this is assuming the queue and vector operations have a constant time complexity, which is typical but not guaranteed.</p>
+</blockquote>
+<blockquote>
+<p>Space complexity:</p>
+</blockquote>
+<blockquote>
+<p>The space complexity of this code is also O(n^2). This is because the method uses a vector of integers called “dist” to keep track of the minimum number of moves required to reach each cell, and this vector has nn elements. The method also uses a vector of pairs called “cells” to keep track of the row and column of each cell, and this vector also has nn elements. The method also uses a queue to keep track of the cells to be visited, which can have at most n*n elements.</p>
+</blockquote>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">snakesAndLadders</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; &amp;board)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = board.size(), lbl = <span class="number">1</span>;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">pair</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;&gt; cells(n*n+<span class="number">1</span>);</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">columns</span><span class="params">(n)</span></span>;</span><br><span class="line">        iota(columns.begin(), columns.end(), <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> row = n - <span class="number">1</span>; row &gt;= <span class="number">0</span>; row--) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> column : columns) &#123;</span><br><span class="line">                cells[lbl++] = &#123;row, column&#125;;</span><br><span class="line">            &#125;</span><br><span class="line">            reverse(columns.begin(), columns.end());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">dist</span><span class="params">(n*n+<span class="number">1</span>, <span class="number">-1</span>)</span></span>;</span><br><span class="line">        dist[<span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; q;</span><br><span class="line">        q.push(<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">while</span> (!q.empty()) &#123;</span><br><span class="line">            <span class="keyword">int</span> curr = q.front();</span><br><span class="line">            q.pop();</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; curr&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> next = curr + <span class="number">1</span>; next &lt;= min(curr+<span class="number">6</span>, n*n); next++) &#123;</span><br><span class="line">                <span class="keyword">auto</span> [row, column] = cells[next];</span><br><span class="line">                <span class="keyword">int</span> destination = board[row][column] != <span class="number">-1</span> ? board[row][column] : next;</span><br><span class="line">                <span class="keyword">if</span> (dist[destination] == <span class="number">-1</span>) &#123;</span><br><span class="line">                    dist[destination] = dist[curr] + <span class="number">1</span>;</span><br><span class="line">                    q.push(destination);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dist[n*n];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Breadth-First-Search/" rel="tag">Breadth-First Search</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Matrix/" rel="tag">Matrix</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
+  id="post-Leetcode1111"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2023/11/11/Leetcode1111/"
+    >Leetcode Study Day 45</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/11/11/Leetcode1111/" class="article-date">
+  <time datetime="2023-11-11T13:59:01.000Z" itemprop="datePublished">2023-11-11</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
+  </div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Course-Schedule-II"><a href="#Course-Schedule-II" class="headerlink" title="Course Schedule II"></a>Course Schedule II</h1><p>There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1. You are given an array prerequisites where prerequisites[i] = [ai, bi] indicates that you must take course bi first if you want to take course ai.</p>
+<p>For example, the pair [0, 1], indicates that to take course 0 you have to first take course 1.<br>Return the ordering of courses you should take to finish all courses. If there are many valid answers, return any of them. If it is impossible to finish all courses, return an empty array.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: numCourses &#x3D; 2, prerequisites &#x3D; [[1,0]]</span><br><span class="line">Output: [0,1]</span><br><span class="line">Explanation: There are a total of 2 courses to take. To take course 1 you should have finished course 0. So the correct course order is [0,1].</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: numCourses &#x3D; 4, prerequisites &#x3D; [[1,0],[2,0],[3,1],[3,2]]</span><br><span class="line">Output: [0,2,1,3]</span><br><span class="line">Explanation: There are a total of 4 courses to take. To take course 3 you should have finished both courses 1 and 2. Both courses 1 and 2 should be taken after you finished course 0.</span><br><span class="line">So one correct course order is [0,1,2,3]. Another correct ordering is [0,2,1,3].</span><br><span class="line">Example 3:</span><br><span class="line"></span><br><span class="line">Input: numCourses &#x3D; 1, prerequisites &#x3D; []</span><br><span class="line">Output: [0]</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">1 &lt;&#x3D; numCourses &lt;&#x3D; 2000</span><br><span class="line">0 &lt;&#x3D; prerequisites.length &lt;&#x3D; numCourses * (numCourses - 1)</span><br><span class="line">prerequisites[i].length &#x3D;&#x3D; 2</span><br><span class="line">0 &lt;&#x3D; ai, bi &lt; numCourses</span><br><span class="line">ai !&#x3D; bi</span><br><span class="line">All the pairs [ai, bi] are distinct.</span><br></pre></td></tr></table></figure>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>The solution is similar to the previous question, except this time we add a stack to store the courses we want to take. After we find the courses that need to be taken in the end, we push them into the stack. After finding all the courses and make sure there is no cycle, we pop the stack and store the courses in the vector. The order of the courses is the reverse order of the stack. </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">iscycle</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; adj[], <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;vis, <span class="keyword">int</span> id, <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; &amp;courseStack)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(vis[id] == <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">if</span>(vis[id] == <span class="number">0</span>)&#123;</span><br><span class="line">            vis[id] = <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> edge : adj[id])&#123;</span><br><span class="line">                <span class="keyword">if</span>(iscycle(adj, vis, edge, courseStack))</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            courseStack.push(id);</span><br><span class="line">        &#125;</span><br><span class="line">        vis[id] = <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">findOrder</span><span class="params">(<span class="keyword">int</span> n, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; pre)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; adj[n];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> edge : pre)</span><br><span class="line">            adj[edge[<span class="number">1</span>]].push_back(edge[<span class="number">0</span>]);</span><br><span class="line">        </span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">vis</span><span class="params">(n, <span class="number">0</span>)</span></span>;</span><br><span class="line">        <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; courseStack;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(vis[i] == <span class="number">0</span>)&#123;</span><br><span class="line">                <span class="keyword">if</span>(iscycle(adj, vis, i, courseStack))</span><br><span class="line">                    <span class="keyword">return</span> &#123;&#125;; <span class="comment">// Return empty if cycle is detected</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; order;</span><br><span class="line">        <span class="keyword">while</span>(!courseStack.empty())&#123;</span><br><span class="line">            order.push_back(courseStack.top());</span><br><span class="line">            courseStack.pop();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> order;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Breadth-First-Search/" rel="tag">Breadth-First Search</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Depth-First-Search/" rel="tag">Depth-First Search</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Graph/" rel="tag">Graph</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Topological-Sort/" rel="tag">Topological Sort</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
+  id="post-Leetcode1110-2"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2023/11/10/Leetcode1110-2/"
+    >Leetcode Study Day 44</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/11/10/Leetcode1110-2/" class="article-date">
+  <time datetime="2023-11-10T20:26:27.000Z" itemprop="datePublished">2023-11-10</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
+  </div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Course-Schedule"><a href="#Course-Schedule" class="headerlink" title="Course Schedule"></a>Course Schedule</h1><p>There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1. You are given an array prerequisites where prerequisites[i] = [ai, bi] indicates that you must take course bi first if you want to take course ai.</p>
+<p>For example, the pair [0, 1], indicates that to take course 0 you have to first take course 1.<br>Return true if you can finish all courses. Otherwise, return false.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: numCourses &#x3D; 2, prerequisites &#x3D; [[1,0]]</span><br><span class="line">Output: true</span><br><span class="line">Explanation: There are a total of 2 courses to take. </span><br><span class="line">To take course 1 you should have finished course 0. So it is possible.</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: numCourses &#x3D; 2, prerequisites &#x3D; [[1,0],[0,1]]</span><br><span class="line">Output: false</span><br><span class="line">Explanation: There are a total of 2 courses to take. </span><br><span class="line">To take course 1 you should have finished course 0, and to take course 0 you should also have finished course 1. So it is impossible.</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">1 &lt;&#x3D; numCourses &lt;&#x3D; 2000</span><br><span class="line">0 &lt;&#x3D; prerequisites.length &lt;&#x3D; 5000</span><br><span class="line">prerequisites[i].length &#x3D;&#x3D; 2</span><br><span class="line">0 &lt;&#x3D; ai, bi &lt; numCourses</span><br><span class="line">All the pairs prerequisites[i] are unique.</span><br></pre></td></tr></table></figure>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>I found this <a target="_blank" rel="noopener" href="https://leetcode.com/problems/course-schedule/solutions/658275/c-dfs-easiest-solution-with-explanation-my-1st-approach/?envType=study-plan-v2&envId=top-interview-150">solution</a> from Leetcode. Here is his explanation:</p>
+<blockquote>
+<p>We just have to find if our graph contains cycle or not because if graph contains cycle then all tnodes in cycle are interdependent and 1 course cannot be completed because its prerequisite is dependent on other course and it goes on .<br>We used coloring algorithm to find if there is cycle in graph or not.</p>
+</blockquote>
+<blockquote>
+<p>Coloring Algorithm</p>
+</blockquote>
+<blockquote>
+<p>vis[id]=0 is used for node which is not yet visited, vis[id]=1 is used for the node which is visited and currently its child nodes are being visited and vis[id]=2 done when all the child nodes of a node (“id”) are visited and the function returns to parent node of node (“id”). So at that time it is marked as 2 because this node does not require any further traversing.</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">iscycle</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; adj[],<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;vis,<span class="keyword">int</span> id)</span></span>&#123;</span><br><span class="line">        <span class="comment">// if we find this node again, we can make sure it&#x27;s a cycle</span></span><br><span class="line">        <span class="keyword">if</span>(vis[id]==<span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="comment">// if it&#x27;s a new node</span></span><br><span class="line">        <span class="keyword">if</span>(vis[id]==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="comment">// we set it as 1</span></span><br><span class="line">            vis[id]=<span class="number">1</span>;</span><br><span class="line">            <span class="comment">// we check all its adjacent nodes</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> edge : adj[id])&#123;</span><br><span class="line">                <span class="keyword">if</span>(iscycle(adj,vis,edge))</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        vis[id] = <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">canFinish</span><span class="params">(<span class="keyword">int</span> n, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; pre)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// a vector with n elements, each element is a vector</span></span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; adj[n];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> edge : pre)</span><br><span class="line">            <span class="comment">// push the pre[2]th number with course pre[1]</span></span><br><span class="line">            adj[edge[<span class="number">1</span>]].push_back(edge[<span class="number">0</span>]);</span><br><span class="line">        <span class="comment">// a vector with n elements, each element is 0</span></span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">vis</span><span class="params">(n,<span class="number">0</span>)</span></span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">            <span class="comment">// if we find a cycle, return false</span></span><br><span class="line">            <span class="keyword">if</span>(iscycle(adj,vis,i))</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Breadth-First-Search/" rel="tag">Breadth-First Search</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Depth-First-Search/" rel="tag">Depth-First Search</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Graph/" rel="tag">Graph</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Topological-Sort/" rel="tag">Topological Sort</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
+  id="post-Leetcode1110"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2023/11/10/Leetcode1110/"
+    >Leetcode Study Day 44</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/11/10/Leetcode1110/" class="article-date">
+  <time datetime="2023-11-10T19:44:19.000Z" itemprop="datePublished">2023-11-10</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
+  </div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Evaluate-Division"><a href="#Evaluate-Division" class="headerlink" title="Evaluate Division"></a>Evaluate Division</h1><p>You are given an array of variable pairs equations and an array of real numbers values, where equations[i] = [Ai, Bi] and values[i] represent the equation Ai / Bi = values[i]. Each Ai or Bi is a string that represents a single variable.</p>
+<p>You are also given some queries, where queries[j] = [Cj, Dj] represents the jth query where you must find the answer for Cj / Dj = ?.</p>
+<p>Return the answers to all queries. If a single answer cannot be determined, return -1.0.</p>
+<p>Note: The input is always valid. You may assume that evaluating the queries will not result in division by zero and that there is no contradiction.</p>
+<p>Note: The variables that do not occur in the list of equations are undefined, so the answer cannot be determined for them.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: equations &#x3D; [[&quot;a&quot;,&quot;b&quot;],[&quot;b&quot;,&quot;c&quot;]], values &#x3D; [2.0,3.0], queries &#x3D; [[&quot;a&quot;,&quot;c&quot;],[&quot;b&quot;,&quot;a&quot;],[&quot;a&quot;,&quot;e&quot;],[&quot;a&quot;,&quot;a&quot;],[&quot;x&quot;,&quot;x&quot;]]</span><br><span class="line">Output: [6.00000,0.50000,-1.00000,1.00000,-1.00000]</span><br><span class="line">Explanation: </span><br><span class="line">Given: a &#x2F; b &#x3D; 2.0, b &#x2F; c &#x3D; 3.0</span><br><span class="line">queries are: a &#x2F; c &#x3D; ?, b &#x2F; a &#x3D; ?, a &#x2F; e &#x3D; ?, a &#x2F; a &#x3D; ?, x &#x2F; x &#x3D; ? </span><br><span class="line">return: [6.0, 0.5, -1.0, 1.0, -1.0 ]</span><br><span class="line">note: x is undefined &#x3D;&gt; -1.0</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: equations &#x3D; [[&quot;a&quot;,&quot;b&quot;],[&quot;b&quot;,&quot;c&quot;],[&quot;bc&quot;,&quot;cd&quot;]], values &#x3D; [1.5,2.5,5.0], queries &#x3D; [[&quot;a&quot;,&quot;c&quot;],[&quot;c&quot;,&quot;b&quot;],[&quot;bc&quot;,&quot;cd&quot;],[&quot;cd&quot;,&quot;bc&quot;]]</span><br><span class="line">Output: [3.75000,0.40000,5.00000,0.20000]</span><br><span class="line">Example 3:</span><br><span class="line"></span><br><span class="line">Input: equations &#x3D; [[&quot;a&quot;,&quot;b&quot;]], values &#x3D; [0.5], queries &#x3D; [[&quot;a&quot;,&quot;b&quot;],[&quot;b&quot;,&quot;a&quot;],[&quot;a&quot;,&quot;c&quot;],[&quot;x&quot;,&quot;y&quot;]]</span><br><span class="line">Output: [0.50000,2.00000,-1.00000,-1.00000]</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">1 &lt;&#x3D; equations.length &lt;&#x3D; 20</span><br><span class="line">equations[i].length &#x3D;&#x3D; 2</span><br><span class="line">1 &lt;&#x3D; Ai.length, Bi.length &lt;&#x3D; 5</span><br><span class="line">values.length &#x3D;&#x3D; equations.length</span><br><span class="line">0.0 &lt; values[i] &lt;&#x3D; 20.0</span><br><span class="line">1 &lt;&#x3D; queries.length &lt;&#x3D; 20</span><br><span class="line">queries[i].length &#x3D;&#x3D; 2</span><br><span class="line">1 &lt;&#x3D; Cj.length, Dj.length &lt;&#x3D; 5</span><br><span class="line">Ai, Bi, Cj, Dj consist of lower case English letters and digits.</span><br></pre></td></tr></table></figure>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>For the solution, we use a nested map to record the graph. To be specific, we can imagine string <code>a</code> is a node, it map to string <code>b</code>, where the edge value is <code>a/b</code>, whcih is 1.5, it is the value that b mapped to. So we create a structure to store this nested map: </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">unordered_map</span> &lt;<span class="built_in">string</span>, <span class="built_in">unordered_map</span>&lt;<span class="built_in">string</span>, <span class="keyword">double</span>&gt;&gt; </span><br></pre></td></tr></table></figure>
+<p>Let me explain the code below:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">double</span>&gt; <span class="title">calcEquation</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt;&amp; equations, <span class="built_in">vector</span>&lt;<span class="keyword">double</span>&gt;&amp; values, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt;&amp; queries)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// create the nested map with input equations</span></span><br><span class="line">        <span class="built_in">unordered_map</span> &lt;<span class="built_in">string</span>, <span class="built_in">unordered_map</span>&lt;<span class="built_in">string</span>, <span class="keyword">double</span>&gt;&gt; graph = createGraph(equations, values);</span><br><span class="line">        <span class="comment">// create the result vector</span></span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">double</span>&gt; res;</span><br><span class="line">        <span class="comment">// for each query, we find the path product</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; queries.size(); i++)&#123;</span><br><span class="line">            <span class="keyword">if</span> (queries[i][<span class="number">0</span>] == queries[i][<span class="number">1</span>] &amp;&amp; graph.find(queries[i][<span class="number">0</span>]) != graph.end())</span><br><span class="line">                res.push_back(<span class="number">1.0</span>); <span class="comment">//Division of a number by itself</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (graph.find(queries[i][<span class="number">0</span>]) == graph.end() || graph.find(queries[i][<span class="number">1</span>]) == graph.end())</span><br><span class="line">                res.push_back(<span class="number">-1.0</span>); <span class="comment">// if we cannot find the node in the graph</span></span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="comment">// we find the path product and push it to the result vector</span></span><br><span class="line">                <span class="keyword">double</span> result = findPathProduct(graph, queries[i][<span class="number">0</span>], queries[i][<span class="number">1</span>]);</span><br><span class="line">                res.push_back(result);</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Create graph function</span></span><br><span class="line">    <span class="built_in">unordered_map</span> &lt;<span class="built_in">string</span>, <span class="built_in">unordered_map</span>&lt;<span class="built_in">string</span>, <span class="keyword">double</span>&gt;&gt; createGraph(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt;&amp; equations,<span class="built_in">vector</span>&lt;<span class="keyword">double</span>&gt;&amp; values)&#123;</span><br><span class="line">        <span class="built_in">unordered_map</span> &lt;<span class="built_in">string</span>, <span class="built_in">unordered_map</span>&lt;<span class="built_in">string</span>, <span class="keyword">double</span>&gt;&gt; graph;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; equations.size(); i++)&#123;</span><br><span class="line">            <span class="keyword">double</span> value = values[i];</span><br><span class="line">            <span class="built_in">string</span> A = equations[i][<span class="number">0</span>];</span><br><span class="line">            <span class="built_in">string</span> B = equations[i][<span class="number">1</span>];</span><br><span class="line">            <span class="comment">// store the value in the nested map</span></span><br><span class="line">            graph[A][B] = value;</span><br><span class="line">            <span class="comment">// store the reverse value in the nested map</span></span><br><span class="line">            graph[B][A] = <span class="number">1.0</span> / value;</span><br><span class="line">                </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> graph;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Find path product function</span></span><br><span class="line">    <span class="function"><span class="keyword">double</span> <span class="title">findPathProduct</span><span class="params">(<span class="built_in">unordered_map</span> &lt;<span class="built_in">string</span>, <span class="built_in">unordered_map</span>&lt;<span class="built_in">string</span>, <span class="keyword">double</span>&gt;&gt;&amp; graph, <span class="built_in">string</span>&amp; start, <span class="built_in">string</span>&amp; end)</span></span>&#123;</span><br><span class="line">        <span class="comment">// create a set to store the visited node</span></span><br><span class="line">        <span class="built_in">set</span>&lt;<span class="built_in">string</span>&gt; visited;</span><br><span class="line">        <span class="keyword">return</span> dfs(graph, start, end, <span class="number">1.0</span>, visited);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// DFS function</span></span><br><span class="line">    <span class="function"><span class="keyword">double</span> <span class="title">dfs</span><span class="params">(<span class="built_in">unordered_map</span>&lt;<span class="built_in">string</span>, <span class="built_in">unordered_map</span>&lt;<span class="built_in">string</span>, <span class="keyword">double</span>&gt;&gt;&amp; graph, <span class="keyword">const</span> <span class="built_in">string</span>&amp; current, <span class="keyword">const</span> <span class="built_in">string</span>&amp; end, <span class="keyword">double</span> product, <span class="built_in">set</span>&lt;<span class="built_in">string</span>&gt;&amp; visited)</span></span>&#123;</span><br><span class="line">        <span class="comment">// if we have visited the node, we return -1.0</span></span><br><span class="line">        <span class="keyword">if</span>(visited.find(current)!= visited.end())</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1.0</span>;</span><br><span class="line">        <span class="comment">// if we find the end node, we return the product</span></span><br><span class="line">        <span class="keyword">if</span> (current == end)</span><br><span class="line">            <span class="keyword">return</span> product;</span><br><span class="line">        <span class="comment">// we add the current node to the visited set</span></span><br><span class="line">        visited.insert(current);</span><br><span class="line">        <span class="comment">// for each neighbor of the current node, we find the path product</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; <span class="built_in">pair</span> : graph[current]) &#123;</span><br><span class="line">            <span class="keyword">const</span> <span class="built_in">string</span>&amp; neighbor = <span class="built_in">pair</span>.first;</span><br><span class="line">            <span class="keyword">double</span> weight = <span class="built_in">pair</span>.second;</span><br><span class="line">            <span class="comment">// we use dfs to find the path product</span></span><br><span class="line">            <span class="keyword">double</span> pathProduct = dfs(graph, neighbor, end, product * weight, visited);</span><br><span class="line">            <span class="comment">// if we find the path product, we return it</span></span><br><span class="line">            <span class="keyword">if</span> (pathProduct != <span class="number">-1.0</span>)</span><br><span class="line">                <span class="keyword">return</span> pathProduct;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// if we cannot find the path product, we return -1.0</span></span><br><span class="line">        visited.erase(current);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1.0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Breadth-First-Search/" rel="tag">Breadth-First Search</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Depth-First-Search/" rel="tag">Depth-First Search</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Graph/" rel="tag">Graph</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shortest-Path/" rel="tag">Shortest Path</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Union-Find/" rel="tag">Union Find</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
   id="post-Leetcode1109-2"
   class="article article-type-post"
   itemscope
@@ -486,243 +774,6 @@
     <footer class="article-footer">
        
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Binary-Tree/" rel="tag">Binary Tree</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Breadth-First-Search/" rel="tag">Breadth-First Search</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tree/" rel="tag">Tree</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-Leetcode1104-2"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2023/11/04/Leetcode1104-2/"
-    >Leetcode Study Day 39</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2023/11/04/Leetcode1104-2/" class="article-date">
-  <time datetime="2023-11-04T17:03:47.000Z" itemprop="datePublished">2023-11-04</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
-  </div>
- 
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h1 id="Average-of-Levels-in-Binary-Tree"><a href="#Average-of-Levels-in-Binary-Tree" class="headerlink" title="Average of Levels in Binary Tree"></a>Average of Levels in Binary Tree</h1><p>Given the root of a binary tree, return the average value of the nodes on each level in the form of an array. Answers within 10-5 of the actual answer will be accepted.</p>
-<p><img src="https://assets.leetcode.com/uploads/2021/03/09/avg1-tree.jpg"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Input: root &#x3D; [3,9,20,null,null,15,7]</span><br><span class="line">Output: [3.00000,14.50000,11.00000]</span><br><span class="line">Explanation: The average value of nodes on level 0 is 3, on level 1 is 14.5, and on level 2 is 11.</span><br><span class="line">Hence return [3, 14.5, 11].</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Input: root &#x3D; [3,9,20,15,7]</span><br><span class="line">Output: [3.00000,14.50000,11.00000]</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">The number of nodes in the tree is in the range [1, 104].</span><br><span class="line">-231 &lt;&#x3D; Node.val &lt;&#x3D; 231 - 1</span><br></pre></td></tr></table></figure>
-<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>To solve a breadth first search question, we use a queue. Queue’s feature is first in first out. So we can use it to store the nodes in the same level. We first push the root into the queue. Then we use a while loop to check if the queue is empty. If it is not empty, we get the size of the queue. The size of the queue is the number of nodes in the same level. We use a for loop to pop the nodes in the queue and add the value of the node to the sum. Then we check if the node has left child or right child. If it has, we push the child into the queue. After the for loop, we push the average of the sum and the size into the answer vector. Then we return the answer vector.</p>
-<p>It is noticible that to convert int to double, we can firstly use <code>(double)</code> add an int, then the result will be double.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * struct TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode *left;</span></span><br><span class="line"><span class="comment"> *     TreeNode *right;</span></span><br><span class="line"><span class="comment"> *     TreeNode() : val(0), left(nullptr), right(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">double</span>&gt; <span class="title">averageOfLevels</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">double</span>&gt; ans;</span><br><span class="line">        <span class="built_in">queue</span>&lt;TreeNode*&gt; treeQ;</span><br><span class="line">        <span class="keyword">if</span>(!root) <span class="keyword">return</span> ans;</span><br><span class="line">        treeQ.push(root);</span><br><span class="line">        <span class="keyword">while</span>(!treeQ.empty())&#123;</span><br><span class="line">            <span class="keyword">int</span> size = treeQ.size();</span><br><span class="line">            <span class="keyword">long</span> sum = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i++)&#123;</span><br><span class="line">                TreeNode* node = treeQ.front();</span><br><span class="line">                treeQ.pop();</span><br><span class="line">                sum += node-&gt;val;</span><br><span class="line">                <span class="keyword">if</span>(node-&gt;left) treeQ.push(node-&gt;left);</span><br><span class="line">                <span class="keyword">if</span>(node-&gt;right) treeQ.push(node-&gt;right);</span><br><span class="line">            &#125;</span><br><span class="line">            ans.push_back((<span class="keyword">double</span>)sum/size);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Binary-Tree/" rel="tag">Binary Tree</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Breadth-First-Search/" rel="tag">Breadth-First Search</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Depth-First-Search/" rel="tag">Depth-First Search</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tree/" rel="tag">Tree</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-Leetcode1104"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2023/11/04/Leetcode1104/"
-    >Leetcode Study Day 39</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2023/11/04/Leetcode1104/" class="article-date">
-  <time datetime="2023-11-04T16:37:43.000Z" itemprop="datePublished">2023-11-04</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
-  </div>
- 
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h1 id="Binary-Tree-Right-Side-View"><a href="#Binary-Tree-Right-Side-View" class="headerlink" title="Binary Tree Right Side View"></a>Binary Tree Right Side View</h1><p>Given the root of a binary tree, imagine yourself standing on the right side of it, return the values of the nodes you can see ordered from top to bottom.<br><img src="https://assets.leetcode.com/uploads/2021/02/14/tree.jpg"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Input: root &#x3D; [1,2,3,null,5,null,4]</span><br><span class="line">Output: [1,3,4]</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: root &#x3D; [1,null,3]</span><br><span class="line">Output: [1,3]</span><br><span class="line">Example 3:</span><br><span class="line"></span><br><span class="line">Input: root &#x3D; []</span><br><span class="line">Output: []</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">The number of nodes in the tree is in the range [0, 100].</span><br><span class="line">-100 &lt;&#x3D; Node.val &lt;&#x3D; 100</span><br></pre></td></tr></table></figure>
-<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>The solution calls a function “recursion”. In this function, it will first check if the node is null. If it is null, it will return. If the size of the answer vector is smaller than the level, it will push the value of the node into the vector, which means it will check whether at this level of the tree, there is already has a node on the most right side (in the array). Then it will call the recursion function on the right subtree and left subtree. The order is right first and then left. The reason is that we want to push the node on the most right side into the vector first. </p>
-<p>One thing to notice is that we should pass the address of the vector into the function (&amp;ans). Otherwise, the vector will not be changed.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * struct TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode *left;</span></span><br><span class="line"><span class="comment"> *     TreeNode *right;</span></span><br><span class="line"><span class="comment"> *     TreeNode() : val(0), left(nullptr), right(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">recursion</span><span class="params">(TreeNode* node, <span class="keyword">int</span> level, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;ans)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!node) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">if</span>(ans.size()&lt;level)</span><br><span class="line">            ans.push_back(node-&gt;val);</span><br><span class="line">        recursion(node-&gt;right,level+<span class="number">1</span>,ans);</span><br><span class="line">        recursion(node-&gt;left,level+<span class="number">1</span>,ans);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">rightSideView</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">vector</span> &lt;<span class="keyword">int</span>&gt; ans;</span><br><span class="line">        recursion(root,<span class="number">1</span>,ans);</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Binary-Tree/" rel="tag">Binary Tree</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Breadth-First-Search/" rel="tag">Breadth-First Search</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Depth-First-Search/" rel="tag">Depth-First Search</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tree/" rel="tag">Tree</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-Leetcode1103-2"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2023/11/03/Leetcode1103-2/"
-    >Leetcode Study Day 38</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2023/11/03/Leetcode1103-2/" class="article-date">
-  <time datetime="2023-11-03T16:45:49.000Z" itemprop="datePublished">2023-11-03</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
-  </div>
- 
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h1 id="Lowest-Common-Ancestor-of-a-Binary-Tree"><a href="#Lowest-Common-Ancestor-of-a-Binary-Tree" class="headerlink" title="Lowest Common Ancestor of a Binary Tree"></a>Lowest Common Ancestor of a Binary Tree</h1><p>Given a binary tree, find the lowest common ancestor (LCA) of two given nodes in the tree.</p>
-<p>According to the definition of LCA on Wikipedia: “The lowest common ancestor is defined between two nodes p and q as the lowest node in T that has both p and q as descendants (where we allow a node to be a descendant of itself).”</p>
-<p><img src="https://assets.leetcode.com/uploads/2018/12/14/binarytree.png"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Input: root &#x3D; [3,5,1,6,2,0,8,null,null,7,4], p &#x3D; 5, q &#x3D; 1</span><br><span class="line">Output: 3</span><br><span class="line">Explanation: The LCA of nodes 5 and 1 is 3.</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Input: root &#x3D; [3,5,1,6,2,0,8,null,null,7,4], p &#x3D; 5, q &#x3D; 4</span><br><span class="line">Output: 5</span><br><span class="line">Explanation: The LCA of nodes 5 and 4 is 5, since a node can be a descendant of itself according to the LCA definition.</span><br><span class="line">Example 3:</span><br><span class="line"></span><br><span class="line">Input: root &#x3D; [1,2], p &#x3D; 1, q &#x3D; 2</span><br><span class="line">Output: 1</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">The number of nodes in the tree is in the range [2, 105].</span><br><span class="line">-109 &lt;&#x3D; Node.val &lt;&#x3D; 109</span><br><span class="line">All Node.val are unique.</span><br><span class="line">p !&#x3D; q</span><br><span class="line">p and q will exist in the tree.</span><br></pre></td></tr></table></figure>
-<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>The solution is not easy to understand, but it is neat and clean. We can divide the problem into three parts:</p>
-<ol>
-<li>If the root is null or the root is one of the two nodes, we return the root.</li>
-<li>We recursively call the function to find the lowest common ancestor of the left and right subtree.</li>
-<li>If the left and right subtree both return a node, it means the current root is the lowest common ancestor. If only one of them return a node, it means the lowest common ancestor is in the subtree. If both of them return null, it means the lowest common ancestor is not in the subtree.</li>
-</ol>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * struct TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode *left;</span></span><br><span class="line"><span class="comment"> *     TreeNode *right;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) : val(x), left(NULL), right(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">TreeNode* <span class="title">lowestCommonAncestor</span><span class="params">(TreeNode* root, TreeNode* p, TreeNode* q)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!root || root == p || root ==q)  <span class="keyword">return</span> root;</span><br><span class="line">        TreeNode * left = lowestCommonAncestor(root -&gt; left, p, q);</span><br><span class="line">        TreeNode * right = lowestCommonAncestor(root -&gt; right, p, q);</span><br><span class="line">        <span class="keyword">if</span>(!left &amp;&amp; !right) <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">        <span class="keyword">if</span>(left &amp;&amp; right) <span class="keyword">return</span> root;</span><br><span class="line">        <span class="keyword">return</span> !left ? right: left;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Binary-Tree/" rel="tag">Binary Tree</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Depth-First-Search/" rel="tag">Depth-First Search</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tree/" rel="tag">Tree</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-Leetcode1103"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2023/11/03/Leetcode1103/"
-    >Leetcode Study Day 38</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2023/11/03/Leetcode1103/" class="article-date">
-  <time datetime="2023-11-03T16:42:41.000Z" itemprop="datePublished">2023-11-03</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
-  </div>
- 
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h1 id="Count-Complete-Tree-Nodes"><a href="#Count-Complete-Tree-Nodes" class="headerlink" title="Count Complete Tree Nodes"></a>Count Complete Tree Nodes</h1><p>Given the root of a complete binary tree, return the number of the nodes in the tree.</p>
-<p>According to Wikipedia, every level, except possibly the last, is completely filled in a complete binary tree, and all nodes in the last level are as far left as possible. It can have between 1 and 2h nodes inclusive at the last level h.</p>
-<p>Design an algorithm that runs in less than O(n) time complexity.</p>
-<p><img src="https://assets.leetcode.com/uploads/2021/01/14/complete.jpg"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Input: root &#x3D; [1,2,3,4,5,6]</span><br><span class="line">Output: 6</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: root &#x3D; []</span><br><span class="line">Output: 0</span><br><span class="line">Example 3:</span><br><span class="line"></span><br><span class="line">Input: root &#x3D; [1]</span><br><span class="line">Output: 1</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">The number of nodes in the tree is in the range [0, 5 * 104].</span><br><span class="line">0 &lt;&#x3D; Node.val &lt;&#x3D; 5 * 104</span><br><span class="line">The tree is guaranteed to be complete.</span><br></pre></td></tr></table></figure>
-<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>We create two functions, countLeft and countRight to count the layer of left and right subtree. If they are equal, we can use the formula (number of nodes equals to 2**layer - 1) to calculate the number of nodes. Otherwise, we plus one and recursively call the function to count the number of nodes in the left and right subtree.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * struct TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode *left;</span></span><br><span class="line"><span class="comment"> *     TreeNode *right;</span></span><br><span class="line"><span class="comment"> *     TreeNode() : val(0), left(nullptr), right(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">countLeft</span><span class="params">(TreeNode* node)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!node)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (!node-&gt;left)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span> + countLeft(node-&gt;left);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">countRight</span><span class="params">(TreeNode* node)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!node)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (!node-&gt;right)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span> + countRight(node-&gt;right);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">countNodes</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!root)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> layerLeft = countLeft(root);</span><br><span class="line">        <span class="keyword">int</span> layerRight = countRight(root);</span><br><span class="line">        <span class="keyword">if</span> (layerLeft == layerRight)</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">pow</span>(<span class="number">2</span>,layerLeft) - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> (<span class="number">1</span>+countNodes(root-&gt;left)+countNodes(root-&gt;right));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;  </span><br></pre></td></tr></table></figure> 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Binary-Search/" rel="tag">Binary Search</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Binary-Tree/" rel="tag">Binary Tree</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Bit-Manipulation/" rel="tag">Bit Manipulation</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tree/" rel="tag">Tree</a></li></ul>
 
     </footer>
   </div>
