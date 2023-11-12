@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN,en,default">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta name="description" content="share everything I want to share" />
+      
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>LLeetcode Study Day 46 |  Yangyang</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon2.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    </head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-Leetcode1112"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  LLeetcode Study Day 46
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/11/12/Leetcode1112/" class="article-date">
+  <time datetime="2023-11-12T10:38:51.000Z" itemprop="datePublished">2023-11-12</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
+  </div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Minimum-Genetic-Mutation"><a href="#Minimum-Genetic-Mutation" class="headerlink" title="Minimum Genetic Mutation"></a>Minimum Genetic Mutation</h1><p>A gene string can be represented by an 8-character long string, with choices from ‘A’, ‘C’, ‘G’, and ‘T’.</p>
+<p>Suppose we need to investigate a mutation from a gene string startGene to a gene string endGene where one mutation is defined as one single character changed in the gene string.</p>
+<p>For example, “AACCGGTT” –&gt; “AACCGGTA” is one mutation.<br>There is also a gene bank bank that records all the valid gene mutations. A gene must be in bank to make it a valid gene string.</p>
+<p>Given the two gene strings startGene and endGene and the gene bank bank, return the minimum number of mutations needed to mutate from startGene to endGene. If there is no such a mutation, return -1.</p>
+<p>Note that the starting point is assumed to be valid, so it might not be included in the bank.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: startGene &#x3D; &quot;AACCGGTT&quot;, endGene &#x3D; &quot;AACCGGTA&quot;, bank &#x3D; [&quot;AACCGGTA&quot;]</span><br><span class="line">Output: 1</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: startGene &#x3D; &quot;AACCGGTT&quot;, endGene &#x3D; &quot;AAACGGTA&quot;, bank &#x3D; [&quot;AACCGGTA&quot;,&quot;AACCGCTA&quot;,&quot;AAACGGTA&quot;]</span><br><span class="line">Output: 2</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">0 &lt;&#x3D; bank.length &lt;&#x3D; 10</span><br><span class="line">startGene.length &#x3D;&#x3D; endGene.length &#x3D;&#x3D; bank[i].length &#x3D;&#x3D; 8</span><br><span class="line">startGene, endGene, and bank[i] consist of only the characters [&#39;A&#39;, &#39;C&#39;, &#39;G&#39;, &#39;T&#39;].</span><br></pre></td></tr></table></figure>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>I asked ChatGPT for get some hints and pseudo codes, in general, his idea is to use BFS to find the shortest path. He stored the bank gene into a set. Then use BFS to store and pop the mutated gene.</p>
+<p>Here is his pseudo code:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">This problem can be approached as a graph traversal problem, where each gene string represents a node and a mutation is an edge between two nodes. The goal is to find the shortest path from the startGene to the endGene. Here&#39;s a step-by-step approach using Breadth-First Search (BFS), which is well-suited for finding the shortest path in unweighted graphs:</span><br><span class="line"></span><br><span class="line">Initialize: Create a queue for BFS and a set to keep track of visited nodes. Add the startGene to the queue.</span><br><span class="line"></span><br><span class="line">BFS Loop:</span><br><span class="line"></span><br><span class="line">While the queue is not empty, remove the first gene from the queue.</span><br><span class="line">Check if this gene is the endGene. If yes, return the number of mutations (depth) required to reach this gene.</span><br><span class="line">Otherwise, iterate over each character in the gene. For each character, try changing it to the other three possible nucleotides (&#39;A&#39;, &#39;C&#39;, &#39;G&#39;, &#39;T&#39;).</span><br><span class="line">For each modified gene, check if it is in the bank and not yet visited.</span><br><span class="line">If so, add it to the queue and mark it as visited.</span><br><span class="line">Return -1: If the queue gets empty and the endGene is not found, return -1, indicating no possible mutation path.</span><br></pre></td></tr></table></figure>
+<p>Here’s a pseudo-code to illustrate this:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">pseudo</span><br><span class="line">function minGeneticMutation(startGene, endGene, bank):</span><br><span class="line">    if endGene not in bank:</span><br><span class="line">        return -1</span><br><span class="line"></span><br><span class="line">    bankSet &#x3D; set(bank)</span><br><span class="line">    visited &#x3D; set()</span><br><span class="line">    queue &#x3D; [(startGene, 0)]  # (current gene, mutation steps)</span><br><span class="line"></span><br><span class="line">    while queue is not empty:</span><br><span class="line">        currentGene, steps &#x3D; queue.pop(0)</span><br><span class="line">        </span><br><span class="line">        if currentGene &#x3D;&#x3D; endGene:</span><br><span class="line">            return steps</span><br><span class="line"></span><br><span class="line">        for i in 0 to length(currentGene) - 1:</span><br><span class="line">            for nucleotide in [&#39;A&#39;, &#39;C&#39;, &#39;G&#39;, &#39;T&#39;]:</span><br><span class="line">                if nucleotide !&#x3D; currentGene[i]:</span><br><span class="line">                    mutatedGene &#x3D; currentGene[:i] + nucleotide + currentGene[i+1:]</span><br><span class="line">                    if mutatedGene in bankSet and mutatedGene not in visited:</span><br><span class="line">                        queue.append((mutatedGene, steps + 1))</span><br><span class="line">                        visited.add(mutatedGene)</span><br><span class="line"></span><br><span class="line">    return -1</span><br></pre></td></tr></table></figure>
+<h3 id="Full-code"><a href="#Full-code" class="headerlink" title="Full code"></a>Full code</h3><p>Here is my code based on the pseudo code above, one thing I learnt is that we can use <code>substr</code> to split the string:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">minMutation</span><span class="params">(<span class="built_in">string</span> startGene, <span class="built_in">string</span> endGene, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; bank)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">vector</span> &lt;<span class="keyword">char</span>&gt; geneChar = &#123;<span class="string">&#x27;A&#x27;</span>,<span class="string">&#x27;C&#x27;</span>,<span class="string">&#x27;G&#x27;</span>,<span class="string">&#x27;T&#x27;</span>&#125;;</span><br><span class="line">        <span class="keyword">if</span>(find(bank.begin(), bank.end(), endGene) == bank.end())</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        <span class="built_in">set</span>&lt;<span class="built_in">string</span>&gt; bankSet;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; bank.size(); i++)</span><br><span class="line">            bankSet.insert(bank[i]);</span><br><span class="line">        <span class="built_in">set</span>&lt;<span class="built_in">string</span>&gt; visited;</span><br><span class="line">        <span class="built_in">queue</span> &lt;<span class="built_in">pair</span>&lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt;&gt; bankQ;</span><br><span class="line">        bankQ.push(&#123;startGene,<span class="number">0</span>&#125;);</span><br><span class="line">        <span class="keyword">while</span> (!bankQ.empty())&#123;</span><br><span class="line">            <span class="built_in">string</span> current = bankQ.front().first;</span><br><span class="line">            <span class="keyword">int</span> step = bankQ.front().second;</span><br><span class="line">            bankQ.pop();</span><br><span class="line">            <span class="keyword">if</span> (current == endGene)&#123;</span><br><span class="line">                <span class="keyword">return</span> step;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; current.size(); i++)&#123;</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">char</span> singleGene: geneChar)&#123;</span><br><span class="line">                    <span class="built_in">string</span> mutatedGene = current.substr(<span class="number">0</span>, i) + singleGene + current.substr(i + <span class="number">1</span>, current.size());</span><br><span class="line">                    <span class="keyword">if</span> (bankSet.find(mutatedGene)!= bankSet.end() &amp;&amp; visited.find(mutatedGene) == visited.end())&#123;</span><br><span class="line">                        bankQ.push(&#123;mutatedGene, step+<span class="number">1</span>&#125;);</span><br><span class="line">                        visited.insert(mutatedGene);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h1 id="Word-Ladder"><a href="#Word-Ladder" class="headerlink" title="Word Ladder"></a>Word Ladder</h1><p>A transformation sequence from word beginWord to word endWord using a dictionary wordList is a sequence of words beginWord -&gt; s1 -&gt; s2 -&gt; … -&gt; sk such that:</p>
+<p>Every adjacent pair of words differs by a single letter.<br>Every si for 1 &lt;= i &lt;= k is in wordList. Note that beginWord does not need to be in wordList.<br>sk == endWord<br>Given two words, beginWord and endWord, and a dictionary wordList, return the number of words in the shortest transformation sequence from beginWord to endWord, or 0 if no such sequence exists.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: beginWord &#x3D; &quot;hit&quot;, endWord &#x3D; &quot;cog&quot;, wordList &#x3D; [&quot;hot&quot;,&quot;dot&quot;,&quot;dog&quot;,&quot;lot&quot;,&quot;log&quot;,&quot;cog&quot;]</span><br><span class="line">Output: 5</span><br><span class="line">Explanation: One shortest transformation sequence is &quot;hit&quot; -&gt; &quot;hot&quot; -&gt; &quot;dot&quot; -&gt; &quot;dog&quot; -&gt; cog&quot;, which is 5 words long.</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: beginWord &#x3D; &quot;hit&quot;, endWord &#x3D; &quot;cog&quot;, wordList &#x3D; [&quot;hot&quot;,&quot;dot&quot;,&quot;dog&quot;,&quot;lot&quot;,&quot;log&quot;]</span><br><span class="line">Output: 0</span><br><span class="line">Explanation: The endWord &quot;cog&quot; is not in wordList, therefore there is no valid transformation sequence.</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">1 &lt;&#x3D; beginWord.length &lt;&#x3D; 10</span><br><span class="line">endWord.length &#x3D;&#x3D; beginWord.length</span><br><span class="line">1 &lt;&#x3D; wordList.length &lt;&#x3D; 5000</span><br><span class="line">wordList[i].length &#x3D;&#x3D; beginWord.length</span><br><span class="line">beginWord, endWord, and wordList[i] consist of lowercase English letters.</span><br><span class="line">beginWord !&#x3D; endWord</span><br><span class="line">All the words in wordList are unique.</span><br></pre></td></tr></table></figure>
+<h2 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h2><p>The main idea is similar to the previous one, which is to use BFS to find the shortest path. The only difference is that this time we need to find the words with only one word difference between the original one, whereas the previous one is to try to replace each character with the four characters.</p>
+<p>Here is my code:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">difference</span><span class="params">(<span class="built_in">string</span> current, <span class="built_in">string</span> word)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> diff = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; current.size(); i++)&#123;</span><br><span class="line">            <span class="keyword">if</span> (current[i] != word[i])</span><br><span class="line">                diff ++;</span><br><span class="line">            <span class="keyword">if</span> (diff &gt; <span class="number">1</span>)</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> diff;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">ladderLength</span><span class="params">(<span class="built_in">string</span> beginWord, <span class="built_in">string</span> endWord, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; wordList)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(find(wordList.begin(), wordList.end(), endWord) == wordList.end())</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">unordered_set</span>&lt;<span class="built_in">string</span>&gt; wordSet;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; wordList.size(); i++)</span><br><span class="line">            wordSet.insert(wordList[i]);</span><br><span class="line">        <span class="built_in">unordered_set</span>&lt;<span class="built_in">string</span>&gt; visited;</span><br><span class="line">        <span class="built_in">queue</span> &lt;<span class="built_in">pair</span>&lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt;&gt; wordQ;</span><br><span class="line">        wordQ.push(&#123;beginWord,<span class="number">1</span>&#125;);</span><br><span class="line">        <span class="keyword">while</span> (!wordQ.empty())&#123;</span><br><span class="line">            <span class="built_in">string</span> current = wordQ.front().first;</span><br><span class="line">            <span class="keyword">int</span> step = wordQ.front().second;</span><br><span class="line">            wordQ.pop();</span><br><span class="line">            <span class="keyword">if</span> (current == endWord)&#123;</span><br><span class="line">                <span class="keyword">return</span> step;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">for</span> (<span class="built_in">string</span> word: wordSet)&#123;</span><br><span class="line">                <span class="keyword">if</span> (difference(current, word) == <span class="number">1</span> &amp;&amp; visited.find(word) == visited.end())&#123;</span><br><span class="line">                    wordQ.push(&#123;word,step+<span class="number">1</span>&#125;);</span><br><span class="line">                    visited.insert(word);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        Share
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2023/11/12/Leetcode1112/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Breadth-First-Search/" rel="tag">Breadth-First Search</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hash-Table/" rel="tag">Hash Table</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/String/" rel="tag">String</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+    
+      <a href="/2023/11/11/Leetcode1111-2/" class="article-nav-link">
+        <strong class="article-nav-caption">Next Article</strong>
+        <div class="article-nav-title">Leetcode Study Day 45</div>
+      </a>
+    
+  </nav>
+
+  
+   
+  
+    
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2020-2023
+        <i class="ri-heart-fill heart_icon"></i> Yangyang Cui
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="Yangyang"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">Home</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">archives</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">categories</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">tags</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+
+</html>
