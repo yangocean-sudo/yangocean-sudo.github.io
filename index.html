@@ -131,6 +131,203 @@
     
     
     <article
+  id="post-Leetcode1114-2"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2023/11/14/Leetcode1114-2/"
+    >Leetcode Study Day 48</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/11/14/Leetcode1114-2/" class="article-date">
+  <time datetime="2023-11-14T22:39:34.000Z" itemprop="datePublished">2023-11-14</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
+  </div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Word-Search-II"><a href="#Word-Search-II" class="headerlink" title="Word Search II"></a>Word Search II</h1><p>Given an m x n board of characters and a list of strings words, return all words on the board.</p>
+<p>Each word must be constructed from letters of sequentially adjacent cells, where adjacent cells are horizontally or vertically neighboring. The same letter cell may not be used more than once in a word.</p>
+<p><img src="https://assets.leetcode.com/uploads/2020/11/07/search1.jpg"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Input: board &#x3D; [[&quot;o&quot;,&quot;a&quot;,&quot;a&quot;,&quot;n&quot;],[&quot;e&quot;,&quot;t&quot;,&quot;a&quot;,&quot;e&quot;],[&quot;i&quot;,&quot;h&quot;,&quot;k&quot;,&quot;r&quot;],[&quot;i&quot;,&quot;f&quot;,&quot;l&quot;,&quot;v&quot;]], words &#x3D; [&quot;oath&quot;,&quot;pea&quot;,&quot;eat&quot;,&quot;rain&quot;]</span><br><span class="line">Output: [&quot;eat&quot;,&quot;oath&quot;]</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Input: board &#x3D; [[&quot;a&quot;,&quot;b&quot;],[&quot;c&quot;,&quot;d&quot;]], words &#x3D; [&quot;abcb&quot;]</span><br><span class="line">Output: []</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">m &#x3D;&#x3D; board.length</span><br><span class="line">n &#x3D;&#x3D; board[i].length</span><br><span class="line">1 &lt;&#x3D; m, n &lt;&#x3D; 12</span><br><span class="line">board[i][j] is a lowercase English letter.</span><br><span class="line">1 &lt;&#x3D; words.length &lt;&#x3D; 3 * 104</span><br><span class="line">1 &lt;&#x3D; words[i].length &lt;&#x3D; 10</span><br><span class="line">words[i] consists of lowercase English letters.</span><br><span class="line">All the strings of words are unique.</span><br></pre></td></tr></table></figure>
+<p><img src="https://assets.leetcode.com/uploads/2020/11/07/search2.jpg"></p>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>This question is like a combination of island question and prefix tree. Let’s explain the code line by line:</p>
+<p>This C++ code defines a class <code>Solution</code> that implements a solution to the “Word Search II” problem using a Trie data structure and Depth-First Search (DFS). The problem involves finding all words from a given list that can be formed by sequentially adjacent letters on a board.</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">TrieNode</span> &#123;</span></span><br><span class="line">    TrieNode *children[<span class="number">26</span>];</span><br><span class="line">    <span class="built_in">string</span> word;</span><br><span class="line"></span><br><span class="line">    TrieNode() : word(<span class="string">&quot;&quot;</span>) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">26</span>; i++) &#123;</span><br><span class="line">            children[i] = <span class="literal">nullptr</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>This is a definition of a <code>TrieNode</code> structure. Each node has 26 children (one for each letter of the alphabet) and a string <code>word</code>. The constructor initializes <code>word</code> to an empty string and all children pointers to <code>nullptr</code>.</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; <span class="title">findWords</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&gt; &amp;board, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; &amp;words)</span> </span>&#123;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>This function, <code>findWords</code>, is the main function of the class. It takes a 2D character vector <code>board</code> and a vector of strings <code>words</code> as input.</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TrieNode *root = buildTrie(words);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Here, a Trie is built from the list of words using the <code>buildTrie</code> function.</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; result;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>This line initializes a vector <code>result</code> to store the words found on the board.</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; board.size(); i++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; board[<span class="number">0</span>].size(); j++) &#123;</span><br><span class="line">        dfs(board, i, j, root, result);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>These lines iterate over each cell of the board and call the <code>dfs</code> (Depth-First Search) function for each cell.</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Returns the vector <code>result</code> containing all the words found on the board.</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">TrieNode *<span class="title">buildTrie</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; &amp;words)</span> </span>&#123;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>This function, <code>buildTrie</code>, creates a Trie from the given list of words.</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TrieNode *root = <span class="keyword">new</span> TrieNode();</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Creates a new TrieNode that will serve as the root of the Trie.</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; words.size(); j++) &#123;</span><br><span class="line">    <span class="built_in">string</span> word = words[j];</span><br><span class="line">    TrieNode *curr = root;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; word.length(); i++) &#123;</span><br><span class="line">        <span class="keyword">char</span> c = word[i] - <span class="string">&#x27;a&#x27;</span>;</span><br><span class="line">        <span class="keyword">if</span> (curr-&gt;children[c] == <span class="literal">nullptr</span>) &#123;</span><br><span class="line">            curr-&gt;children[c] = <span class="keyword">new</span> TrieNode();</span><br><span class="line">        &#125;</span><br><span class="line">        curr = curr-&gt;children[c];</span><br><span class="line">    &#125;</span><br><span class="line">    curr-&gt;word = word;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>This loop inserts each word into the Trie. For each character in a word, it checks if the corresponding child node exists; if not, it creates a new node. After inserting all characters of a word, it sets the <code>word</code> field of the last node.</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">    <span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Returns the root of the Trie.</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&gt; &amp;board, <span class="keyword">int</span> i, <span class="keyword">int</span> j, TrieNode *p, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; &amp;result)</span> </span>&#123;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>This function, <code>dfs</code>, performs a depth-first search on the board starting from the cell <code>(i, j)</code>.</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> c = board[i][j];</span><br><span class="line"><span class="keyword">if</span> (c == <span class="string">&#x27;#&#x27;</span> || !p-&gt;children[c - <span class="string">&#x27;a&#x27;</span>]) <span class="keyword">return</span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>This checks if the current cell is already visited (marked as ‘#’) or if there is no child in the Trie corresponding to the current character. If either is true, it returns immediately.</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">p = p-&gt;children[c - <span class="string">&#x27;a&#x27;</span>];</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Moves to the child node corresponding to the current character.</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (p-&gt;word.size() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    result.push_back(p-&gt;word);</span><br><span class="line">    p-&gt;word = <span class="string">&quot;&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>If the current Trie node has a word (i.e., we have found a word), it adds the word to the result and clears the word in the Trie node to avoid duplicates.</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">board[i][j] = <span class="string">&#x27;#&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Marks the current cell as visited.</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (i &gt; <span class="number">0</span>) dfs(board, i - <span class="number">1</span>, j, p, result);</span><br><span class="line"><span class="keyword">if</span> (j &gt; <span class="number">0</span>) dfs(board, i, j - <span class="number">1</span>, p, result);</span><br><span class="line"><span class="keyword">if</span> (i &lt; board.size() - <span class="number">1</span>) dfs(board, i + <span class="number">1</span>, j, p, result);</span><br><span class="line"><span class="keyword">if</span> (j &lt; board[<span class="number">0</span>].size() - <span class="number">1</span>) dfs(board, i, j + <span class="number">1</span>, p, result);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>These lines recursively call <code>dfs</code> for all four adjacent cells (up, left, down, right), if they are within the bounds of the board.</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">    board[i][j] = c;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Restores the current cell’s original character (unmarking it as visited).</li>
+</ul>
+<p>This code efficiently searches for words on a board using Trie and DFS, which is a great demonstration of your understanding of advanced data structures and algorithms. </p>
+<h2 id="How-Word-stored-in-Trie"><a href="#How-Word-stored-in-Trie" class="headerlink" title="How Word stored in Trie"></a>How Word stored in Trie</h2><p>In the given implementation of the Trie (prefix tree), the complete word is stored in the last node of its corresponding path. Here’s how it works:</p>
+<ol>
+<li><p><strong>Trie Structure</strong>: Each node in the Trie represents a single character. The root node typically represents an empty string, and each path from the root to a node represents a prefix of some word.</p>
+</li>
+<li><p><strong>Storing Words</strong>: As you insert a word into the Trie, you create a path where each character of the word corresponds to a node. When you reach the end of the word, you store the entire word at the last node in this path.</p>
+</li>
+<li><p><strong>Why Store the Whole Word</strong>: Storing the entire word at the last node is particularly useful for applications like the word search problem. When you traverse the Trie during the search, reaching a node with a non-empty <code>word</code> field immediately tells you that you’ve found a valid word. This approach eliminates the need to reconstruct the word from the path you’ve traversed.</p>
+</li>
+<li><p><strong>Example</strong>: Suppose you insert the word “cat” into an empty Trie. You’ll create nodes for ‘c’, ‘a’, and ‘t’. At the ‘t’ node, you’ll store the entire word “cat”. If you later insert “car”, you’ll add an ‘r’ node after the ‘a’ node (which is shared with “cat”), and store “car” at the ‘r’ node.</p>
+</li>
+</ol>
+<p>This method is efficient for word search problems because it allows for quick and direct identification of complete words during the traversal of the Trie.</p>
+<h2 id="Full-code"><a href="#Full-code" class="headerlink" title="Full code"></a>Full code</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">TrieNode</span> &#123;</span></span><br><span class="line">        TrieNode *children[<span class="number">26</span>];</span><br><span class="line">        <span class="built_in">string</span> word;</span><br><span class="line"></span><br><span class="line">        TrieNode() : word(<span class="string">&quot;&quot;</span>) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">26</span>; i++) &#123;</span><br><span class="line">                children[i] = <span class="literal">nullptr</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; <span class="title">findWords</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&gt; &amp;board, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; &amp;words)</span> </span>&#123;</span><br><span class="line">        TrieNode *root = buildTrie(words);</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; result;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; board.size(); i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; board[<span class="number">0</span>].size(); j++) &#123;</span><br><span class="line">                dfs(board, i, j, root, result);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** Inserts a word into the trie. */</span></span><br><span class="line">    <span class="function">TrieNode *<span class="title">buildTrie</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; &amp;words)</span> </span>&#123;</span><br><span class="line">        TrieNode *root = <span class="keyword">new</span> TrieNode();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; words.size(); j++) &#123;</span><br><span class="line">            <span class="built_in">string</span> word = words[j];</span><br><span class="line">            TrieNode *curr = root;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; word.length(); i++) &#123;</span><br><span class="line">                <span class="keyword">char</span> c = word[i] - <span class="string">&#x27;a&#x27;</span>;</span><br><span class="line">                <span class="keyword">if</span> (curr-&gt;children[c] == <span class="literal">nullptr</span>) &#123;</span><br><span class="line">                    curr-&gt;children[c] = <span class="keyword">new</span> TrieNode();</span><br><span class="line">                &#125;</span><br><span class="line">                curr = curr-&gt;children[c];</span><br><span class="line">            &#125;</span><br><span class="line">            curr-&gt;word = word;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&gt; &amp;board, <span class="keyword">int</span> i, <span class="keyword">int</span> j, TrieNode *p, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; &amp;result)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">char</span> c = board[i][j];</span><br><span class="line">        <span class="keyword">if</span> (c == <span class="string">&#x27;#&#x27;</span> || !p-&gt;children[c - <span class="string">&#x27;a&#x27;</span>]) <span class="keyword">return</span>;</span><br><span class="line">        p = p-&gt;children[c - <span class="string">&#x27;a&#x27;</span>];</span><br><span class="line">        <span class="keyword">if</span> (p-&gt;word.size() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            result.push_back(p-&gt;word);</span><br><span class="line">            p-&gt;word = <span class="string">&quot;&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        board[i][j] = <span class="string">&#x27;#&#x27;</span>;</span><br><span class="line">        <span class="keyword">if</span> (i &gt; <span class="number">0</span>) dfs(board, i - <span class="number">1</span>, j, p, result);</span><br><span class="line">        <span class="keyword">if</span> (j &gt; <span class="number">0</span>) dfs(board, i, j - <span class="number">1</span>, p, result);</span><br><span class="line">        <span class="keyword">if</span> (i &lt; board.size() - <span class="number">1</span>) dfs(board, i + <span class="number">1</span>, j, p, result);</span><br><span class="line">        <span class="keyword">if</span> (j &lt; board[<span class="number">0</span>].size() - <span class="number">1</span>) dfs(board, i, j + <span class="number">1</span>, p, result);</span><br><span class="line">        board[i][j] = c;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
+  id="post-Leetcode1114"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2023/11/14/Leetcode1114/"
+    >Leetcode Study Day 48</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/11/14/Leetcode1114/" class="article-date">
+  <time datetime="2023-11-14T22:18:53.000Z" itemprop="datePublished">2023-11-14</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
+  </div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Letter-Combinations-of-a-Phone-Number"><a href="#Letter-Combinations-of-a-Phone-Number" class="headerlink" title="Letter Combinations of a Phone Number"></a>Letter Combinations of a Phone Number</h1><p>Given a string containing digits from 2-9 inclusive, return all possible letter combinations that the number could represent. Return the answer in any order.</p>
+<p>A mapping of digits to letters (just like on the telephone buttons) is given below. Note that 1 does not map to any letters.</p>
+<p><img src="https://assets.leetcode.com/uploads/2022/03/15/1200px-telephone-keypad2svg.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: digits &#x3D; &quot;23&quot;</span><br><span class="line">Output: [&quot;ad&quot;,&quot;ae&quot;,&quot;af&quot;,&quot;bd&quot;,&quot;be&quot;,&quot;bf&quot;,&quot;cd&quot;,&quot;ce&quot;,&quot;cf&quot;]</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: digits &#x3D; &quot;&quot;</span><br><span class="line">Output: []</span><br><span class="line">Example 3:</span><br><span class="line"></span><br><span class="line">Input: digits &#x3D; &quot;2&quot;</span><br><span class="line">Output: [&quot;a&quot;,&quot;b&quot;,&quot;c&quot;]</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">0 &lt;&#x3D; digits.length &lt;&#x3D; 4</span><br><span class="line">digits[i] is a digit in the range [&#39;2&#39;, &#39;9&#39;].</span><br></pre></td></tr></table></figure>
+<h2 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h2><p>My solution is to use a recursive function with index as the parameter. When the index is equal to the length of the digits, we append the current string to the result. Otherwise, we loop through the letters of the current digit and call the recursive function with the next index.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; ans;</span><br><span class="line">    <span class="built_in">unordered_map</span> &lt;<span class="keyword">char</span>, <span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&gt; numLetter;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">recursion</span><span class="params">(<span class="built_in">string</span> current, <span class="keyword">int</span> index, <span class="built_in">string</span> digits)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (index == digits.size())&#123;</span><br><span class="line">            ans.push_back(current);</span><br><span class="line">            <span class="keyword">return</span>;          </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i&lt; numLetter[digits[index]].size(); i++)&#123;</span><br><span class="line">                current += numLetter[digits[index]][i];</span><br><span class="line">                recursion(current, index+<span class="number">1</span>, digits);</span><br><span class="line">                current.pop_back();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; <span class="title">letterCombinations</span><span class="params">(<span class="built_in">string</span> digits)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (digits == <span class="string">&quot;&quot;</span>) <span class="keyword">return</span> ans;</span><br><span class="line">        <span class="built_in">string</span> current = <span class="string">&quot;&quot;</span>;</span><br><span class="line">        numLetter[<span class="string">&#x27;2&#x27;</span>] = &#123;<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>&#125;;</span><br><span class="line">        numLetter[<span class="string">&#x27;3&#x27;</span>] = &#123;<span class="string">&#x27;d&#x27;</span>, <span class="string">&#x27;e&#x27;</span>, <span class="string">&#x27;f&#x27;</span>&#125;;</span><br><span class="line">        numLetter[<span class="string">&#x27;4&#x27;</span>] = &#123;<span class="string">&#x27;g&#x27;</span>, <span class="string">&#x27;h&#x27;</span>, <span class="string">&#x27;i&#x27;</span>&#125;;</span><br><span class="line">        numLetter[<span class="string">&#x27;5&#x27;</span>] = &#123;<span class="string">&#x27;j&#x27;</span>, <span class="string">&#x27;k&#x27;</span>, <span class="string">&#x27;l&#x27;</span>&#125;;</span><br><span class="line">        numLetter[<span class="string">&#x27;6&#x27;</span>] = &#123;<span class="string">&#x27;m&#x27;</span>, <span class="string">&#x27;n&#x27;</span>, <span class="string">&#x27;o&#x27;</span>&#125;;</span><br><span class="line">        numLetter[<span class="string">&#x27;7&#x27;</span>] = &#123;<span class="string">&#x27;p&#x27;</span>, <span class="string">&#x27;q&#x27;</span>, <span class="string">&#x27;r&#x27;</span>,<span class="string">&#x27;s&#x27;</span>&#125;;</span><br><span class="line">        numLetter[<span class="string">&#x27;8&#x27;</span>] = &#123;<span class="string">&#x27;t&#x27;</span>, <span class="string">&#x27;u&#x27;</span>, <span class="string">&#x27;v&#x27;</span>&#125;;</span><br><span class="line">        numLetter[<span class="string">&#x27;9&#x27;</span>] = &#123;<span class="string">&#x27;w&#x27;</span>, <span class="string">&#x27;x&#x27;</span>, <span class="string">&#x27;y&#x27;</span>, <span class="string">&#x27;z&#x27;</span>&#125;;</span><br><span class="line">        recursion(current, <span class="number">0</span>, digits);</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Backtracking/" rel="tag">Backtracking</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hash-Table/" rel="tag">Hash Table</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/String/" rel="tag">String</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
   id="post-Leetcode1113"
   class="article article-type-post"
   itemscope
@@ -210,7 +407,7 @@
        
 <h2 itemprop="name">
   <a class="article-title" href="/2023/11/12/Leetcode1112/"
-    >LLeetcode Study Day 46</a> 
+    >Leetcode Study Day 46</a> 
 </h2>
  
 
@@ -665,124 +862,6 @@
     <footer class="article-footer">
        
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Breadth-First-Search/" rel="tag">Breadth-First Search</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Depth-First-Search/" rel="tag">Depth-First Search</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Matrix/" rel="tag">Matrix</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Union-Find/" rel="tag">Union Find</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-Leetcode1108-2"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2023/11/08/Leetcode1108-2/"
-    >Leetcode Study Day 42</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2023/11/08/Leetcode1108-2/" class="article-date">
-  <time datetime="2023-11-08T09:43:57.000Z" itemprop="datePublished">2023-11-08</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
-  </div>
- 
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h1 id="Number-of-Islands"><a href="#Number-of-Islands" class="headerlink" title="Number of Islands"></a>Number of Islands</h1><p>Given an m x n 2D binary grid grid which represents a map of ‘1’s (land) and ‘0’s (water), return the number of islands.</p>
-<p>An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: grid &#x3D; [</span><br><span class="line">  [&quot;1&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;,&quot;0&quot;],</span><br><span class="line">  [&quot;1&quot;,&quot;1&quot;,&quot;0&quot;,&quot;1&quot;,&quot;0&quot;],</span><br><span class="line">  [&quot;1&quot;,&quot;1&quot;,&quot;0&quot;,&quot;0&quot;,&quot;0&quot;],</span><br><span class="line">  [&quot;0&quot;,&quot;0&quot;,&quot;0&quot;,&quot;0&quot;,&quot;0&quot;]</span><br><span class="line">]</span><br><span class="line">Output: 1</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: grid &#x3D; [</span><br><span class="line">  [&quot;1&quot;,&quot;1&quot;,&quot;0&quot;,&quot;0&quot;,&quot;0&quot;],</span><br><span class="line">  [&quot;1&quot;,&quot;1&quot;,&quot;0&quot;,&quot;0&quot;,&quot;0&quot;],</span><br><span class="line">  [&quot;0&quot;,&quot;0&quot;,&quot;1&quot;,&quot;0&quot;,&quot;0&quot;],</span><br><span class="line">  [&quot;0&quot;,&quot;0&quot;,&quot;0&quot;,&quot;1&quot;,&quot;1&quot;]</span><br><span class="line">]</span><br><span class="line">Output: 3</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">m &#x3D;&#x3D; grid.length</span><br><span class="line">n &#x3D;&#x3D; grid[i].length</span><br><span class="line">1 &lt;&#x3D; m, n &lt;&#x3D; 300</span><br><span class="line">grid[i][j] is &#39;0&#39; or &#39;1&#39;.</span><br></pre></td></tr></table></figure>
-<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>I saw a wonderful <a target="_blank" rel="noopener" href="https://leetcode.com/problems/number-of-islands/solutions/56340/python-simple-dfs-solution/?envType=study-plan-v2&envId=top-interview-150">solution</a> using DFS to solve this question in python. I convert it into C++ version.</p>
-<p>In this code, we frist iterate the grid from the top left corner to the bottom right corner. If we find a ‘1’, we use dfs to find all the adjacent ‘1’ and change them into ‘#’. Then we increase the count by 1. Finally, we return the count.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&gt;&amp; grid, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (i &lt; <span class="number">0</span> || j &lt;<span class="number">0</span> || i &gt;= grid.size() || j &gt;= grid[<span class="number">0</span>].size() || grid[i][j]!= <span class="string">&#x27;1&#x27;</span>)</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        grid[i][j] = <span class="string">&#x27;#&#x27;</span>;</span><br><span class="line">        dfs(grid, i+<span class="number">1</span>, j);</span><br><span class="line">        dfs(grid, i<span class="number">-1</span>, j);</span><br><span class="line">        dfs(grid, i, j+<span class="number">1</span>);</span><br><span class="line">        dfs(grid, i, j<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">numIslands</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&gt;&amp; grid)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (grid.empty())</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; grid.size(); i ++)&#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; grid[<span class="number">0</span>].size(); j++)&#123;</span><br><span class="line">                <span class="keyword">if</span> (grid[i][j] == <span class="string">&#x27;1&#x27;</span>)&#123;</span><br><span class="line">                    dfs(grid, i, j);</span><br><span class="line">                    count ++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Breadth-First-Search/" rel="tag">Breadth-First Search</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Depth-First-Search/" rel="tag">Depth-First Search</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Matrix/" rel="tag">Matrix</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Union-Find/" rel="tag">Union Find</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-Leetcode1108"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2023/11/08/Leetcode1108/"
-    >Leetcode Study Day 42</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2023/11/08/Leetcode1108/" class="article-date">
-  <time datetime="2023-11-08T09:29:13.000Z" itemprop="datePublished">2023-11-08</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
-  </div>
- 
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h1 id="Validate-Binary-Search-Tree"><a href="#Validate-Binary-Search-Tree" class="headerlink" title="Validate Binary Search Tree"></a>Validate Binary Search Tree</h1><p>Given the root of a binary tree, determine if it is a valid binary search tree (BST).</p>
-<p>A valid BST is defined as follows:</p>
-<p>The left<br>subtree<br> of a node contains only nodes with keys less than the node’s key.<br>The right subtree of a node contains only nodes with keys greater than the node’s key.<br>Both the left and right subtrees must also be binary search trees.</p>
-<p><img src="https://assets.leetcode.com/uploads/2020/12/01/tree1.jpg"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Input: root &#x3D; [2,1,3]</span><br><span class="line">Output: true</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Input: root &#x3D; [5,1,4,null,null,3,6]</span><br><span class="line">Output: false</span><br><span class="line">Explanation: The root node&#39;s value is 5 but its right child&#39;s value is 4.</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">The number of nodes in the tree is in the range [1, 104].</span><br><span class="line">-231 &lt;&#x3D; Node.val &lt;&#x3D; 231 - 1</span><br></pre></td></tr></table></figure>
-<p><img src="https://assets.leetcode.com/uploads/2020/12/01/tree2.jpg"></p>
-<h2 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h2><p>My solution is initialise a NodeTree variable called prev. Then we use in-order traverse to traverse the tree. If the previous node value is larger or equal to the current node value, then we return false. Otherwise, we return true.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    TreeNode* prev = <span class="literal">nullptr</span>;</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isValidBST</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!root) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">if</span> (!isValidBST(root -&gt; left)) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">if</span> (prev != <span class="literal">nullptr</span> &amp;&amp; prev -&gt; val &gt;= root -&gt; val)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        prev = root;</span><br><span class="line">        <span class="keyword">return</span> (isValidBST(root -&gt; right));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Binary-Search-Tree/" rel="tag">Binary Search Tree</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Binary-Tree/" rel="tag">Binary Tree</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Breadth-First-Search/" rel="tag">Breadth-First Search</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Depth-First-Search/" rel="tag">Depth-First Search</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tree/" rel="tag">Tree</a></li></ul>
 
     </footer>
   </div>
