@@ -131,6 +131,60 @@
     
     
     <article
+  id="post-application"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2023/06/24/application/"
+    >从零开始打造微信打卡小程序</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/06/24/application/" class="article-date">
+  <time datetime="2023-06-24T10:09:17.000Z" itemprop="datePublished">2023-06-24</time>
+</a>  
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="微信小程序日历组件下载"><a href="#微信小程序日历组件下载" class="headerlink" title="微信小程序日历组件下载"></a>微信小程序日历组件下载</h1><p>网上找了许多关于打卡的微信小程序代码，感觉<a target="_blank" rel="noopener" href="https://github.com/mehaotian/wx-calendar">mehaotian</a>的这段代码最容易理解，于是就想着在此之上改进。</p>
+<h1 id="打卡小程序预计架构"><a href="#打卡小程序预计架构" class="headerlink" title="打卡小程序预计架构"></a>打卡小程序预计架构</h1><p>制作这个小程序的初衷是因为想要有个打卡app来记录每天做了什么事情，等时间一长看有几天做了这个事情会很有成就感。但我微信一搜感觉市面上的打卡app实在是过于冗余，我就想着能不能自己做个简洁的版本，这也是我第一次实实在在接触前端的东西，希望可以在这个项目中学习到前端的知识。这是基本的操作图：<br><img src="https://s2.loli.net/2023/06/29/WSKVxY5n1LuQtOM.png" alt="UML class.png"></p>
+<h1 id="最基本的打卡功能"><a href="#最基本的打卡功能" class="headerlink" title="最基本的打卡功能"></a>最基本的打卡功能</h1><p>我在原有的日历上增加了打卡按钮，现在界面是这样的：<br><img src="https://s2.loli.net/2023/06/29/nIgSGpQe5r3w9xi.png" alt="Screenshot 2023-06-29 at 19.59.30.png"><br>按下”打卡“按键后，会在当天打一个卡，并且不能重复打两次。源代码已经有了一个名为Slecetd的array，在这个array中的日期会在数字下有个红点，而我写了一个clockIn的方程使今天的日期加入到这个列表中。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">clockIn</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.getWeek(<span class="keyword">new</span> <span class="built_in">Date</span>());</span><br><span class="line">    <span class="keyword">let</span> selected = <span class="built_in">this</span>.data.selected;</span><br><span class="line">    <span class="keyword">let</span> canlender = <span class="built_in">this</span>.data.canlender;</span><br><span class="line">    <span class="keyword">let</span> &#123; date, month, year &#125; = canlender;</span><br><span class="line">    <span class="keyword">let</span> addingDate = &#123; <span class="attr">date</span>: year + <span class="string">&quot;-&quot;</span> + month + <span class="string">&quot;-&quot;</span> + date &#125;;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">this</span>.hasDuplicate(selected,addingDate))&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&quot;You can&#x27;t add the same day twice!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        selected.push(addingDate);</span><br><span class="line">        <span class="built_in">this</span>.setData(&#123;</span><br><span class="line">        selected: selected</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="built_in">console</span>.log(selected);</span><br><span class="line">    &#125;</span><br><span class="line">    &#125;,</span><br></pre></td></tr></table></figure>
+<h1 id="每日只能打一次卡"><a href="#每日只能打一次卡" class="headerlink" title="每日只能打一次卡"></a>每日只能打一次卡</h1><p>30/06/2023<br>移除了原本的“确定”按钮，该按钮的功能是折叠日历，但因为我们本质上就是一个打卡软件，所以就移除了这个功能。<br>“打卡”按钮改成了如果今天已经打卡过，则按钮会变灰，而且会显示“今天已经打过卡啦”。<br><img src="https://s2.loli.net/2023/06/30/QPeTFvjthcAOqU8.png" alt="Screenshot 2023-06-30 at 15.19.24.png"></p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
   id="post-Distributed-System"
   class="article article-type-post"
   itemscope
@@ -620,63 +674,6 @@
        
   <p>本篇讲述了在游戏开始时的角色是如何生成的，以及基地爆炸动画的触发和设置</p> 
       <a class="article-more-link" href="/2021/03/23/Unity%E5%85%A5%E9%97%A8%E7%AC%AC%E4%BA%94%E5%A4%A9%EF%BC%9A%E7%8E%A9%E5%AE%B6%E4%B8%8E%E6%95%8C%E4%BA%BA%E7%9A%84%E7%94%9F%E6%88%90%EF%BC%8C%E5%9F%BA%E5%9C%B0%E7%88%86%E7%82%B8/"
-        >Read More...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Unity/" rel="tag">Unity</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-Unity入门第四天：子弹接触物体的反应I"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2021/03/22/Unity%E5%85%A5%E9%97%A8%E7%AC%AC%E5%9B%9B%E5%A4%A9%EF%BC%9A%E5%AD%90%E5%BC%B9%E6%8E%A5%E8%A7%A6%E7%89%A9%E4%BD%93%E7%9A%84%E5%8F%8D%E5%BA%94I/"
-    >Unity入门第四天：子弹接触物体的反应</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2021/03/22/Unity%E5%85%A5%E9%97%A8%E7%AC%AC%E5%9B%9B%E5%A4%A9%EF%BC%9A%E5%AD%90%E5%BC%B9%E6%8E%A5%E8%A7%A6%E7%89%A9%E4%BD%93%E7%9A%84%E5%8F%8D%E5%BA%94I/" class="article-date">
-  <time datetime="2021-03-22T20:54:54.000Z" itemprop="datePublished">2021-03-22</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Coding/">Coding</a>
-  </div>
- 
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>本篇讲述了当子弹遇到玩家，基地，砖墙和铁墙时的不同情况。</p> 
-      <a class="article-more-link" href="/2021/03/22/Unity%E5%85%A5%E9%97%A8%E7%AC%AC%E5%9B%9B%E5%A4%A9%EF%BC%9A%E5%AD%90%E5%BC%B9%E6%8E%A5%E8%A7%A6%E7%89%A9%E4%BD%93%E7%9A%84%E5%8F%8D%E5%BA%94I/"
         >Read More...</a
       >
        

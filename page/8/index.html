@@ -131,6 +131,80 @@
     
     
     <article
+  id="post-Leetcode0929-2"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2023/09/29/Leetcode0929-2/"
+    >Leetcode Study Day 11</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/09/29/Leetcode0929-2/" class="article-date">
+  <time datetime="2023-09-29T21:03:12.000Z" itemprop="datePublished">2023-09-29</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
+  </div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Zigzag-Conversion"><a href="#Zigzag-Conversion" class="headerlink" title="Zigzag Conversion"></a>Zigzag Conversion</h1><p>The string “PAYPALISHIRING” is written in a zigzag pattern on a given number of rows like this: (you may want to display this pattern in a fixed font for better legibility)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">P   A   H   N</span><br><span class="line">A P L S I I G</span><br><span class="line">Y   I   R</span><br></pre></td></tr></table></figure>
+<p>And then read line by line: “PAHNAPLSIIGYIR”</p>
+<p>Write the code that will take a string and make this conversion given a number of rows:</p>
+<p>string convert(string s, int numRows);</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: s &#x3D; &quot;PAYPALISHIRING&quot;, numRows &#x3D; 3</span><br><span class="line">Output: &quot;PAHNAPLSIIGYIR&quot;</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: s &#x3D; &quot;PAYPALISHIRING&quot;, numRows &#x3D; 4</span><br><span class="line">Output: &quot;PINALSIGYAHRPI&quot;</span><br><span class="line">Explanation:</span><br><span class="line">P     I    N</span><br><span class="line">A   L S  I G</span><br><span class="line">Y A   H R</span><br><span class="line">P     I</span><br><span class="line">Example 3:</span><br><span class="line"></span><br><span class="line">Input: s &#x3D; &quot;A&quot;, numRows &#x3D; 1</span><br><span class="line">Output: &quot;A&quot;</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">1 &lt;&#x3D; s.length &lt;&#x3D; 1000</span><br><span class="line">s consists of English letters (lower-case and upper-case), &#39;,&#39; and &#39;.&#39;.</span><br><span class="line">1 &lt;&#x3D; numRows &lt;&#x3D; 1000</span><br></pre></td></tr></table></figure>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>I asked chatGPT for help and it shows me the pseudo code and the idea:</p>
+<p>Let’s first understand the pattern of the zigzag.</p>
+<p>For <code>numRows = 3</code>, the sequence of rows for the characters is: <code>0, 1, 2, 1, 0, 1, 2, 1, 0...</code></p>
+<p>For <code>numRows = 4</code>, the sequence is: <code>0, 1, 2, 3, 2, 1, 0, 1, 2, 3, 2, 1, 0...</code></p>
+<p>So, the pattern is basically to increment the row number from 0 to <code>numRows - 1</code>, then decrement it back to 0, and repeat.</p>
+<p>Given this understanding, you can approach this problem using the following steps:</p>
+<ol>
+<li>Initialize an array of strings <code>rows</code> of size <code>numRows</code>.</li>
+<li>Iterate through each character of the input string <code>s</code>.</li>
+<li>For each character, determine its row in the zigzag pattern and append it to the corresponding row’s string in the <code>rows</code> array.</li>
+<li>Finally, concatenate all the rows to get the final result.</li>
+</ol>
+<p>Here’s the pseudocode:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">function convert(s, numRows):</span><br><span class="line">    if numRows &#x3D;&#x3D; 1:</span><br><span class="line">        return s</span><br><span class="line"></span><br><span class="line">    rows &#x3D; array of empty strings of size numRows</span><br><span class="line">    currentRow &#x3D; 0</span><br><span class="line">    direction &#x3D; -1  &#x2F;&#x2F; -1 for moving up, 1 for moving down</span><br><span class="line"></span><br><span class="line">    for each character c in s:</span><br><span class="line">        rows[currentRow] +&#x3D; c</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; Change direction if we&#39;re at the top or bottom</span><br><span class="line">        if currentRow &#x3D;&#x3D; 0 or currentRow &#x3D;&#x3D; numRows - 1:</span><br><span class="line">            direction *&#x3D; -1</span><br><span class="line"></span><br><span class="line">        currentRow +&#x3D; direction</span><br><span class="line"></span><br><span class="line">    result &#x3D; concatenate all strings in rows</span><br><span class="line">    return result</span><br></pre></td></tr></table></figure>
+<p>Here’s the corresponding C++ code:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">convert</span><span class="params">(<span class="built_in">string</span> s, <span class="keyword">int</span> numRows)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (numRows == <span class="number">1</span>) <span class="keyword">return</span> s;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; <span class="title">rows</span><span class="params">(min(numRows, <span class="keyword">int</span>(s.size())))</span></span>;</span><br><span class="line">    <span class="keyword">int</span> currentRow = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> direction = <span class="number">-1</span>;  <span class="comment">// -1 for moving up, 1 for moving down</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">char</span> c : s) &#123;</span><br><span class="line">        rows[currentRow] += c;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (currentRow == <span class="number">0</span> || currentRow == numRows - <span class="number">1</span>) &#123;</span><br><span class="line">            direction *= <span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        currentRow += direction;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">string</span> result;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">string</span> row : rows) &#123;</span><br><span class="line">        result += row;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/String/" rel="tag">String</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
   id="post-Leetcode0929"
   class="article article-type-post"
   itemscope
@@ -745,69 +819,6 @@
     <footer class="article-footer">
        
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Design/" rel="tag">Design</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hash-Table/" rel="tag">Hash Table</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Math/" rel="tag">Math</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Randomized/" rel="tag">Randomized</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-Leetcode0924"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2023/09/24/Leetcode0924/"
-    >Leetcode Study Day 7</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2023/09/24/Leetcode0924/" class="article-date">
-  <time datetime="2023-09-24T12:10:39.000Z" itemprop="datePublished">2023-09-24</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
-  </div>
- 
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h1 id="H-Index"><a href="#H-Index" class="headerlink" title="H-Index"></a>H-Index</h1><p>Given an array of integers citations where citations[i] is the number of citations a researcher received for their ith paper, return the researcher’s h-index.</p>
-<p>According to the definition of h-index on Wikipedia: The h-index is defined as the maximum value of h such that the given researcher has published at least h papers that have each been cited at least h times.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: citations &#x3D; [3,0,6,1,5]</span><br><span class="line">Output: 3</span><br><span class="line">Explanation: [3,0,6,1,5] means the researcher has 5 papers in total and each of them had received 3, 0, 6, 1, 5 citations respectively.</span><br><span class="line">Since the researcher has 3 papers with at least 3 citations each and the remaining two with no more than 3 citations each, their h-index is 3.</span><br><span class="line"></span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: citations &#x3D; [1,3,1]</span><br><span class="line">Output: 1</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">n &#x3D;&#x3D; citations.length</span><br><span class="line">1 &lt;&#x3D; n &lt;&#x3D; 5000</span><br><span class="line">0 &lt;&#x3D; citations[i] &lt;&#x3D; 1000</span><br></pre></td></tr></table></figure>
-<h1 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h1><p>My idea is firstly sort the array first from the least to the largest.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sort (citations.begin(), citations.end(), [](<span class="keyword">int</span> &amp; a, <span class="keyword">int</span> &amp; b)&#123;</span><br><span class="line">    <span class="keyword">return</span> a &lt;= b;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>Also, we create two variables, one is the <code>hIndex</code> and the other is called <code>count</code>. For the situation that the ith element is one of the h-index, which means <code>i + citations[i]</code> is smaller than the length of the citations array, during the iteration, we update the maximum h-index.<br>For example, in the array <code>0,1,3,5,6</code>, 0 is one h-index; 1 is one h-index and it means the researcher has published  at least 1 paper that has been cited at least 1 time; 3 is one h-index and it means the researcher has published  at least 3 paper that has been cited at least 3 times, when we count <code>i + citations[i]</code>, which is <code>2 + 3</code>, the result is equal to the length of the array. So we update the h-index to 3. </p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">In the loop:</span><br><span class="line">    <span class="keyword">if</span> ((citations[i] &gt; hInd) &amp;&amp; (i + citations[i]) &lt;= n)&#123;</span><br><span class="line">        hInd = citations[i];</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>However, there exists some situation that not fit this method, for example, the array <code>[0,0,4,4]</code>.<br>In this situation, our h-index is 0, however, the correct answer is 2 because the researcher has published 2 papers that have been cited at least 2 times. So I use the variable <code>count</code> to handle this situation, once the result of <code>i + citations[i]</code> is larger than the length of the array, we add one to the count.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">In the loop:</span><br><span class="line">    <span class="keyword">if</span> (i + citations[i] &gt;n)</span><br><span class="line">        count ++;</span><br></pre></td></tr></table></figure>
-<p>After iteration, we return the larger one between the <code>h-index</code> and the <code>count</code>.</p>
-<h2 id="Full-code"><a href="#Full-code" class="headerlink" title="Full code"></a>Full code</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">hIndex</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; citations)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = citations.size();</span><br><span class="line">        <span class="keyword">int</span> hInd = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        sort (citations.begin(), citations.end(), [](<span class="keyword">int</span> &amp; a, <span class="keyword">int</span> &amp; b)&#123;</span><br><span class="line">            <span class="keyword">return</span> a &lt;= b;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span> ((citations[i] &gt; hInd) &amp;&amp; (i + citations[i]) &lt;= n)&#123;</span><br><span class="line">                hInd = citations[i];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (i + citations[i] &gt;n)</span><br><span class="line">                count ++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (hInd &lt; count)</span><br><span class="line">            <span class="keyword">return</span> count;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> hInd;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Counting-Sort/" rel="tag">Counting Sort</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Sorting/" rel="tag">Sorting</a></li></ul>
 
     </footer>
   </div>
