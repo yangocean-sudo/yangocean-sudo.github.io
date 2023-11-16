@@ -131,6 +131,125 @@
     
     
     <article
+  id="post-Leetcode1021"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2023/10/21/Leetcode1021/"
+    >Leetcode Study Day 28</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/10/21/Leetcode1021/" class="article-date">
+  <time datetime="2023-10-21T15:25:45.000Z" itemprop="datePublished">2023-10-21</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
+  </div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Basic-Calculator"><a href="#Basic-Calculator" class="headerlink" title="Basic Calculator"></a>Basic Calculator</h1><p>Given a string s representing a valid expression, implement a basic calculator to evaluate it, and return the result of the evaluation.</p>
+<p>Note: You are not allowed to use any built-in function which evaluates strings as mathematical expressions, such as eval().</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: s &#x3D; &quot;1 + 1&quot;</span><br><span class="line">Output: 2</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: s &#x3D; &quot; 2-1 + 2 &quot;</span><br><span class="line">Output: 3</span><br><span class="line">Example 3:</span><br><span class="line"></span><br><span class="line">Input: s &#x3D; &quot;(1+(4+5+2)-3)+(6+8)&quot;</span><br><span class="line">Output: 23</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">1 &lt;&#x3D; s.length &lt;&#x3D; 3 * 105</span><br><span class="line">s consists of digits, &#39;+&#39;, &#39;-&#39;, &#39;(&#39;, &#39;)&#39;, and &#39; &#39;.</span><br><span class="line">s represents a valid expression.</span><br><span class="line">&#39;+&#39; is not used as a unary operation (i.e., &quot;+1&quot; and &quot;+(2 + 3)&quot; is invalid).</span><br><span class="line">&#39;-&#39; could be used as a unary operation (i.e., &quot;-1&quot; and &quot;-(2 + 3)&quot; is valid).</span><br><span class="line">There will be no two consecutive operators in the input.</span><br><span class="line">Every number and running calculation will fit in a signed 32-bit integer.</span><br></pre></td></tr></table></figure>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>I found a recursive solution to solve this probelm. then main idea is use a recursive function to get the result from the start of the string to the end or the ‘)’ character. It first find the number between operators, then it add the number with the sign to the result value, then it reset the number to 0. If it finds a ‘(‘, it calls the recursive function again to get the result of the expression inside the ‘()’. If it finds a ‘+’, it sets the sign to 1, if it finds a ‘-‘, it sets the sign to -1. If it finds a ‘)’, it returns the result value. </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cctype&gt;</span></span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">calculate</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>, N = s.size();</span><br><span class="line">        <span class="keyword">return</span> dfs(s, i, N);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">dfs</span><span class="params">(<span class="keyword">const</span> <span class="built_in">string</span>&amp; s, <span class="keyword">int</span>&amp; i, <span class="keyword">const</span> <span class="keyword">int</span>&amp; N)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>, sign = <span class="number">1</span>, num = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(i &lt; N &amp;&amp; s[i] != <span class="string">&#x27;)&#x27;</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">isdigit</span>(s[i]))</span><br><span class="line">                num = num * <span class="number">10</span> + (s[i] - <span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                res += sign * num;</span><br><span class="line">                num = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">if</span>(s[i] == <span class="string">&#x27;+&#x27;</span>) sign = <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(s[i] == <span class="string">&#x27;-&#x27;</span>) sign = <span class="number">-1</span>;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(s[i] == <span class="string">&#x27;(&#x27;</span>)&#123;</span><br><span class="line">                    i++;</span><br><span class="line">                    res = res + sign * dfs(s, i, N);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res + sign * num;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Math/" rel="tag">Math</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Recursion/" rel="tag">Recursion</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Stack/" rel="tag">Stack</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/String/" rel="tag">String</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
+  id="post-Leetcode1020-2"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2023/10/20/Leetcode1020-2/"
+    >Leetcode Study Day 27</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/10/20/Leetcode1020-2/" class="article-date">
+  <time datetime="2023-10-20T19:01:04.000Z" itemprop="datePublished">2023-10-20</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
+  </div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Evaluate-Reverse-Polish-Notation"><a href="#Evaluate-Reverse-Polish-Notation" class="headerlink" title="Evaluate Reverse Polish Notation"></a>Evaluate Reverse Polish Notation</h1><p>You are given an array of strings tokens that represents an arithmetic expression in a Reverse Polish Notation.</p>
+<p>Evaluate the expression. Return an integer that represents the value of the expression.</p>
+<p>Note that:</p>
+<p>The valid operators are ‘+’, ‘-‘, ‘*’, and ‘/‘.<br>Each operand may be an integer or another expression.<br>The division between two integers always truncates toward zero.<br>There will not be any division by zero.<br>The input represents a valid arithmetic expression in a reverse polish notation.<br>The answer and all the intermediate calculations can be represented in a 32-bit integer.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: tokens &#x3D; [&quot;2&quot;,&quot;1&quot;,&quot;+&quot;,&quot;3&quot;,&quot;*&quot;]</span><br><span class="line">Output: 9</span><br><span class="line">Explanation: ((2 + 1) * 3) &#x3D; 9</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: tokens &#x3D; [&quot;4&quot;,&quot;13&quot;,&quot;5&quot;,&quot;&#x2F;&quot;,&quot;+&quot;]</span><br><span class="line">Output: 6</span><br><span class="line">Explanation: (4 + (13 &#x2F; 5)) &#x3D; 6</span><br><span class="line">Example 3:</span><br><span class="line"></span><br><span class="line">Input: tokens &#x3D; [&quot;10&quot;,&quot;6&quot;,&quot;9&quot;,&quot;3&quot;,&quot;+&quot;,&quot;-11&quot;,&quot;*&quot;,&quot;&#x2F;&quot;,&quot;*&quot;,&quot;17&quot;,&quot;+&quot;,&quot;5&quot;,&quot;+&quot;]</span><br><span class="line">Output: 22</span><br><span class="line">Explanation: ((10 * (6 &#x2F; ((9 + 3) * -11))) + 17) + 5</span><br><span class="line">&#x3D; ((10 * (6 &#x2F; (12 * -11))) + 17) + 5</span><br><span class="line">&#x3D; ((10 * (6 &#x2F; -132)) + 17) + 5</span><br><span class="line">&#x3D; ((10 * 0) + 17) + 5</span><br><span class="line">&#x3D; (0 + 17) + 5</span><br><span class="line">&#x3D; 17 + 5</span><br><span class="line">&#x3D; 22</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">1 &lt;&#x3D; tokens.length &lt;&#x3D; 104</span><br><span class="line">tokens[i] is either an operator: &quot;+&quot;, &quot;-&quot;, &quot;*&quot;, or &quot;&#x2F;&quot;, or an integer in the range [-200, 200].</span><br></pre></td></tr></table></figure>
+<h2 id="My-solution-with-stack"><a href="#My-solution-with-stack" class="headerlink" title="My solution with stack"></a>My solution with stack</h2><p>Based on the definition of RPN, I found that we can use a stack to store the values follow the order of the input vector, once we find an operator, we pop the top two values from the stack and calculate the result, then push the result back to the stack. After the iteration, we return the top of the stack.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">evalRPN</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; tokens)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; RPNstack;</span><br><span class="line">        <span class="keyword">size_t</span> n = tokens.size();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(tokens[i] != <span class="string">&quot;+&quot;</span> &amp;&amp; tokens[i] != <span class="string">&quot;-&quot;</span> &amp;&amp; tokens[i] != <span class="string">&quot;*&quot;</span> &amp;&amp; tokens[i] != <span class="string">&quot;/&quot;</span>)&#123;</span><br><span class="line">                <span class="keyword">int</span> num = stoi(tokens[i]);</span><br><span class="line">                RPNstack.push(num);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(tokens[i] == <span class="string">&quot;+&quot;</span>)&#123;</span><br><span class="line">                <span class="keyword">int</span> temp1 = RPNstack.top();</span><br><span class="line">                RPNstack.pop();</span><br><span class="line">                <span class="keyword">int</span> temp2 = RPNstack.top();</span><br><span class="line">                RPNstack.pop();</span><br><span class="line">                <span class="keyword">int</span> result = temp2 + temp1;</span><br><span class="line">                RPNstack.push(result);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(tokens[i] == <span class="string">&quot;-&quot;</span>)&#123;</span><br><span class="line">                <span class="keyword">int</span> temp1 = RPNstack.top();</span><br><span class="line">                RPNstack.pop();</span><br><span class="line">                <span class="keyword">int</span> temp2 = RPNstack.top();</span><br><span class="line">                RPNstack.pop();</span><br><span class="line">                <span class="keyword">int</span> result = temp2 - temp1;</span><br><span class="line">                RPNstack.push(result);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(tokens[i] == <span class="string">&quot;*&quot;</span>)&#123;</span><br><span class="line">                <span class="keyword">int</span> temp1 = RPNstack.top();</span><br><span class="line">                RPNstack.pop();</span><br><span class="line">                <span class="keyword">int</span> temp2 = RPNstack.top();</span><br><span class="line">                RPNstack.pop();</span><br><span class="line">                <span class="keyword">int</span> result = temp2 * temp1;</span><br><span class="line">                RPNstack.push(result);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(tokens[i] == <span class="string">&quot;/&quot;</span>)&#123;</span><br><span class="line">                <span class="keyword">int</span> temp1 = RPNstack.top();</span><br><span class="line">                RPNstack.pop();</span><br><span class="line">                <span class="keyword">int</span> temp2 = RPNstack.top();</span><br><span class="line">                RPNstack.pop();</span><br><span class="line">                <span class="keyword">int</span> result = temp2 / temp1;</span><br><span class="line">                RPNstack.push(result);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; </span><br><span class="line">        <span class="keyword">return</span> RPNstack.top();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="Solution-with-unordered-map"><a href="#Solution-with-unordered-map" class="headerlink" title="Solution with unordered_map"></a>Solution with unordered_map</h2><p>I found a solution using unordered_map and stack to solve this problem. One thing I’ve never seen before is the use of unordered_map. I think it is a good way to store the operator and the corresponding function.</p>
+<p>When we iterate the vector, if the element is not an operator, we push it into the stack. If it is an operator, we pop the top two elements from the stack and calculate the result by mapping the operator to the responding operation, then push the result back to the stack. After the iteration, we return the top of the stack.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">evalRPN</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; tokens)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">unordered_map</span>&lt;<span class="built_in">string</span>, function&lt;<span class="keyword">int</span> (<span class="keyword">int</span>, <span class="keyword">int</span>) &gt; &gt; <span class="built_in">map</span> = &#123;</span><br><span class="line">            &#123; <span class="string">&quot;+&quot;</span> , [] (<span class="keyword">int</span> a, <span class="keyword">int</span> b) &#123; <span class="keyword">return</span> a + b; &#125; &#125;,</span><br><span class="line">            &#123; <span class="string">&quot;-&quot;</span> , [] (<span class="keyword">int</span> a, <span class="keyword">int</span> b) &#123; <span class="keyword">return</span> a - b; &#125; &#125;,</span><br><span class="line">            &#123; <span class="string">&quot;*&quot;</span> , [] (<span class="keyword">int</span> a, <span class="keyword">int</span> b) &#123; <span class="keyword">return</span> a * b; &#125; &#125;,</span><br><span class="line">            &#123; <span class="string">&quot;/&quot;</span> , [] (<span class="keyword">int</span> a, <span class="keyword">int</span> b) &#123; <span class="keyword">return</span> a / b; &#125; &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; <span class="built_in">stack</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">string</span>&amp; s : tokens) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!<span class="built_in">map</span>.count(s)) &#123;</span><br><span class="line">                <span class="built_in">stack</span>.push(stoi(s));</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">int</span> op1 = <span class="built_in">stack</span>.top();</span><br><span class="line">                <span class="built_in">stack</span>.pop();</span><br><span class="line">                <span class="keyword">int</span> op2 = <span class="built_in">stack</span>.top();</span><br><span class="line">                <span class="built_in">stack</span>.pop();</span><br><span class="line">                <span class="built_in">stack</span>.push(<span class="built_in">map</span>[s](op2, op1));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">stack</span>.top();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Math/" rel="tag">Math</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Stack/" rel="tag">Stack</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
   id="post-Leetcode1020"
   class="article article-type-post"
   itemscope
@@ -597,212 +716,6 @@
     <footer class="article-footer">
        
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hash-Table/" rel="tag">Hash Table</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Union-Find/" rel="tag">Union Find</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-Leetcode1015-2"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2023/10/15/Leetcode1015-2/"
-    >Leetcode Study Day 22</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2023/10/15/Leetcode1015-2/" class="article-date">
-  <time datetime="2023-10-15T10:55:18.000Z" itemprop="datePublished">2023-10-15</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
-  </div>
- 
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h1 id="Contains-Duplicate-II"><a href="#Contains-Duplicate-II" class="headerlink" title="Contains Duplicate II"></a>Contains Duplicate II</h1><p>Given an integer array nums and an integer k, return true if there are two distinct indices i and j in the array such that nums[i] == nums[j] and abs(i - j) &lt;= k.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: nums &#x3D; [1,2,3,1], k &#x3D; 3</span><br><span class="line">Output: true</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: nums &#x3D; [1,0,1,1], k &#x3D; 1</span><br><span class="line">Output: true</span><br><span class="line">Example 3:</span><br><span class="line"></span><br><span class="line">Input: nums &#x3D; [1,2,3,1,2,3], k &#x3D; 2</span><br><span class="line">Output: false</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">1 &lt;&#x3D; nums.length &lt;&#x3D; 105</span><br><span class="line">-109 &lt;&#x3D; nums[i] &lt;&#x3D; 109</span><br><span class="line">0 &lt;&#x3D; k &lt;&#x3D; 105</span><br></pre></td></tr></table></figure>
-<h2 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h2><p>My solution is using a map to store the value in the array as the key and the index as the value. If the map already contains the key, we check if the difference between the current index and the index stored in the map is less than or equal to k. If it is, then we return true. If not, we update the value of the key in the map to the current index. If the map does not contain the key, we add the key and value to the map. If we finish the loop, we return false.</p>
-<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">containsNearbyDuplicate</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">map</span> &lt;<span class="keyword">int</span>, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; numberMap;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.size(); i++)&#123;</span><br><span class="line">            <span class="keyword">if</span> (numberMap[nums[i]].size()&gt;<span class="number">0</span>)&#123;</span><br><span class="line">                <span class="keyword">if</span>(i- numberMap[nums[i]][<span class="number">0</span>] &lt;= k)</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    numberMap[nums[i]].pop_back();</span><br><span class="line">            &#125;</span><br><span class="line">            numberMap[nums[i]].push_back(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h3 id="Difference-between-map-and-unordered-map"><a href="#Difference-between-map-and-unordered-map" class="headerlink" title="Difference between map and unordered_map"></a>Difference between map and unordered_map</h3><p>I also see some solutions with unordered_map. So I did some research on the difference between map and unordered_map.<br>Both <code>std::map</code> and <code>std::unordered_map</code> are associative containers in C++ that store elements in key-value pairs, but they have some fundamental differences in terms of their internal workings, performance characteristics, and functionalities:</p>
-<ol>
-<li><p><strong>Underlying Data Structure</strong>:</p>
-<ul>
-<li><code>std::map</code>: Implemented using a balanced tree (usually a red-black tree). This guarantees that the elements are always ordered by their keys.</li>
-<li><code>std::unordered_map</code>: Implemented using a hash table. The elements are not ordered.</li>
-</ul>
-</li>
-<li><p><strong>Order of Elements</strong>:</p>
-<ul>
-<li><code>std::map</code>: The elements are always ordered according to the keys (based on the comparison function, which is <code>operator&lt;</code> by default).</li>
-<li><code>std::unordered_map</code>: There is no order guarantee for the keys or the values.</li>
-</ul>
-</li>
-<li><p><strong>Performance</strong>:</p>
-<ul>
-<li><code>std::map</code>: <ul>
-<li>Insertion, deletion, and search have a logarithmic complexity: (O(\log n)).</li>
-</ul>
-</li>
-<li><code>std::unordered_map</code>: <ul>
-<li>In average cases, the insertion, deletion, and search have constant time complexity: (O(1)).</li>
-<li>In the worst case (when there are hash collisions), these operations can degrade to (O(n)).</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p><strong>Hash Function</strong>:</p>
-<ul>
-<li><code>std::map</code>: Does not use hashing, so there’s no need for a hash function.</li>
-<li><code>std::unordered_map</code>: Uses a hash function to map keys to buckets. You can provide a custom hash function, but there’s a default one provided for most standard types.</li>
-</ul>
-</li>
-<li><p><strong>Memory Overhead</strong>:</p>
-<ul>
-<li><code>std::map</code>: Typically has a lesser memory overhead compared to <code>std::unordered_map</code> because it doesn’t need to manage the hash table.</li>
-<li><code>std::unordered_map</code>: Might have more memory overhead due to managing the hash table, especially when the load factor increases.</li>
-</ul>
-</li>
-<li><p><strong>Iterators</strong>:</p>
-<ul>
-<li><code>std::map</code>: Iterators are ordered and remain valid as long as the corresponding element exists in the map. Inserting or deleting elements does not invalidate iterators to other elements.</li>
-<li><code>std::unordered_map</code>: Iterators are not ordered. Inserting an element might invalidate iterators if rehashing occurs, but erasing an element only invalidates the iterator to that element.</li>
-</ul>
-</li>
-<li><p><strong>Usage Scenarios</strong>:</p>
-<ul>
-<li><code>std::map</code>: Useful when you need to maintain an order (like when you need the smallest or largest key frequently) or when you need to work with operations that rely on order (e.g., finding elements in a range).</li>
-<li><code>std::unordered_map</code>: Useful when you need faster average-case insertion, deletion, and search times, and you don’t need the keys to be ordered.</li>
-</ul>
-</li>
-</ol>
-<p>In summary, the choice between <code>std::map</code> and <code>std::unordered_map</code> depends on the specific requirements of your application. If ordering is essential, go with <code>std::map</code>. If you need faster average-time operations and don’t care about order, <code>std::unordered_map</code> might be the better choice.</p>
-<p>I’d like to share my third year project experience with you. It is to use Mitsuba, which is a physical based renderer to simulate the chenrenkov particles in the Europe Large Hadron Collider, which is in CERN. The reason that I did this is because for now, the experiences in CERN are simulated by Geant4, which is a Monte Carlo simulation toolkit. However, Geant4 is very slow and cost huge memory usage. In the end, with collaborating with students in the department of physics, our application reduce over 99% time and only cost less than 1mb memory usage with the same accuracy. </p>
-<p>The challanges I faced out is that I knew nothing about the particle physics since my major is computer science. So in the beginning of the project, it’s tough for me to understand what the result should be look like and how to achieve it. In the team, everyone has their own role. Mine is to implement the Mitsuba renderer and the interface between Mitsuba and Geant4, wheareas my colleagues’ are study the physical theory of Cherenkov radiation. The method that I overcame the challange is to communicate with my colleagues frequently and ask them questions. We held weekly meetings and in the meeting, we shared our new progress and discussed the problems we met. If they have any questions about the Mitsuba, they will ask me. If I have any questions about the physical theory, I will ask them.</p>
-<p>This project is meaningful for me because it is not a toy tool. It is a real application that can be used in the future. We also attend the sharing meeting in CERN and got a lot of positive feedbacks. </p>
-<p>At the beginning of choosing my third year project, I noticed that there are large amount of resources consumed and cost has always been a problem with simulation experiments based on the report of usage of computing resources by CERN. Therefore, I got the idea to reduce simulation time by using other tools.</p>
-<p>My step to develop this idea is firstly, shared this idea with my supervisor. She is very supportive and told me that the department of physics is also interested in this topic. Then I contacted the department of physics and we decided to collaborate together. After that, I started to learn Mitsuba and implemented the Mitsuba renderer and the interface between Mitsuba and Geant4. My colleagues studied the physical theory of Cherenkov radiation. In the end, we combined our work together and got the final result.</p>
-<p>It was important to be innovative in this instance because it is the first time that Mitsuba is used to simulate the Cherenkov radiation. Before that, Geant4 is the only tool that can be used to simulate the Cherenkov radiation. Also, the tool we developed can be used in real life, it is different from the tools that I developed before, which are just for fun or course projects. I’m motivated to do this project because I want to do something meaningful and useful. I want to use my knowledge to help others.</p>
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hash-Table/" rel="tag">Hash Table</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Sliding-Window/" rel="tag">Sliding Window</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-Leetcode1015"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2023/10/15/Leetcode1015/"
-    >Leetcode Study Day 22</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2023/10/15/Leetcode1015/" class="article-date">
-  <time datetime="2023-10-15T10:02:44.000Z" itemprop="datePublished">2023-10-15</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
-  </div>
- 
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h1 id="Happy-Number"><a href="#Happy-Number" class="headerlink" title="Happy Number"></a>Happy Number</h1><p>Write an algorithm to determine if a number n is happy.</p>
-<p>A happy number is a number defined by the following process:</p>
-<p>Starting with any positive integer, replace the number by the sum of the squares of its digits.<br>Repeat the process until the number equals 1 (where it will stay), or it loops endlessly in a cycle which does not include 1.<br>Those numbers for which this process ends in 1 are happy.<br>Return true if n is a happy number, and false if not.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: n &#x3D; 19</span><br><span class="line">Output: true</span><br><span class="line">Explanation:</span><br><span class="line">12 + 92 &#x3D; 82</span><br><span class="line">82 + 22 &#x3D; 68</span><br><span class="line">62 + 82 &#x3D; 100</span><br><span class="line">12 + 02 + 02 &#x3D; 1</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: n &#x3D; 2</span><br><span class="line">Output: false</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">1 &lt;&#x3D; n &lt;&#x3D; 231 - 1</span><br></pre></td></tr></table></figure>
-<h2 id="My-solution"><a href="#My-solution" class="headerlink" title="My solution"></a>My solution</h2><p>My solution is very intuitive, I convert the number to string and then convert each digit back to int and square it. Then I add all the squared digits together. I repeat this process until the sum is 1 or the iterate times achieve the maximum set. If the sum is 1, then the number is happy. If the loop is endless, then the number is not happy.</p>
-<p>I learnt that in C++, we can use <code>to_string()</code> to convert a number to string and <code>stoi()</code> to convert a string to int.</p>
-<p>If we want to convert a char to int, we can use <code>char - &#39;0&#39;</code>. The reason is that the ASCII value of ‘0’ is 48, ‘1’ is 49, etc. So if we want to convert ‘0’ to 0, we can use 48 - 48 = 0, for other digits, we can use 49 - 48 = 1, 50 - 48 = 2, etc.</p>
-<h2 id="Floyd-Cycle-Detection-Algorithm"><a href="#Floyd-Cycle-Detection-Algorithm" class="headerlink" title="Floyd Cycle Detection Algorithm"></a>Floyd Cycle Detection Algorithm</h2><p>Firstly, let’s find out what is Floyd Cycle Detection Algorithm. It is also called Tortoise and Hare Algorithm. </p>
-<h3 id="Basic-Idea"><a href="#Basic-Idea" class="headerlink" title="Basic Idea:"></a>Basic Idea:</h3><p>The algorithm uses two pointers that move through the sequence at different speeds:</p>
-<ul>
-<li><strong>Tortoise (or slow pointer)</strong>: Advances one step at a time.</li>
-<li><strong>Hare (or fast pointer)</strong>: Advances two steps at a time.</li>
-</ul>
-<p>If there’s a loop in the sequence, the hare will eventually catch up to the tortoise.</p>
-<h3 id="Relationship-with-the-Happy-Number-Problem"><a href="#Relationship-with-the-Happy-Number-Problem" class="headerlink" title="Relationship with the Happy Number Problem:"></a>Relationship with the Happy Number Problem:</h3><p>In the context of the happy number problem, the sequence is formed by repeatedly applying the “sum of the squares of its digits” operation. If a number is not happy, it will eventually fall into a cycle (or loop).</p>
-<p>For example, for the number 4:</p>
-<ol>
-<li>(4^2 = 16)</li>
-<li>(1^2 + 6^2 = 37)</li>
-<li>(3^2 + 7^2 = 58)</li>
-<li>(5^2 + 8^2 = 89)</li>
-<li>(8^2 + 9^2 = 145)</li>
-<li>(1^2 + 4^2 + 5^2 = 42)</li>
-<li>(4^2 + 2^2 = 20)</li>
-<li>(2^2 + 0^2 = 4)<br>… and it goes back to 4, forming a cycle.</li>
-</ol>
-<p>By using the Tortoise and Hare approach:</p>
-<ul>
-<li>The <strong>slow pointer</strong> will produce the sequence: 4, 16, 37, 58, …</li>
-<li>The <strong>fast pointer</strong> will produce the sequence: 16, 58, 20, 4, …</li>
-</ul>
-<p>After a few iterations, both the slow and fast pointers will meet, indicating a cycle. In this problem, detecting a cycle means the number is not happy.</p>
-<h3 id="Why-it-works"><a href="#Why-it-works" class="headerlink" title="Why it works:"></a>Why it works:</h3><p>Imagine a circular racetrack. If you have two runners - one running twice as fast as the other - they’ll eventually end up at the same position on the track, because the faster runner will catch up to the slower runner from behind.</p>
-<p>Similarly, in the context of sequences, if there’s a cycle, the fast pointer (hare) will eventually meet the slow pointer (tortoise) inside the loop.</p>
-<h3 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion:"></a>Conclusion:</h3><p>Floyd’s Cycle Detection Algorithm is a powerful tool for detecting loops in sequences without needing to use extra space (like storing all seen elements in a set).</p>
-<h2 id="Get-the-sum-of-the-squared-digits"><a href="#Get-the-sum-of-the-squared-digits" class="headerlink" title="Get the sum of the squared digits"></a>Get the sum of the squared digits</h2><p>I learnt that we can use <code>%</code> to get the last digit of a number and <code>/</code> to get the rest of the digits. For example, if we want to get the last digit of 123, we can use <code>123 % 10 = 3</code>. If we want to get the rest of the digits, we can use <code>123 / 10 = 12</code>. </p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getSum</span> <span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>, digit;</span><br><span class="line">    <span class="keyword">while</span> (n != <span class="number">0</span>)&#123;</span><br><span class="line">        digit = n % <span class="number">10</span>;</span><br><span class="line">        sum += digit * digit;</span><br><span class="line">        n = n / <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Implementation-of-Floyd-Cycle-Detection-Algorithm"><a href="#Implementation-of-Floyd-Cycle-Detection-Algorithm" class="headerlink" title="Implementation of Floyd Cycle Detection Algorithm"></a>Implementation of Floyd Cycle Detection Algorithm</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isHappy</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> slow = n, fast = n;</span><br><span class="line">    <span class="keyword">do</span>&#123; slow = getSum(slow);</span><br><span class="line">        fast = getSum(getSum(fast));</span><br><span class="line">        <span class="keyword">if</span> (fast == <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;<span class="keyword">while</span>(fast!=slow);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hash-Table/" rel="tag">Hash Table</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Math/" rel="tag">Math</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Two-Pointers/" rel="tag">Two Pointers</a></li></ul>
 
     </footer>
   </div>
