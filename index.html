@@ -131,6 +131,73 @@
     
     
     <article
+  id="post-Leetcode0202"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2024/02/02/Leetcode0202/"
+    >Leetcode Study Day 54</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/02/02/Leetcode0202/" class="article-date">
+  <time datetime="2024-02-02T22:56:16.000Z" itemprop="datePublished">2024-02-02</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
+  </div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Search-Insert-Position"><a href="#Search-Insert-Position" class="headerlink" title="Search Insert Position"></a>Search Insert Position</h1><p>Given a sorted array of distinct integers and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.</p>
+<p>You must write an algorithm with O(log n) runtime complexity.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line">Input: nums = [1,3,5,6], target = 5</span><br><span class="line">Output: 2</span><br><span class="line"></span><br><span class="line">Example 2:</span><br><span class="line">Input: nums = [1,3,5,6], target = 2</span><br><span class="line">Output: 1</span><br><span class="line"></span><br><span class="line">Example 3:</span><br><span class="line">Input: nums = [1,3,5,6], target = 7</span><br><span class="line">Output: 4</span><br><span class="line"> </span><br><span class="line">Constraints:</span><br><span class="line">1 &lt;= nums.length &lt;= 10^4</span><br><span class="line">-10^4 &lt;= nums[i] &lt;= 10^4</span><br><span class="line">nums contains distinct values sorted in ascending order.</span><br><span class="line">-10^4 &lt;= target &lt;= 10^4</span><br></pre></td></tr></table></figure>
+<h2 id="Binary-Search-Solution"><a href="#Binary-Search-Solution" class="headerlink" title="Binary Search Solution"></a>Binary Search Solution</h2><p>We first initialise two pointers, <code>left</code> and <code>right</code>. <code>left</code> is the index of the first element in the array, <code>right</code> is the index of the last element in the array. Then we iterate through the array and update the <code>left</code> and <code>right</code> pointers. If the target is found, we return the index. If the target is not found, we return the index where it would be if it were inserted in order.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">searchInsert</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="type">int</span> left = <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> right = n<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">while</span>(left &lt; right)&#123;</span><br><span class="line">            <span class="type">int</span> m = left + (right - left)/<span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span> (nums[m] == target)</span><br><span class="line">                <span class="keyword">return</span> m;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (nums[m] &gt; target)&#123;</span><br><span class="line">                right = m;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> left= m + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> nums[left] &lt; target ? left + <span class="number">1</span>: left;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Search-a-2D-Matrix"><a href="#Search-a-2D-Matrix" class="headerlink" title="Search a 2D Matrix"></a>Search a 2D Matrix</h1><p>You are given an m x n binary matrix grid. An island is a group of 1’s (representing land) connected 4-directionally (horizontal or vertical.) You may assume all four edges of the grid are surrounded by water.</p>
+<p><img src="https://assets.leetcode.com/uploads/2020/10/05/mat.jpg" alt="image"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line">Input: matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]], target = 3</span><br><span class="line">Output: true</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://assets.leetcode.com/uploads/2020/10/05/mat2.jpg" alt="image"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]], target = 13</span><br><span class="line">Output: false</span><br></pre></td></tr></table></figure>
+
+<h2 id="Binary-Search-Solution-1"><a href="#Binary-Search-Solution-1" class="headerlink" title="Binary Search Solution"></a>Binary Search Solution</h2><p>We use binary search twice to find the answer.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">searchMatrix</span><span class="params">(vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; matrix, <span class="type">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> m = matrix.<span class="built_in">size</span>();</span><br><span class="line">        <span class="type">int</span> n = matrix[<span class="number">0</span>].<span class="built_in">size</span>();</span><br><span class="line">        <span class="type">int</span> top = <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> bottom = m - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (top &lt;= bottom)&#123;</span><br><span class="line">            <span class="type">int</span> m = top+ (bottom-top)/<span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span> (matrix[m][<span class="number">0</span>] &lt; target)</span><br><span class="line">                top = m + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (matrix[m][<span class="number">0</span>] &gt; target)</span><br><span class="line">                bottom = m - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span> </span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> row = bottom;</span><br><span class="line">        <span class="keyword">if</span> (row &lt; <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> left = <span class="number">0</span>, right = n - <span class="number">1</span>; left &lt;= right;)&#123;</span><br><span class="line">            <span class="type">int</span> middle = left + (right-left) / <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span>(matrix[row][middle] &lt; target)</span><br><span class="line">                left = middle + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (matrix[row][middle] &gt; target)</span><br><span class="line">                right = middle - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span> </span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Binary-Search/" rel="tag">Binary Search</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
   id="post-Leetcode0130"
   class="article article-type-post"
   itemscope
@@ -844,63 +911,6 @@
     <footer class="article-footer">
        
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Breadth-First-Search/" rel="tag">Breadth-First Search</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Matrix/" rel="tag">Matrix</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-Leetcode1111"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2023/11/11/Leetcode1111/"
-    >Leetcode Study Day 45</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2023/11/11/Leetcode1111/" class="article-date">
-  <time datetime="2023-11-11T13:59:01.000Z" itemprop="datePublished">2023-11-11</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
-  </div>
- 
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h1 id="Course-Schedule-II"><a href="#Course-Schedule-II" class="headerlink" title="Course Schedule II"></a>Course Schedule II</h1><p>There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1. You are given an array prerequisites where prerequisites[i] = [ai, bi] indicates that you must take course bi first if you want to take course ai.</p>
-<p>For example, the pair [0, 1], indicates that to take course 0 you have to first take course 1.<br>Return the ordering of courses you should take to finish all courses. If there are many valid answers, return any of them. If it is impossible to finish all courses, return an empty array.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: numCourses &#x3D; 2, prerequisites &#x3D; [[1,0]]</span><br><span class="line">Output: [0,1]</span><br><span class="line">Explanation: There are a total of 2 courses to take. To take course 1 you should have finished course 0. So the correct course order is [0,1].</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: numCourses &#x3D; 4, prerequisites &#x3D; [[1,0],[2,0],[3,1],[3,2]]</span><br><span class="line">Output: [0,2,1,3]</span><br><span class="line">Explanation: There are a total of 4 courses to take. To take course 3 you should have finished both courses 1 and 2. Both courses 1 and 2 should be taken after you finished course 0.</span><br><span class="line">So one correct course order is [0,1,2,3]. Another correct ordering is [0,2,1,3].</span><br><span class="line">Example 3:</span><br><span class="line"></span><br><span class="line">Input: numCourses &#x3D; 1, prerequisites &#x3D; []</span><br><span class="line">Output: [0]</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">1 &lt;&#x3D; numCourses &lt;&#x3D; 2000</span><br><span class="line">0 &lt;&#x3D; prerequisites.length &lt;&#x3D; numCourses * (numCourses - 1)</span><br><span class="line">prerequisites[i].length &#x3D;&#x3D; 2</span><br><span class="line">0 &lt;&#x3D; ai, bi &lt; numCourses</span><br><span class="line">ai !&#x3D; bi</span><br><span class="line">All the pairs [ai, bi] are distinct.</span><br></pre></td></tr></table></figure>
-<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>The solution is similar to the previous question, except this time we add a stack to store the courses we want to take. After we find the courses that need to be taken in the end, we push them into the stack. After finding all the courses and make sure there is no cycle, we pop the stack and store the courses in the vector. The order of the courses is the reverse order of the stack. </p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">iscycle</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; adj[], <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;vis, <span class="keyword">int</span> id, <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; &amp;courseStack)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(vis[id] == <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">if</span>(vis[id] == <span class="number">0</span>)&#123;</span><br><span class="line">            vis[id] = <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> edge : adj[id])&#123;</span><br><span class="line">                <span class="keyword">if</span>(iscycle(adj, vis, edge, courseStack))</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            courseStack.push(id);</span><br><span class="line">        &#125;</span><br><span class="line">        vis[id] = <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">findOrder</span><span class="params">(<span class="keyword">int</span> n, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; pre)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; adj[n];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> edge : pre)</span><br><span class="line">            adj[edge[<span class="number">1</span>]].push_back(edge[<span class="number">0</span>]);</span><br><span class="line">        </span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">vis</span><span class="params">(n, <span class="number">0</span>)</span></span>;</span><br><span class="line">        <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; courseStack;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(vis[i] == <span class="number">0</span>)&#123;</span><br><span class="line">                <span class="keyword">if</span>(iscycle(adj, vis, i, courseStack))</span><br><span class="line">                    <span class="keyword">return</span> &#123;&#125;; <span class="comment">// Return empty if cycle is detected</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; order;</span><br><span class="line">        <span class="keyword">while</span>(!courseStack.empty())&#123;</span><br><span class="line">            order.push_back(courseStack.top());</span><br><span class="line">            courseStack.pop();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> order;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Breadth-First-Search/" rel="tag">Breadth-First Search</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Depth-First-Search/" rel="tag">Depth-First Search</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Graph/" rel="tag">Graph</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Topological-Sort/" rel="tag">Topological Sort</a></li></ul>
 
     </footer>
   </div>
