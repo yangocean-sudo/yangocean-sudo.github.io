@@ -131,6 +131,109 @@
     
     
     <article
+  id="post-Leetcode1111-2"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2023/11/11/Leetcode1111-2/"
+    >Leetcode Study Day 45</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/11/11/Leetcode1111-2/" class="article-date">
+  <time datetime="2023-11-11T14:04:57.000Z" itemprop="datePublished">2023-11-11</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
+  </div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Snakes-and-Ladders"><a href="#Snakes-and-Ladders" class="headerlink" title="Snakes and Ladders"></a>Snakes and Ladders</h1><p>You are given an n x n integer matrix board where the cells are labeled from 1 to n2 in a Boustrophedon style starting from the bottom left of the board (i.e. board[n - 1][0]) and alternating direction each row.</p>
+<p>You start on square 1 of the board. In each move, starting from square curr, do the following:</p>
+<p>Choose a destination square next with a label in the range [curr + 1, min(curr + 6, n2)].<br>This choice simulates the result of a standard 6-sided die roll: i.e., there are always at most 6 destinations, regardless of the size of the board.<br>If next has a snake or ladder, you must move to the destination of that snake or ladder. Otherwise, you move to next.<br>The game ends when you reach the square n2.<br>A board square on row r and column c has a snake or ladder if board[r][c] != -1. The destination of that snake or ladder is board[r][c]. Squares 1 and n2 do not have a snake or ladder.</p>
+<p>Note that you only take a snake or ladder at most once per move. If the destination to a snake or ladder is the start of another snake or ladder, you do not follow the subsequent snake or ladder.</p>
+<p>For example, suppose the board is [[-1,4],[-1,3]], and on the first move, your destination square is 2. You follow the ladder to square 3, but do not follow the subsequent ladder to 4.<br>Return the least number of moves required to reach the square n2. If it is not possible to reach the square, return -1.</p>
+<p><img src="image.png" alt="Alt text"> </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Input: board &#x3D; [[-1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1],[-1,35,-1,-1,13,-1],[-1,-1,-1,-1,-1,-1],[-1,15,-1,-1,-1,-1]]</span><br><span class="line">Output: 4</span><br><span class="line">Explanation: </span><br><span class="line">In the beginning, you start at square 1 (at row 5, column 0).</span><br><span class="line">You decide to move to square 2 and must take the ladder to square 15.</span><br><span class="line">You then decide to move to square 17 and must take the snake to square 13.</span><br><span class="line">You then decide to move to square 14 and must take the ladder to square 35.</span><br><span class="line">You then decide to move to square 36, ending the game.</span><br><span class="line">This is the lowest possible number of moves to reach the last square, so return 4.</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: board &#x3D; [[-1,-1],[-1,3]]</span><br><span class="line">Output: 1</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">n &#x3D;&#x3D; board.length &#x3D;&#x3D; board[i].length</span><br><span class="line">2 &lt;&#x3D; n &lt;&#x3D; 20</span><br><span class="line">board[i][j] is either -1 or in the range [1, n2].</span><br><span class="line">The squares labeled 1 and n2 do not have any ladders or snakes.</span><br></pre></td></tr></table></figure>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>I found this <a target="_blank" rel="noopener" href="https://leetcode.com/problems/snakes-and-ladders/solutions/3092265/c-simple-bfs-with-full-explanation-beats-100/?envType=study-plan-v2&envId=top-interview-150">solution</a> from Leetcode. Here is his explanation:</p>
+<blockquote>
+<p>Intuition</p>
+</blockquote>
+<blockquote>
+<p>The intuition behind this code is that it uses a breadth-first search (BFS) algorithm to find the minimum number of moves required to reach the last cell of the board from the first cell. BFS is an algorithm that explores all the vertices of a graph or all the nodes of a tree level by level.</p>
+</blockquote>
+<blockquote>
+<p>Approach</p>
+</blockquote>
+<blockquote>
+<p>The method starts by creating a vector of pairs called “cells” that stores the row and column of each cell in the board. It also creates a vector of integers called “dist” that stores the minimum number of moves required to reach each cell and initializes it to -1.</p>
+</blockquote>
+<blockquote>
+<p>It then uses a queue to keep track of the cells to be visited and starts by pushing the first cell (cell 1) into the queue. The method then enters a while loop that continues until the queue is empty. In each iteration of the loop, it takes the front element of the queue, which is the current cell, and pops it from the queue.</p>
+</blockquote>
+<blockquote>
+<p>For the current cell, the method loops through all the possible next cells which are from curr+1 to min(curr+6,n*n) (because in each move we can move to a dice roll max 6 steps) and checks if the minimum number of moves required to reach that cell has not been assigned yet. If it has not been assigned yet, the method assigns the minimum number of moves required to reach that cell as the minimum number of moves required to reach the current cell plus one. It also pushes the next cell into the queue to be visited in the next iteration.</p>
+</blockquote>
+<blockquote>
+<p>The method then continues this process until all the cells have been visited, and the minimum number of moves required to reach each cell has been assigned. Finally, the method returns the minimum number of moves required to reach the last cell, which is stored in dist[n*n].</p>
+</blockquote>
+<blockquote>
+<p>It also handles the case if there is a snake or ladder at the cell, it directly assigns the destination cell number as the cell number.</p>
+</blockquote>
+<blockquote>
+<p>Complexity</p>
+</blockquote>
+<blockquote>
+<p>Time complexity:</p>
+</blockquote>
+<blockquote>
+<p>The time complexity of this code is O(n^2), where n is the size of the board. This is because the method uses a breadth-first search algorithm to traverse through each cell of the board and assigns the distance of each cell from the starting cell. The outer loop iterates n times, and the inner loop iterates n times, so the total number of iterations is n*n.</p>
+</blockquote>
+<blockquote>
+<p>Note that this is assuming the queue and vector operations have a constant time complexity, which is typical but not guaranteed.</p>
+</blockquote>
+<blockquote>
+<p>Space complexity:</p>
+</blockquote>
+<blockquote>
+<p>The space complexity of this code is also O(n^2). This is because the method uses a vector of integers called “dist” to keep track of the minimum number of moves required to reach each cell, and this vector has nn elements. The method also uses a vector of pairs called “cells” to keep track of the row and column of each cell, and this vector also has nn elements. The method also uses a queue to keep track of the cells to be visited, which can have at most n*n elements.</p>
+</blockquote>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">snakesAndLadders</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; &amp;board)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = board.size(), lbl = <span class="number">1</span>;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">pair</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;&gt; cells(n*n+<span class="number">1</span>);</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">columns</span><span class="params">(n)</span></span>;</span><br><span class="line">        iota(columns.begin(), columns.end(), <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> row = n - <span class="number">1</span>; row &gt;= <span class="number">0</span>; row--) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> column : columns) &#123;</span><br><span class="line">                cells[lbl++] = &#123;row, column&#125;;</span><br><span class="line">            &#125;</span><br><span class="line">            reverse(columns.begin(), columns.end());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">dist</span><span class="params">(n*n+<span class="number">1</span>, <span class="number">-1</span>)</span></span>;</span><br><span class="line">        dist[<span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; q;</span><br><span class="line">        q.push(<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">while</span> (!q.empty()) &#123;</span><br><span class="line">            <span class="keyword">int</span> curr = q.front();</span><br><span class="line">            q.pop();</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> next = curr + <span class="number">1</span>; next &lt;= min(curr+<span class="number">6</span>, n*n); next++) &#123;</span><br><span class="line">                <span class="keyword">auto</span> [row, column] = cells[next];</span><br><span class="line">                <span class="keyword">int</span> destination = board[row][column] != <span class="number">-1</span> ? board[row][column] : next;</span><br><span class="line">                <span class="keyword">if</span> (dist[destination] == <span class="number">-1</span>) &#123;</span><br><span class="line">                    dist[destination] = dist[curr] + <span class="number">1</span>;</span><br><span class="line">                    q.push(destination);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dist[n*n];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Breadth-First-Search/" rel="tag">Breadth-First Search</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Matrix/" rel="tag">Matrix</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
   id="post-Leetcode1111"
   class="article article-type-post"
   itemscope
@@ -671,64 +774,6 @@
     <footer class="article-footer">
        
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Binary-Tree/" rel="tag">Binary Tree</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Breadth-First-Search/" rel="tag">Breadth-First Search</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tree/" rel="tag">Tree</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-Leetcode1104-2"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2023/11/04/Leetcode1104-2/"
-    >Leetcode Study Day 39</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2023/11/04/Leetcode1104-2/" class="article-date">
-  <time datetime="2023-11-04T17:03:47.000Z" itemprop="datePublished">2023-11-04</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
-  </div>
- 
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h1 id="Average-of-Levels-in-Binary-Tree"><a href="#Average-of-Levels-in-Binary-Tree" class="headerlink" title="Average of Levels in Binary Tree"></a>Average of Levels in Binary Tree</h1><p>Given the root of a binary tree, return the average value of the nodes on each level in the form of an array. Answers within 10-5 of the actual answer will be accepted.</p>
-<p><img src="https://assets.leetcode.com/uploads/2021/03/09/avg1-tree.jpg"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Input: root &#x3D; [3,9,20,null,null,15,7]</span><br><span class="line">Output: [3.00000,14.50000,11.00000]</span><br><span class="line">Explanation: The average value of nodes on level 0 is 3, on level 1 is 14.5, and on level 2 is 11.</span><br><span class="line">Hence return [3, 14.5, 11].</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Input: root &#x3D; [3,9,20,15,7]</span><br><span class="line">Output: [3.00000,14.50000,11.00000]</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">The number of nodes in the tree is in the range [1, 104].</span><br><span class="line">-231 &lt;&#x3D; Node.val &lt;&#x3D; 231 - 1</span><br></pre></td></tr></table></figure>
-<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>To solve a breadth first search question, we use a queue. Queue’s feature is first in first out. So we can use it to store the nodes in the same level. We first push the root into the queue. Then we use a while loop to check if the queue is empty. If it is not empty, we get the size of the queue. The size of the queue is the number of nodes in the same level. We use a for loop to pop the nodes in the queue and add the value of the node to the sum. Then we check if the node has left child or right child. If it has, we push the child into the queue. After the for loop, we push the average of the sum and the size into the answer vector. Then we return the answer vector.</p>
-<p>It is noticible that to convert int to double, we can firstly use <code>(double)</code> add an int, then the result will be double.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * struct TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode *left;</span></span><br><span class="line"><span class="comment"> *     TreeNode *right;</span></span><br><span class="line"><span class="comment"> *     TreeNode() : val(0), left(nullptr), right(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">double</span>&gt; <span class="title">averageOfLevels</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">double</span>&gt; ans;</span><br><span class="line">        <span class="built_in">queue</span>&lt;TreeNode*&gt; treeQ;</span><br><span class="line">        <span class="keyword">if</span>(!root) <span class="keyword">return</span> ans;</span><br><span class="line">        treeQ.push(root);</span><br><span class="line">        <span class="keyword">while</span>(!treeQ.empty())&#123;</span><br><span class="line">            <span class="keyword">int</span> size = treeQ.size();</span><br><span class="line">            <span class="keyword">long</span> sum = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i++)&#123;</span><br><span class="line">                TreeNode* node = treeQ.front();</span><br><span class="line">                treeQ.pop();</span><br><span class="line">                sum += node-&gt;val;</span><br><span class="line">                <span class="keyword">if</span>(node-&gt;left) treeQ.push(node-&gt;left);</span><br><span class="line">                <span class="keyword">if</span>(node-&gt;right) treeQ.push(node-&gt;right);</span><br><span class="line">            &#125;</span><br><span class="line">            ans.push_back((<span class="keyword">double</span>)sum/size);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Binary-Tree/" rel="tag">Binary Tree</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Breadth-First-Search/" rel="tag">Breadth-First Search</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Depth-First-Search/" rel="tag">Depth-First Search</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tree/" rel="tag">Tree</a></li></ul>
 
     </footer>
   </div>

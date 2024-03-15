@@ -13,7 +13,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>归档 |  Yangyang</title>
+      <title>Create My Ray Tracing Renderer |  Yangyang</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon2.ico" />
@@ -54,246 +54,115 @@
       
     <main class="content on">
       <section class="outer">
-  
-  
-  <article class="articles">
+  <article
+  id="post-creatingMyRayTracingRenderer"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
     
-    
-    <h1 class="page-type-title">归档</h1>
-    
-    
-  
-  
-  
-  
-  
-  
-  <div class="archives-wrap">
-    <div class="archive-year-wrap">
-      <a href="/archives/2023" class="archive-year">2023</a>
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  Create My Ray Tracing Renderer
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/03/14/creatingMyRayTracingRenderer/" class="article-date">
+  <time datetime="2024-03-14T23:46:42.000Z" itemprop="datePublished">2024-03-14</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Graphics/">Graphics</a>
+  </div>
+ 
     </div>
-    <div class="archives">
       
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2023/11/11/Leetcode1111-2/" class="archive-article-date">
-  <time datetime="2023-11-11T14:04:57.000Z" itemprop="datePublished">11/11</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2023/11/11/Leetcode1111-2/"
-    >Leetcode Study Day 45</a> 
-</h2>
- 
+    <div class="tocbot"></div>
 
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2023/11/11/Leetcode1111/" class="archive-article-date">
-  <time datetime="2023-11-11T13:59:01.000Z" itemprop="datePublished">11/11</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2023/11/11/Leetcode1111/"
-    >Leetcode Study Day 45</a> 
-</h2>
- 
 
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2023/11/10/Leetcode1110-2/" class="archive-article-date">
-  <time datetime="2023-11-10T20:26:27.000Z" itemprop="datePublished">11/10</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2023/11/10/Leetcode1110-2/"
-    >Leetcode Study Day 44</a> 
-</h2>
- 
 
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2023/11/10/Leetcode1110/" class="archive-article-date">
-  <time datetime="2023-11-10T19:44:19.000Z" itemprop="datePublished">11/10</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2023/11/10/Leetcode1110/"
-    >Leetcode Study Day 44</a> 
-</h2>
- 
 
-    </header>
-    
-    
-  </div>
-</article>
-      
   
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2023/11/09/Leetcode1109-2/" class="archive-article-date">
-  <time datetime="2023-11-09T11:41:35.000Z" itemprop="datePublished">11/09</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
        
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2023/11/09/Leetcode1109-2/"
-    >Leetcode Study Day 43</a> 
-</h2>
+  <p>This is a study record of <a target="_blank" rel="noopener" href="https://raytracing.github.io/books/RayTracingInOneWeekend.html">Ray Tracing in One Weekend</a>.</p>
+<h1 id="Output-My-First-Image"><a href="#Output-My-First-Image" class="headerlink" title="Output My First Image"></a>Output My First Image</h1><h2 id="PPM-Image-format"><a href="#PPM-Image-format" class="headerlink" title="PPM Image format"></a>PPM Image format</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Image</span></span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> image_width = <span class="number">256</span>;</span><br><span class="line">    <span class="type">int</span> image_height = <span class="number">256</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Render</span></span><br><span class="line"></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;P3\n&quot;</span> &lt;&lt; image_width &lt;&lt; <span class="string">&#x27; &#x27;</span> &lt;&lt; image_height &lt;&lt; <span class="string">&quot;\n255\n&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; image_height; ++j) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; image_width; ++i) &#123;</span><br><span class="line">            <span class="keyword">auto</span> r = <span class="built_in">double</span>(i) / (image_width<span class="number">-1</span>);</span><br><span class="line">            <span class="keyword">auto</span> g = <span class="built_in">double</span>(j) / (image_height<span class="number">-1</span>);</span><br><span class="line">            <span class="keyword">auto</span> b = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">            <span class="type">int</span> ir = <span class="built_in">static_cast</span>&lt;<span class="type">int</span>&gt;(<span class="number">255.999</span> * r);</span><br><span class="line">            <span class="type">int</span> ig = <span class="built_in">static_cast</span>&lt;<span class="type">int</span>&gt;(<span class="number">255.999</span> * g);</span><br><span class="line">            <span class="type">int</span> ib = <span class="built_in">static_cast</span>&lt;<span class="type">int</span>&gt;(<span class="number">255.999</span> * b);</span><br><span class="line"></span><br><span class="line">            std::cout &lt;&lt; ir &lt;&lt; <span class="string">&#x27; &#x27;</span> &lt;&lt; ig &lt;&lt; <span class="string">&#x27; &#x27;</span> &lt;&lt; ib &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>static_cast&lt;int&gt;</code> is used to convert <code>double</code> to <code>int</code></li>
+</ul>
+<p>The output is a text content, shows something like:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">P3</span><br><span class="line">256 256</span><br><span class="line">255</span><br><span class="line">0 0 0</span><br><span class="line">1 0 0</span><br><span class="line">2 0 0</span><br><span class="line">3 0 0</span><br></pre></td></tr></table></figure>
+<p>The P3 means colours are in ASCII. The columns number is 256, and the rows number is 256. The max colour is 255.</p>
+<h2 id="Redirect-to-an-image-file"><a href="#Redirect-to-an-image-file" class="headerlink" title="Redirect to an image file"></a>Redirect to an image file</h2><p>To view the image directly, we need to redirect the output file like this:<br><code>./helloworld &gt; image.ppm </code>.<br><code>./helloworld</code> is the name of my output c++ file, and <code>image.ppm</code> is the image file.<br>The result of <code>image.ppm</code> looks like this:</p>
+<p><img src="../images/firstppm.png"></p>
+<p>Since the rows are written from top to bottom, and columns are written from left to right, it makes sense that the top left is dark and the bottom right is black.</p>
  
-
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2023/11/09/Leetcode1109/" class="archive-article-date">
-  <time datetime="2023-11-09T11:38:36.000Z" itemprop="datePublished">11/09</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2023/11/09/Leetcode1109/"
-    >Leetcode Study Day 43</a> 
-</h2>
- 
-
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2023/11/08/Leetcode1108-2/" class="archive-article-date">
-  <time datetime="2023-11-08T09:43:57.000Z" itemprop="datePublished">11/08</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2023/11/08/Leetcode1108-2/"
-    >Leetcode Study Day 42</a> 
-</h2>
- 
-
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2023/11/08/Leetcode1108/" class="archive-article-date">
-  <time datetime="2023-11-08T09:29:13.000Z" itemprop="datePublished">11/08</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2023/11/08/Leetcode1108/"
-    >Leetcode Study Day 42</a> 
-</h2>
- 
-
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2023/11/07/Leetcode1107/" class="archive-article-date">
-  <time datetime="2023-11-07T11:09:49.000Z" itemprop="datePublished">11/07</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2023/11/07/Leetcode1107/"
-    >Leetcode Study Day 41</a> 
-</h2>
- 
-
-    </header>
-    
-    
-  </div>
-</article>
-      
-  
-  
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2023/11/06/Leetcode1106/" class="archive-article-date">
-  <time datetime="2023-11-06T13:20:26.000Z" itemprop="datePublished">11/06</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2023/11/06/Leetcode1106/"
-    >Leetcode Study Day 40</a> 
-</h2>
- 
-
-    </header>
-    
-    
-  </div>
-</article>
-      
+      <!-- reward -->
       
     </div>
-  </div>
-  
-  
-
-  
-  <nav class="page-nav">
     
-    <a class="extend prev" rel="prev" href="/archives/">Last Page</a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/page/3/">3</a><a class="page-number" href="/archives/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/11/">11</a><a class="extend next" rel="next" href="/archives/page/3/">Next Page</a>
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        Share
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2024/03/14/creatingMyRayTracingRenderer/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+    
+      <a href="/2024/02/02/Leetcode0202/" class="article-nav-link">
+        <strong class="article-nav-caption">Next Article</strong>
+        <div class="article-nav-title">Leetcode Study Day 54</div>
+      </a>
+    
   </nav>
+
   
+   
+  
+    
+</article>
+
 </section>
       <footer class="footer">
   <div class="outer">
@@ -409,6 +278,22 @@
 <script src="/js/lazyload.min.js"></script>
 
 <!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
 
 <script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
 <link
