@@ -131,6 +131,65 @@
     
     
     <article
+  id="post-Leetcode1006-2"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2023/10/06/Leetcode1006-2/"
+    >Leetcode Study Day 14</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/10/06/Leetcode1006-2/" class="article-date">
+  <time datetime="2023-10-06T11:11:09.000Z" itemprop="datePublished">2023-10-06</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
+  </div>
+ 
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="3Sum"><a href="#3Sum" class="headerlink" title="3Sum"></a>3Sum</h1><p>Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.</p>
+<p>Notice that the solution set must not contain duplicate triplets.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: nums &#x3D; [-1,0,1,2,-1,-4]</span><br><span class="line">Output: [[-1,-1,2],[-1,0,1]]</span><br><span class="line">Explanation: </span><br><span class="line">nums[0] + nums[1] + nums[2] &#x3D; (-1) + 0 + 1 &#x3D; 0.</span><br><span class="line">nums[1] + nums[2] + nums[4] &#x3D; 0 + 1 + (-1) &#x3D; 0.</span><br><span class="line">nums[0] + nums[3] + nums[4] &#x3D; (-1) + 2 + (-1) &#x3D; 0.</span><br><span class="line">The distinct triplets are [-1,0,1] and [-1,-1,2].</span><br><span class="line">Notice that the order of the output and the order of the triplets does not matter.</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: nums &#x3D; [0,1,1]</span><br><span class="line">Output: []</span><br><span class="line">Explanation: The only possible triplet does not sum up to 0.</span><br><span class="line">Example 3:</span><br><span class="line"></span><br><span class="line">Input: nums &#x3D; [0,0,0]</span><br><span class="line">Output: [[0,0,0]]</span><br><span class="line">Explanation: The only possible triplet sums up to 0.</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">3 &lt;&#x3D; nums.length &lt;&#x3D; 3000</span><br><span class="line">-105 &lt;&#x3D; nums[i] &lt;&#x3D; 105</span><br></pre></td></tr></table></figure>
+<h2 id="Solution-by-Two-Pointers"><a href="#Solution-by-Two-Pointers" class="headerlink" title="Solution by Two Pointers"></a>Solution by Two Pointers</h2><p>I didn’t complete this question by my own. The idea of solving this question is to sort the array from small to large first, then iterate each element in the array and use two pointers to find the other two elements. </p>
+<p>One thing to mention is that we skip the same items during the iteration to avoid duplicate triplets. </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; threeSum(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums) &#123;</span><br><span class="line">        sort (nums.begin(), nums.end());</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; answer;</span><br><span class="line">        <span class="keyword">int</span> n = nums.size();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n - <span class="number">2</span>; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span> (i &gt; <span class="number">0</span> &amp;&amp; nums[i] == nums[i - <span class="number">1</span>])</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">int</span> left = i + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">int</span> right = n - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">while</span> (left &lt; right)&#123;</span><br><span class="line">                <span class="keyword">int</span> sum = nums[i] + nums[left] + nums[right];</span><br><span class="line">                <span class="keyword">if</span> (sum == <span class="number">0</span>)&#123;</span><br><span class="line">                    answer.push_back(&#123;nums[i], nums[left],nums[right]&#125;);</span><br><span class="line">                    <span class="keyword">while</span> (left &lt; right &amp;&amp; nums[left] == nums[left+<span class="number">1</span>])</span><br><span class="line">                        left ++;</span><br><span class="line">                    <span class="keyword">while</span> (left &lt; right &amp;&amp; nums[right] == nums[right - <span class="number">1</span>])</span><br><span class="line">                        right --;</span><br><span class="line">                    left ++;</span><br><span class="line">                    right --;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (sum &lt; <span class="number">0</span>) </span><br><span class="line">                    left ++;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    right --; </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> answer;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Sorting/" rel="tag">Sorting</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Two-Pointers/" rel="tag">Two Pointers</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
   id="post-Leetcode1006"
   class="article article-type-post"
   itemscope
@@ -706,77 +765,6 @@
     <footer class="article-footer">
        
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/string/" rel="tag">string</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-Leetcode0927"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2023/09/27/Leetcode0927/"
-    >Leetcode Study Day 9</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2023/09/27/Leetcode0927/" class="article-date">
-  <time datetime="2023-09-27T08:14:59.000Z" itemprop="datePublished">2023-09-27</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Leetcode/">Leetcode</a>
-  </div>
- 
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h1 id="Roman-to-Integer"><a href="#Roman-to-Integer" class="headerlink" title="Roman to Integer"></a>Roman to Integer</h1><p>Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Symbol       Value</span><br><span class="line">I             1</span><br><span class="line">V             5</span><br><span class="line">X             10</span><br><span class="line">L             50</span><br><span class="line">C             100</span><br><span class="line">D             500</span><br><span class="line">M             1000</span><br></pre></td></tr></table></figure>
-<p>For example, 2 is written as II in Roman numeral, just two ones added together. 12 is written as XII, which is simply X + II. The number 27 is written as XXVII, which is XX + V + II.</p>
-<p>Roman numerals are usually written largest to smallest from left to right. However, the numeral for four is not IIII. Instead, the number four is written as IV. Because the one is before the five we subtract it making four. The same principle applies to the number nine, which is written as IX. There are six instances where subtraction is used:</p>
-<p>I can be placed before V (5) and X (10) to make 4 and 9.<br>X can be placed before L (50) and C (100) to make 40 and 90.<br>C can be placed before D (500) and M (1000) to make 400 and 900.<br>Given a roman numeral, convert it to an integer.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: s &#x3D; &quot;III&quot;</span><br><span class="line">Output: 3</span><br><span class="line">Explanation: III &#x3D; 3.</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: s &#x3D; &quot;LVIII&quot;</span><br><span class="line">Output: 58</span><br><span class="line">Explanation: L &#x3D; 50, V&#x3D; 5, III &#x3D; 3.</span><br><span class="line">Example 3:</span><br><span class="line"></span><br><span class="line">Input: s &#x3D; &quot;MCMXCIV&quot;</span><br><span class="line">Output: 1994</span><br><span class="line">Explanation: M &#x3D; 1000, CM &#x3D; 900, XC &#x3D; 90 and IV &#x3D; 4.</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">1 &lt;&#x3D; s.length &lt;&#x3D; 15</span><br><span class="line">s contains only the characters (&#39;I&#39;, &#39;V&#39;, &#39;X&#39;, &#39;L&#39;, &#39;C&#39;, &#39;D&#39;, &#39;M&#39;).</span><br><span class="line">It is guaranteed that s is a valid roman numeral in the range [1, 3999].</span><br></pre></td></tr></table></figure>
-<h2 id="My-solution-and-the-improved-one"><a href="#My-solution-and-the-improved-one" class="headerlink" title="My solution and the improved one"></a>My solution and the improved one</h2><p>My first idea is set a lot of if statements to deal with different roman letter. It doesn’t cost extra space but the code seems redundant.</p>
-<p>The improved solution is create an <code>unordered_map</code> first. Then we find the pattern that if the current letter is smaller than the next one, it means this situation happened:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">I can be placed before V (5) and X (10) to make 4 and 9. </span><br><span class="line">X can be placed before L (50) and C (100) to make 40 and 90. </span><br><span class="line">C can be placed before D (500) and M (1000) to make 400 and 900.</span><br><span class="line">Given a roman numeral, convert it to an integer.</span><br></pre></td></tr></table></figure>
-<p>So we minus the current letter from the result. Otherwise, we add the current letter to the result.</p>
-<h3 id="Full-Code"><a href="#Full-Code" class="headerlink" title="Full Code"></a>Full Code</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">romanToInt</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">unordered_map</span> &lt;<span class="keyword">char</span>, <span class="keyword">int</span>&gt; romanMap;</span><br><span class="line">        romanMap[<span class="string">&#x27;I&#x27;</span>] = <span class="number">1</span>;</span><br><span class="line">        romanMap[<span class="string">&#x27;V&#x27;</span>] = <span class="number">5</span>;</span><br><span class="line">        romanMap[<span class="string">&#x27;X&#x27;</span>] = <span class="number">10</span>;</span><br><span class="line">        romanMap[<span class="string">&#x27;L&#x27;</span>] = <span class="number">50</span>;</span><br><span class="line">        romanMap[<span class="string">&#x27;C&#x27;</span>] = <span class="number">100</span>;</span><br><span class="line">        romanMap[<span class="string">&#x27;D&#x27;</span>] = <span class="number">500</span>;</span><br><span class="line">        romanMap[<span class="string">&#x27;M&#x27;</span>] = <span class="number">1000</span>;</span><br><span class="line">        <span class="keyword">int</span> answer = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.size(); i++)&#123;</span><br><span class="line">            <span class="keyword">if</span> (romanMap[s[i]] &gt;= romanMap[s[i+<span class="number">1</span>]])</span><br><span class="line">                answer += romanMap[s[i]];</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                answer -= romanMap[s[i]];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> answer;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h1 id="Integer-to-Roman"><a href="#Integer-to-Roman" class="headerlink" title="Integer to Roman"></a>Integer to Roman</h1><p>Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Symbol       Value</span><br><span class="line">I             1</span><br><span class="line">V             5</span><br><span class="line">X             10</span><br><span class="line">L             50</span><br><span class="line">C             100</span><br><span class="line">D             500</span><br><span class="line">M             1000</span><br></pre></td></tr></table></figure>
-<p>For example, 2 is written as II in Roman numeral, just two one’s added together. 12 is written as XII, which is simply X + II. The number 27 is written as XXVII, which is XX + V + II.</p>
-<p>Roman numerals are usually written largest to smallest from left to right. However, the numeral for four is not IIII. Instead, the number four is written as IV. Because the one is before the five we subtract it making four. The same principle applies to the number nine, which is written as IX. There are six instances where subtraction is used:</p>
-<p>I can be placed before V (5) and X (10) to make 4 and 9.<br>X can be placed before L (50) and C (100) to make 40 and 90.<br>C can be placed before D (500) and M (1000) to make 400 and 900.<br>Given an integer, convert it to a roman numeral.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line"></span><br><span class="line">Input: num &#x3D; 3</span><br><span class="line">Output: &quot;III&quot;</span><br><span class="line">Explanation: 3 is represented as 3 ones.</span><br><span class="line">Example 2:</span><br><span class="line"></span><br><span class="line">Input: num &#x3D; 58</span><br><span class="line">Output: &quot;LVIII&quot;</span><br><span class="line">Explanation: L &#x3D; 50, V &#x3D; 5, III &#x3D; 3.</span><br><span class="line">Example 3:</span><br><span class="line"></span><br><span class="line">Input: num &#x3D; 1994</span><br><span class="line">Output: &quot;MCMXCIV&quot;</span><br><span class="line">Explanation: M &#x3D; 1000, CM &#x3D; 900, XC &#x3D; 90 and IV &#x3D; 4.</span><br><span class="line"> </span><br><span class="line">Constraints:</span><br><span class="line"></span><br><span class="line">1 &lt;&#x3D; num &lt;&#x3D; 3999</span><br></pre></td></tr></table></figure>
-<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>I create a vector with pairs, in each pair it contains the value and its corresponding string. Then I iterate the vector from the largest value to the smallest value. while the current <code>num</code>, which is the input, is larger or equal than the value, we add the corresponding string to the answer, and update the <code>num</code> by minusing the value. Otherwise, we move to the next pair.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">string</span> <span class="title">intToRoman</span><span class="params">(<span class="keyword">int</span> num)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">vector</span> &lt;<span class="built_in">pair</span>&lt;<span class="keyword">int</span>, <span class="built_in">string</span>&gt;&gt; romanMap;</span><br><span class="line">        romanMap.push_back(<span class="built_in">make_pair</span>(<span class="number">1000</span>,<span class="string">&quot;M&quot;</span>));</span><br><span class="line">        romanMap.push_back(<span class="built_in">make_pair</span>(<span class="number">900</span>,<span class="string">&quot;CM&quot;</span>));</span><br><span class="line">        romanMap.push_back(<span class="built_in">make_pair</span>(<span class="number">500</span>,<span class="string">&quot;D&quot;</span>));</span><br><span class="line">        romanMap.push_back(<span class="built_in">make_pair</span>(<span class="number">400</span>,<span class="string">&quot;CD&quot;</span>));</span><br><span class="line">        romanMap.push_back(<span class="built_in">make_pair</span>(<span class="number">100</span>,<span class="string">&quot;C&quot;</span>));</span><br><span class="line">        romanMap.push_back(<span class="built_in">make_pair</span>(<span class="number">90</span>, <span class="string">&quot;XC&quot;</span>));</span><br><span class="line">        romanMap.push_back(<span class="built_in">make_pair</span>(<span class="number">50</span>,<span class="string">&quot;L&quot;</span>));</span><br><span class="line">        romanMap.push_back(<span class="built_in">make_pair</span>(<span class="number">40</span>,<span class="string">&quot;XL&quot;</span>));</span><br><span class="line">        romanMap.push_back(<span class="built_in">make_pair</span>(<span class="number">10</span>,<span class="string">&quot;X&quot;</span>));</span><br><span class="line">        romanMap.push_back(<span class="built_in">make_pair</span>(<span class="number">9</span>,<span class="string">&quot;IX&quot;</span>));</span><br><span class="line">        romanMap.push_back(<span class="built_in">make_pair</span>(<span class="number">5</span>,<span class="string">&quot;V&quot;</span>));</span><br><span class="line">        romanMap.push_back(<span class="built_in">make_pair</span>(<span class="number">4</span>, <span class="string">&quot;IV&quot;</span>));</span><br><span class="line">        romanMap.push_back(<span class="built_in">make_pair</span>(<span class="number">1</span>,<span class="string">&quot;I&quot;</span>));</span><br><span class="line"></span><br><span class="line">        <span class="built_in">string</span> answer = <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; <span class="built_in">pair</span> : romanMap) &#123;</span><br><span class="line">            <span class="keyword">while</span> (num &gt;= <span class="built_in">pair</span>.first) &#123;</span><br><span class="line">                answer += <span class="built_in">pair</span>.second;</span><br><span class="line">                num = num - <span class="built_in">pair</span>.first;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> answer;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure> 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hash-Table/" rel="tag">Hash Table</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Math/" rel="tag">Math</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/String/" rel="tag">String</a></li></ul>
 
     </footer>
   </div>
